@@ -47,9 +47,9 @@ public class SpriteSheet {
 	 * @throws SpriteSheetException
 	 */
 	public SpriteSheet(ImageS sheet, int spriteWidth, int spriteHeight) throws SpriteSheetException {
-		this.width        = sheet.getWidth();
-		this.height       = sheet.getHeight();
-		this.spriteWidth  = spriteWidth;
+		this.width = sheet.getWidth();
+		this.height = sheet.getHeight();
+		this.spriteWidth = spriteWidth;
 		this.spriteHeight = spriteHeight;
 
 		if (sheet.getWidth() < spriteWidth)
@@ -103,16 +103,13 @@ public class SpriteSheet {
 	 * 
 	 * 
 	 * @return The "i"th sprite on the sheet, which wraps around horizontally
-	 * @throws SpriteOutOfBoundsException 
+	 * @throws SpriteOutOfBoundsException
 	 */
 	public ImageS getSprite(int i) throws SpriteOutOfBoundsException {
-		int c = i / cols;
-		int r = i % cols;
+		int r = i / cols;
+		int c = i % cols;
 
-		if (r < 0 || r >= rows || c < 0 || c >= cols)
-			throw new SpriteOutOfBoundsException(c, r, "i");
-
-		return sprites[i / cols][i % cols];
+		return getSprite(r, c);
 	}
 
 	public ImageS[] getSprites(int start, int end) throws SpriteOutOfBoundsException {
