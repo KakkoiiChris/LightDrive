@@ -548,4 +548,13 @@ public final strictfp class MathS {
 	public static short randomShort() {
 		return (short) randomInt();
 	}
+
+	public static int wrap(int value, int limit) {
+		if (value > limit)
+			value -= limit;
+		else if (value < 0)
+			value += limit;
+		
+		return value;
+	}
 }
