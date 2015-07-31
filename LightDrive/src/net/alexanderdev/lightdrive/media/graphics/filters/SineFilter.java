@@ -15,6 +15,8 @@ package net.alexanderdev.lightdrive.media.graphics.filters;
 
 import static net.alexanderdev.lightdrive.util.math.MathS.wrap;
 
+import net.alexanderdev.lightdrive.util.ArraysS;
+
 /**
  * @author Christian Bryce Alexander
  * @since Jul 29, 2015 | 6:28:13 PM
@@ -23,23 +25,25 @@ public class SineFilter implements ImageSFilter {
 	private int t = 0;
 
 	private int scanSize;
-	
+
 	private double period;
 	private double magnitude;
 
 	public SineFilter(int scanSize, double period, double magnitude) {
-		this.scanSize  = scanSize;
-		this.period    = period;
+		this.scanSize = scanSize;
+		this.period = period;
 		this.magnitude = magnitude;
 	}
 
 	@Override
 	public void apply(int[] pixels) {
+		int[] copy = ArraysS.copy(pixels);
+
 		for (int y = 0; y < pixels.length / scanSize; y++) {
 			for (int x = 0; x < scanSize; x++) {
 				int s = (int) (Math.sin((y + t) / period) * magnitude);
 
-				pixels[x + y * scanSize] = pixels[(wrap(x + s, scanSize - 1) + y * scanSize) % pixels.length];
+				pixels[x + y * scanSize] = copy[(wrap(x + s, 0, scanSize - 1) + y * scanSize) % pixels.length];
 			}
 		}
 

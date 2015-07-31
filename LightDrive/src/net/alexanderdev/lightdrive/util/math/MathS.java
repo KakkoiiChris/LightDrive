@@ -549,12 +549,69 @@ public final strictfp class MathS {
 		return (short) randomInt();
 	}
 
-	public static int wrap(int value, int limit) {
-		if (value > limit)
-			value -= limit;
-		else if (value < 0)
-			value += limit;
-		
+	public static byte wrap(byte value, byte min, byte max) {
+		byte range = (byte) (max - min);
+
+		if (value > max)
+			value -= range;
+		else if (value < min)
+			value += range;
+
+		return value;
+	}
+
+	public static short wrap(short value, short min, short max) {
+		short range = (short) (max - min);
+
+		if (value > max)
+			value -= range;
+		else if (value < min)
+			value += range;
+
+		return value;
+	}
+
+	public static int wrap(int value, int min, int max) {
+		int range = max - min;
+
+		if (value > max)
+			value -= range;
+		else if (value < min)
+			value += range;
+
+		return value;
+	}
+
+	public static long wrap(long value, long min, long max) {
+		long range = max - min;
+
+		if (value > max)
+			value -= range;
+		else if (value < min)
+			value += range;
+
+		return value;
+	}
+
+	public static float wrap(float value, float min, float max) {
+		float range = max - min;
+
+		if (value > max)
+			value -= range;
+		else if (value < min)
+			value += range;
+
+		return value;
+	}
+
+	public static double wrap(double value, double min, double max) {
+		double range = max - min;
+
+		if (value > max)
+			value -= range;
+		else if (value < min)
+			value += range;
+
 		return value;
 	}
 }
