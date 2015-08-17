@@ -13,9 +13,6 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Target;
-
 /**
  * {@code @Internal} has no functionality, other than to indicate users of this
  * library that a particular method should be considered "internal" to the jar
@@ -23,8 +20,6 @@ import java.lang.annotation.Target;
  * @author Christian Bryce Alexander
  * @since Apr 8, 2015 | 11:48:02 PM
  */
-@Internal
-@Target(ElementType.METHOD)
 public @interface Internal {
 	// No functionality, just an indicator for "internal" methods and fields
 }

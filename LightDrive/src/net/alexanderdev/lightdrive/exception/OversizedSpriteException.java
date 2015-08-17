@@ -13,6 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.exception;
 
+import net.alexanderdev.lightdrive.Internal;
+
 /**
  * @author Christian Bryce Alexander
  * @since Jul 28, 2015 | 12:16:02 AM
@@ -23,6 +25,7 @@ public class OversizedSpriteException extends SpriteSheetException {
 	/**
 	 * @param message
 	 */
+	@Internal
 	public OversizedSpriteException(String dim, int value) {
 		super(String.format("This sprite sheet is too small to fit sprites of %s %d.", dim, value));
 	}

@@ -13,7 +13,12 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.exception;
 
+import net.alexanderdev.lightdrive.Internal;
+
 /**
+ * An exception thrown when parameters for creating a new spritesheet would
+ * result in too much or not enough space left over.
+ * 
  * @author Christian Bryce Alexander
  * @since Jul 28, 2015 | 12:25:47 AM
  */
@@ -23,6 +28,7 @@ public class UnevenSpriteDivisionException extends SpriteSheetException {
 	/**
 	 * @param message
 	 */
+	@Internal
 	public UnevenSpriteDivisionException(String dim, int value, int limit) {
 		super(String.format("Sprite %s %d does not divide evenly into sprite sheet of %s %d.", dim, value, dim, limit));
 	}
