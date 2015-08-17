@@ -29,14 +29,18 @@ import net.alexanderdev.lightdrive.media.graphics.Renderable;
  * @since March 6, 2015 | 3:03:42 AM
  */
 public abstract class State implements Renderable {
+	private StateManager manager;
+	
 	private KeyboardListener keyboardListener;
 
 	private MouseListener mouseListener;
 
 	private GamepadListener gamepadListener;
 
-	private StateManager manager;
-
+	public final StateManager getManager() {
+		return manager;
+	}
+	
 	@Internal
 	public final void setManager(StateManager manager) {
 		this.manager = manager;
@@ -72,22 +76,6 @@ public abstract class State implements Renderable {
 		this.gamepadListener = gamepadListener;
 	}
 
-	public final StateManager getManager() {
-		return manager;
-	}
-
-	/**
-	 * Handles actions to be taken when the state manager switches into this
-	 * game state
-	 */
-	public abstract void switchIn();
-
-	/**
-	 * Handles actions to be taken when the state manager switches out of this
-	 * game state
-	 */
-	public abstract void switchOut();
-
 	@Internal
 	public final void keyboardInput(Keyboard keyboard) {
 		if (keyboardListener != null) {
@@ -108,4 +96,18 @@ public abstract class State implements Renderable {
 			gamepadListener.gamepadInput(gamepad);
 		}
 	}
+	
+	/**
+	 * Handles actions to be taken when the state manager switches into this
+	 * game state
+	 */
+	@Internal
+	public abstract void switchIn();
+
+	/**
+	 * Handles actions to be taken when the state manager switches out of this
+	 * game state
+	 */
+	@Internal
+	public abstract void switchOut();
 }

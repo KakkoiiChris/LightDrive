@@ -51,8 +51,8 @@ import java.util.Map;
  */
 public final class GraphicsS extends Graphics2D {
 	public static enum TextAlign {
-		LEFT,
 		CENTER,
+		LEFT,
 		RIGHT
 	}
 
@@ -217,7 +217,7 @@ public final class GraphicsS extends Graphics2D {
 			draw = bounds;
 		}
 
-		drawImage(img, draw.x, draw.y, draw.width, draw.height, null);
+		drawImage(img, draw.x, draw.y, draw.width, draw.height);
 	}
 
 	/**
@@ -239,9 +239,30 @@ public final class GraphicsS extends Graphics2D {
 	/**
 	 * {@inheritDoc}
 	 */
+	public boolean drawImage(Image img, AffineTransform xform) {
+		return graphics.drawImage(img, xform, null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean drawImage(Image img, AffineTransform xform, ImageObserver obs) {
 		return graphics.drawImage(img, xform, obs);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean drawImage(Image img, int x, int y) {
+		return graphics.drawImage(img, x, y, null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean drawImage(Image img, int x, int y, Color bgcolor) {
+		return graphics.drawImage(img, x, y, bgcolor, null);
 	}
 
 	/**
@@ -263,6 +284,20 @@ public final class GraphicsS extends Graphics2D {
 	/**
 	 * {@inheritDoc}
 	 */
+	public boolean drawImage(Image img, int x, int y, int width, int height) {
+		return graphics.drawImage(img, x, y, width, height, null);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean drawImage(Image img, int x, int y, int width, int height, Color bgcolor) {
+		return graphics.drawImage(img, x, y, width, height, bgcolor, null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean drawImage(Image img, int x, int y, int width, int height, Color bgcolor, ImageObserver observer) {
 		return graphics.drawImage(img, x, y, width, height, bgcolor, observer);
@@ -274,6 +309,21 @@ public final class GraphicsS extends Graphics2D {
 	@Override
 	public boolean drawImage(Image img, int x, int y, int width, int height, ImageObserver observer) {
 		return graphics.drawImage(img, x, y, width, height, observer);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2) {
+		return graphics.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2,
+		Color bgcolor) {
+		return graphics.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, bgcolor, null);
 	}
 
 	/**
