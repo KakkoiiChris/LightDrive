@@ -275,14 +275,38 @@ public class ArraysS {
 		return list;
 	}
 
-	public static short[] remove(short[] shorts, int i) {
-		short[] list = new short[shorts.length - 1];
+	public static char[] remove(char[] chars, int i) {
+		char[] list = new char[chars.length - 1];
 
 		int t = 0;
 
-		for (int j = 0; j < shorts.length; j++)
+		for (int j = 0; j < chars.length; j++)
 			if (j != i)
-				list[t++] = shorts[j];
+				list[t++] = chars[j];
+
+		return list;
+	}
+
+	public static double[] remove(double[] doubles, int i) {
+		double[] list = new double[doubles.length - 1];
+
+		int t = 0;
+
+		for (int j = 0; j < doubles.length; j++)
+			if (j != i)
+				list[t++] = doubles[j];
+
+		return list;
+	}
+
+	public static float[] remove(float[] floats, int i) {
+		float[] list = new float[floats.length - 1];
+
+		int t = 0;
+
+		for (int j = 0; j < floats.length; j++)
+			if (j != i)
+				list[t++] = floats[j];
 
 		return list;
 	}
@@ -311,38 +335,26 @@ public class ArraysS {
 		return list;
 	}
 
-	public static float[] remove(float[] floats, int i) {
-		float[] list = new float[floats.length - 1];
+	public static Object[] remove(Object[] objects, int i) {
+		Object[] list = new Object[objects.length - 1];
 
 		int t = 0;
 
-		for (int j = 0; j < floats.length; j++)
+		for (int j = 0; j < objects.length; j++)
 			if (j != i)
-				list[t++] = floats[j];
+				list[t++] = objects[j];
 
 		return list;
 	}
 
-	public static double[] remove(double[] doubles, int i) {
-		double[] list = new double[doubles.length - 1];
+	public static short[] remove(short[] shorts, int i) {
+		short[] list = new short[shorts.length - 1];
 
 		int t = 0;
 
-		for (int j = 0; j < doubles.length; j++)
+		for (int j = 0; j < shorts.length; j++)
 			if (j != i)
-				list[t++] = doubles[j];
-
-		return list;
-	}
-
-	public static char[] remove(char[] chars, int i) {
-		char[] list = new char[chars.length - 1];
-
-		int t = 0;
-
-		for (int j = 0; j < chars.length; j++)
-			if (j != i)
-				list[t++] = chars[j];
+				list[t++] = shorts[j];
 
 		return list;
 	}
@@ -355,18 +367,6 @@ public class ArraysS {
 		for (int j = 0; j < strings.length; j++)
 			if (j != i)
 				list[t++] = strings[j];
-
-		return list;
-	}
-
-	public static Object[] remove(Object[] objects, int i) {
-		Object[] list = new Object[objects.length - 1];
-
-		int t = 0;
-
-		for (int j = 0; j < objects.length; j++)
-			if (j != i)
-				list[t++] = objects[j];
 
 		return list;
 	}
