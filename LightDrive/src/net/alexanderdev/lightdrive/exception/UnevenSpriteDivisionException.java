@@ -26,6 +26,9 @@ public class UnevenSpriteDivisionException extends SpriteSheetException {
 	private static final long serialVersionUID = -6420195603381235570L;
 
 	/**
+	 * Exception thrown when the amount of sprites by row and columns won't
+	 * divide evenly into the provided image.
+	 * 
 	 * @param message
 	 */
 	@Internal

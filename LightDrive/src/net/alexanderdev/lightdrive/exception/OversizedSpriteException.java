@@ -23,6 +23,10 @@ public class OversizedSpriteException extends SpriteSheetException {
 	private static final long serialVersionUID = -5392836525940268050L;
 
 	/**
+	 * Exception thrown when the parameters sent to the spritesheet constructor
+	 * would produce sprites that would be too big to fit inside the provided
+	 * image.
+	 * 
 	 * @param message
 	 */
 	@Internal

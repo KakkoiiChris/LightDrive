@@ -32,15 +32,15 @@ public class TextIO {
 	/**
 	 * Reads in a text file line by line
 	 * 
-	 * @param filename
-	 *            Name of file to read in
+	 * @param path
+	 *            Path to the file to read in
 	 * 
 	 * @return A {@code String[]} containing each individual line of text
 	 */
-	public static String[] readFile(String filename) {
+	public static String[] readFile(String path) {
 		ArrayList<String> lines = new ArrayList<>();
 
-		InputStream inStream = TextIO.class.getResourceAsStream(filename);
+		InputStream inStream = TextIO.class.getResourceAsStream(path);
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inStream));
 
@@ -65,12 +65,18 @@ public class TextIO {
 
 	/**
 	 * Writes a text file line by line
+	 * 
+	 * @param path
+	 *            Path to the file to write
+	 * 
+	 * @param lines
+	 *            Lines of text to write to the file
 	 */
-	public static void writeFile(String filename, String[] lines) {
+	public static void writeFile(String path, String[] lines) {
 		BufferedWriter writer = null;
 
 		try {
-			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "utf-8"));
+			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), "utf-8"));
 
 			for (String line : lines) {
 				writer.write(line);

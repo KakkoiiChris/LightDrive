@@ -21,6 +21,9 @@ public class SpriteOutOfBoundsException extends SpriteSheetException {
 	private static final long serialVersionUID = 2942058005164028876L;
 
 	/**
+	 * Exception thrown when trying to retrieve a sprite at a row and/or column
+	 * that does not exist in the spritesheet.
+	 * 
 	 * @param message
 	 */
 	public SpriteOutOfBoundsException(int x, int y, String coord) {

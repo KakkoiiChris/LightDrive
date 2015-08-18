@@ -14,6 +14,7 @@
 package net.alexanderdev.lightdrive.util;
 
 import static java.lang.System.arraycopy;
+import static net.alexanderdev.lightdrive.util.math.MathS.randomInt;
 
 /**
  * @author Christian Bryce Alexander
@@ -190,67 +191,187 @@ public class ArraysS {
 		return dst;
 	}
 
-	public static boolean[] copy(boolean[] src) {
+	public static boolean[] copy(boolean... src) {
 		boolean[] dst = new boolean[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
-	public static byte[] copy(byte[] src) {
+	public static byte[] copy(byte... src) {
 		byte[] dst = new byte[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
-	public static char[] copy(char[] src) {
+	public static char[] copy(char... src) {
 		char[] dst = new char[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
-	public static double[] copy(double[] src) {
+	public static double[] copy(double... src) {
 		double[] dst = new double[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
-	public static float[] copy(float[] src) {
+	public static float[] copy(float... src) {
 		float[] dst = new float[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
-	public static int[] copy(int[] src) {
+	public static int[] copy(int... src) {
 		int[] dst = new int[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
-	public static long[] copy(long[] src) {
+	public static long[] copy(long... src) {
 		long[] dst = new long[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
-	public static Object[] copy(Object[] src) {
+	public static Object[] copy(Object... src) {
 		Object[] dst = new Object[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
-	public static short[] copy(short[] src) {
+	public static short[] copy(short... src) {
 		short[] dst = new short[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
-	public static String[] copy(String[] src) {
+	public static String[] copy(String... src) {
 		String[] dst = new String[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
-	public static boolean[] reverse(boolean[] src) {
+	public static boolean[] remove(boolean[] booleans, int i) {
+		boolean[] list = new boolean[booleans.length - 1];
+
+		int t = 0;
+
+		for (int j = 0; j < booleans.length; j++)
+			if (j != i)
+				list[t++] = booleans[j];
+
+		return list;
+	}
+
+	public static byte[] remove(byte[] bytes, int i) {
+		byte[] list = new byte[bytes.length - 1];
+
+		int t = 0;
+
+		for (int j = 0; j < bytes.length; j++)
+			if (j != i)
+				list[t++] = bytes[j];
+
+		return list;
+	}
+
+	public static short[] remove(short[] shorts, int i) {
+		short[] list = new short[shorts.length - 1];
+
+		int t = 0;
+
+		for (int j = 0; j < shorts.length; j++)
+			if (j != i)
+				list[t++] = shorts[j];
+
+		return list;
+	}
+
+	public static int[] remove(int[] ints, int i) {
+		int[] list = new int[ints.length - 1];
+
+		int t = 0;
+
+		for (int j = 0; j < ints.length; j++)
+			if (j != i)
+				list[t++] = ints[j];
+
+		return list;
+	}
+
+	public static long[] remove(long[] longs, int i) {
+		long[] list = new long[longs.length - 1];
+
+		int t = 0;
+
+		for (int j = 0; j < longs.length; j++)
+			if (j != i)
+				list[t++] = longs[j];
+
+		return list;
+	}
+
+	public static float[] remove(float[] floats, int i) {
+		float[] list = new float[floats.length - 1];
+
+		int t = 0;
+
+		for (int j = 0; j < floats.length; j++)
+			if (j != i)
+				list[t++] = floats[j];
+
+		return list;
+	}
+
+	public static double[] remove(double[] doubles, int i) {
+		double[] list = new double[doubles.length - 1];
+
+		int t = 0;
+
+		for (int j = 0; j < doubles.length; j++)
+			if (j != i)
+				list[t++] = doubles[j];
+
+		return list;
+	}
+
+	public static char[] remove(char[] chars, int i) {
+		char[] list = new char[chars.length - 1];
+
+		int t = 0;
+
+		for (int j = 0; j < chars.length; j++)
+			if (j != i)
+				list[t++] = chars[j];
+
+		return list;
+	}
+
+	public static String[] remove(String[] strings, int i) {
+		String[] list = new String[strings.length - 1];
+
+		int t = 0;
+
+		for (int j = 0; j < strings.length; j++)
+			if (j != i)
+				list[t++] = strings[j];
+
+		return list;
+	}
+
+	public static Object[] remove(Object[] objects, int i) {
+		Object[] list = new Object[objects.length - 1];
+
+		int t = 0;
+
+		for (int j = 0; j < objects.length; j++)
+			if (j != i)
+				list[t++] = objects[j];
+
+		return list;
+	}
+
+	public static boolean[] reverse(boolean... src) {
 		int a = 0;
 		int b = src.length - 1;
 
@@ -266,7 +387,7 @@ public class ArraysS {
 		return src;
 	}
 
-	public static byte[] reverse(byte[] src) {
+	public static byte[] reverse(byte... src) {
 		int a = 0;
 		int b = src.length - 1;
 
@@ -282,7 +403,7 @@ public class ArraysS {
 		return src;
 	}
 
-	public static char[] reverse(char[] src) {
+	public static char[] reverse(char... src) {
 		int a = 0;
 		int b = src.length - 1;
 
@@ -298,7 +419,7 @@ public class ArraysS {
 		return src;
 	}
 
-	public static double[] reverse(double[] src) {
+	public static double[] reverse(double... src) {
 		int a = 0;
 		int b = src.length - 1;
 
@@ -314,7 +435,7 @@ public class ArraysS {
 		return src;
 	}
 
-	public static float[] reverse(float[] src) {
+	public static float[] reverse(float... src) {
 		int a = 0;
 		int b = src.length - 1;
 
@@ -330,7 +451,7 @@ public class ArraysS {
 		return src;
 	}
 
-	public static int[] reverse(int[] src) {
+	public static int[] reverse(int... src) {
 		int a = 0;
 		int b = src.length - 1;
 
@@ -346,7 +467,7 @@ public class ArraysS {
 		return src;
 	}
 
-	public static long[] reverse(long[] src) {
+	public static long[] reverse(long... src) {
 		int a = 0;
 		int b = src.length - 1;
 
@@ -362,7 +483,7 @@ public class ArraysS {
 		return src;
 	}
 
-	public static Object[] reverse(Object[] src) {
+	public static Object[] reverse(Object... src) {
 		int a = 0;
 		int b = src.length - 1;
 
@@ -378,7 +499,7 @@ public class ArraysS {
 		return src;
 	}
 
-	public static short[] reverse(short[] src) {
+	public static short[] reverse(short... src) {
 		int a = 0;
 		int b = src.length - 1;
 
@@ -394,7 +515,7 @@ public class ArraysS {
 		return src;
 	}
 
-	public static String[] reverse(String[] src) {
+	public static String[] reverse(String... src) {
 		int a = 0;
 		int b = src.length - 1;
 
@@ -408,6 +529,114 @@ public class ArraysS {
 		}
 
 		return src;
+	}
+
+	public static byte[] shuffle(byte... bytes) {
+		for (int a = bytes.length - 1; a > 0; a--) {
+			int b = randomInt(a);
+
+			byte t = bytes[a];
+			bytes[a] = bytes[b];
+			bytes[b] = t;
+		}
+
+		return bytes;
+	}
+
+	public static char[] shuffle(char... chars) {
+		for (int a = chars.length - 1; a > 0; a--) {
+			int b = randomInt(a);
+
+			char t = chars[a];
+			chars[a] = chars[b];
+			chars[b] = t;
+		}
+
+		return chars;
+	}
+
+	public static double[] shuffle(double... doubles) {
+		for (int a = doubles.length - 1; a > 0; a--) {
+			int b = randomInt(a);
+
+			double t = doubles[a];
+			doubles[a] = doubles[b];
+			doubles[b] = t;
+		}
+
+		return doubles;
+	}
+
+	public static float[] shuffle(float... floats) {
+		for (int a = floats.length - 1; a > 0; a--) {
+			int b = randomInt(a);
+
+			float t = floats[a];
+			floats[a] = floats[b];
+			floats[b] = t;
+		}
+
+		return floats;
+	}
+
+	public static int[] shuffle(int... ints) {
+		for (int a = ints.length - 1; a > 0; a--) {
+			int b = randomInt(a);
+
+			int t = ints[a];
+			ints[a] = ints[b];
+			ints[b] = t;
+		}
+
+		return ints;
+	}
+
+	public static long[] shuffle(long... longs) {
+		for (int a = longs.length - 1; a > 0; a--) {
+			int b = randomInt(a);
+
+			long t = longs[a];
+			longs[a] = longs[b];
+			longs[b] = t;
+		}
+
+		return longs;
+	}
+
+	public static Object[] shuffle(Object... objects) {
+		for (int a = objects.length - 1; a > 0; a--) {
+			int b = randomInt(a);
+
+			Object t = objects[a];
+			objects[a] = objects[b];
+			objects[b] = t;
+		}
+
+		return objects;
+	}
+
+	public static short[] shuffle(short... shorts) {
+		for (int a = shorts.length - 1; a > 0; a--) {
+			int b = randomInt(a);
+
+			short t = shorts[a];
+			shorts[a] = shorts[b];
+			shorts[b] = t;
+		}
+
+		return shorts;
+	}
+
+	public static String[] shuffle(String... strings) {
+		for (int a = strings.length - 1; a > 0; a--) {
+			int b = randomInt(a);
+
+			String t = strings[a];
+			strings[a] = strings[b];
+			strings[b] = t;
+		}
+
+		return strings;
 	}
 
 	public static byte[] sort(byte... bytes) {
