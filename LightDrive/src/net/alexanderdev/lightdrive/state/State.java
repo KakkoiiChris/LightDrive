@@ -13,6 +13,7 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.state;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.alexanderdev.lightdrive.Internal;
@@ -33,9 +34,9 @@ import net.alexanderdev.lightdrive.media.graphics.Renderable;
 public abstract class State implements Renderable {
 	private StateManager manager;
 
-	private List<KeyboardListener> keyboardListeners;
+	private List<KeyboardListener> keyboardListeners = new ArrayList<>();
 
-	private List<MouseListener> mouseListeners;
+	private List<MouseListener> mouseListeners = new ArrayList<>();
 
 	private GamepadListener gamepadListener;
 
