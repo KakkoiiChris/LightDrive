@@ -13,6 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.state;
 
+import java.util.List;
+
 import net.alexanderdev.lightdrive.Internal;
 import net.alexanderdev.lightdrive.input.Gamepad;
 import net.alexanderdev.lightdrive.input.GamepadListener;
@@ -30,17 +32,17 @@ import net.alexanderdev.lightdrive.media.graphics.Renderable;
  */
 public abstract class State implements Renderable {
 	private StateManager manager;
-	
-	private KeyboardListener keyboardListener;
 
-	private MouseListener mouseListener;
+	private List<KeyboardListener> keyboardListeners;
+
+	private List<MouseListener> mouseListeners;
 
 	private GamepadListener gamepadListener;
 
 	public final StateManager getManager() {
 		return manager;
 	}
-	
+
 	@Internal
 	public final void setManager(StateManager manager) {
 		this.manager = manager;
@@ -52,8 +54,16 @@ public abstract class State implements Renderable {
 	 * @param keyboardListener
 	 *            Functional interface for handling the keyboard
 	 */
-	public final void setKeyboardListener(KeyboardListener keyboardListener) {
-		this.keyboardListener = keyboardListener;
+	public final void addKeyboardListener(KeyboardListener kl) {
+		keyboardListeners.add(kl);
+	}
+
+	public final void removeKeyboardListener(KeyboardListener kl) {
+		keyboardListeners.remove(kl);
+	}
+
+	public final void clearKeyboardListeners() {
+		keyboardListeners.clear();
 	}
 
 	/**
@@ -62,8 +72,16 @@ public abstract class State implements Renderable {
 	 * @param mouseListener
 	 *            Functional interface for handling the mouse
 	 */
-	public final void setMouseListener(MouseListener mouseListener) {
-		this.mouseListener = mouseListener;
+	public final void addMouseListener(MouseListener ml) {
+		mouseListeners.add(ml);
+	}
+
+	public final void removeMouseListener(MouseListener ml) {
+		mouseListeners.remove(ml);
+	}
+
+	public final void clearMouseListeners() {
+		mouseListeners.clear();
 	}
 
 	/**
@@ -78,16 +96,16 @@ public abstract class State implements Renderable {
 
 	@Internal
 	public final void keyboardInput(Keyboard keyboard) {
-		if (keyboardListener != null) {
-			keyboardListener.keyboardInput(keyboard);
-		}
+		if (keyboardListeners != null)
+			for (KeyboardListener kl : keyboardListeners)
+				kl.keyboardInput(keyboard);
 	}
 
 	@Internal
 	public final void mouseInput(Mouse mouse) {
-		if (mouseListener != null) {
-			mouseListener.mouseInput(mouse);
-		}
+		if (mouseListeners != null)
+			for (MouseListener ml : mouseListeners)
+				ml.mouseInput(mouse);
 	}
 
 	@Internal
@@ -96,7 +114,7 @@ public abstract class State implements Renderable {
 			gamepadListener.gamepadInput(gamepad);
 		}
 	}
-	
+
 	/**
 	 * Handles actions to be taken when the state manager switches into this
 	 * game state
