@@ -57,19 +57,19 @@ import net.alexanderdev.lightdrive.state.StateManager;
 public class Screen extends Canvas implements Runnable {
 	private static final long serialVersionUID = -8708004611699503479L;
 
-	private static final int DEFAULT_WIDTH = 640;
+	private static final int DEFAULT_WIDTH  = 640;
 	private static final int DEFAULT_HEIGHT = 480;
-	private static final int DEFAULT_SCALE = 1;
+	private static final int DEFAULT_SCALE  = 1;
 
-	public static final int NONE = 0x0;
+	public static final int NONE             = 0x0;
 	public static final int ANTIALIAS_SHAPES = 0x1;
-	public static final int ANTIALIAS_TEXT = 0x2;
-	public static final int BOTH = 0x3;
+	public static final int ANTIALIAS_TEXT   = 0x2;
+	public static final int BOTH             = 0x3;
 
 	/**
 	 * The default system cursor
 	 */
-	public static final Cursor DEFAULT_CURSOR = new Cursor(Cursor.DEFAULT_CURSOR);
+	public static final Cursor DEFAULT_CURSOR   = new Cursor(Cursor.DEFAULT_CURSOR);
 
 	/**
 	 * The crosshair cursor
@@ -79,25 +79,25 @@ public class Screen extends Canvas implements Runnable {
 	/**
 	 * The loading cursor
 	 */
-	public static final Cursor WAIT_CURSOR = new Cursor(Cursor.WAIT_CURSOR);
+	public static final Cursor WAIT_CURSOR      = new Cursor(Cursor.WAIT_CURSOR);
 
 	/**
 	 * The hand cursor
 	 */
-	public static final Cursor HAND_CURSOR = new Cursor(Cursor.HAND_CURSOR);
+	public static final Cursor HAND_CURSOR      = new Cursor(Cursor.HAND_CURSOR);
 
 	/**
 	 * The movement cursor
 	 */
-	public static final Cursor MOVE_CURSOR = new Cursor(Cursor.MOVE_CURSOR);
+	public static final Cursor MOVE_CURSOR      = new Cursor(Cursor.MOVE_CURSOR);
 
 	/**
 	 * An invisible cursor
 	 */
 	public static final Cursor NO_CURSOR;
 
-	private Keyboard keyboard = null;
-	private Mouse mouse = null;
+	private Keyboard  keyboard = null;
+	private Mouse     mouse    = null;
 	private Gamepad[] gamepads = null;
 
 	private int rWidth;
@@ -107,11 +107,11 @@ public class Screen extends Canvas implements Runnable {
 	private Thread thread;
 	private ImageS screen;
 
-	private boolean running = false;
+	private boolean running      = false;
 	private boolean lockCursorIn = false;
-	private boolean useKeyboard = false;
-	private boolean useMouse = false;
-	private boolean useGamepad = false;
+	private boolean useKeyboard  = false;
+	private boolean useMouse     = false;
+	private boolean useGamepad   = false;
 
 	private Map<RenderingHints.Key, Object> renderHints = new HashMap<>();
 
