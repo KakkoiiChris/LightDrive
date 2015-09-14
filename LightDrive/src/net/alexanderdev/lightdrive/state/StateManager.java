@@ -20,9 +20,9 @@ import net.alexanderdev.lightdrive.Internal;
 import net.alexanderdev.lightdrive.input.Gamepad;
 import net.alexanderdev.lightdrive.input.Keyboard;
 import net.alexanderdev.lightdrive.input.Mouse;
-import net.alexanderdev.lightdrive.media.graphics.Display;
 import net.alexanderdev.lightdrive.media.graphics.GraphicsS;
 import net.alexanderdev.lightdrive.media.graphics.Renderable;
+import net.alexanderdev.lightdrive.media.graphics.Screen;
 
 /**
  * A class that the display uses to separate different states of the game from
@@ -33,15 +33,15 @@ import net.alexanderdev.lightdrive.media.graphics.Renderable;
  */
 public class StateManager implements Renderable {
 	private final String DEFAULT = "@ld_default_state";
-	
+
 	private Map<String, State> states = new HashMap<>();
 
 	private String currentState = DEFAULT;
 
-	private Display display;
-	
-	public StateManager(Display display) {
-		this.display = display;
+	private Screen screen;
+
+	public StateManager(Screen screen) {
+		this.screen = screen;
 
 		addState(DEFAULT, new DefaultState());
 	}
@@ -65,7 +65,7 @@ public class StateManager implements Renderable {
 			states.remove(DEFAULT);
 
 		state.setManager(this);
-		
+
 		states.put(name, state);
 	}
 
@@ -88,7 +88,7 @@ public class StateManager implements Renderable {
 	public void switchState(String name) {
 		if (currentState.equals(name))
 			return;
-		
+
 		State state;
 
 		if ((state = getCurrentState()) != null) {
@@ -102,8 +102,8 @@ public class StateManager implements Renderable {
 		}
 	}
 
-	public Display getDisplay() {
-		return display;
+	public Screen getScreen() {
+		return screen;
 	}
 
 	@Internal

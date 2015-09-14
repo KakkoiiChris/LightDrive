@@ -56,6 +56,8 @@ public final class GraphicsS extends Graphics2D {
 		RIGHT
 	}
 
+	private Rectangle clipRect = null;
+
 	private Graphics2D graphics;
 
 	/**
@@ -207,11 +209,11 @@ public final class GraphicsS extends Graphics2D {
 
 		if (ratioW > ratioH) {
 			int nhi = (int) (hi / ratioW);
-			
+
 			draw = new Rectangle(0, (hb / 2) - (nhi / 2), wb, nhi);
 		} else if (ratioW < ratioH) {
 			int nwi = (int) (wi / ratioH);
-			
+
 			draw = new Rectangle((wb / 2) - (nwi / 2), 0, nwi, hb);
 		} else {
 			draw = bounds;
@@ -287,7 +289,7 @@ public final class GraphicsS extends Graphics2D {
 	public boolean drawImage(Image img, int x, int y, int width, int height) {
 		return graphics.drawImage(img, x, y, width, height, null);
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -512,6 +514,10 @@ public final class GraphicsS extends Graphics2D {
 		return graphics.getClipBounds();
 	}
 
+	public Rectangle getClipRect() {
+		return clipRect;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -677,6 +683,11 @@ public final class GraphicsS extends Graphics2D {
 		graphics.setClip(clip);
 	}
 
+	public void setClipRect(Rectangle clipRect) {
+		this.clipRect = clipRect;
+		setClip(clipRect);
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -719,7 +730,7 @@ public final class GraphicsS extends Graphics2D {
 	 */
 	public void setFontName(String name) {
 		Font font = getFont();
-		
+
 		setFont(new Font(name, font.getStyle(), font.getSize()));
 	}
 
@@ -731,7 +742,7 @@ public final class GraphicsS extends Graphics2D {
 	 */
 	public void setFontSize(int size) {
 		Font font = getFont();
-		
+
 		setFont(new Font(font.getName(), font.getStyle(), size));
 	}
 
@@ -743,7 +754,7 @@ public final class GraphicsS extends Graphics2D {
 	 */
 	public void setFontStyle(int style) {
 		Font font = getFont();
-		
+
 		setFont(new Font(font.getName(), style, font.getSize()));
 	}
 

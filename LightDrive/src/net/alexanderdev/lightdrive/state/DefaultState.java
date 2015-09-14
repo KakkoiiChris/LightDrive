@@ -42,6 +42,6 @@ public final class DefaultState extends State {
 
 	@Override
 	public void render(GraphicsS g) {
-		g.drawCenteredImage(splash, getManager().getDisplay().getScreenBounds());
+		g.drawCenteredImage(splash, getManager().getScreen().getScreenBounds());
 	}
 }

@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.alexanderdev.lightdrive.Internal;
-import net.alexanderdev.lightdrive.media.graphics.Display;
+import net.alexanderdev.lightdrive.media.graphics.Screen;
 import net.alexanderdev.lightdrive.util.math.MathS;
 import net.alexanderdev.lightdrive.util.math.geom.PointD;
 import net.alexanderdev.lightdrive.util.math.geom.PointF;
@@ -63,7 +63,7 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
 
 	private int wheelRotation = 0;
 
-	private Display display;
+	private Screen screen;
 
 	private Robot robot;
 
@@ -82,8 +82,8 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
 	/**
 	 * Creates a mouse which is linked to a {@code Display}
 	 */
-	public Mouse(Display display) {
-		this.display = display;
+	public Mouse(Screen screen) {
+		this.screen = screen;
 	}
 
 	/**
@@ -214,7 +214,7 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
 
 	private Point getMouseLocation() {
 		Point point    = MouseInfo.getPointerInfo().getLocation();
-		Point location = display.getLocationOnScreen();
+		Point location = screen.getLocationOnScreen();
 
 		point.x -= location.x;
 		point.y -= location.y;
@@ -349,14 +349,14 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
 
 		point = getMouseLocation();
 
-		point.x /= display.getScale();
-		point.y /= display.getScale();
+		point.x /= screen.getScale();
+		point.y /= screen.getScale();
 
-		if (display.cursorLocked()) {
+		if (screen.cursorLocked()) {
 			int xMin = point.x;
-			int xMax = xMin + display.getWidth();
+			int xMax = xMin + screen.getWidth();
 			int yMin = point.y;
-			int yMax = yMin + display.getHeight();
+			int yMax = yMin + screen.getHeight();
 
 			robot.mouseMove(MathS.clamp(xMin + getX(), xMin, xMax), MathS.clamp(yMin + getY(), yMin, yMax));
 		}
