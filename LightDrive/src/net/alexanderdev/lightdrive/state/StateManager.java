@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.alexanderdev.lightdrive.Internal;
+import net.alexanderdev.lightdrive.input.Controllable;
 import net.alexanderdev.lightdrive.input.Gamepad;
 import net.alexanderdev.lightdrive.input.Keyboard;
 import net.alexanderdev.lightdrive.input.Mouse;
@@ -31,12 +32,12 @@ import net.alexanderdev.lightdrive.media.graphics.Screen;
  * @author Christian Bryce Alexander
  * @since March 6, 2015 | 3:03:32 AM
  */
-public class StateManager implements Renderable {
+public class StateManager implements Renderable, Controllable {
 	private final String DEFAULT = "@ld_default_state";
 
-	private Map<String, State> states = new HashMap<>();
+	private final Map<String, State> STATES = new HashMap<>();
 
-	private String currentState = DEFAULT;
+	private State currState;
 
 	private Screen screen;
 
@@ -44,10 +45,6 @@ public class StateManager implements Renderable {
 		this.screen = screen;
 
 		addState(DEFAULT, new DefaultState());
-	}
-
-	private State getCurrentState() {
-		return states.get(currentState);
 	}
 
 	/**
@@ -61,12 +58,12 @@ public class StateManager implements Renderable {
 	 *            {@code StateManager}
 	 */
 	public void addState(String name, State state) {
-		if (states.containsKey(DEFAULT))
-			states.remove(DEFAULT);
+		if (STATES.containsKey(DEFAULT))
+			STATES.remove(DEFAULT);
 
 		state.setManager(this);
 
-		states.put(name, state);
+		STATES.put(name, state);
 	}
 
 	/**
@@ -76,7 +73,8 @@ public class StateManager implements Renderable {
 	 *            The name of the {@code GameState} to set
 	 */
 	public void setInitialState(String name) {
-		currentState = name;
+		if (STATES.get(name) != null)
+			currState = STATES.get(name);
 	}
 
 	/**
@@ -86,20 +84,12 @@ public class StateManager implements Renderable {
 	 *            The name of the {@code GameState} to switch to
 	 */
 	public void switchState(String name) {
-		if (currentState.equals(name))
-			return;
+		currState.switchOut();
 
-		State state;
+		if (STATES.get(name) != null)
+			currState = STATES.get(name);
 
-		if ((state = getCurrentState()) != null) {
-			state.switchOut();
-		}
-
-		currentState = name;
-
-		if ((state = getCurrentState()) != null) {
-			state.switchIn();
-		}
+		currState.switchIn();
 	}
 
 	public Screen getScreen() {
@@ -108,57 +98,36 @@ public class StateManager implements Renderable {
 
 	@Internal
 	public final void init() {
-		State state;
-
-		if ((state = getCurrentState()) != null) {
-			state.switchIn();
-		}
+		currState.switchIn();
 	}
 
 	@Internal
 	@Override
 	public final void update(double delta) {
-		State state;
-
-		if ((state = getCurrentState()) != null) {
-			state.update(delta);
-		}
+		currState.update(delta);
 	}
 
 	@Internal
 	@Override
 	public final void render(GraphicsS g) {
-		State state;
-
-		if ((state = getCurrentState()) != null) {
-			state.render(g);
-		}
+		currState.render(g);
 	}
 
 	@Internal
+	@Override
 	public final void keyboardInput(Keyboard keyboard) {
-		State state;
-
-		if ((state = getCurrentState()) != null) {
-			state.keyboardInput(keyboard);
-		}
+		currState.keyboardInput(keyboard);
 	}
 
 	@Internal
+	@Override
 	public final void mouseInput(Mouse mouse) {
-		State state;
-
-		if ((state = getCurrentState()) != null) {
-			state.mouseInput(mouse);
-		}
+		currState.mouseInput(mouse);
 	}
 
 	@Internal
+	@Override
 	public final void gamepadInput(Gamepad gamepad) {
-		State state;
-
-		if ((state = getCurrentState()) != null) {
-			state.gamepadInput(gamepad);
-		}
+		currState.gamepadInput(gamepad);
 	}
 }

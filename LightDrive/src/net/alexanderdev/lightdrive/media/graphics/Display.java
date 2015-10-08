@@ -109,6 +109,8 @@ public class Display extends JFrame {
 		this.screen = screen;
 		this.title = title;
 		this.icon = icon;
+
+		screen.setDisplay(this);
 	}
 
 	public Screen getScreen() {
@@ -128,7 +130,8 @@ public class Display extends JFrame {
 
 	@Internal
 	public void setUFC(int updates, int frames) {
-		setTitle(String.format(title + "  |  UPS: %s, FPS: %s", updates, frames));
+		if (showUFC)
+			setTitle(String.format(title + "  |  UPS: %s, FPS: %s", updates, frames));
 	}
 
 	/**

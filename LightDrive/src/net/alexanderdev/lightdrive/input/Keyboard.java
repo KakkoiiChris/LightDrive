@@ -13,12 +13,10 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.input;
 
-import static net.alexanderdev.lightdrive.util.Time.msTime;
+import static net.alexanderdev.lightdrive.util.Time.*;
 
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.alexanderdev.lightdrive.Internal;
 
@@ -29,9 +27,8 @@ import net.alexanderdev.lightdrive.Internal;
  * @author Christian Bryce Alexander
  * @since March 6, 2015 | 2:47:47 AM
  */
-public final class Keyboard implements KeyListener {
-	private static final Map<Integer, String> KEY_NAMES = new HashMap<>();
-	private static final Map<String,  Key>    ALL_KEYS  = new HashMap<>();
+public final class Keyboard extends KeyAdapter {
+	private static final Key[] KEYS = new Key[525];
 
 	public final Key ESCAPE     = new Key(KeyEvent.VK_ESCAPE);
 	public final Key DELETE     = new Key(KeyEvent.VK_DELETE);
@@ -102,79 +99,79 @@ public final class Keyboard implements KeyListener {
 	public final Key RIGHT = new Key(KeyEvent.VK_RIGHT);
 
 	private static final long SCAN_TIMEOUT = 50;
-	
+
 	private static long lastScan;
-	
+
 	private static int keyCodeScanned = KeyEvent.VK_UNDEFINED;
-	
-	{
-		addKey("ESCAPE",     ESCAPE);
-		addKey("DELETE",     DELETE);
-		addKey("BACK_SPACE", BACK_SPACE);
-		addKey("TAB",        TAB);
-		addKey("SHIFT",      SHIFT);
-		addKey("CONTROL",    CONTROL);
-		addKey("ALT",        ALT);
-		addKey("SPACE",      SPACE);
-		addKey("ENTER",      ENTER);
 
-		addKey("BACK_QUOTE", BACK_QUOTE);
+	public Keyboard() {
+		addKey(ESCAPE);
+		addKey(DELETE);
+		addKey(BACK_SPACE);
+		addKey(TAB);
+		addKey(SHIFT);
+		addKey(CONTROL);
+		addKey(ALT);
+		addKey(SPACE);
+		addKey(ENTER);
 
-		addKey("F1",  F1);
-		addKey("F2",  F2);
-		addKey("F3",  F3);
-		addKey("F4",  F4);
-		addKey("F5",  F5);
-		addKey("F6",  F6);
-		addKey("F7",  F7);
-		addKey("F8",  F8);
-		addKey("F9",  F9);
-		addKey("F10", F10);
-		addKey("F11", F11);
-		addKey("F12", F12);
+		addKey(BACK_QUOTE);
 
-		addKey("ZERO",  ZERO);
-		addKey("ONE",   ONE);
-		addKey("TWO",   TWO);
-		addKey("THREE", THREE);
-		addKey("FOUR",  FOUR);
-		addKey("FIVE",  FIVE);
-		addKey("SIX",   SIX);
-		addKey("SEVEN", SEVEN);
-		addKey("EIGHT", EIGHT);
-		addKey("NINE",  NINE);
+		addKey(F1);
+		addKey(F2);
+		addKey(F3);
+		addKey(F4);
+		addKey(F5);
+		addKey(F6);
+		addKey(F7);
+		addKey(F8);
+		addKey(F9);
+		addKey(F10);
+		addKey(F11);
+		addKey(F12);
 
-		addKey("A", A);
-		addKey("B", B);
-		addKey("C", C);
-		addKey("D", D);
-		addKey("E", E);
-		addKey("F", F);
-		addKey("G", G);
-		addKey("H", H);
-		addKey("I", I);
-		addKey("J", J);
-		addKey("K", K);
-		addKey("L", L);
-		addKey("M", M);
-		addKey("N", N);
-		addKey("O", O);
-		addKey("P", P);
-		addKey("Q", Q);
-		addKey("R", R);
-		addKey("S", S);
-		addKey("T", T);
-		addKey("U", U);
-		addKey("V", V);
-		addKey("W", W);
-		addKey("X", X);
-		addKey("Y", Y);
-		addKey("Z", Z);
+		addKey(ZERO);
+		addKey(ONE);
+		addKey(TWO);
+		addKey(THREE);
+		addKey(FOUR);
+		addKey(FIVE);
+		addKey(SIX);
+		addKey(SEVEN);
+		addKey(EIGHT);
+		addKey(NINE);
 
-		addKey("UP",    UP);
-		addKey("DOWN",  DOWN);
-		addKey("LEFT",  LEFT);
-		addKey("RIGHT", RIGHT);
+		addKey(A);
+		addKey(B);
+		addKey(C);
+		addKey(D);
+		addKey(E);
+		addKey(F);
+		addKey(G);
+		addKey(H);
+		addKey(I);
+		addKey(J);
+		addKey(K);
+		addKey(L);
+		addKey(M);
+		addKey(N);
+		addKey(O);
+		addKey(P);
+		addKey(Q);
+		addKey(R);
+		addKey(S);
+		addKey(T);
+		addKey(U);
+		addKey(V);
+		addKey(W);
+		addKey(X);
+		addKey(Y);
+		addKey(Z);
+
+		addKey(UP);
+		addKey(DOWN);
+		addKey(LEFT);
+		addKey(RIGHT);
 	}
 
 	/**
@@ -183,13 +180,13 @@ public final class Keyboard implements KeyListener {
 	public static class Key {
 		private final long TIMEOUT = 50;
 
-		private boolean held     = false;
-		private boolean pressed  = false;
+		private boolean held = false;
+		private boolean pressed = false;
 		private boolean released = false;
 
 		private int keyCode;
 
-		private long actionTimer;
+		private long timer;
 
 		/**
 		 * Creates a key which is mapped toa key code from the {@code KeyEvent}
@@ -202,12 +199,12 @@ public final class Keyboard implements KeyListener {
 		void toggle(boolean held) {
 			if (held && !this.held) {
 				pressed = true;
-				actionTimer = msTime();
+				timer = msTime();
 			}
 
 			if (!held && this.held) {
 				released = true;
-				actionTimer = msTime();
+				timer = msTime();
 			}
 
 			this.held = held;
@@ -225,7 +222,7 @@ public final class Keyboard implements KeyListener {
 		public boolean pressed() {
 			if (pressed) {
 				pressed = false;
-				return msTime() - actionTimer < TIMEOUT;
+				return msTime() - timer < TIMEOUT;
 			}
 			return false;
 		}
@@ -242,7 +239,7 @@ public final class Keyboard implements KeyListener {
 		public boolean released() {
 			if (released) {
 				released = false;
-				return msTime() - actionTimer < TIMEOUT;
+				return msTime() - timer < TIMEOUT;
 			}
 			return false;
 		}
@@ -272,25 +269,8 @@ public final class Keyboard implements KeyListener {
 	 * @param keyCode
 	 *            A valid {@code KeyEvent} key code
 	 */
-	public static void addKey(String name, int keyCode) {
-		KEY_NAMES.put(keyCode, name);
-		ALL_KEYS.put(name, new Key(keyCode));
-	}
-
-	public static void addKey(String name, Key key) {
-		KEY_NAMES.put(key.keyCode, name);
-		ALL_KEYS.put(name, key);
-	}
-
-	/**
-	 * Retrieves a {@code Key} from the {@code Keyboard}
-	 * 
-	 * @param name
-	 *            The name of the {@code Key} to retrieve
-	 * @return A named {@code Key}
-	 */
-	public Key getKey(String name) {
-		return ALL_KEYS.get(name);
+	public static void addKey(Key key) {
+		KEYS[key.keyCode] = key;
 	}
 
 	public static int scanKeyCode() {
@@ -310,7 +290,7 @@ public final class Keyboard implements KeyListener {
 		keyCodeScanned = code;
 		lastScan = msTime();
 
-		ALL_KEYS.get(KEY_NAMES.get(code)).toggle(true);
+		KEYS[code].toggle(true);
 
 		e.consume();
 	}
@@ -320,14 +300,8 @@ public final class Keyboard implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		int code = e.getKeyCode();
 
-		ALL_KEYS.get(KEY_NAMES.get(code)).toggle(false);
+		KEYS[code].toggle(false);
 
-		e.consume();
-	}
-
-	@Internal
-	@Override
-	public void keyTyped(KeyEvent e) {
 		e.consume();
 	}
 }
