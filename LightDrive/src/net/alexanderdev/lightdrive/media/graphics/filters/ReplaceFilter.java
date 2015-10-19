@@ -13,7 +13,7 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.media.graphics.filters;
 
-import static net.alexanderdev.lightdrive.util.math.MathS.average;
+import static net.alexanderdev.lightdrive.util.math.MathS.*;
 
 import net.alexanderdev.lightdrive.media.graphics.ColorS;
 
@@ -35,6 +35,9 @@ public class ReplaceFilter implements ImageSFilter {
 	public void apply(int[] pixels) {
 		for (int i = 0; i < pixels.length; i++) {
 			int[] argb = ColorS.splitARGB(pixels[i]);
+
+			if (argb[0] != 0xff)
+				continue;
 
 			int v = (int) (average(argb[1], argb[2], argb[3]) / (256 / (values.length - 1)));
 

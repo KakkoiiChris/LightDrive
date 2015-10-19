@@ -13,7 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.input;
 
-import static net.alexanderdev.lightdrive.util.Time.msTime;
+import static java.awt.event.MouseEvent.*;
+import static net.alexanderdev.lightdrive.util.Time.*;
 
 import java.awt.AWTException;
 import java.awt.MouseInfo;
@@ -24,8 +25,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.alexanderdev.lightdrive.Internal;
 import net.alexanderdev.lightdrive.media.graphics.Screen;
@@ -44,17 +43,16 @@ import net.alexanderdev.lightdrive.util.math.geom.VectorF;
  * @since March 6, 2015 | 2:44:04 PM
  */
 public final class Mouse implements MouseListener, MouseMotionListener, MouseWheelListener {
-	private static final Map<Integer, String> BUTTON_NAMES = new HashMap<>();
-	private static final Map<String,  Button> ALL_BUTTONS  = new HashMap<>();
+	private static final Button[] BUTTONS = new Button[16];
 
-	public final Button LEFT_BUTTON   = new Button(MouseEvent.BUTTON1);
-	public final Button MIDDLE_BUTTON = new Button(MouseEvent.BUTTON2);
-	public final Button RIGHT_BUTTON  = new Button(MouseEvent.BUTTON3);
+	public final Button LEFT_BUTTON   = new Button(BUTTON1);
+	public final Button MIDDLE_BUTTON = new Button(BUTTON2);
+	public final Button RIGHT_BUTTON  = new Button(BUTTON3);
 
 	private Point prevPoint = new Point(0, 0);
 	private Point point     = new Point(0, 0);
 
-	private boolean inDisplay     = false;
+	private boolean inScreen      = false;
 	private boolean isAltDown     = false;
 	private boolean isControlDown = false;
 	private boolean isShiftDown   = false;
@@ -68,9 +66,9 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
 	private Robot robot;
 
 	{
-		addButton("left",   LEFT_BUTTON);
-		addButton("middle", MIDDLE_BUTTON);
-		addButton("right",  RIGHT_BUTTON);
+		addButton(LEFT_BUTTON);
+		addButton(MIDDLE_BUTTON);
+		addButton(RIGHT_BUTTON);
 
 		try {
 			robot = new Robot();
@@ -184,25 +182,8 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
 	 * @param buttonNumber
 	 *            A valid {@code MouseEvent} int
 	 */
-	public static void addButton(String name, int buttonNumber) {
-		BUTTON_NAMES.put(buttonNumber, name);
-		ALL_BUTTONS.put(name, new Button(buttonNumber));
-	}
-
-	public static void addButton(String name, Button button) {
-		BUTTON_NAMES.put(button.number, name);
-		ALL_BUTTONS.put(name, button);
-	}
-
-	/**
-	 * Retrieves a {@code Button} from the {@code Mouse}
-	 * 
-	 * @param name
-	 *            The name of the {@code Button} to retrieve
-	 * @return A named {@code Button}
-	 */
-	public Button getButton(String name) {
-		return ALL_BUTTONS.get(name);
+	public static void addButton(Button button) {
+		BUTTONS[button.number] = button;
 	}
 
 	/**
@@ -299,8 +280,8 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
 	 *         {@code Display}<br>
 	 *         {@code false} otherwise
 	 */
-	public boolean inDisplay() {
-		return inDisplay;
+	public boolean inScreen() {
+		return inScreen;
 	}
 
 	/**
@@ -379,7 +360,7 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
 	public void mousePressed(MouseEvent e) {
 		int number = e.getButton();
 
-		ALL_BUTTONS.get(BUTTON_NAMES.get(number)).toggle(true);
+		BUTTONS[number].toggle(true);
 
 		point.setLocation(e.getPoint());
 
@@ -391,7 +372,7 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
 	public void mouseReleased(MouseEvent e) {
 		int number = e.getButton();
 
-		ALL_BUTTONS.get(BUTTON_NAMES.get(number)).toggle(false);
+		BUTTONS[number].toggle(false);
 
 		point.setLocation(e.getPoint());
 
@@ -403,7 +384,7 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
 	@Internal
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		inDisplay = true;
+		inScreen = true;
 
 		setModifiers(e);
 	}
@@ -411,7 +392,7 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
 	@Internal
 	@Override
 	public void mouseExited(MouseEvent e) {
-		inDisplay = false;
+		inScreen = false;
 
 		setModifiers(e);
 	}

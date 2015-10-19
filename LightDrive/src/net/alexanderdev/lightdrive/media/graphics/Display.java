@@ -20,6 +20,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 import net.alexanderdev.lightdrive.Internal;
+import net.alexanderdev.lightdrive.state.StateManager;
 
 /**
  * The main display class, and the core of any game. This class contains the
@@ -38,7 +39,7 @@ public class Display extends JFrame {
 	private Image icon;
 
 	private boolean showUFC = false;
-	private boolean initFrameUndecorated = false;
+	private boolean initNoFrame = false;
 
 	private Screen screen;
 
@@ -93,6 +94,54 @@ public class Display extends JFrame {
 		this(new Screen(width, height, scale), title, icon);
 	}
 
+	public Display(double fps) {
+		this(new Screen(fps), DEFAULT_TITLE, DEFAULT_ICON);
+	}
+
+	public Display(int width, int height, double fps) {
+		this(new Screen(width, height, fps), DEFAULT_TITLE, DEFAULT_ICON);
+	}
+
+	public Display(int width, int height, int scale, double fps) {
+		this(new Screen(width, height, scale, fps), DEFAULT_TITLE, DEFAULT_ICON);
+	}
+
+	public Display(double fps, String title) {
+		this(new Screen(fps), title, DEFAULT_ICON);
+	}
+
+	public Display(double fps, Image icon) {
+		this(new Screen(fps), DEFAULT_TITLE, icon);
+	}
+
+	public Display(double fps, String title, Image icon) {
+		this(new Screen(fps), title, icon);
+	}
+
+	public Display(int width, int height, double fps, String title) {
+		this(new Screen(width, height, fps), title, DEFAULT_ICON);
+	}
+
+	public Display(int width, int height, int scale, double fps, String title) {
+		this(new Screen(width, height, scale, fps), title, DEFAULT_ICON);
+	}
+
+	public Display(int width, int height, double fps, Image icon) {
+		this(new Screen(width, height, fps), DEFAULT_TITLE, icon);
+	}
+
+	public Display(int width, int height, int scale, double fps, Image icon) {
+		this(new Screen(width, height, scale, fps), DEFAULT_TITLE, icon);
+	}
+
+	public Display(int width, int height, double fps, String title, Image icon) {
+		this(new Screen(width, height, fps), title, icon);
+	}
+
+	public Display(int width, int height, int scale, double fps, String title, Image icon) {
+		this(new Screen(width, height, scale, fps), title, icon);
+	}
+
 	public Display(Screen screen) {
 		this(screen, DEFAULT_TITLE, DEFAULT_ICON);
 	}
@@ -115,6 +164,10 @@ public class Display extends JFrame {
 
 	public Screen getScreen() {
 		return screen;
+	}
+
+	public StateManager getManager() {
+		return screen.getManager();
 	}
 
 	public void showUpdateFrameCounter(boolean show) {
@@ -145,7 +198,7 @@ public class Display extends JFrame {
 		add(screen);
 		setFocusable(false);
 		setResizable(false);
-		setUndecorated(initFrameUndecorated);
+		setUndecorated(initNoFrame);
 		pack();
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

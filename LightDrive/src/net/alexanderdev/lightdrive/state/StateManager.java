@@ -45,6 +45,8 @@ public class StateManager implements Renderable, Controllable {
 		this.screen = screen;
 
 		addState(DEFAULT, new DefaultState());
+		
+		currState = STATES.get(DEFAULT);
 	}
 
 	/**
