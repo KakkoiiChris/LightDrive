@@ -73,6 +73,48 @@ public class SpriteSheet {
 			for (int c = 0; c < cols; c++)
 				sprites[r][c] = sheet.getSubimage(c * spriteWidth, r * spriteHeight, spriteWidth, spriteHeight);
 	}
+	
+	/**
+	 * @return The number of rows of sprites in this {@code SpriteSheet}
+	 */
+	public int getRows() {
+		return rows;
+	}
+
+	/**
+	 * @return The number of columns of sprites in this {@code SpriteSheet}
+	 */
+	public int getCols() {
+		return cols;
+	}
+
+	/**
+	 * @return The width of this {@code SpriteSheet}
+	 */
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * @return The height of this {@code SpriteSheet}
+	 */
+	public int getHeight() {
+		return height;
+	}
+
+	/**
+	 * @return The width of the sprites in this {@code SpriteSheet}
+	 */
+	public int getSpriteWidth() {
+		return spriteWidth;
+	}
+
+	/**
+	 * @return The height of the sprites in this {@code SpriteSheet}
+	 */
+	public int getSpriteHeight() {
+		return spriteHeight;
+	}
 
 	/**
 	 * @return The sprite at the specified row and column
@@ -121,49 +163,7 @@ public class SpriteSheet {
 		return sprites;
 	}
 
-	/**
-	 * @return The number of rows of sprites in this {@code SpriteSheet}
-	 */
-	public int getRows() {
-		return rows;
-	}
-
-	/**
-	 * @return The number of columns of sprites in this {@code SpriteSheet}
-	 */
-	public int getCols() {
-		return cols;
-	}
-
-	/**
-	 * @return The width of this {@code SpriteSheet}
-	 */
-	public int getWidth() {
-		return width;
-	}
-
-	/**
-	 * @return The height of this {@code SpriteSheet}
-	 */
-	public int getHeight() {
-		return height;
-	}
-
-	/**
-	 * @return The width of the sprites in this {@code SpriteSheet}
-	 */
-	public int getSpriteWidth() {
-		return spriteWidth;
-	}
-
-	/**
-	 * @return The height of the sprites in this {@code SpriteSheet}
-	 */
-	public int getSpriteHeight() {
-		return spriteHeight;
-	}
-
-	public ImageS[] getAnimationFrames() {
+	public ImageS[] getSequentialSprites() {
 		ImageS[] frames = new ImageS[rows * cols];
 
 		for (int i = 0; i < frames.length; i++) {
