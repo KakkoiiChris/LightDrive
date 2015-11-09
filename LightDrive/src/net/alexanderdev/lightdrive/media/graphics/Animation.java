@@ -13,8 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.media.graphics;
 
-import static net.alexanderdev.lightdrive.util.Time.msTime;
-import static net.alexanderdev.lightdrive.util.math.MathS.randomInt;
+import static net.alexanderdev.lightdrive.util.Time.*;
+import static net.alexanderdev.lightdrive.util.math.MathS.*;
 
 /**
  * A class to hanlde image animations
@@ -57,10 +57,10 @@ public class Animation {
 	 *            The way the {@code Animation} executes
 	 */
 	public Animation(ImageS strip, int frameWidth, long delay, Style style) {
-		this.frameWidth  = frameWidth;
+		this.frameWidth = frameWidth;
 		this.frameHeight = strip.getHeight();
-		this.delay       = delay;
-		this.style       = style;
+		this.delay = delay;
+		this.style = style;
 
 		frames = new ImageS[strip.getWidth() / frameWidth];
 
@@ -77,10 +77,10 @@ public class Animation {
 
 	public Animation(ImageS[] frames, long delay, Style style) {
 		this.frames = frames;
-		this.delay  = delay;
-		this.style  = style;
+		this.delay = delay;
+		this.style = style;
 
-		frameWidth  = frames[0].getWidth();
+		frameWidth = frames[0].getWidth();
 		frameHeight = frames[0].getHeight();
 
 		step = 1;
@@ -105,6 +105,13 @@ public class Animation {
 	public Style getStyle() {
 		return style;
 	}
+	
+	/**
+	 * @return the currFrame
+	 */
+	public int getCurrFrame() {
+		return currFrame;
+	}
 
 	/**
 	 * Starts the updating of the animation
@@ -112,7 +119,7 @@ public class Animation {
 	public void start() {
 		if (!playing) {
 			timer = msTime();
-			
+
 			playing = true;
 		}
 	}
@@ -131,9 +138,13 @@ public class Animation {
 	public void stop() {
 		if (playing) {
 			playing = false;
-			
+
 			reset();
 		}
+	}
+
+	public void reset() {
+		setToFrame(0);
 	}
 
 	public void setToFrame(int i) {
@@ -141,10 +152,6 @@ public class Animation {
 			currFrame = i;
 		else
 			currFrame = 0;
-	}
-
-	public void reset() {
-		setToFrame(0);
 	}
 
 	public void setStep(int step) {
@@ -162,6 +169,7 @@ public class Animation {
 	public void step() {
 		switch (style) {
 			case LOOP:
+			default:
 				if (currFrame + step >= frames.length)
 					currFrame = 0;
 				else if (currFrame + step <= -1)
@@ -185,8 +193,6 @@ public class Animation {
 			case RANDOM:
 				currFrame = randomInt(frames.length);
 				break;
-			default:
-				break;
 		}
 	}
 
@@ -195,10 +201,6 @@ public class Animation {
 			step();
 			timer += delay;
 		}
-	}
-
-	public boolean isDone() {
-		return (step < 0 && currFrame == 0) || (step > 0 && currFrame == frames.length - 1);
 	}
 
 	/**

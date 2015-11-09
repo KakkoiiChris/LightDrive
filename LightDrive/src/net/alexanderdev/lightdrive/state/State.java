@@ -38,7 +38,7 @@ public abstract class State implements Renderable {
 
 	private List<MouseListener> mouseListeners = new ArrayList<>();
 
-	private GamepadListener gamepadListener;
+	private List<GamepadListener> gamepadListeners = new ArrayList<>();
 
 	public final StateManager getManager() {
 		return manager;
@@ -91,8 +91,16 @@ public abstract class State implements Renderable {
 	 * @param gamepadListener
 	 *            Functional interface for handling the gamepad
 	 */
-	public final void setGamepadListener(GamepadListener gamepadListener) {
-		this.gamepadListener = gamepadListener;
+	public final void addGamepadListener(GamepadListener gl) {
+		gamepadListeners.add(gl);
+	}
+
+	public final void removeGamepadListener(GamepadListener gl) {
+		gamepadListeners.remove(gl);
+	}
+
+	public final void clearGamepadListeners() {
+		gamepadListeners.clear();
 	}
 
 	@Internal
@@ -111,9 +119,9 @@ public abstract class State implements Renderable {
 
 	@Internal
 	public final void gamepadInput(Gamepad gamepad) {
-		if (gamepadListener != null) {
-			gamepadListener.gamepadInput(gamepad);
-		}
+		if (gamepadListeners != null)
+			for (GamepadListener gl : gamepadListeners)
+				gl.gamepadInput(gamepad);
 	}
 
 	/**

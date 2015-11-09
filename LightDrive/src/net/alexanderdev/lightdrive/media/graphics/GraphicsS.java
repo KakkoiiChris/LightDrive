@@ -49,7 +49,7 @@ import java.util.Map;
  * @author Christian Bryce Alexander
  * @since Apr 24, 2015 | 2:32:23 AM
  */
-public final class GraphicsS extends Graphics2D {
+public class GraphicsS extends Graphics2D {
 	public static enum TextAlign {
 		CENTER,
 		LEFT,

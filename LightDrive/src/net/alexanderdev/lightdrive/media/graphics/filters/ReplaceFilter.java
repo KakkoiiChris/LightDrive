@@ -31,6 +31,10 @@ public class ReplaceFilter implements ImageSFilter {
 		this.values = values;
 	}
 
+	public void setValues(int... values) {
+		this.values = values;
+	}
+
 	@Override
 	public void apply(int[] pixels) {
 		for (int i = 0; i < pixels.length; i++) {
@@ -39,8 +43,8 @@ public class ReplaceFilter implements ImageSFilter {
 			if (argb[0] != 0xff)
 				continue;
 
-			int v = (int) (average(argb[1], argb[2], argb[3]) / (256 / (values.length - 1)));
-
+			int v = (int) ((average(argb[1], argb[2], argb[3]) + 1) / (256 / (values.length - 1)));
+			
 			pixels[i] = values[v];
 		}
 	}

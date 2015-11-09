@@ -435,7 +435,7 @@ public final class Gamepad implements Runnable {
 	public void run() {
 		while (running) {
 			if (!controller.poll()) {
-				System.err.println("CONTROLLER DISCONNECTED: " + controller.getName());
+				System.err.println("LD CONTROLLER DISCONNECTED: " + controller.getName());
 				stop();
 			}
 
