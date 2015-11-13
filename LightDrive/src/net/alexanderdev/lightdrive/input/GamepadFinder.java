@@ -28,9 +28,14 @@ import net.java.games.input.ControllerEnvironment;
  * @since Apr 29, 2015 | 9:35:08 PM
  */
 public final class GamepadFinder {
+	private static boolean found = false;
+
 	@Internal
 	public static Gamepad[] getGamepads() {
 		Controller[] allControllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
+
+		if (allControllers.length > 0)
+			found = true;
 
 		List<Gamepad> gamepads = new ArrayList<>();
 
@@ -41,5 +46,9 @@ public final class GamepadFinder {
 				gamepads.add(new Gamepad(allControllers[i], number++));
 
 		return gamepads.toArray(new Gamepad[gamepads.size()]);
+	}
+
+	public static boolean foundGamepads() {
+		return found;
 	}
 }

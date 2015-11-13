@@ -13,6 +13,9 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.media.audio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
@@ -35,10 +38,20 @@ public class Sound {
 
 	private Thread introThread = null;
 
+	private boolean listening;
+
+	private Thread listenerThread;
+
+	private List<SoundListener> listeners;
+
 	public Sound(Clip clip) {
 		this.clip = clip;
-		
+
 		volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+
+		listeners = new ArrayList<>();
+
+		listenerThread = new Thread(this::listen, "ld_sound_listener");
 	}
 
 	/**
@@ -54,6 +67,9 @@ public class Sound {
 
 		clip.setFramePosition(0);
 		clip.start();
+
+		listening = true;
+		listenerThread.start();
 	}
 
 	/**
@@ -69,18 +85,23 @@ public class Sound {
 
 		clip.setFramePosition(0);
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+		listening = true;
+		listenerThread.start();
 	}
 
 	public void loopWithIntro(Sound introSound) {
-		intro = introSound;
+		this.intro = introSound;
 
 		introThread = new Thread(() -> {
 			intro.play();
 
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			synchronized (this) {
+				try {
+					this.wait();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 
 			while (intro.isPlaying()) {
@@ -99,8 +120,16 @@ public class Sound {
 		introThread.start();
 	}
 
+	private void listen() {
+		while (listening)
+			for (SoundListener listener : listeners)
+				listener.listen(clip);
+	}
+
 	public void pause() {
 		clip.stop();
+
+		listening = false;
 	}
 
 	/**
@@ -119,6 +148,13 @@ public class Sound {
 
 		if (clip.isRunning()) {
 			clip.stop();
+
+			try {
+				listening = false;
+				listenerThread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -131,6 +167,14 @@ public class Sound {
 		clip.close();
 	}
 
+	public void addListener(SoundListener sl) {
+		listeners.add(sl);
+	}
+
+	public void clearListeners() {
+		listeners.clear();
+	}
+
 	/**
 	 * @return {@code true} if this {@code Sound} is playing, {@code false}
 	 *         otherwise
@@ -138,6 +182,7 @@ public class Sound {
 	public boolean isPlaying() {
 		if (clip == null)
 			return false;
+
 		return clip.isRunning();
 	}
 
@@ -146,6 +191,14 @@ public class Sound {
 	 */
 	public float getVolume() {
 		return currDB;
+	}
+
+	public long getLength() {
+		return clip.getMicrosecondLength();
+	}
+
+	public long getPosition() {
+		return clip.getMicrosecondPosition();
 	}
 
 	/**
