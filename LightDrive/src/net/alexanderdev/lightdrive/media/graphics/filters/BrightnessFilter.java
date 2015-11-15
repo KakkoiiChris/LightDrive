@@ -13,9 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.media.graphics.filters;
 
-import static net.alexanderdev.lightdrive.media.graphics.ColorS.mergeARGB;
-import static net.alexanderdev.lightdrive.media.graphics.ColorS.splitARGB;
-import static net.alexanderdev.lightdrive.util.math.MathS.clamp;
+import static net.alexanderdev.lightdrive.media.graphics.ColorS.*;
+import static net.alexanderdev.lightdrive.util.math.MathS.*;
 
 /**
  * A filter which alters the visual brightness of the image, with {@code -1f}
@@ -45,7 +44,8 @@ public class BrightnessFilter implements ImageSFilter {
 				r += (255 - r) * factor;
 				g += (255 - g) * factor;
 				b += (255 - b) * factor;
-			} else {
+			}
+			else {
 				r -= r * -factor;
 				g -= g * -factor;
 				b -= b * -factor;

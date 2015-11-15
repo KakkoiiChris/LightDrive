@@ -13,9 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.media.graphics;
 
-import static java.awt.Font.TRUETYPE_FONT;
-import static java.awt.Font.createFont;
-import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
+import static java.awt.Font.*;
+import static java.awt.GraphicsEnvironment.*;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -39,13 +38,18 @@ public final class FontLoader {
 		FontLoader.path = path;
 	}
 
-	public static void loadTTF(String filename) {
+	public static String loadTTF(String filename) {
+		Font font = null;
+
 		try {
-			Font font = createFont(TRUETYPE_FONT, FontLoader.class.getResourceAsStream(path + filename + ".ttf"));
-			
+			font = createFont(TRUETYPE_FONT, FontLoader.class.getResourceAsStream(path + filename + ".ttf"));
+
 			getLocalGraphicsEnvironment().registerFont(font);
-		} catch (IOException | FontFormatException e) {
+		}
+		catch (IOException | FontFormatException e) {
 			e.printStackTrace();
 		}
+
+		return font.getFontName();
 	}
 }

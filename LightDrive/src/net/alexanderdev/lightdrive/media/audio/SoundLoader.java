@@ -13,10 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.media.audio;
 
-import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
-import static javax.sound.sampled.AudioSystem.getAudioInputStream;
-import static javax.sound.sampled.AudioSystem.getClip;
-import static javax.sound.sampled.AudioSystem.getLine;
+import static javax.sound.sampled.AudioFormat.Encoding.*;
+import static javax.sound.sampled.AudioSystem.*;
 
 import java.io.IOException;
 
@@ -67,7 +65,8 @@ public final class SoundLoader {
 			clip = getClip();
 
 			clip.open(dais);
-		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+		}
+		catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
 			e.printStackTrace();
 		}
 
@@ -87,7 +86,8 @@ public final class SoundLoader {
 			clip = (Clip) getLine(info);
 
 			clip.open(ais);
-		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+		}
+		catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
 			e.printStackTrace();
 		}
 

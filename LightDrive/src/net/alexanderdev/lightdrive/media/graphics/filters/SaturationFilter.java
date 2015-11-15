@@ -13,10 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.media.graphics.filters;
 
-import static net.alexanderdev.lightdrive.media.graphics.ColorS.mergeARGB;
-import static net.alexanderdev.lightdrive.media.graphics.ColorS.splitARGB;
-import static net.alexanderdev.lightdrive.util.math.MathS.average;
-import static net.alexanderdev.lightdrive.util.math.MathS.clamp;
+import static net.alexanderdev.lightdrive.media.graphics.ColorS.*;
+import static net.alexanderdev.lightdrive.util.math.MathS.*;
 
 /**
  * A filter that applies a saturation effect to the image, with {@code -1f}
@@ -53,7 +51,8 @@ public class SaturationFilter implements ImageSFilter {
 				r += rDiff * factor;
 				g += gDiff * factor;
 				b += bDiff * factor;
-			} else {
+			}
+			else {
 				int avg = (int) average((float) r, (float) g, (float) b);
 
 				int rDiff = avg - r;

@@ -13,7 +13,7 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.media.graphics.filters;
 
-import static net.alexanderdev.lightdrive.media.graphics.ColorS.splitARGB;
+import static net.alexanderdev.lightdrive.media.graphics.ColorS.*;
 
 import net.alexanderdev.lightdrive.media.graphics.ColorS;
 
@@ -30,7 +30,7 @@ public class SpectrumFilter implements ImageSFilter {
 
 	public SpectrumFilter(float dh) {
 		this.dh = dh;
-		
+
 		hue = 0f;
 	}
 

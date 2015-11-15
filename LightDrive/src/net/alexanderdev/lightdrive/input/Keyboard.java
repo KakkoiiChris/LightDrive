@@ -31,41 +31,41 @@ import net.alexanderdev.lightdrive.Internal;
 public final class Keyboard extends KeyAdapter {
 	private static final Key[] KEYS = new Key[525];
 
-	public final Key ESCAPE     = new Key(VK_ESCAPE);
-	public final Key DELETE     = new Key(VK_DELETE);
+	public final Key ESCAPE = new Key(VK_ESCAPE);
+	public final Key DELETE = new Key(VK_DELETE);
 	public final Key BACK_SPACE = new Key(VK_BACK_SPACE);
-	public final Key TAB        = new Key(VK_TAB);
-	public final Key SHIFT      = new Key(VK_SHIFT);
-	public final Key CONTROL    = new Key(VK_CONTROL);
-	public final Key ALT        = new Key(VK_ALT);
-	public final Key SPACE      = new Key(VK_SPACE);
-	public final Key ENTER      = new Key(VK_ENTER);
+	public final Key TAB = new Key(VK_TAB);
+	public final Key SHIFT = new Key(VK_SHIFT);
+	public final Key CONTROL = new Key(VK_CONTROL);
+	public final Key ALT = new Key(VK_ALT);
+	public final Key SPACE = new Key(VK_SPACE);
+	public final Key ENTER = new Key(VK_ENTER);
 
 	public final Key BACK_QUOTE = new Key(VK_BACK_QUOTE);
 
-	public final Key F1  = new Key(VK_F1);
-	public final Key F2  = new Key(VK_F2);
-	public final Key F3  = new Key(VK_F3);
-	public final Key F4  = new Key(VK_F4);
-	public final Key F5  = new Key(VK_F5);
-	public final Key F6  = new Key(VK_F6);
-	public final Key F7  = new Key(VK_F7);
-	public final Key F8  = new Key(VK_F8);
-	public final Key F9  = new Key(VK_F9);
+	public final Key F1 = new Key(VK_F1);
+	public final Key F2 = new Key(VK_F2);
+	public final Key F3 = new Key(VK_F3);
+	public final Key F4 = new Key(VK_F4);
+	public final Key F5 = new Key(VK_F5);
+	public final Key F6 = new Key(VK_F6);
+	public final Key F7 = new Key(VK_F7);
+	public final Key F8 = new Key(VK_F8);
+	public final Key F9 = new Key(VK_F9);
 	public final Key F10 = new Key(VK_F10);
 	public final Key F11 = new Key(VK_F11);
 	public final Key F12 = new Key(VK_F12);
 
-	public final Key ZERO  = new Key(VK_0);
-	public final Key ONE   = new Key(VK_1);
-	public final Key TWO   = new Key(VK_2);
+	public final Key ZERO = new Key(VK_0);
+	public final Key ONE = new Key(VK_1);
+	public final Key TWO = new Key(VK_2);
 	public final Key THREE = new Key(VK_3);
-	public final Key FOUR  = new Key(VK_4);
-	public final Key FIVE  = new Key(VK_5);
-	public final Key SIX   = new Key(VK_6);
+	public final Key FOUR = new Key(VK_4);
+	public final Key FIVE = new Key(VK_5);
+	public final Key SIX = new Key(VK_6);
 	public final Key SEVEN = new Key(VK_7);
 	public final Key EIGHT = new Key(VK_8);
-	public final Key NINE  = new Key(VK_9);
+	public final Key NINE = new Key(VK_9);
 
 	public final Key A = new Key(VK_A);
 	public final Key B = new Key(VK_B);
@@ -94,9 +94,9 @@ public final class Keyboard extends KeyAdapter {
 	public final Key Y = new Key(VK_Y);
 	public final Key Z = new Key(VK_Z);
 
-	public final Key UP    = new Key(VK_UP);
-	public final Key DOWN  = new Key(VK_DOWN);
-	public final Key LEFT  = new Key(VK_LEFT);
+	public final Key UP = new Key(VK_UP);
+	public final Key DOWN = new Key(VK_DOWN);
+	public final Key LEFT = new Key(VK_LEFT);
 	public final Key RIGHT = new Key(VK_RIGHT);
 
 	private static final long SCAN_TIMEOUT = 50;
@@ -181,8 +181,8 @@ public final class Keyboard extends KeyAdapter {
 	public static class Key {
 		private final long TIMEOUT = 50;
 
-		private boolean held     = false;
-		private boolean pressed  = false;
+		private boolean held = false;
+		private boolean pressed = false;
 		private boolean released = false;
 
 		private int keyCode;

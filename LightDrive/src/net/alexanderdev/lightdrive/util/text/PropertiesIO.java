@@ -38,7 +38,8 @@ public class PropertiesIO {
 	public void open() {
 		try {
 			PROPERTIES.load(new FileInputStream(filename));
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -54,7 +55,8 @@ public class PropertiesIO {
 	public void close() {
 		try {
 			PROPERTIES.store(new FileOutputStream(filename), null);
-		} catch (IOException ex) {
+		}
+		catch (IOException ex) {
 			Logger.getLogger(PropertiesIO.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}

@@ -105,7 +105,7 @@ public class Animation {
 	public Style getStyle() {
 		return style;
 	}
-	
+
 	/**
 	 * @return the currFrame
 	 */

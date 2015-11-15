@@ -13,11 +13,7 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.util.math.geom;
 
-import static java.lang.Math.atan2;
-import static java.lang.Math.cos;
-import static java.lang.Math.pow;
-import static java.lang.Math.sin;
-import static java.lang.Math.sqrt;
+import static java.lang.Math.*;
 
 /**
  * A class which represents a 2D vector with float precision. It contains
@@ -312,10 +308,12 @@ public strictfp class VectorD extends PointD implements Comparable<Object> {
 	public boolean equals(Object o) {
 		if (o == this) {
 			return true;
-		} else if (o instanceof VectorD) {
+		}
+		else if (o instanceof VectorD) {
 			VectorD vec = (VectorD) o;
 			return (vec.x == this.x) && (vec.y == this.y);
-		} else if (o instanceof VectorF) {
+		}
+		else if (o instanceof VectorF) {
 			VectorF vec = (VectorF) o;
 			return (vec.x == this.x) && (vec.y == this.y);
 		}

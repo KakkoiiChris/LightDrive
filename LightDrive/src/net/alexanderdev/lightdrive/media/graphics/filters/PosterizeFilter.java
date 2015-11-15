@@ -13,9 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.media.graphics.filters;
 
-import static net.alexanderdev.lightdrive.media.graphics.ColorS.mergeARGB;
-import static net.alexanderdev.lightdrive.media.graphics.ColorS.splitARGB;
-import static net.alexanderdev.lightdrive.util.math.MathS.clamp;
+import static net.alexanderdev.lightdrive.media.graphics.ColorS.*;
+import static net.alexanderdev.lightdrive.util.math.MathS.*;
 
 /**
  * @author Christian Bryce Alexander
@@ -32,7 +31,7 @@ public class PosterizeFilter implements ImageSFilter {
 	public void apply(int[] pixels) {
 		for (int i = 0; i < pixels.length; i++) {
 			int[] argb = splitARGB(pixels[i]);
-			
+
 			int a = argb[0];
 			int r = argb[1];
 			int g = argb[2];
@@ -40,10 +39,10 @@ public class PosterizeFilter implements ImageSFilter {
 
 			r /= levels;
 			r *= levels;
-			
+
 			g /= levels;
 			g *= levels;
-			
+
 			b /= levels;
 			b *= levels;
 

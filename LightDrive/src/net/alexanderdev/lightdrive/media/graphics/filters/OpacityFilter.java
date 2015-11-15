@@ -13,9 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.media.graphics.filters;
 
-import static net.alexanderdev.lightdrive.media.graphics.ColorS.mergeARGB;
-import static net.alexanderdev.lightdrive.media.graphics.ColorS.splitARGB;
-import static net.alexanderdev.lightdrive.util.math.MathS.clamp;
+import static net.alexanderdev.lightdrive.media.graphics.ColorS.*;
+import static net.alexanderdev.lightdrive.util.math.MathS.*;
 
 /**
  * A filter which modifies the alpha levels of the image, with {@code 0f} being
@@ -35,7 +34,7 @@ public class OpacityFilter implements ImageSFilter {
 	public void apply(int[] pixels) {
 		for (int i = 0; i < pixels.length; i++) {
 			int[] argb = splitARGB(pixels[i]);
-			
+
 			int a = argb[0];
 			int r = argb[1];
 			int g = argb[2];

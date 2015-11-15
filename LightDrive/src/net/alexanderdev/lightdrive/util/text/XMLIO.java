@@ -38,7 +38,8 @@ public class XMLIO {
 
 		if (relative) {
 			xml = builder.parse(XMLIO.class.getResourceAsStream(path));
-		} else {
+		}
+		else {
 			xml = builder.parse(new File(path));
 		}
 

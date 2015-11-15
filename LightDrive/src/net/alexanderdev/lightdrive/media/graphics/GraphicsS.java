@@ -211,11 +211,13 @@ public class GraphicsS extends Graphics2D {
 			int nhi = (int) (hi / ratioW);
 
 			draw = new Rectangle(0, (hb / 2) - (nhi / 2), wb, nhi);
-		} else if (ratioW < ratioH) {
+		}
+		else if (ratioW < ratioH) {
 			int nwi = (int) (wi / ratioH);
 
 			draw = new Rectangle((wb / 2) - (nwi / 2), 0, nwi, hb);
-		} else {
+		}
+		else {
 			draw = bounds;
 		}
 

@@ -13,13 +13,9 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.media.graphics.filters;
 
-import static net.alexanderdev.lightdrive.media.graphics.ColorS.mergeARGB;
-import static net.alexanderdev.lightdrive.media.graphics.ColorS.splitARGB;
-import static net.alexanderdev.lightdrive.util.math.MathS.average;
-import static net.alexanderdev.lightdrive.util.math.MathS.clamp;
-import static net.alexanderdev.lightdrive.util.math.MathS.max;
-import static net.alexanderdev.lightdrive.util.math.MathS.min;
-import static net.alexanderdev.lightdrive.util.ArraysS.sort;
+import static net.alexanderdev.lightdrive.media.graphics.ColorS.*;
+import static net.alexanderdev.lightdrive.util.ArraysS.*;
+import static net.alexanderdev.lightdrive.util.math.MathS.*;
 
 /**
  * @author Christian Bryce Alexander

@@ -99,7 +99,8 @@ public class Sound {
 			synchronized (this) {
 				try {
 					this.wait();
-				} catch (Exception e) {
+				}
+				catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -107,7 +108,8 @@ public class Sound {
 			while (intro.isPlaying()) {
 				try {
 					Thread.sleep(5);
-				} catch (InterruptedException e) {
+				}
+				catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
@@ -141,7 +143,8 @@ public class Sound {
 
 			try {
 				introThread.join();
-			} catch (InterruptedException e) {
+			}
+			catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
@@ -152,7 +155,8 @@ public class Sound {
 			try {
 				listening = false;
 				listenerThread.join();
-			} catch (InterruptedException e) {
+			}
+			catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
@@ -215,7 +219,8 @@ public class Sound {
 			dB = Math.max(dB, -80f);
 
 			volume.setValue(dB);
-		} catch (ArithmeticException e) {
+		}
+		catch (ArithmeticException e) {
 			e.printStackTrace();
 		}
 	}
@@ -256,17 +261,20 @@ public class Sound {
 
 					try {
 						Thread.sleep(delay);
-					} catch (InterruptedException e) {
+					}
+					catch (InterruptedException e) {
 					}
 				}
-			} else if (currDB < targetDB) {
+			}
+			else if (currDB < targetDB) {
 				while (currDB < targetDB) {
 					volume.setValue(currDB);
 					currDB += fadePerStep;
 
 					try {
 						Thread.sleep(delay);
-					} catch (InterruptedException e) {
+					}
+					catch (InterruptedException e) {
 					}
 				}
 			}

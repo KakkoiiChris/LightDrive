@@ -35,13 +35,14 @@ public class Display extends JFrame {
 	private static final String DEFAULT_TITLE = "LightDrive";
 	private static final Image DEFAULT_ICON = ImageSLoader.loadPNG("/img/icon");
 
+	private Screen screen;
+
 	private String title;
+
 	private Image icon;
 
 	private boolean showUFC = false;
-	private boolean initNoFrame = false;
-
-	private Screen screen;
+	private boolean showFrame = false;
 
 	/**
 	 * A default 640 x 480 {@code Display}, with a default title and icon
@@ -184,7 +185,7 @@ public class Display extends JFrame {
 	@Internal
 	public void setUFC(int updates, int frames) {
 		if (showUFC)
-			setTitle(String.format(title + "  |  UPS: %s, FPS: %s", updates, frames));
+			setTitle(String.format("%s  |  UPS: %d, FPS: %d", title, updates, frames));
 	}
 
 	/**
@@ -198,7 +199,7 @@ public class Display extends JFrame {
 		add(screen);
 		setFocusable(false);
 		setResizable(false);
-		setUndecorated(initNoFrame);
+		setUndecorated(showFrame);
 		pack();
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

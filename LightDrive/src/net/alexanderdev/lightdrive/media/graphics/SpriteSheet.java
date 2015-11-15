@@ -169,7 +169,8 @@ public class SpriteSheet {
 		for (int i = 0; i < frames.length; i++) {
 			try {
 				frames[i] = getSprite(i);
-			} catch (SpriteOutOfBoundsException e) {
+			}
+			catch (SpriteOutOfBoundsException e) {
 				e.printStackTrace();
 			}
 		}

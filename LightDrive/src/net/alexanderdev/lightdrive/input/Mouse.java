@@ -45,19 +45,19 @@ import net.alexanderdev.lightdrive.util.math.geom.VectorF;
 public final class Mouse implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final Button[] BUTTONS = new Button[16];
 
-	public final Button LEFT_BUTTON   = new Button(BUTTON1);
+	public final Button LEFT_BUTTON = new Button(BUTTON1);
 	public final Button MIDDLE_BUTTON = new Button(BUTTON2);
-	public final Button RIGHT_BUTTON  = new Button(BUTTON3);
+	public final Button RIGHT_BUTTON = new Button(BUTTON3);
 
 	private Point prevPoint = new Point(0, 0);
-	private Point point     = new Point(0, 0);
+	private Point point = new Point(0, 0);
 
-	private boolean inScreen      = false;
-	private boolean isAltDown     = false;
+	private boolean inScreen = false;
+	private boolean isAltDown = false;
 	private boolean isControlDown = false;
-	private boolean isShiftDown   = false;
+	private boolean isShiftDown = false;
 	private boolean wheelRotating = false;
-	private boolean dragging      = false;
+	private boolean dragging = false;
 
 	private int wheelRotation = 0;
 
@@ -72,7 +72,8 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
 
 		try {
 			robot = new Robot();
-		} catch (AWTException e) {
+		}
+		catch (AWTException e) {
 			e.printStackTrace();
 		}
 	}
@@ -90,8 +91,8 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
 	public static class Button {
 		private final long TIMEOUT = 50;
 
-		private boolean held     = false;
-		private boolean pressed  = false;
+		private boolean held = false;
+		private boolean pressed = false;
 		private boolean released = false;
 
 		private int number;
@@ -194,7 +195,7 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
 	}
 
 	private Point getMouseLocation() {
-		Point point    = MouseInfo.getPointerInfo().getLocation();
+		Point point = MouseInfo.getPointerInfo().getLocation();
 		Point location = screen.getLocationOnScreen();
 
 		point.x -= location.x;
@@ -344,9 +345,9 @@ public final class Mouse implements MouseListener, MouseMotionListener, MouseWhe
 	}
 
 	private void setModifiers(MouseEvent e) {
-		isAltDown     = e.isAltDown();
+		isAltDown = e.isAltDown();
 		isControlDown = e.isControlDown();
-		isShiftDown   = e.isShiftDown();
+		isShiftDown = e.isShiftDown();
 	}
 
 	@Internal

@@ -44,7 +44,8 @@ public final class ImageSLoader {
 
 		try {
 			image = ImageIO.read(ImageSLoader.class.getResource(path + filename));
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 

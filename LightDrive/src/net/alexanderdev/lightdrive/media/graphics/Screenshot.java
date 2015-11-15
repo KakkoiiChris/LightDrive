@@ -43,7 +43,8 @@ public final class Screenshot {
 		try {
 			File outputfile = new File(path + name + "." + format);
 			ImageIO.write(image, format, outputfile);
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

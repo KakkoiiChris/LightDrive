@@ -51,21 +51,21 @@ import net.alexanderdev.lightdrive.state.StateManager;
 public class Screen extends Canvas implements Runnable {
 	private static final long serialVersionUID = -8708004611699503479L;
 
-	private static final int DEFAULT_WIDTH  = 640;
+	private static final int DEFAULT_WIDTH = 640;
 	private static final int DEFAULT_HEIGHT = 480;
-	private static final int DEFAULT_SCALE  = 1;
+	private static final int DEFAULT_SCALE = 1;
 
 	private static final double DEFAULT_FPS = 60.0;
 
-	public static final int ANTIALIAS_NONE   = 0x0;
+	public static final int ANTIALIAS_NONE = 0x0;
 	public static final int ANTIALIAS_SHAPES = 0x1;
-	public static final int ANTIALIAS_TEXT   = 0x2;
-	public static final int ANTIALIAS_BOTH   = 0x3;
+	public static final int ANTIALIAS_TEXT = 0x2;
+	public static final int ANTIALIAS_BOTH = 0x3;
 
 	/**
 	 * The default system cursor
 	 */
-	public static final Cursor DEFAULT_CURSOR   = new Cursor(Cursor.DEFAULT_CURSOR);
+	public static final Cursor DEFAULT_CURSOR = new Cursor(Cursor.DEFAULT_CURSOR);
 	/**
 	 * The crosshair cursor
 	 */
@@ -73,15 +73,15 @@ public class Screen extends Canvas implements Runnable {
 	/**
 	 * The loading cursor
 	 */
-	public static final Cursor WAIT_CURSOR      = new Cursor(Cursor.WAIT_CURSOR);
+	public static final Cursor WAIT_CURSOR = new Cursor(Cursor.WAIT_CURSOR);
 	/**
 	 * The hand cursor
 	 */
-	public static final Cursor HAND_CURSOR      = new Cursor(Cursor.HAND_CURSOR);
+	public static final Cursor HAND_CURSOR = new Cursor(Cursor.HAND_CURSOR);
 	/**
 	 * The movement cursor
 	 */
-	public static final Cursor MOVE_CURSOR      = new Cursor(Cursor.MOVE_CURSOR);
+	public static final Cursor MOVE_CURSOR = new Cursor(Cursor.MOVE_CURSOR);
 	/**
 	 * An invisible cursor
 	 */
@@ -89,8 +89,8 @@ public class Screen extends Canvas implements Runnable {
 
 	private Display display = null;
 
-	private Keyboard  keyboard = null;
-	private Mouse     mouse    = null;
+	private Keyboard keyboard = null;
+	private Mouse mouse = null;
 	private Gamepad[] gamepads = null;
 
 	private int rWidth;
@@ -102,11 +102,11 @@ public class Screen extends Canvas implements Runnable {
 	private Thread thread;
 	private ImageS screen;
 
-	private boolean running      = false;
+	private boolean running = false;
 	private boolean lockCursorIn = false;
-	private boolean useKeyboard  = false;
-	private boolean useMouse     = false;
-	private boolean useGamepad   = false;
+	private boolean useKeyboard = false;
+	private boolean useMouse = false;
+	private boolean useGamepad = false;
 
 	private Map<RenderingHints.Key, Object> renderHints = new HashMap<>();
 
@@ -179,9 +179,9 @@ public class Screen extends Canvas implements Runnable {
 	 *            The icon to set
 	 */
 	public Screen(int width, int height, int scale, double fps) {
-		this.rWidth  = width;
+		this.rWidth = width;
 		this.rHeight = height;
-		this.scale   = scale;
+		this.scale = scale;
 
 		this.fps = fps;
 
@@ -301,7 +301,8 @@ public class Screen extends Canvas implements Runnable {
 				keyboard = new Keyboard();
 
 			addKeyListener(keyboard);
-		} else {
+		}
+		else {
 			if (keyboard != null)
 				removeKeyListener(keyboard);
 		}
@@ -317,7 +318,8 @@ public class Screen extends Canvas implements Runnable {
 			addMouseListener(mouse);
 			addMouseMotionListener(mouse);
 			addMouseWheelListener(mouse);
-		} else {
+		}
+		else {
 			if (mouse != null) {
 				removeMouseListener(mouse);
 				removeMouseMotionListener(mouse);
@@ -335,7 +337,8 @@ public class Screen extends Canvas implements Runnable {
 
 			for (Gamepad gp : gamepads)
 				gp.start();
-		} else {
+		}
+		else {
 			if (gamepads != null)
 				for (Gamepad gp : gamepads)
 					gp.stop();
@@ -412,7 +415,7 @@ public class Screen extends Canvas implements Runnable {
 	@Internal
 	@Override
 	public void run() {
-		long last  = nsTime();
+		long last = nsTime();
 		long timer = msTime();
 
 		final double NS = 1000000000.0 / fps;
@@ -420,7 +423,7 @@ public class Screen extends Canvas implements Runnable {
 		double delta = 0;
 
 		int updates = 0;
-		int frames  = 0;
+		int frames = 0;
 
 		while (running) {
 			boolean shouldRender = false;

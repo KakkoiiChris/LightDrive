@@ -13,7 +13,7 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.input;
 
-import static net.alexanderdev.lightdrive.util.Time.msTime;
+import static net.alexanderdev.lightdrive.util.Time.*;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -36,35 +36,35 @@ import net.java.games.input.Controller;
  */
 public final class Gamepad implements Runnable {
 	private final Map<String, String> BUTTON_NAMES = new HashMap<>();
-	private final Map<String, Button> ALL_BUTTONS  = new HashMap<>();
+	private final Map<String, Button> ALL_BUTTONS = new HashMap<>();
 
 	private final List<String> BUTTON_COMBO = new ArrayList<>();
 
-	public final Button A_BUTTON     = new Button("0");
-	public final Button B_BUTTON     = new Button("1");
-	public final Button X_BUTTON     = new Button("2");
-	public final Button Y_BUTTON     = new Button("3");
-	public final Button LEFT_BUMPER  = new Button("4");
+	public final Button A_BUTTON = new Button("0");
+	public final Button B_BUTTON = new Button("1");
+	public final Button X_BUTTON = new Button("2");
+	public final Button Y_BUTTON = new Button("3");
+	public final Button LEFT_BUMPER = new Button("4");
 	public final Button RIGHT_BUMPER = new Button("5");
-	public final Button BACK         = new Button("6");
-	public final Button START        = new Button("7");
-	public final Button LEFT_THUMB   = new Button("8");
-	public final Button RIGHT_THUMB  = new Button("9");
-	public final Button UP           = new Button("povUp");
-	public final Button DOWN         = new Button("povDown");
-	public final Button LEFT         = new Button("povLeft");
-	public final Button RIGHT        = new Button("povRight");
+	public final Button BACK = new Button("6");
+	public final Button START = new Button("7");
+	public final Button LEFT_THUMB = new Button("8");
+	public final Button RIGHT_THUMB = new Button("9");
+	public final Button UP = new Button("povUp");
+	public final Button DOWN = new Button("povDown");
+	public final Button LEFT = new Button("povLeft");
+	public final Button RIGHT = new Button("povRight");
 
 	private final Map<String, String> STICK_NAMES = new HashMap<>();
-	private final Map<String, Stick>  ALL_STICKS  = new HashMap<>();
+	private final Map<String, Stick> ALL_STICKS = new HashMap<>();
 
-	public final Stick LEFT_STICK  = new Stick("Axis");
+	public final Stick LEFT_STICK = new Stick("Axis");
 	public final Stick RIGHT_STICK = new Stick("Rotation");
 
-	private final Map<String, String>  TRIGGER_NAMES = new HashMap<>();
-	private final Map<String, Trigger> ALL_TRIGGERS  = new HashMap<>();
+	private final Map<String, String> TRIGGER_NAMES = new HashMap<>();
+	private final Map<String, Trigger> ALL_TRIGGERS = new HashMap<>();
 
-	public final Trigger LEFT_TRIGGER  = new Trigger("leftTrig");
+	public final Trigger LEFT_TRIGGER = new Trigger("leftTrig");
 	public final Trigger RIGHT_TRIGGER = new Trigger("rightTrig");
 
 	public static final String[] KONAMI_CODE = {
@@ -87,26 +87,26 @@ public final class Gamepad implements Runnable {
 	private static float deadZone = 0f;
 
 	{
-		addButton("a",            A_BUTTON);
-		addButton("b",            B_BUTTON);
-		addButton("x",            X_BUTTON);
-		addButton("y",            Y_BUTTON);
-		addButton("left bumper",  LEFT_BUMPER);
+		addButton("a", A_BUTTON);
+		addButton("b", B_BUTTON);
+		addButton("x", X_BUTTON);
+		addButton("y", Y_BUTTON);
+		addButton("left bumper", LEFT_BUMPER);
 		addButton("right bumper", RIGHT_BUMPER);
-		addButton("back",         BACK);
-		addButton("start",        START);
-		addButton("left thumb",   LEFT_THUMB);
-		addButton("right thumb",  RIGHT_THUMB);
+		addButton("back", BACK);
+		addButton("start", START);
+		addButton("left thumb", LEFT_THUMB);
+		addButton("right thumb", RIGHT_THUMB);
 
-		addButton("pov up",    UP);
-		addButton("pov down",  DOWN);
-		addButton("pov left",  LEFT);
+		addButton("pov up", UP);
+		addButton("pov down", DOWN);
+		addButton("pov left", LEFT);
 		addButton("pov right", RIGHT);
 
-		addStick("left stick",  LEFT_STICK);
+		addStick("left stick", LEFT_STICK);
 		addStick("right stick", RIGHT_STICK);
 
-		addTrigger("left trigger",  LEFT_TRIGGER);
+		addTrigger("left trigger", LEFT_TRIGGER);
 		addTrigger("right trigger", RIGHT_TRIGGER);
 	}
 
@@ -126,8 +126,8 @@ public final class Gamepad implements Runnable {
 	public static class Button {
 		private final long TIMEOUT = 50;
 
-		private boolean held     = false;
-		private boolean pressed  = false;
+		private boolean held = false;
+		private boolean pressed = false;
 		private boolean released = false;
 
 		// private String name;
@@ -412,7 +412,7 @@ public final class Gamepad implements Runnable {
 		running = true;
 
 		thread = new Thread(this, "ld_gamepad_" + number);
-		
+
 		thread.start();
 	}
 
@@ -425,7 +425,8 @@ public final class Gamepad implements Runnable {
 
 		try {
 			thread.join();
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
@@ -440,13 +441,14 @@ public final class Gamepad implements Runnable {
 			}
 
 			for (Component component : controller.getComponents()) {
-				String name       = component.getName();
+				String name = component.getName();
 				String identifier = component.getIdentifier().getName();
-				float  data       = component.getPollData();
+				float data = component.getPollData();
 
 				if (name.startsWith("Button")) {
 					ALL_BUTTONS.get(BUTTON_NAMES.get(identifier)).toggle(data == 1.0);
-				} else if (name.startsWith("Hat")) {
+				}
+				else if (name.startsWith("Hat")) {
 					Point pov = getPOV(data);
 
 					if (pov.x != lastPovX || pov.y != lastPovY) {
@@ -458,7 +460,8 @@ public final class Gamepad implements Runnable {
 						lastPovX = pov.x;
 						lastPovY = pov.y;
 					}
-				} else if (name.contains("Axis")) {
+				}
+				else if (name.contains("Axis")) {
 					if (name.contains("X"))
 						ALL_STICKS.get(STICK_NAMES.get("Axis")).setX(data);
 					else if (name.contains("Y"))
@@ -468,7 +471,8 @@ public final class Gamepad implements Runnable {
 							ALL_TRIGGERS.get(TRIGGER_NAMES.get("leftTrig")).setMagnitude(Math.abs(data));
 						else
 							ALL_TRIGGERS.get(TRIGGER_NAMES.get("rightTrig")).setMagnitude(Math.abs(data));
-				} else if (name.contains("Rotation")) {
+				}
+				else if (name.contains("Rotation")) {
 					if (name.contains("X"))
 						ALL_STICKS.get(STICK_NAMES.get("Rotation")).setX(data);
 					else if (name.contains("Y"))

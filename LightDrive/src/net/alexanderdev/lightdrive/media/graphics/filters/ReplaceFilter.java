@@ -44,7 +44,7 @@ public class ReplaceFilter implements ImageSFilter {
 				continue;
 
 			int v = (int) ((average(argb[1], argb[2], argb[3]) + 1) / (256 / (values.length - 1)));
-			
+
 			pixels[i] = values[v];
 		}
 	}

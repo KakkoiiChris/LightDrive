@@ -13,8 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.util;
 
-import static java.lang.System.arraycopy;
-import static net.alexanderdev.lightdrive.util.math.MathS.randomInt;
+import static java.lang.System.*;
+import static net.alexanderdev.lightdrive.util.math.MathS.*;
 
 /**
  * @author Christian Bryce Alexander

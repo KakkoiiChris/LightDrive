@@ -13,8 +13,7 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.media.graphics.filters;
 
-import static net.alexanderdev.lightdrive.media.graphics.ColorS.mergeARGB;
-import static net.alexanderdev.lightdrive.media.graphics.ColorS.splitARGB;
+import static net.alexanderdev.lightdrive.media.graphics.ColorS.*;
 
 /**
  * A filter which inverts the RGB values of each pixel.

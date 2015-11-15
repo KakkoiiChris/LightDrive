@@ -50,12 +50,15 @@ public class TextIO {
 			while ((line = reader.readLine()) != null) {
 				lines.add(line);
 			}
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
-		} finally {
+		}
+		finally {
 			try {
 				reader.close();
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -82,12 +85,15 @@ public class TextIO {
 				writer.write(line);
 				writer.newLine();
 			}
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
-		} finally {
+		}
+		finally {
 			try {
 				writer.close();
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

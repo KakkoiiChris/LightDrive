@@ -102,9 +102,9 @@ public class ImageS extends BufferedImage {
 
 	public final ImageS filtered(ImageSFilter... filters) {
 		ImageS copy = new ImageS(this);
-		
+
 		copy.filter(filters);
-		
+
 		return copy;
 	}
 }

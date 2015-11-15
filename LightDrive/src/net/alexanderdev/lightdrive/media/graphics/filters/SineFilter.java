@@ -13,7 +13,7 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.media.graphics.filters;
 
-import static net.alexanderdev.lightdrive.util.math.MathS.wrap;
+import static net.alexanderdev.lightdrive.util.math.MathS.*;
 
 import net.alexanderdev.lightdrive.util.ArraysS;
 
