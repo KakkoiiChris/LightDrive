@@ -550,67 +550,55 @@ public final strictfp class MathS {
 	}
 
 	public static byte wrap(byte value, byte min, byte max) {
-		byte range = (byte) (max - min);
-
 		if (value > max)
-			value -= range;
+			value = min;
 		else if (value < min)
-			value += range;
+			value = max;
 
 		return value;
 	}
 
 	public static short wrap(short value, short min, short max) {
-		short range = (short) (max - min);
-
 		if (value > max)
-			value -= range;
+			value = min;
 		else if (value < min)
-			value += range;
+			value = max;
 
 		return value;
 	}
 
 	public static int wrap(int value, int min, int max) {
-		int range = max - min;
-
 		if (value > max)
-			value -= range;
+			value = min;
 		else if (value < min)
-			value += range;
+			value = max;
 
 		return value;
 	}
 
 	public static long wrap(long value, long min, long max) {
-		long range = max - min;
-
 		if (value > max)
-			value -= range;
+			value = min;
 		else if (value < min)
-			value += range;
+			value = max;
 
 		return value;
 	}
 
 	public static float wrap(float value, float min, float max) {
-		float range = max - min;
-
 		if (value > max)
-			value -= range;
+			value = min;
 		else if (value < min)
-			value += range;
+			value = max;
 
 		return value;
 	}
 
 	public static double wrap(double value, double min, double max) {
-		double range = max - min;
-
 		if (value > max)
-			value -= range;
+			value = min;
 		else if (value < min)
-			value += range;
+			value = max;
 
 		return value;
 	}

@@ -11,37 +11,34 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.state;
-
-import net.alexanderdev.lightdrive.graphics.GraphicsS;
-import net.alexanderdev.lightdrive.graphics.ImageS;
-import net.alexanderdev.lightdrive.graphics.ImageSLoader;
+package net.alexanderdev.lightdrive.util;
 
 /**
  * @author Christian Bryce Alexander
- * @since May 19, 2015 | 11:23:47 PM
+ * @since Dec 11, 2015, 2:33:44 AM
  */
-public final class DefaultState extends State {
-	private ImageS splash;
-
-	public DefaultState() {
-		splash = ImageSLoader.loadPNG("/img/splash640x480");
+public class Pixel {
+	public static int getColor(int a, int r, int g, int b) {
+		return (a << 24) | (r << 16) | (g << 8) | b;
 	}
 
-	@Override
-	public void switchIn() {
+	public static int getColor(float a, float r, float g, float b) {
+		return getColor((int) (a * 0xff), (int) (r * 0xff), (int) (g * 0xff), (int) (b * 0xff));
 	}
 
-	@Override
-	public void switchOut() {
+	public static int getAlpha(int color) {
+		return (color >> 24) & 0xff;
 	}
 
-	@Override
-	public void update(double delta) {
+	public static int getRed(int color) {
+		return (color >> 16) & 0xff;
 	}
 
-	@Override
-	public void render(GraphicsS g) {
-		g.drawCenteredImage(splash, getManager().getView().getViewBounds());
+	public static int getGreen(int color) {
+		return (color >> 8) & 0xff;
+	}
+
+	public static int getBlue(int color) {
+		return color & 0xff;
 	}
 }

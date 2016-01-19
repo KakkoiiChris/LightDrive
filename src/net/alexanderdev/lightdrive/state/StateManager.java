@@ -16,14 +16,15 @@ package net.alexanderdev.lightdrive.state;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.alexanderdev.lightdrive.Internal;
+import net.alexanderdev.lightdrive.InternalMethod;
+import net.alexanderdev.lightdrive.graphics.GraphicsS;
+import net.alexanderdev.lightdrive.graphics.Renderable;
 import net.alexanderdev.lightdrive.input.Controllable;
 import net.alexanderdev.lightdrive.input.Gamepad;
 import net.alexanderdev.lightdrive.input.Keyboard;
 import net.alexanderdev.lightdrive.input.Mouse;
-import net.alexanderdev.lightdrive.media.graphics.GraphicsS;
-import net.alexanderdev.lightdrive.media.graphics.Renderable;
-import net.alexanderdev.lightdrive.media.graphics.Screen;
+import net.alexanderdev.lightdrive.util.UID;
+import net.alexanderdev.lightdrive.view.Viewable;
 
 /**
  * A class that the display uses to separate different states of the game from
@@ -33,103 +34,87 @@ import net.alexanderdev.lightdrive.media.graphics.Screen;
  * @since March 6, 2015 | 3:03:32 AM
  */
 public class StateManager implements Renderable, Controllable {
-	private final String DEFAULT = "@ld_default_state";
+	private static final String DEFAULT_STATE = "quixel_default_state";
 
 	private final Map<String, State> STATES = new HashMap<>();
 
-	private State currState;
+	private State currentState;
 
-	private Screen screen;
+	private Viewable view;
 
-	public StateManager(Screen screen) {
-		this.screen = screen;
+	public StateManager(Viewable view) {
+		this.view = view;
 
-		addState(DEFAULT, new DefaultState());
+		addState(DEFAULT_STATE, new DefaultState());
 
-		currState = STATES.get(DEFAULT);
+		setInitialState(DEFAULT_STATE);
 	}
 
-	/**
-	 * Registers a {@code GameState} with this {@code StateManager} by mapping
-	 * it to a given name.
-	 * 
-	 * @param name
-	 *            The name to map the {@code GameState} to
-	 * @param state
-	 *            The {@code GameState} to register with this
-	 *            {@code StateManager}
-	 */
-	public void addState(String name, State state) {
-		if (STATES.containsKey(DEFAULT))
-			STATES.remove(DEFAULT);
+	public Viewable getView() {
+		return view;
+	}
 
+	public void addState(String name, State state) {
 		state.setManager(this);
 
 		STATES.put(name, state);
 	}
 
-	/**
-	 * Sets the first {@code GameState} this {@code StateManager} will handle
-	 * 
-	 * @param name
-	 *            The name of the {@code GameState} to set
-	 */
+	public String addState(State state) {
+		String uid = UID.generateUUID();
+
+		addState(uid, state);
+
+		return uid;
+	}
+
 	public void setInitialState(String name) {
-		if (STATES.get(name) != null)
-			currState = STATES.get(name);
+		currentState = STATES.get(name);
 	}
 
-	/**
-	 * Switches the {@code GameState} this {@code StateManager} handles
-	 * 
-	 * @param name
-	 *            The name of the {@code GameState} to switch to
-	 */
 	public void switchState(String name) {
-		currState.switchOut();
+		if (currentState != null)
+			currentState.switchOut();
 
-		if (STATES.get(name) != null)
-			currState = STATES.get(name);
+		currentState = STATES.get(name);
 
-		currState.switchIn();
+		if (currentState != null)
+			currentState.switchIn();
 	}
 
-	public Screen getScreen() {
-		return screen;
-	}
-
-	@Internal
-	public final void init() {
-		currState.switchIn();
-	}
-
-	@Internal
-	@Override
-	public final void update(double delta) {
-		currState.update(delta);
-	}
-
-	@Internal
-	@Override
-	public final void render(GraphicsS g) {
-		currState.render(g);
-	}
-
-	@Internal
-	@Override
+	@InternalMethod
 	public final void keyboardInput(Keyboard keyboard) {
-		currState.keyboardInput(keyboard);
+		if (currentState != null)
+			currentState.keyboardInput(keyboard);
 	}
 
-	@Internal
-	@Override
+	@InternalMethod
 	public final void mouseInput(Mouse mouse) {
-		currState.mouseInput(mouse);
+		if (currentState != null)
+			currentState.mouseInput(mouse);
 	}
 
-	@Internal
-	@Override
+	@InternalMethod
 	public final void gamepadInput(Gamepad gamepad) {
-		currState.gamepadInput(gamepad);
+		if (currentState != null)
+			currentState.gamepadInput(gamepad);
+	}
+
+	@InternalMethod
+	public final void init() {
+		if (currentState != null)
+			currentState.switchIn();
+	}
+
+	@Override
+	public void update(double delta) {
+		if (currentState != null)
+			currentState.update(delta);
+	}
+
+	@Override
+	public void render(GraphicsS g) {
+		if (currentState != null)
+			currentState.render(g);
 	}
 }

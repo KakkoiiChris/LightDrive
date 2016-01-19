@@ -16,7 +16,7 @@ package net.alexanderdev.lightdrive.input;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.alexanderdev.lightdrive.Internal;
+import net.alexanderdev.lightdrive.InternalMethod;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 
@@ -30,12 +30,14 @@ import net.java.games.input.ControllerEnvironment;
 public final class GamepadFinder {
 	private static boolean found = false;
 
-	@Internal
+	@InternalMethod
 	public static Gamepad[] getGamepads() {
 		Controller[] allControllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
 
 		if (allControllers.length > 0)
 			found = true;
+		else
+			return null;
 
 		List<Gamepad> gamepads = new ArrayList<>();
 

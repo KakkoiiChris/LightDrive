@@ -11,37 +11,16 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.state;
+package net.alexanderdev.lightdrive;
 
-import net.alexanderdev.lightdrive.graphics.GraphicsS;
-import net.alexanderdev.lightdrive.graphics.ImageS;
-import net.alexanderdev.lightdrive.graphics.ImageSLoader;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
 
 /**
  * @author Christian Bryce Alexander
- * @since May 19, 2015 | 11:23:47 PM
+ * @since Jan 19, 2016, 2:01:36 AM
  */
-public final class DefaultState extends State {
-	private ImageS splash;
+@Target(ElementType.METHOD)
+public @interface InternalMethod {
 
-	public DefaultState() {
-		splash = ImageSLoader.loadPNG("/img/splash640x480");
-	}
-
-	@Override
-	public void switchIn() {
-	}
-
-	@Override
-	public void switchOut() {
-	}
-
-	@Override
-	public void update(double delta) {
-	}
-
-	@Override
-	public void render(GraphicsS g) {
-		g.drawCenteredImage(splash, getManager().getView().getViewBounds());
-	}
 }

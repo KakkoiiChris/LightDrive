@@ -17,10 +17,16 @@ import static java.lang.System.*;
 import static net.alexanderdev.lightdrive.util.math.MathS.*;
 
 /**
+ * A collection of static methods to manipulate standard java arrays.
+ * 
  * @author Christian Bryce Alexander
  * @since Jul 28, 2015 | 1:33:15 PM
  */
 public class ArraysS {
+	/**
+	 * @return An array of booleans with the contents of each supplied array in
+	 *         sequential order.
+	 */
 	public static boolean[] concat(boolean[]... arrays) {
 		int length = 0;
 
@@ -38,6 +44,10 @@ public class ArraysS {
 		return dst;
 	}
 
+	/**
+	 * @return An array of bytes with the contents of each supplied array in
+	 *         sequential order.
+	 */
 	public static byte[] concat(byte[]... arrays) {
 		int length = 0;
 
@@ -55,6 +65,10 @@ public class ArraysS {
 		return dst;
 	}
 
+	/**
+	 * @return An array of chars with the contents of each supplied array in
+	 *         sequential order.
+	 */
 	public static char[] concat(char[]... arrays) {
 		int length = 0;
 
@@ -72,6 +86,10 @@ public class ArraysS {
 		return dst;
 	}
 
+	/**
+	 * @return An array of doubles with the contents of each supplied array in
+	 *         sequential order.
+	 */
 	public static double[] concat(double[]... arrays) {
 		int length = 0;
 
@@ -89,6 +107,10 @@ public class ArraysS {
 		return dst;
 	}
 
+	/**
+	 * @return An array of floats with the contents of each supplied array in
+	 *         sequential order.
+	 */
 	public static float[] concat(float[]... arrays) {
 		int length = 0;
 
@@ -106,6 +128,10 @@ public class ArraysS {
 		return dst;
 	}
 
+	/**
+	 * @return An array of ints with the contents of each supplied array in
+	 *         sequential order.
+	 */
 	public static int[] concat(int[]... arrays) {
 		int length = 0;
 
@@ -123,6 +149,10 @@ public class ArraysS {
 		return dst;
 	}
 
+	/**
+	 * @return An array of longs with the contents of each supplied array in
+	 *         sequential order.
+	 */
 	public static long[] concat(long[]... arrays) {
 		int length = 0;
 
@@ -140,6 +170,10 @@ public class ArraysS {
 		return dst;
 	}
 
+	/**
+	 * @return An array of Objects with the contents of each supplied array in
+	 *         sequential order.
+	 */
 	public static Object[] concat(Object[]... arrays) {
 		int length = 0;
 
@@ -157,6 +191,10 @@ public class ArraysS {
 		return dst;
 	}
 
+	/**
+	 * @return An array of shorts with the contents of each supplied array in
+	 *         sequential order.
+	 */
 	public static short[] concat(short[]... arrays) {
 		int length = 0;
 
@@ -174,6 +212,10 @@ public class ArraysS {
 		return dst;
 	}
 
+	/**
+	 * @return An array of Strings with the contents of each supplied array in
+	 *         sequential order.
+	 */
 	public static String[] concat(String[]... arrays) {
 		int length = 0;
 
@@ -191,186 +233,254 @@ public class ArraysS {
 		return dst;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of booleans
+	 */
 	public static boolean[] copy(boolean... src) {
 		boolean[] dst = new boolean[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of bytes
+	 */
 	public static byte[] copy(byte... src) {
 		byte[] dst = new byte[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of chars
+	 */
 	public static char[] copy(char... src) {
 		char[] dst = new char[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of doubles
+	 */
 	public static double[] copy(double... src) {
 		double[] dst = new double[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of floats
+	 */
 	public static float[] copy(float... src) {
 		float[] dst = new float[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of ints
+	 */
 	public static int[] copy(int... src) {
 		int[] dst = new int[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of longs
+	 */
 	public static long[] copy(long... src) {
 		long[] dst = new long[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of Objects
+	 */
 	public static Object[] copy(Object... src) {
 		Object[] dst = new Object[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of shorts
+	 */
 	public static short[] copy(short... src) {
 		short[] dst = new short[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of Strings
+	 */
 	public static String[] copy(String... src) {
 		String[] dst = new String[src.length];
 		arraycopy(src, 0, dst, 0, src.length);
 		return dst;
 	}
 
-	public static boolean[] remove(boolean[] booleans, int i) {
+	/**
+	 * @return A copy of the supplied array of booleans with the nth value
+	 *         removed
+	 */
+	public static boolean[] remove(boolean[] booleans, int n) {
 		boolean[] list = new boolean[booleans.length - 1];
 
 		int t = 0;
 
-		for (int j = 0; j < booleans.length; j++)
-			if (j != i)
-				list[t++] = booleans[j];
+		for (int i = 0; i < booleans.length; i++)
+			if (i != n)
+				list[t++] = booleans[i];
 
 		return list;
 	}
 
-	public static byte[] remove(byte[] bytes, int i) {
+	/**
+	 * @return A copy of the supplied array of bytes with the nth value removed
+	 */
+	public static byte[] remove(byte[] bytes, int n) {
 		byte[] list = new byte[bytes.length - 1];
 
 		int t = 0;
 
-		for (int j = 0; j < bytes.length; j++)
-			if (j != i)
-				list[t++] = bytes[j];
+		for (int i = 0; i < bytes.length; i++)
+			if (i != n)
+				list[t++] = bytes[i];
 
 		return list;
 	}
 
-	public static char[] remove(char[] chars, int i) {
+	/**
+	 * @return A copy of the supplied array of chars with the nth value removed
+	 */
+	public static char[] remove(char[] chars, int n) {
 		char[] list = new char[chars.length - 1];
 
 		int t = 0;
 
-		for (int j = 0; j < chars.length; j++)
-			if (j != i)
-				list[t++] = chars[j];
+		for (int i = 0; i < chars.length; i++)
+			if (i != n)
+				list[t++] = chars[i];
 
 		return list;
 	}
 
-	public static double[] remove(double[] doubles, int i) {
+	/**
+	 * @return A copy of the supplied array of doubles with the nth value
+	 *         removed
+	 */
+	public static double[] remove(double[] doubles, int n) {
 		double[] list = new double[doubles.length - 1];
 
 		int t = 0;
 
-		for (int j = 0; j < doubles.length; j++)
-			if (j != i)
-				list[t++] = doubles[j];
+		for (int i = 0; i < doubles.length; i++)
+			if (i != n)
+				list[t++] = doubles[i];
 
 		return list;
 	}
 
-	public static float[] remove(float[] floats, int i) {
+	/**
+	 * @return A copy of the supplied array of floats with the nth value removed
+	 */
+	public static float[] remove(float[] floats, int n) {
 		float[] list = new float[floats.length - 1];
 
 		int t = 0;
 
-		for (int j = 0; j < floats.length; j++)
-			if (j != i)
-				list[t++] = floats[j];
+		for (int i = 0; i < floats.length; i++)
+			if (i != n)
+				list[t++] = floats[i];
 
 		return list;
 	}
 
-	public static int[] remove(int[] ints, int i) {
+	/**
+	 * @return A copy of the supplied array of ints with the nth value removed
+	 */
+	public static int[] remove(int[] ints, int n) {
 		int[] list = new int[ints.length - 1];
 
 		int t = 0;
 
-		for (int j = 0; j < ints.length; j++)
-			if (j != i)
-				list[t++] = ints[j];
+		for (int i = 0; i < ints.length; i++)
+			if (i != n)
+				list[t++] = ints[i];
 
 		return list;
 	}
 
-	public static long[] remove(long[] longs, int i) {
+	/**
+	 * @return A copy of the supplied array of longs with the nth value removed
+	 */
+	public static long[] remove(long[] longs, int n) {
 		long[] list = new long[longs.length - 1];
 
 		int t = 0;
 
-		for (int j = 0; j < longs.length; j++)
-			if (j != i)
-				list[t++] = longs[j];
+		for (int i = 0; i < longs.length; i++)
+			if (i != n)
+				list[t++] = longs[i];
 
 		return list;
 	}
 
-	public static Object[] remove(Object[] objects, int i) {
+	/**
+	 * @return A copy of the supplied array of Objects with the nth value
+	 *         removed
+	 */
+	public static Object[] remove(Object[] objects, int n) {
 		Object[] list = new Object[objects.length - 1];
 
 		int t = 0;
 
-		for (int j = 0; j < objects.length; j++)
-			if (j != i)
-				list[t++] = objects[j];
+		for (int i = 0; i < objects.length; i++)
+			if (i != n)
+				list[t++] = objects[i];
 
 		return list;
 	}
 
-	public static short[] remove(short[] shorts, int i) {
+	/**
+	 * @return A copy of the supplied array of shorts with the nth value removed
+	 */
+	public static short[] remove(short[] shorts, int n) {
 		short[] list = new short[shorts.length - 1];
 
 		int t = 0;
 
-		for (int j = 0; j < shorts.length; j++)
-			if (j != i)
-				list[t++] = shorts[j];
+		for (int i = 0; i < shorts.length; i++)
+			if (i != n)
+				list[t++] = shorts[i];
 
 		return list;
 	}
 
-	public static String[] remove(String[] strings, int i) {
+	/**
+	 * @return A copy of the supplied array of Strings with the nth value
+	 *         removed
+	 */
+	public static String[] remove(String[] strings, int n) {
 		String[] list = new String[strings.length - 1];
 
 		int t = 0;
 
-		for (int j = 0; j < strings.length; j++)
-			if (j != i)
-				list[t++] = strings[j];
+		for (int i = 0; i < strings.length; i++)
+			if (i != n)
+				list[t++] = strings[i];
 
 		return list;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of booleans with its values
+	 *         reversed
+	 */
 	public static boolean[] reverse(boolean... src) {
 		int a = 0;
 		int b = src.length - 1;
@@ -387,6 +497,10 @@ public class ArraysS {
 		return src;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of bytes with its values
+	 *         reversed
+	 */
 	public static byte[] reverse(byte... src) {
 		int a = 0;
 		int b = src.length - 1;
@@ -403,6 +517,10 @@ public class ArraysS {
 		return src;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of chars with its values
+	 *         reversed
+	 */
 	public static char[] reverse(char... src) {
 		int a = 0;
 		int b = src.length - 1;
@@ -419,6 +537,9 @@ public class ArraysS {
 		return src;
 	}
 
+	/**
+	 * @return A copy of the supplied array of doubles with its values reversed
+	 */
 	public static double[] reverse(double... src) {
 		int a = 0;
 		int b = src.length - 1;
@@ -435,6 +556,10 @@ public class ArraysS {
 		return src;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of floats with its values
+	 *         reversed
+	 */
 	public static float[] reverse(float... src) {
 		int a = 0;
 		int b = src.length - 1;
@@ -451,6 +576,10 @@ public class ArraysS {
 		return src;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of ints with its values
+	 *         reversed
+	 */
 	public static int[] reverse(int... src) {
 		int a = 0;
 		int b = src.length - 1;
@@ -467,6 +596,10 @@ public class ArraysS {
 		return src;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of longs with its values
+	 *         reversed
+	 */
 	public static long[] reverse(long... src) {
 		int a = 0;
 		int b = src.length - 1;
@@ -483,6 +616,10 @@ public class ArraysS {
 		return src;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of Objects with its values
+	 *         reversed
+	 */
 	public static Object[] reverse(Object... src) {
 		int a = 0;
 		int b = src.length - 1;
@@ -499,6 +636,10 @@ public class ArraysS {
 		return src;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of shorts with its values
+	 *         reversed
+	 */
 	public static short[] reverse(short... src) {
 		int a = 0;
 		int b = src.length - 1;
@@ -515,6 +656,10 @@ public class ArraysS {
 		return src;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of Strings with its values
+	 *         reversed
+	 */
 	public static String[] reverse(String... src) {
 		int a = 0;
 		int b = src.length - 1;
@@ -531,6 +676,10 @@ public class ArraysS {
 		return src;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of bytes with its values
+	 *         shuffled
+	 */
 	public static byte[] shuffle(byte... bytes) {
 		for (int a = bytes.length - 1; a > 0; a--) {
 			int b = randomInt(a);
@@ -543,6 +692,10 @@ public class ArraysS {
 		return bytes;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of chars with its values
+	 *         shuffled
+	 */
 	public static char[] shuffle(char... chars) {
 		for (int a = chars.length - 1; a > 0; a--) {
 			int b = randomInt(a);
@@ -555,6 +708,10 @@ public class ArraysS {
 		return chars;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of doubles with its values
+	 *         shuffled
+	 */
 	public static double[] shuffle(double... doubles) {
 		for (int a = doubles.length - 1; a > 0; a--) {
 			int b = randomInt(a);
@@ -567,6 +724,10 @@ public class ArraysS {
 		return doubles;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of floats with its values
+	 *         shuffled
+	 */
 	public static float[] shuffle(float... floats) {
 		for (int a = floats.length - 1; a > 0; a--) {
 			int b = randomInt(a);
@@ -579,6 +740,10 @@ public class ArraysS {
 		return floats;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of ints with its values
+	 *         shuffled
+	 */
 	public static int[] shuffle(int... ints) {
 		for (int a = ints.length - 1; a > 0; a--) {
 			int b = randomInt(a);
@@ -591,6 +756,10 @@ public class ArraysS {
 		return ints;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of longs with its values
+	 *         shuffled
+	 */
 	public static long[] shuffle(long... longs) {
 		for (int a = longs.length - 1; a > 0; a--) {
 			int b = randomInt(a);
@@ -603,6 +772,10 @@ public class ArraysS {
 		return longs;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of Objects with its values
+	 *         shuffled
+	 */
 	public static Object[] shuffle(Object... objects) {
 		for (int a = objects.length - 1; a > 0; a--) {
 			int b = randomInt(a);
@@ -615,6 +788,10 @@ public class ArraysS {
 		return objects;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of shorts with its values
+	 *         shuffled
+	 */
 	public static short[] shuffle(short... shorts) {
 		for (int a = shorts.length - 1; a > 0; a--) {
 			int b = randomInt(a);
@@ -627,6 +804,10 @@ public class ArraysS {
 		return shorts;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of Strings with its values
+	 *         shuffled
+	 */
 	public static String[] shuffle(String... strings) {
 		for (int a = strings.length - 1; a > 0; a--) {
 			int b = randomInt(a);
@@ -639,6 +820,10 @@ public class ArraysS {
 		return strings;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of bytes with its values
+	 *         sorted
+	 */
 	public static byte[] sort(byte... bytes) {
 		int min;
 		int n = bytes.length;
@@ -661,6 +846,10 @@ public class ArraysS {
 		return bytes;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of chars with its values
+	 *         sorted
+	 */
 	public static char[] sort(char... chars) {
 		int min;
 		int n = chars.length;
@@ -683,6 +872,10 @@ public class ArraysS {
 		return chars;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of doubles with its values
+	 *         sorted
+	 */
 	public static double[] sort(double... doubles) {
 		int min;
 		int n = doubles.length;
@@ -705,6 +898,10 @@ public class ArraysS {
 		return doubles;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of floats with its values
+	 *         sorted
+	 */
 	public static float[] sort(float... floats) {
 		int min;
 		int n = floats.length;
@@ -727,6 +924,10 @@ public class ArraysS {
 		return floats;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of ints with its values
+	 *         sorted
+	 */
 	public static int[] sort(int... ints) {
 		int min;
 		int n = ints.length;
@@ -749,6 +950,10 @@ public class ArraysS {
 		return ints;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of longs with its values
+	 *         sorted
+	 */
 	public static long[] sort(long... longs) {
 		int min;
 		int n = longs.length;
@@ -771,6 +976,10 @@ public class ArraysS {
 		return longs;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of shorts with its values
+	 *         sorted
+	 */
 	public static short[] sort(short... shorts) {
 		int min;
 		int n = shorts.length;
@@ -793,6 +1002,10 @@ public class ArraysS {
 		return shorts;
 	}
 
+	/**
+	 * @return A copy of the supplied varargs/array of Strings with its values
+	 *         sorted
+	 */
 	public static String[] sort(String... strings) {
 		int min;
 		int n = strings.length;

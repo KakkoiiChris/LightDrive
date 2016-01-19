@@ -27,6 +27,8 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 
 /**
+ * A class for reading and writing XML files.
+ * 
  * @author Christian Bryce Alexander
  * @since Aug 17, 2015, 5:30:38 PM
  */

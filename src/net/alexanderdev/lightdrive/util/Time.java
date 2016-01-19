@@ -14,14 +14,22 @@
 package net.alexanderdev.lightdrive.util;
 
 /**
+ * A collection of time keeping methods.
+ * 
  * @author Christian Bryce Alexander
  * @since Jun 5, 2015 | 1:27:45 AM
  */
 public final class Time {
+	/**
+	 * @return The current system time in milliseconds
+	 */
 	public static long msTime() {
 		return System.currentTimeMillis();
 	}
 
+	/**
+	 * @return The current system time in nanoseconds
+	 */
 	public static long nsTime() {
 		return System.nanoTime();
 	}

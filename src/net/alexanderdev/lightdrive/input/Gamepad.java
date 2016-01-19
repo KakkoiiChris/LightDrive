@@ -13,7 +13,7 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.input;
 
-import static net.alexanderdev.lightdrive.util.Time.*;
+import static net.alexanderdev.lightdrive.util.Time.msTime;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.alexanderdev.lightdrive.Internal;
+import net.alexanderdev.lightdrive.InternalMethod;
 import net.alexanderdev.lightdrive.util.math.MathS;
 import net.alexanderdev.lightdrive.util.math.geom.VectorF;
 import net.java.games.input.Component;
@@ -404,19 +404,19 @@ public final class Gamepad implements Runnable {
 		Gamepad.deadZone = deadZone;
 	}
 
-	@Internal
+	@InternalMethod
 	public synchronized void start() {
 		if (running)
 			return;
 
 		running = true;
 
-		thread = new Thread(this, "ld_gamepad_" + number);
+		thread = new Thread(this, "light_drive_gamepad_" + number);
 
 		thread.start();
 	}
 
-	@Internal
+	@InternalMethod
 	public synchronized void stop() {
 		if (!running)
 			return;
@@ -431,8 +431,8 @@ public final class Gamepad implements Runnable {
 		}
 	}
 
-	@Internal
 	@Override
+	@InternalMethod
 	public void run() {
 		while (running) {
 			if (!controller.poll()) {

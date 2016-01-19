@@ -11,37 +11,15 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.state;
+package net.alexanderdev.lightdrive.audio;
 
-import net.alexanderdev.lightdrive.graphics.GraphicsS;
-import net.alexanderdev.lightdrive.graphics.ImageS;
-import net.alexanderdev.lightdrive.graphics.ImageSLoader;
+import javax.sound.sampled.Clip;
 
 /**
  * @author Christian Bryce Alexander
- * @since May 19, 2015 | 11:23:47 PM
+ * @since Nov 11, 2015 | 2:23:23 PM
  */
-public final class DefaultState extends State {
-	private ImageS splash;
-
-	public DefaultState() {
-		splash = ImageSLoader.loadPNG("/img/splash640x480");
-	}
-
-	@Override
-	public void switchIn() {
-	}
-
-	@Override
-	public void switchOut() {
-	}
-
-	@Override
-	public void update(double delta) {
-	}
-
-	@Override
-	public void render(GraphicsS g) {
-		g.drawCenteredImage(splash, getManager().getView().getViewBounds());
-	}
+@FunctionalInterface
+public interface SoundListener {
+	public void listen(Clip clip);
 }

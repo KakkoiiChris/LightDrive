@@ -11,37 +11,22 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.state;
-
-import net.alexanderdev.lightdrive.graphics.GraphicsS;
-import net.alexanderdev.lightdrive.graphics.ImageS;
-import net.alexanderdev.lightdrive.graphics.ImageSLoader;
+package net.alexanderdev.lightdrive.input;
 
 /**
  * @author Christian Bryce Alexander
- * @since May 19, 2015 | 11:23:47 PM
+ * @since Jan 19, 2016, 11:53:47 AM
  */
-public final class DefaultState extends State {
-	private ImageS splash;
-
-	public DefaultState() {
-		splash = ImageSLoader.loadPNG("/img/splash640x480");
+public class ControlAdapter implements Controllable {
+	@Override
+	public void keyboardInput(Keyboard keyboard) {
 	}
 
 	@Override
-	public void switchIn() {
+	public void mouseInput(Mouse mouse) {
 	}
 
 	@Override
-	public void switchOut() {
-	}
-
-	@Override
-	public void update(double delta) {
-	}
-
-	@Override
-	public void render(GraphicsS g) {
-		g.drawCenteredImage(splash, getManager().getView().getViewBounds());
+	public void gamepadInput(Gamepad gamepad) {
 	}
 }

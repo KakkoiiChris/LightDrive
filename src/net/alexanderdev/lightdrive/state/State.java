@@ -16,14 +16,14 @@ package net.alexanderdev.lightdrive.state;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.alexanderdev.lightdrive.Internal;
+import net.alexanderdev.lightdrive.InternalMethod;
+import net.alexanderdev.lightdrive.graphics.Renderable;
 import net.alexanderdev.lightdrive.input.Gamepad;
 import net.alexanderdev.lightdrive.input.GamepadListener;
 import net.alexanderdev.lightdrive.input.Keyboard;
 import net.alexanderdev.lightdrive.input.KeyboardListener;
 import net.alexanderdev.lightdrive.input.Mouse;
 import net.alexanderdev.lightdrive.input.MouseListener;
-import net.alexanderdev.lightdrive.media.graphics.Renderable;
 
 /**
  * A class which holds the logic for representing a particular state in a game
@@ -44,7 +44,7 @@ public abstract class State implements Renderable {
 		return manager;
 	}
 
-	@Internal
+	@InternalMethod
 	public final void setManager(StateManager manager) {
 		this.manager = manager;
 	}
@@ -103,21 +103,21 @@ public abstract class State implements Renderable {
 		gamepadListeners.clear();
 	}
 
-	@Internal
+	@InternalMethod
 	public final void keyboardInput(Keyboard keyboard) {
 		if (keyboardListeners != null)
 			for (KeyboardListener kl : keyboardListeners)
 				kl.keyboardInput(keyboard);
 	}
 
-	@Internal
+	@InternalMethod
 	public final void mouseInput(Mouse mouse) {
 		if (mouseListeners != null)
 			for (MouseListener ml : mouseListeners)
 				ml.mouseInput(mouse);
 	}
 
-	@Internal
+	@InternalMethod
 	public final void gamepadInput(Gamepad gamepad) {
 		if (gamepadListeners != null)
 			for (GamepadListener gl : gamepadListeners)
@@ -128,13 +128,13 @@ public abstract class State implements Renderable {
 	 * Handles actions to be taken when the state manager switches into this
 	 * game state
 	 */
-	@Internal
+	@InternalMethod
 	public abstract void switchIn();
 
 	/**
 	 * Handles actions to be taken when the state manager switches out of this
 	 * game state
 	 */
-	@Internal
+	@InternalMethod
 	public abstract void switchOut();
 }

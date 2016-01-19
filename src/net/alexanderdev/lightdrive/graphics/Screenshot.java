@@ -11,37 +11,41 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.state;
+package net.alexanderdev.lightdrive.graphics;
 
-import net.alexanderdev.lightdrive.graphics.GraphicsS;
-import net.alexanderdev.lightdrive.graphics.ImageS;
-import net.alexanderdev.lightdrive.graphics.ImageSLoader;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 /**
  * @author Christian Bryce Alexander
- * @since May 19, 2015 | 11:23:47 PM
+ * @since May 16, 2015 | 3:13:06 PM
  */
-public final class DefaultState extends State {
-	private ImageS splash;
+public final class Screenshot {
+	private static String path;
 
-	public DefaultState() {
-		splash = ImageSLoader.loadPNG("/img/splash640x480");
+	/**
+	 * Sets the path to save screenshots to
+	 */
+	public static void setRelativePath(String path) {
+		if (!path.endsWith("\\"))
+			path += "\\";
+
+		Screenshot.path = path;
 	}
 
-	@Override
-	public void switchIn() {
-	}
-
-	@Override
-	public void switchOut() {
-	}
-
-	@Override
-	public void update(double delta) {
-	}
-
-	@Override
-	public void render(GraphicsS g) {
-		g.drawCenteredImage(splash, getManager().getView().getViewBounds());
+	/**
+	 * Saves a screenshot
+	 */
+	public static void createScreenshot(BufferedImage image, String name, String format) {
+		try {
+			File outputfile = new File(path + name + "." + format);
+			ImageIO.write(image, format, outputfile);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
