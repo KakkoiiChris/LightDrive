@@ -1,43 +1,31 @@
-/*************************************************************
- *     _______  __   __  ___   __   __  _______  ___         *
- *    |       ||  | |  ||   | |  |_|  ||       ||   |        *
- *    |   _   ||  | |  ||   | |       ||    ___||   |        *
- *    |  | |  ||  |_|  ||   | |       ||   |___ |   |        *
- *    |  |_|  ||       ||   |  |     | |    ___||   |___     *
- *    |      | |       ||   | |   _   ||   |___ |       |    *
- *    |____||_||_______||___| |__| |__||_______||_______|    *
- *     _________________________________________________     *
- *    |_________________JAVA_GAME_LIBRARY_______________|    *
- *                                                           *
- * Copyright © 2015, Christian Bryce Alexander               *
- *************************************************************/
+/***********************************************************
+ *   _     _       _       _   ____        _               *
+ *  | |   |_|     | |     | | |  _ \      |_|              *
+ *  | |    _  ___ | |__  _| |_| | | | ____ _ _   _  ___    *
+ *  | |   | |/ _ \|  _ \|_   _| | | |/ ___| | \ / |/ _ \   *
+ *  | |___| | |_| | | | | | | | |_| | |   | |\ V /|  ___|  *
+ *  |_____|_|\__  |_| |_| |_| |____/|_|   |_| \_/  \___|   *
+ *   _____   ___| |  ___________________________________   *
+ *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
+ *                                                         *
+ *                                                         *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
+ ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filters;
 
-import net.alexanderdev.quixel.graphics.FilterS;
-import net.alexanderdev.quixel.graphics.Pixel;
-import net.alexanderdev.quixel.util.ArraysS;
-import net.alexanderdev.quixel.util.math.MathS;
+import net.alexanderdev.lightdrive.graphics.GrayscaleMode;
+import net.alexanderdev.lightdrive.util.ArraysS;
+import net.alexanderdev.lightdrive.util.Pixel;
+import net.alexanderdev.lightdrive.util.math.MathS;
 
 /**
  * @author Christian Bryce Alexander
  * @since Dec 14, 2015, 5:26:09 AM
  */
 public class GrayscaleFilter implements FilterS {
-	public static enum Mode {
-		AVERAGE,
-		CHANNEL_RED,
-		CHANNEL_GREEN,
-		CHANNEL_BLUE,
-		LIGHTNESS,
-		LUMINOSITY,
-		MAX_DECOMP,
-		MID_DECOMP,
-		MIN_DECOMP
-	}
+	private GrayscaleMode mode;
 
-	private Mode mode;
-
-	public GrayscaleFilter(Mode mode) {
+	public GrayscaleFilter(GrayscaleMode mode) {
 		this.mode = mode;
 	}
 

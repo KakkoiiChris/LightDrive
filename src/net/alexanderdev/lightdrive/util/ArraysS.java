@@ -13,8 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.util;
 
-import static java.lang.System.*;
-import static net.alexanderdev.lightdrive.util.math.MathS.*;
+import static java.lang.System.arraycopy;
+import static net.alexanderdev.lightdrive.util.math.MathS.randomInt;
 
 /**
  * A collection of static methods to manipulate standard java arrays.

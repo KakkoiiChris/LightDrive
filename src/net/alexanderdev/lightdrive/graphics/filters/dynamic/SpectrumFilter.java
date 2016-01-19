@@ -1,22 +1,22 @@
-/*************************************************************
- *     _______  __   __  ___   __   __  _______  ___         *
- *    |       ||  | |  ||   | |  |_|  ||       ||   |        *
- *    |   _   ||  | |  ||   | |       ||    ___||   |        *
- *    |  | |  ||  |_|  ||   | |       ||   |___ |   |        *
- *    |  |_|  ||       ||   |  |     | |    ___||   |___     *
- *    |      | |       ||   | |   _   ||   |___ |       |    *
- *    |____||_||_______||___| |__| |__||_______||_______|    *
- *     _________________________________________________     *
- *    |_________________JAVA_GAME_LIBRARY_______________|    *
- *                                                           *
- * Copyright © 2015, Christian Bryce Alexander               *
- *************************************************************/
+/***********************************************************
+ *   _     _       _       _   ____        _               *
+ *  | |   |_|     | |     | | |  _ \      |_|              *
+ *  | |    _  ___ | |__  _| |_| | | | ____ _ _   _  ___    *
+ *  | |   | |/ _ \|  _ \|_   _| | | |/ ___| | \ / |/ _ \   *
+ *  | |___| | |_| | | | | | | | |_| | |   | |\ V /|  ___|  *
+ *  |_____|_|\__  |_| |_| |_| |____/|_|   |_| \_/  \___|   *
+ *   _____   ___| |  ___________________________________   *
+ *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
+ *                                                         *
+ *                                                         *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
+ ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filters.dynamic;
 
 import java.awt.Color;
 
-import net.alexanderdev.quixel.graphics.Pixel;
-import net.alexanderdev.quixel.graphics.filters.AdjustFilter;
+import net.alexanderdev.lightdrive.graphics.filters.AdjustFilter;
+import net.alexanderdev.lightdrive.util.Pixel;
 
 /**
  * @author Christian Bryce Alexander

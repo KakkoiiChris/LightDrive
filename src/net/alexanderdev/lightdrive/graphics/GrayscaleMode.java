@@ -11,39 +11,20 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics.filters;
-
-import net.alexanderdev.lightdrive.util.Pixel;
-import net.alexanderdev.lightdrive.util.math.MathS;
+package net.alexanderdev.lightdrive.graphics;
 
 /**
  * @author Christian Bryce Alexander
- * @since Dec 14, 2015, 4:18:47 AM
+ * @since Jan 19, 2016, 12:30:37 PM
  */
-public class BrightnessFilter implements FilterS {
-	private float factor;
-
-	public BrightnessFilter(float factor) {
-		this.factor = MathS.clamp(factor, -1f, 1f);
-	}
-
-	@Override
-	public void apply(int[] pixels) {
-		for (int i = 0; i < pixels.length; i++) {
-			int[] argb = Pixel.splitIntARGB(pixels[i]);
-
-			if (factor > 0) {
-				argb[1] += (255 - argb[1]) * factor;
-				argb[2] += (255 - argb[2]) * factor;
-				argb[3] += (255 - argb[3]) * factor;
-			}
-			else {
-				argb[1] -= argb[1] * -factor;
-				argb[2] -= argb[2] * -factor;
-				argb[3] -= argb[3] * -factor;
-			}
-
-			pixels[i] = Pixel.mergeARGB(argb);
-		}
-	}
+public enum GrayscaleMode {
+	AVERAGE,
+	CHANNEL_RED,
+	CHANNEL_GREEN,
+	CHANNEL_BLUE,
+	LIGHTNESS,
+	LUMINOSITY,
+	MAX_DECOMP,
+	MID_DECOMP,
+	MIN_DECOMP
 }
