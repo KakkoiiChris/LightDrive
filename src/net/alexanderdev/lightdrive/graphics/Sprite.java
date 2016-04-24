@@ -102,7 +102,7 @@ public class Sprite extends BufferedImage implements Cloneable {
 
 	public final void filter(Filter... filters) {
 		for (Filter filter : filters)
-			filter.apply(pixels);
+			filter.apply(getWidth(), getHeight(), pixels);
 	}
 
 	public final Sprite filtered(Filter... filters) {

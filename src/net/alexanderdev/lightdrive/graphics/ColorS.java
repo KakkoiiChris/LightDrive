@@ -47,7 +47,7 @@ public class ColorS extends Color {
 	public static ColorS GRAY = new ColorS(0xff888888);
 	public static ColorS BLACK = new ColorS(0xff000000);
 
-	public float alpha, red, green, blue;
+	private float alpha, red, green, blue;
 
 	public ColorS(int color) {
 		super(Pixel.getIntRed(color), Pixel.getIntGreen(color), Pixel.getIntBlue(color), Pixel.getIntAlpha(color));
@@ -71,6 +71,38 @@ public class ColorS extends Color {
 
 	public int getARGB() {
 		return Pixel.mergeARGB(alpha, red, green, blue);
+	}
+
+	public float getFloatAlpha() {
+		return alpha;
+	}
+
+	public float getFloatRed() {
+		return red;
+	}
+
+	public float getFloatGreen() {
+		return green;
+	}
+
+	public float getFloatBlue() {
+		return blue;
+	}
+
+	public int getIntAlpha() {
+		return (int) (alpha * 255f);
+	}
+
+	public int getIntRed() {
+		return (int) (red * 255f);
+	}
+
+	public int getIntGreen() {
+		return (int) (green * 255f);
+	}
+
+	public int getIntBlue() {
+		return (int) (blue * 255f);
 	}
 
 	public int ofBrightness(float brightness) {
@@ -216,7 +248,7 @@ public class ColorS extends Color {
 	public int ofAdjustment(float pr, float pg, float pb) {
 		return Pixel.mergeARGB(alpha, red * pr, green * pg, blue * pb);
 	}
-	
+
 	public ColorS colorOfAdjustment(float pr, float pg, float pb) {
 		return new ColorS(ofAdjustment(pr, pg, pb));
 	}
