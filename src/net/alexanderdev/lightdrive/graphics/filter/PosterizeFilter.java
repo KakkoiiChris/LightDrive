@@ -11,30 +11,37 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics.filters.dynamic;
+package net.alexanderdev.lightdrive.graphics.filter;
 
-import net.alexanderdev.lightdrive.graphics.filters.FilterS;
+import net.alexanderdev.lightdrive.util.Pixel;
+import net.alexanderdev.lightdrive.util.math.MathS;
 
 /**
  * @author Christian Bryce Alexander
- * @since Dec 14, 2015, 4:13:30 AM
+ * @since Dec 14, 2015, 5:49:43 AM
  */
-public class AcidFilter implements FilterS {
-	private long n;
+public class PosterizeFilter implements Filter {
+	private int levels;
 
-	private int scanSize;
-
-	public AcidFilter(int scanSize) {
-		this.scanSize = scanSize;
-
-		n = 0;
+	public PosterizeFilter(int levels) {
+		this.levels = MathS.clamp(levels - 1, 1, 255);
 	}
 
 	@Override
-	public void apply(int[] pixels) {
-		for (int i = 0; i < pixels.length; i++)
-			pixels[i] += pixels[(int) ((i + n) % pixels.length)] + i;
+	public void apply(int width, int height, int[] pixels) {
+		for (int i = 0; i < pixels.length; i++) {
+			int[] argb = Pixel.splitIntARGB(pixels[i]);
 
-		n += scanSize - 1;
+			argb[1] /= 255 / levels;
+			argb[1] *= 255 / levels;
+
+			argb[2] /= 255 / levels;
+			argb[2] *= 255 / levels;
+
+			argb[3] /= 255 / levels;
+			argb[3] *= 255 / levels;
+
+			pixels[i] = Pixel.mergeARGB(argb);
+		}
 	}
 }

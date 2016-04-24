@@ -11,13 +11,39 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics.filters;
+package net.alexanderdev.lightdrive.graphics.filter.dynamic;
+
+import net.alexanderdev.lightdrive.graphics.filter.Filter;
+import net.alexanderdev.lightdrive.util.Pixel;
+import net.alexanderdev.lightdrive.util.math.MathS;
 
 /**
  * @author Christian Bryce Alexander
- * @since Jan 19, 2016, 12:19:07 PM
+ * @since Jan 4, 2016, 10:15:33 PM
  */
-@FunctionalInterface
-public interface FilterS {
-	public void apply(int[] pixels);
+public class GrayNoiseFilter implements Filter {
+	private float intensity;
+
+	public GrayNoiseFilter(float intensity) {
+		this.intensity = intensity;
+	}
+
+	public void setIntensity(float intensity) {
+		this.intensity = intensity;
+	}
+
+	@Override
+	public void apply(int width, int height, int[] pixels) {
+		for (int i = 0; i < pixels.length; i++) {
+			float[] argb = Pixel.splitFloatARGB(pixels[i]);
+
+			float v = MathS.clamp(MathS.randomFloat(), 1 - intensity, 1);
+
+			argb[1] *= v;
+			argb[2] *= v;
+			argb[3] *= v;
+
+			pixels[i] = Pixel.mergeARGB(argb);
+		}
+	}
 }

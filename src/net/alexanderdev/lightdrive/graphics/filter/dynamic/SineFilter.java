@@ -11,9 +11,10 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics.filters.dynamic;
+package net.alexanderdev.lightdrive.graphics.filter.dynamic;
 
-import net.alexanderdev.lightdrive.graphics.filters.FilterS;
+import net.alexanderdev.lightdrive.graphics.Sprite;
+import net.alexanderdev.lightdrive.graphics.filter.Filter;
 import net.alexanderdev.lightdrive.util.ArraysS;
 import net.alexanderdev.lightdrive.util.math.MathS;
 
@@ -21,30 +22,36 @@ import net.alexanderdev.lightdrive.util.math.MathS;
  * @author Christian Bryce Alexander
  * @since Dec 14, 2015, 6:21:23 AM
  */
-public class SineFilter implements FilterS {
+public class SineFilter implements Filter {
 	private int t = 0;
-
-	private int scanSize;
 
 	private double period;
 	private double magnitude;
 
-	public SineFilter(int scanSize, double period, double magnitude) {
-		this.scanSize = scanSize;
+	/**
+	 * A {@code SineFilter} with the specified parameters.
+	 *
+	 * @param scanSize
+	 *            The width of the {@link Sprite} to be applied to (preferably)
+	 * @param period
+	 *            The width of the waves
+	 * @param magnitude
+	 *            The height of the waves
+	 */
+	public SineFilter(double period, double magnitude) {
 		this.period = period;
 		this.magnitude = magnitude;
 	}
 
 	@Override
-	public void apply(int[] pixels) {
+	public void apply(int width, int height, int[] pixels) {
 		int[] original = ArraysS.copy(pixels);
 
-		for (int y = 0; y < pixels.length / scanSize; y++) {
-			for (int x = 0; x < scanSize; x++) {
+		for (int y = 0; y < pixels.length / width; y++) {
+			for (int x = 0; x < width; x++) {
 				int s = (int) (Math.sin((y + t) / period) * magnitude);
 
-				pixels[x + y * scanSize] = original[(MathS.wrap(x + s, 0, scanSize - 1) + y * scanSize)
-					% pixels.length];
+				pixels[x + y * width] = original[(MathS.wrap(x + s, 0, width - 1) + y * width) % pixels.length];
 			}
 		}
 

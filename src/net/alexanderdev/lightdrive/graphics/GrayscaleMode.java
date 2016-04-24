@@ -13,18 +13,63 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
+import net.alexanderdev.lightdrive.util.ArraysS;
+import net.alexanderdev.lightdrive.util.math.MathS;
+
 /**
  * @author Christian Bryce Alexander
  * @since Jan 19, 2016, 12:30:37 PM
  */
 public enum GrayscaleMode {
-	AVERAGE,
-	CHANNEL_RED,
-	CHANNEL_GREEN,
-	CHANNEL_BLUE,
-	LIGHTNESS,
-	LUMINOSITY,
-	MAX_DECOMP,
-	MID_DECOMP,
-	MIN_DECOMP
+	/**
+	 * Averages all three channels together.
+	 */
+	AVERAGE      ((r, g, b) -> (int) MathS.average(r, g, b)),
+	/**
+	 * Just the red channel.
+	 */
+	CHANNEL_RED  ((r, g, b) -> r),
+	/**
+	 * Just the green channel.
+	 */
+	CHANNEL_GREEN((r, g, b) -> g),
+	/**
+	 * Just the blue channel.
+	 */
+	CHANNEL_BLUE ((r, g, b) -> b),
+	/**
+	 * Averages the minimum and maximum channels together.
+	 */
+	LIGHTNESS    ((r, g, b) -> (int) MathS.average(MathS.min(r, g, b), MathS.max(r, g, b))),
+	/**
+	 * Sums percentages of each channel together based on how the human eye
+	 * percieves color.
+	 */
+	LUMINOSITY   ((r, g, b) -> (int) MathS.clamp((r * 0.2126f) + (g * 0.7152f) + (b * 0.0722f), 0, 255)),
+	/**
+	 * Just the maximum channel.
+	 */
+	MAX_DECOMP   ((r, g, b) -> MathS.max(r, g, b)),
+	/**
+	 * Just the middle channel.
+	 */
+	MID_DECOMP   ((r, g, b) -> ArraysS.sort(r, g, b)[1]),
+	/**
+	 * Just the minimum channel.
+	 */
+	MIN_DECOMP   ((r, g, b) -> MathS.min(r, g, b));
+
+	private GrayscaleOp operation;
+
+	private GrayscaleMode(GrayscaleOp operation) {
+		this.operation = operation;
+	}
+
+	/**
+	 * @return The {@link GrayscaleOp} associated with this standard
+	 *         {@code GrayscaleMode}
+	 */
+	public GrayscaleOp getOperation() {
+		return operation;
+	}
 }

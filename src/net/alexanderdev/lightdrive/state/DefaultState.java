@@ -14,26 +14,22 @@
 package net.alexanderdev.lightdrive.state;
 
 import net.alexanderdev.lightdrive.graphics.GraphicsS;
-import net.alexanderdev.lightdrive.graphics.ImageS;
-import net.alexanderdev.lightdrive.graphics.ImageSLoader;
+import net.alexanderdev.lightdrive.graphics.Sprite;
+import net.alexanderdev.lightdrive.graphics.SpriteIO;
 
 /**
  * @author Christian Bryce Alexander
  * @since May 19, 2015 | 11:23:47 PM
  */
 public final class DefaultState extends State {
-	private ImageS splash;
+	private Sprite splash;
 
 	public DefaultState() {
-		splash = ImageSLoader.loadPNG("/img/splash640x480");
+		splash = SpriteIO.loadPNG("/img/splash640x480");
 	}
 
 	@Override
-	public void switchIn() {
-	}
-
-	@Override
-	public void switchOut() {
+	public void switchTo(Object... argv) {
 	}
 
 	@Override

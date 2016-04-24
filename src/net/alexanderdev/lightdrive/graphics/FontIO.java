@@ -24,7 +24,7 @@ import java.io.IOException;
  * @author Christian Bryce Alexander
  * @since May 22, 2015 | 11:51:04 AM
  */
-public final class FontLoader {
+public final class FontIO {
 	private static String path = "";
 
 	/**
@@ -35,14 +35,14 @@ public final class FontLoader {
 	 *            The relative path to load fonts from
 	 */
 	public static void setRelativePath(String path) {
-		FontLoader.path = path;
+		FontIO.path = path;
 	}
 
 	public static String loadTTF(String filename) {
 		Font font = null;
 
 		try {
-			font = createFont(TRUETYPE_FONT, FontLoader.class.getResourceAsStream(path + filename + ".ttf"));
+			font = createFont(TRUETYPE_FONT, FontIO.class.getResourceAsStream(path + filename + ".ttf"));
 
 			getLocalGraphicsEnvironment().registerFont(font);
 		}

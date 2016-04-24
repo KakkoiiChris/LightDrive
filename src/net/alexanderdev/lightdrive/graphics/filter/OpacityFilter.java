@@ -11,40 +11,30 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics.filters;
+package net.alexanderdev.lightdrive.graphics.filter;
 
-import net.alexanderdev.lightdrive.graphics.ColorS;
 import net.alexanderdev.lightdrive.util.Pixel;
+import net.alexanderdev.lightdrive.util.math.MathS;
 
 /**
  * @author Christian Bryce Alexander
- * @since Dec 14, 2015, 3:59:04 AM
+ * @since Dec 14, 2015, 5:34:09 AM
  */
-public class AdjustFilter implements FilterS {
-	protected float r, g, b;
+public class OpacityFilter implements Filter {
+	private float factor;
 
-	public AdjustFilter(ColorS color) {
-		this.r = color.red / 255f;
-		this.g = color.green / 255f;
-		this.b = color.blue / 255f;
-	}
-
-	public AdjustFilter(float r, float g, float b) {
-		this.r = r;
-		this.g = g;
-		this.b = b;
+	public OpacityFilter(float factor) {
+		this.factor = MathS.clamp(factor, 0f, 1f);
 	}
 
 	@Override
-	public void apply(int[] pixels) {
+	public void apply(int width, int height, int[] pixels) {
 		for (int i = 0; i < pixels.length; i++) {
-			float[] vals = Pixel.splitFloatARGB(pixels[i]);
+			float[] argb = Pixel.splitFloatARGB(pixels[i]);
 
-			vals[1] *= r;
-			vals[2] *= g;
-			vals[3] *= b;
+			argb[0] *= factor;
 
-			pixels[i] = Pixel.mergeARGB(vals);
+			pixels[i] = Pixel.mergeARGB(argb);
 		}
 	}
 }

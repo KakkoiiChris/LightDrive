@@ -30,7 +30,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author Christian Bryce Alexander
  * @since May 25, 2015 | 9:42:21 PM
  */
-public final class SoundLoader {
+public final class SoundIO {
 	private static String path = "";
 
 	/**
@@ -41,14 +41,14 @@ public final class SoundLoader {
 	 *            The relative path to load sounds from
 	 */
 	public static void setRelativePath(String path) {
-		SoundLoader.path = path;
+		SoundIO.path = path;
 	}
 
 	public static Sound loadMP3(String filename) {
 		Clip clip = null;
 
 		try {
-			AudioInputStream ais = getAudioInputStream(SoundLoader.class.getResourceAsStream(path + filename + ".mp3"));
+			AudioInputStream ais = getAudioInputStream(SoundIO.class.getResourceAsStream(path + filename + ".mp3"));
 
 			AudioFormat baseFormat = ais.getFormat();
 
@@ -77,7 +77,7 @@ public final class SoundLoader {
 		Clip clip = null;
 
 		try {
-			AudioInputStream ais = getAudioInputStream(SoundLoader.class.getResourceAsStream(path + filename + ".wav"));
+			AudioInputStream ais = getAudioInputStream(SoundIO.class.getResourceAsStream(path + filename + ".wav"));
 
 			AudioFormat format = ais.getFormat();
 

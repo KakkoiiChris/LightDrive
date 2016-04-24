@@ -18,6 +18,7 @@ import java.util.List;
 
 import net.alexanderdev.lightdrive.InternalMethod;
 import net.alexanderdev.lightdrive.graphics.Renderable;
+import net.alexanderdev.lightdrive.input.Controllable;
 import net.alexanderdev.lightdrive.input.Gamepad;
 import net.alexanderdev.lightdrive.input.GamepadListener;
 import net.alexanderdev.lightdrive.input.Keyboard;
@@ -31,7 +32,7 @@ import net.alexanderdev.lightdrive.input.MouseListener;
  * @author Christian Bryce Alexander
  * @since March 6, 2015 | 3:03:42 AM
  */
-public abstract class State implements Renderable {
+public abstract class State implements Renderable, Controllable {
 	private StateManager manager;
 
 	private List<KeyboardListener> keyboardListeners = new ArrayList<>();
@@ -40,101 +41,136 @@ public abstract class State implements Renderable {
 
 	private List<GamepadListener> gamepadListeners = new ArrayList<>();
 
+	/**
+	 * @return The {@link StateManager} associated with this {@code State}
+	 */
 	public final StateManager getManager() {
 		return manager;
 	}
 
+	/**
+	 * Associates a {@link StateManager} with this {@code State}.
+	 */
 	@InternalMethod
 	public final void setManager(StateManager manager) {
 		this.manager = manager;
 	}
 
 	/**
-	 * Sets the interface that listens for keyboard input for this game state
+	 * Adds an instance of {@link KeyboardListener} to this {@code State}
 	 *
-	 * @param keyboardListener
-	 *            Functional interface for handling the keyboard
+	 * @param kl
+	 *            The {@link KeyboardListener} to add
 	 */
 	public final void addKeyboardListener(KeyboardListener kl) {
 		keyboardListeners.add(kl);
 	}
 
+	/**
+	 * Removes an instance of {@link KeyboardListener} from this {@code State}
+	 *
+	 * @param kl
+	 *            The {@link KeyboardListener} to remove
+	 */
 	public final void removeKeyboardListener(KeyboardListener kl) {
 		keyboardListeners.remove(kl);
 	}
 
+	/**
+	 * Removes all instances of {@link KeyboardListener} from this {@code State}
+	 */
 	public final void clearKeyboardListeners() {
 		keyboardListeners.clear();
 	}
 
 	/**
-	 * Sets the interface that listens for mouse input for this game state
+	 * Runs all {@link KeyboardListener}s on the specified {@link Keyboard}.
+	 */
+	@InternalMethod
+	public final void keyboardInput(Keyboard keyboard) {
+		if (keyboardListeners != null)
+			for (int i = 0; i < keyboardListeners.size(); i++)
+				keyboardListeners.get(i).keyboardInput(keyboard);
+	}
+
+	/**
+	 * Adds an instance of {@link MouseListener} to this {@code State}
 	 *
-	 * @param mouseListener
-	 *            Functional interface for handling the mouse
+	 * @param ml
+	 *            The {@link MouseListener} to add
 	 */
 	public final void addMouseListener(MouseListener ml) {
 		mouseListeners.add(ml);
 	}
 
+	/**
+	 * Removes an instance of {@link MouseListener} from this {@code State}
+	 *
+	 * @param ml
+	 *            The {@link MouseListener} to remove
+	 */
 	public final void removeMouseListener(MouseListener ml) {
 		mouseListeners.remove(ml);
 	}
 
+	/**
+	 * Removes all instances of {@link MouseListener} from this {@code State}
+	 */
 	public final void clearMouseListeners() {
 		mouseListeners.clear();
 	}
 
 	/**
-	 * Sets the interface that listens for gamepad input for this game state
+	 * Runs all {@link MouseListener}s on the specified {@link Mouse}.
+	 */
+	@InternalMethod
+	public final void mouseInput(Mouse mouse) {
+		if (mouseListeners != null)
+			for (int i = 0; i < mouseListeners.size(); i++)
+				mouseListeners.get(i).mouseInput(mouse);
+	}
+
+	/**
+	 * Adds an instance of {@link GamepadListener} to this {@code State}
 	 *
-	 * @param gamepadListener
-	 *            Functional interface for handling the gamepad
+	 * @param gl
+	 *            The {@link GamepadListener} to add
 	 */
 	public final void addGamepadListener(GamepadListener gl) {
 		gamepadListeners.add(gl);
 	}
 
+	/**
+	 * Removes an instance of {@link GamepadListener} from this {@code State}
+	 *
+	 * @param gl
+	 *            The {@link GamepadListener} to remove
+	 */
 	public final void removeGamepadListener(GamepadListener gl) {
 		gamepadListeners.remove(gl);
 	}
 
+	/**
+	 * Removes all instances of {@link GamepadListener} from this {@code State}
+	 */
 	public final void clearGamepadListeners() {
 		gamepadListeners.clear();
 	}
 
-	@InternalMethod
-	public final void keyboardInput(Keyboard keyboard) {
-		if (keyboardListeners != null)
-			for (KeyboardListener kl : keyboardListeners)
-				kl.keyboardInput(keyboard);
-	}
-
-	@InternalMethod
-	public final void mouseInput(Mouse mouse) {
-		if (mouseListeners != null)
-			for (MouseListener ml : mouseListeners)
-				ml.mouseInput(mouse);
-	}
-
+	/**
+	 * Runs all {@link GamepadListener}s on the specified {@link Gamepad}.
+	 */
 	@InternalMethod
 	public final void gamepadInput(Gamepad gamepad) {
 		if (gamepadListeners != null)
-			for (GamepadListener gl : gamepadListeners)
-				gl.gamepadInput(gamepad);
+			for (int i = 0; i < gamepadListeners.size(); i++)
+				gamepadListeners.get(i).gamepadInput(gamepad);
 	}
 
 	/**
-	 * Handles actions to be taken when the state manager switches into this
-	 * game state
+	 * Called internally whenever the associated {@link StateManager} is told to
+	 * switch to this {@code State} from another {@code State}.
 	 */
 	@InternalMethod
-	public abstract void switchIn();
-
-	/**
-	 * Handles actions to be taken when the state manager switches out of this
-	 * game state
-	 */
-	@InternalMethod
-	public abstract void switchOut();
+	public abstract void switchTo(Object... argv);
 }

@@ -11,37 +11,49 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics.filters.dynamic;
+package net.alexanderdev.lightdrive.graphics.filter;
 
-import net.alexanderdev.lightdrive.graphics.filters.FilterS;
 import net.alexanderdev.lightdrive.util.Pixel;
 import net.alexanderdev.lightdrive.util.math.MathS;
 
 /**
  * @author Christian Bryce Alexander
- * @since Jan 4, 2016, 10:11:24 PM
+ * @since Dec 14, 2015, 5:53:27 AM
  */
-public class ColorNoiseFilter implements FilterS {
-	private float intensity;
+public class ColorMapFilter implements Filter {
+	private int[] values;
 
-	public ColorNoiseFilter(float intensity) {
-		this.intensity = intensity;
+	/**
+	 * A {@code ColorMapFilter} with the specified values.
+	 * 
+	 * @param values
+	 *            The values to set
+	 */
+	public ColorMapFilter(int... values) {
+		this.values = values;
 	}
 
-	public void setIntensity(float intensity) {
-		this.intensity = intensity;
+	/**
+	 * Sets the values of this {@code ColorMapFilter}.
+	 * 
+	 * @param values
+	 *            The values to set
+	 */
+	public void setValues(int... values) {
+		this.values = values;
 	}
 
 	@Override
-	public void apply(int[] pixels) {
+	public void apply(int width, int height, int[] pixels) {
 		for (int i = 0; i < pixels.length; i++) {
-			float[] argb = Pixel.splitFloatARGB(pixels[i]);
+			int[] argb = Pixel.splitIntARGB(pixels[i]);
 
-			argb[1] *= MathS.clamp(MathS.randomFloat(), 1 - intensity, 1);
-			argb[2] *= MathS.clamp(MathS.randomFloat(), 1 - intensity, 1);
-			argb[3] *= MathS.clamp(MathS.randomFloat(), 1 - intensity, 1);
+			if (argb[0] != 0xff)
+				continue;
 
-			pixels[i] = Pixel.mergeARGB(argb);
+			int v = (int) ((MathS.average(argb[1], argb[2], argb[3]) + 1) / (256 / (values.length - 1)));
+
+			pixels[i] = values[v];
 		}
 	}
 }

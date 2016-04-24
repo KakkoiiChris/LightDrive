@@ -17,7 +17,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-import net.alexanderdev.lightdrive.graphics.filters.FilterS;
+import net.alexanderdev.lightdrive.graphics.filter.Filter;
 
 /**
  * A wrapper class for {@code BufferedImage} that contains multiple methods for
@@ -26,7 +26,7 @@ import net.alexanderdev.lightdrive.graphics.filters.FilterS;
  * @author Christian Bryce Alexander
  * @since Apr 15, 2015 | 12:22:40 AM
  */
-public class ImageS extends BufferedImage implements Cloneable {
+public class Sprite extends BufferedImage implements Cloneable {
 	private int[] pixels;
 
 	/**
@@ -35,7 +35,7 @@ public class ImageS extends BufferedImage implements Cloneable {
 	 * @param image
 	 *            The image to copy
 	 */
-	public ImageS(BufferedImage image) {
+	public Sprite(BufferedImage image) {
 		super(image.getWidth(), image.getHeight(), TYPE_INT_ARGB);
 
 		Graphics g = getGraphics();
@@ -53,7 +53,7 @@ public class ImageS extends BufferedImage implements Cloneable {
 	 * @param height
 	 *            The height of the image to create
 	 */
-	public ImageS(int width, int height) {
+	public Sprite(int width, int height) {
 		super(width, height, TYPE_INT_ARGB);
 
 		pixels = ((DataBufferInt) this.getRaster().getDataBuffer()).getData();
@@ -91,22 +91,22 @@ public class ImageS extends BufferedImage implements Cloneable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public final ImageS getSubimage(int x, int y, int width, int height) {
-		return new ImageS(super.getSubimage(x, y, width, height));
+	public final Sprite getSubimage(int x, int y, int width, int height) {
+		return new Sprite(super.getSubimage(x, y, width, height));
 	}
 
 	@Override
-	public ImageS clone() {
+	public Sprite clone() {
 		return null;
 	}
 
-	public final void filter(FilterS... filters) {
-		for (FilterS filter : filters)
+	public final void filter(Filter... filters) {
+		for (Filter filter : filters)
 			filter.apply(pixels);
 	}
 
-	public final ImageS filtered(FilterS... filters) {
-		ImageS copy = new ImageS(this);
+	public final Sprite filtered(Filter... filters) {
+		Sprite copy = new Sprite(this);
 
 		copy.filter(filters);
 

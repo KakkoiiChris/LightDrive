@@ -11,18 +11,16 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics.filters;
+package net.alexanderdev.lightdrive.graphics.filter;
 
 import net.alexanderdev.lightdrive.graphics.GrayscaleMode;
-import net.alexanderdev.lightdrive.util.ArraysS;
 import net.alexanderdev.lightdrive.util.Pixel;
-import net.alexanderdev.lightdrive.util.math.MathS;
 
 /**
  * @author Christian Bryce Alexander
  * @since Dec 14, 2015, 5:26:09 AM
  */
-public class GrayscaleFilter implements FilterS {
+public class GrayscaleFilter implements Filter {
 	private GrayscaleMode mode;
 
 	public GrayscaleFilter(GrayscaleMode mode) {
@@ -30,45 +28,11 @@ public class GrayscaleFilter implements FilterS {
 	}
 
 	@Override
-	public void apply(int[] pixels) {
+	public void apply(int width, int height, int[] pixels) {
 		for (int i = 0; i < pixels.length; i++) {
 			int[] argb = Pixel.splitIntARGB(pixels[i]);
 
-			int r = argb[1];
-			int g = argb[2];
-			int b = argb[3];
-
-			int value = 0;
-
-			switch (mode) {
-				case AVERAGE:
-					value = (int) MathS.average(r, g, b);
-					break;
-				case CHANNEL_RED:
-					value = r;
-					break;
-				case CHANNEL_GREEN:
-					value = g;
-					break;
-				case CHANNEL_BLUE:
-					value = b;
-					break;
-				case LIGHTNESS:
-					value = (int) MathS.average(MathS.min(r, g, b), MathS.max(r, g, b));
-					break;
-				case LUMINOSITY:
-					value = (int) MathS.clamp((r * 0.2126) + (g * 0.7152) + (b * 0.0722), 0, 255);
-					break;
-				case MAX_DECOMP:
-					value = MathS.max(r, g, b);
-					break;
-				case MID_DECOMP:
-					value = ArraysS.sort(r, g, b)[1];
-					break;
-				case MIN_DECOMP:
-					value = MathS.min(r, g, b);
-					break;
-			}
+			int value = mode.getOperation().apply(argb[1], argb[2], argb[3]);
 
 			pixels[i] = Pixel.mergeARGB(argb[0], value, value, value);
 		}

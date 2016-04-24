@@ -13,6 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
+import java.awt.Color;
+
 import net.alexanderdev.lightdrive.util.ArraysS;
 import net.alexanderdev.lightdrive.util.Pixel;
 import net.alexanderdev.lightdrive.util.math.MathS;
@@ -26,7 +28,9 @@ import net.alexanderdev.lightdrive.util.math.MathS;
  * @author Christian Bryce Alexander
  * @since April 7, 2015 | 7:28:12 PM
  */
-public class ColorS {
+public class ColorS extends Color {
+	private static final long serialVersionUID = -1851689902505547716L;
+
 	public static ColorS RED = new ColorS(0xffff0000);
 	public static ColorS ORANGE = new ColorS(0xffff8800);
 	public static ColorS YELLOW = new ColorS(0xffffff00);
@@ -46,34 +50,23 @@ public class ColorS {
 	public float alpha, red, green, blue;
 
 	public ColorS(int color) {
-		float[] values = Pixel.splitFloatARGB(color);
-
-		alpha = values[0];
-		red = values[1];
-		green = values[2];
-		blue = values[3];
+		super(Pixel.getIntRed(color), Pixel.getIntGreen(color), Pixel.getIntBlue(color), Pixel.getIntAlpha(color));
 	}
 
 	public ColorS(int r, int g, int b) {
-		this(255, r, g, b);
+		super(r, g, b, 255);
 	}
 
 	public ColorS(int a, int r, int g, int b) {
-		alpha = a / 255f;
-		red = r / 255f;
-		green = g / 255f;
-		blue = b / 255f;
+		super(r, g, b, a);
 	}
 
 	public ColorS(float r, float g, float b) {
-		this(1f, r, g, b);
+		super(r, g, b, 1f);
 	}
 
 	public ColorS(float a, float r, float g, float b) {
-		alpha = a;
-		red = r;
-		green = g;
-		blue = b;
+		super(r, g, b, a);
 	}
 
 	public int getARGB() {
@@ -218,5 +211,13 @@ public class ColorS {
 
 	public ColorS colorOfGrayscale(GrayscaleMode mode) {
 		return new ColorS(ofGrayscale(mode));
+	}
+
+	public int ofAdjustment(float pr, float pg, float pb) {
+		return Pixel.mergeARGB(alpha, red * pr, green * pg, blue * pb);
+	}
+	
+	public ColorS colorOfAdjustment(float pr, float pg, float pb) {
+		return new ColorS(ofAdjustment(pr, pg, pb));
 	}
 }

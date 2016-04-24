@@ -11,54 +11,35 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics.filters;
+package net.alexanderdev.lightdrive.graphics.filter.dynamic;
 
+import net.alexanderdev.lightdrive.graphics.filter.Filter;
 import net.alexanderdev.lightdrive.util.Pixel;
 import net.alexanderdev.lightdrive.util.math.MathS;
 
 /**
  * @author Christian Bryce Alexander
- * @since Dec 14, 2015, 5:56:57 AM
+ * @since Jan 4, 2016, 10:11:24 PM
  */
-public class SaturationFilter implements FilterS {
-	private float factor;
+public class ColorNoiseFilter implements Filter {
+	private float intensity;
 
-	public SaturationFilter(float factor) {
-		this.factor = MathS.clamp(factor, -1f, 1f);
+	public ColorNoiseFilter(float intensity) {
+		this.intensity = intensity;
+	}
+
+	public void setIntensity(float intensity) {
+		this.intensity = intensity;
 	}
 
 	@Override
-	public void apply(int[] pixels) {
-		if (factor == 0f)
-			return;
-
+	public void apply(int width, int height, int[] pixels) {
 		for (int i = 0; i < pixels.length; i++) {
-			int[] argb = Pixel.splitIntARGB(pixels[i]);
+			float[] argb = Pixel.splitFloatARGB(pixels[i]);
 
-			if (factor > 0) {
-				int rLim = argb[1] >= 128 ? 255 : 0;
-				int gLim = argb[2] >= 128 ? 255 : 0;
-				int bLim = argb[3] >= 128 ? 255 : 0;
-
-				int rDiff = rLim - argb[1];
-				int gDiff = gLim - argb[2];
-				int bDiff = bLim - argb[3];
-
-				argb[1] += rDiff * factor;
-				argb[2] += gDiff * factor;
-				argb[3] += bDiff * factor;
-			}
-			else {
-				int avg = (int) MathS.average((float) argb[1], (float) argb[2], (float) argb[3]);
-
-				int rDiff = avg - argb[1];
-				int gDiff = avg - argb[2];
-				int bDiff = avg - argb[3];
-
-				argb[1] += rDiff * -factor;
-				argb[2] += gDiff * -factor;
-				argb[3] += bDiff * -factor;
-			}
+			argb[1] *= MathS.clamp(MathS.randomFloat(), 1 - intensity, 1);
+			argb[2] *= MathS.clamp(MathS.randomFloat(), 1 - intensity, 1);
+			argb[3] *= MathS.clamp(MathS.randomFloat(), 1 - intensity, 1);
 
 			pixels[i] = Pixel.mergeARGB(argb);
 		}

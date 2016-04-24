@@ -11,35 +11,43 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics.filters;
-
-import java.awt.Color;
+package net.alexanderdev.lightdrive.graphics.filter;
 
 import net.alexanderdev.lightdrive.util.Pixel;
+import net.alexanderdev.lightdrive.util.math.MathS;
 
 /**
  * @author Christian Bryce Alexander
- * @since Dec 14, 2015, 5:44:48 AM
+ * @since Dec 14, 2015, 4:18:47 AM
  */
-public class HueFilter implements FilterS {
-	private float hue = 0f;
+public class BrightnessFilter implements Filter {
+	protected float brightness;
 
-	public HueFilter(float hue) {
-		this.hue = hue;
+	public BrightnessFilter(float brightness) {
+		this.brightness = MathS.clamp(brightness, -1f, 1f);
 	}
 
-	public void setHue(float hue) {
-		this.hue = hue;
+	public void setBrightness(float brightness) {
+		this.brightness = MathS.clamp(brightness, -1f, 1f);
 	}
 
 	@Override
-	public void apply(int[] pixels) {
+	public void apply(int width, int height, int[] pixels) {
 		for (int i = 0; i < pixels.length; i++) {
 			int[] argb = Pixel.splitIntARGB(pixels[i]);
 
-			float[] values = Color.RGBtoHSB(argb[1], argb[2], argb[3], null);
+			if (brightness > 0) {
+				argb[1] += (255 - argb[1]) * brightness;
+				argb[2] += (255 - argb[2]) * brightness;
+				argb[3] += (255 - argb[3]) * brightness;
+			}
+			else {
+				argb[1] -= argb[1] * -brightness;
+				argb[2] -= argb[2] * -brightness;
+				argb[3] -= argb[3] * -brightness;
+			}
 
-			pixels[i] = Color.HSBtoRGB(values[0] + hue, values[1], values[2]);
+			pixels[i] = Pixel.mergeARGB(argb);
 		}
 	}
 }

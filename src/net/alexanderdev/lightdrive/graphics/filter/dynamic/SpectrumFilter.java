@@ -11,37 +11,46 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics.filters;
+package net.alexanderdev.lightdrive.graphics.filter.dynamic;
 
+import java.awt.Color;
+
+import net.alexanderdev.lightdrive.graphics.filter.AdjustFilter;
+import net.alexanderdev.lightdrive.graphics.filter.Filter;
 import net.alexanderdev.lightdrive.util.Pixel;
-import net.alexanderdev.lightdrive.util.math.MathS;
 
 /**
  * @author Christian Bryce Alexander
- * @since Dec 14, 2015, 5:49:43 AM
+ * @since Dec 14, 2015, 6:25:07 AM
  */
-public class PosterizeFilter implements FilterS {
-	private int levels;
+public class SpectrumFilter extends AdjustFilter {
+	private float dh;
+	private float hue;
 
-	public PosterizeFilter(int levels) {
-		this.levels = MathS.clamp(levels, 1, 255);
+	/**
+	 * A {@code SpectrumFilter} width the specified hue delta.
+	 * 
+	 * @param dh
+	 *            The change in hue between {@link Filter} applications
+	 */
+	public SpectrumFilter(float dh) {
+		super(1f, 1f, 1f);
+
+		this.dh = dh;
+
+		hue = 0f;
 	}
 
 	@Override
-	public void apply(int[] pixels) {
-		for (int i = 0; i < pixels.length; i++) {
-			int[] argb = Pixel.splitIntARGB(pixels[i]);
+	public void apply(int width, int height, int[] pixels) {
+		float[] argb = Pixel.splitFloatARGB(Color.HSBtoRGB(hue, 1f, 1f));
 
-			argb[1] /= levels;
-			argb[1] *= levels;
+		this.r = argb[1];
+		this.g = argb[2];
+		this.b = argb[3];
 
-			argb[2] /= levels;
-			argb[2] *= levels;
+		super.apply(width, height, pixels);
 
-			argb[3] /= levels;
-			argb[3] *= levels;
-
-			pixels[i] = Pixel.mergeARGB(argb);
-		}
+		hue += dh;
 	}
 }

@@ -11,37 +11,45 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics.filters;
-
-import net.alexanderdev.lightdrive.util.Pixel;
-import net.alexanderdev.lightdrive.util.math.MathS;
+package net.alexanderdev.lightdrive.graphics.filter;
 
 /**
  * @author Christian Bryce Alexander
- * @since Dec 14, 2015, 5:53:27 AM
+ * @since Jan 6, 2016, 6:08:49 PM
  */
-public class ColorMapFilter implements FilterS {
-	private int[] values;
+public class ReplaceFilter implements Filter {
+	private int[] map;
+	private int[] colors;
 
-	public ColorMapFilter(int... values) {
-		this.values = values;
+	public ReplaceFilter(int[] map, int[] colors) {
+		if (map.length != colors.length) {
+			System.err.println("LIGHT DRIVE ERROR: Mismatching lists.");
+			Thread.dumpStack();
+		}
+
+		this.map = map;
+		this.colors = colors;
 	}
 
-	public void setValues(int... values) {
-		this.values = values;
+	/**
+	 * Sets the colors to be replaced.
+	 *
+	 * @param map
+	 *            The colors to be replaced
+	 */
+	public void setMap(int[] map) {
+		this.map = map;
+	}
+
+	public void setColors(int[] colors) {
+		this.colors = colors;
 	}
 
 	@Override
-	public void apply(int[] pixels) {
-		for (int i = 0; i < pixels.length; i++) {
-			int[] argb = Pixel.splitIntARGB(pixels[i]);
-
-			if (argb[0] != 0xff)
-				continue;
-
-			int v = (int) ((MathS.average(argb[1], argb[2], argb[3]) + 1) / (256 / (values.length - 1)));
-
-			pixels[i] = values[v];
-		}
+	public void apply(int width, int height, int[] pixels) {
+		for (int i = 0; i < pixels.length; i++)
+			for (int c = 0; c < map.length; c++)
+				if (pixels[i] == map[c])
+					pixels[i] = colors[c];
 	}
 }

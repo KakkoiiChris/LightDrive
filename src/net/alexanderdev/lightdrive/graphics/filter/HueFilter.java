@@ -11,21 +11,35 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics.filters;
+package net.alexanderdev.lightdrive.graphics.filter;
+
+import java.awt.Color;
 
 import net.alexanderdev.lightdrive.util.Pixel;
 
 /**
  * @author Christian Bryce Alexander
- * @since Dec 14, 2015, 5:31:51 AM
+ * @since Dec 14, 2015, 5:44:48 AM
  */
-public class InvertFilter implements FilterS {
+public class HueFilter implements Filter {
+	private float hue = 0f;
+
+	public HueFilter(float hue) {
+		this.hue = hue;
+	}
+
+	public void setHue(float hue) {
+		this.hue = hue;
+	}
+
 	@Override
-	public void apply(int[] pixels) {
+	public void apply(int width, int height, int[] pixels) {
 		for (int i = 0; i < pixels.length; i++) {
 			int[] argb = Pixel.splitIntARGB(pixels[i]);
 
-			pixels[i] = Pixel.mergeARGB(argb[0], 255 - argb[1], 255 - argb[2], 255 - argb[3]);
+			float[] values = Color.RGBtoHSB(argb[1], argb[2], argb[3], null);
+
+			pixels[i] = Color.HSBtoRGB(values[0] + hue, values[1], values[2]);
 		}
 	}
 }

@@ -15,6 +15,7 @@ package net.alexanderdev.lightdrive.state;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 import net.alexanderdev.lightdrive.InternalMethod;
 import net.alexanderdev.lightdrive.graphics.GraphicsS;
@@ -34,14 +35,25 @@ import net.alexanderdev.lightdrive.view.Viewable;
  * @since March 6, 2015 | 3:03:32 AM
  */
 public class StateManager implements Renderable, Controllable {
-	private static final String DEFAULT_STATE = "quixel_default_state";
+	private static final String DEFAULT_STATE = "light_drive_default_state";
 
 	private final Map<String, State> STATES = new HashMap<>();
+
+	private final Stack<String> ORDER = new Stack<>();
 
 	private State currentState;
 
 	private Viewable view;
 
+	private boolean initialized;
+
+	/**
+	 * Associates a {@link StateManager} with the specified {@link Viewable}.
+	 * 
+	 * @param view
+	 *            The {@link Viewable} to associate with this
+	 *            {@code StateManager}
+	 */
 	public StateManager(Viewable view) {
 		this.view = view;
 
@@ -50,16 +62,32 @@ public class StateManager implements Renderable, Controllable {
 		setInitialState(DEFAULT_STATE);
 	}
 
+	/**
+	 * @return The {@link Viewable} associated with this {@code StateManager}
+	 */
 	public Viewable getView() {
 		return view;
 	}
 
+	/**
+	 * Maps the specified {@link State} to the specified {@code name}.
+	 * 
+	 * @param state
+	 *            The {@link State} to add
+	 */
 	public void addState(String name, State state) {
 		state.setManager(this);
 
 		STATES.put(name, state);
 	}
 
+	/**
+	 * Maps the specified {@link State} to a guaranteed unique identifier.
+	 *
+	 * @param state
+	 *            The {@link State} to add
+	 * @return The unique identifier that it was mapped to
+	 */
 	public String addState(State state) {
 		String uid = UID.generateUUID();
 
@@ -68,18 +96,59 @@ public class StateManager implements Renderable, Controllable {
 		return uid;
 	}
 
+	/**
+	 * Sets the {@link State} that will appear first when the associated
+	 * {@link Viewable} is opened. Cannot be set again once this
+	 * {@code StateManager} has been initialized internally by the associated
+	 * {@link Viewable}.
+	 * 
+	 * @param name
+	 *            The name of the {@link State} to set as current
+	 */
 	public void setInitialState(String name) {
-		currentState = STATES.get(name);
+		if (!initialized)
+			currentState = STATES.get(name);
+
+		ORDER.clear();
+		ORDER.push(name);
 	}
 
-	public void switchState(String name) {
-		if (currentState != null)
-			currentState.switchOut();
-
+	/**
+	 * Swaps the current {@link State} for another {@link State} as specified by
+	 * {@code name}, and calls the new {@link State}'s
+	 * {@link State#switchTo(Object...)} method.
+	 * 
+	 * @param name
+	 *            The name of the {@link State} to switch to
+	 */
+	public void switchState(String name, Object... argv) {
 		currentState = STATES.get(name);
 
 		if (currentState != null)
-			currentState.switchIn();
+			currentState.switchTo(argv);
+
+		ORDER.push(name);
+	}
+
+	public void goToPreviousState() {
+		ORDER.pop();
+
+		currentState = STATES.get(ORDER.peek());
+
+		if (currentState != null)
+			currentState.switchTo();
+	}
+
+	/**
+	 * Internally initializes this {@code StateManager} so it is prepared for
+	 * the first iteration of the game loop.
+	 */
+	@InternalMethod
+	public final void init() {
+		if (currentState != null)
+			currentState.switchTo();
+
+		initialized = true;
 	}
 
 	@InternalMethod
@@ -98,12 +167,6 @@ public class StateManager implements Renderable, Controllable {
 	public final void gamepadInput(Gamepad gamepad) {
 		if (currentState != null)
 			currentState.gamepadInput(gamepad);
-	}
-
-	@InternalMethod
-	public final void init() {
-		if (currentState != null)
-			currentState.switchIn();
 	}
 
 	@Override

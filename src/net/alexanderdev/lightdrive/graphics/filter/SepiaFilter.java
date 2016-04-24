@@ -11,39 +11,27 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics.filters.dynamic;
+package net.alexanderdev.lightdrive.graphics.filter;
 
-import java.awt.Color;
-
-import net.alexanderdev.lightdrive.graphics.filters.AdjustFilter;
 import net.alexanderdev.lightdrive.util.Pixel;
+import net.alexanderdev.lightdrive.util.math.MathS;
 
 /**
  * @author Christian Bryce Alexander
- * @since Dec 14, 2015, 6:25:07 AM
+ * @since Dec 14, 2015, 6:13:01 AM
  */
-public class SpectrumFilter extends AdjustFilter {
-	private float dh;
-	private float hue;
-
-	public SpectrumFilter(float dh) {
-		super(1f, 1f, 1f);
-
-		this.dh = dh;
-
-		hue = 0f;
-	}
-
+public class SepiaFilter implements Filter {
 	@Override
-	public void apply(int[] pixels) {
-		float[] argb = Pixel.splitFloatARGB(Color.HSBtoRGB(hue, 1f, 1f));
+	public void apply(int width, int height, int[] pixels) {
+		for (int i = 0; i < pixels.length; i++) {
+			float[] argb = Pixel.splitFloatARGB(pixels[i]);
 
-		this.r = argb[1];
-		this.g = argb[2];
-		this.b = argb[3];
+			float or = (argb[1] * 0.393f) + (argb[2] * 0.769f) + (argb[3] * 0.189f);
+			float og = (argb[1] * 0.349f) + (argb[2] * 0.686f) + (argb[3] * 0.168f);
+			float ob = (argb[1] * 0.272f) + (argb[2] * 0.534f) + (argb[3] * 0.131f);
 
-		super.apply(pixels);
-
-		hue += dh;
+			pixels[i] = Pixel.mergeARGB(argb[0], MathS.clamp(or, 0f, 1f), MathS.clamp(og, 0f, 1f),
+				MathS.clamp(ob, 0f, 1f));
+		}
 	}
 }

@@ -11,39 +11,52 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics.filters;
+package net.alexanderdev.lightdrive.graphics.filter;
 
+import net.alexanderdev.lightdrive.graphics.ColorS;
 import net.alexanderdev.lightdrive.util.Pixel;
-import net.alexanderdev.lightdrive.util.math.MathS;
 
 /**
  * @author Christian Bryce Alexander
- * @since Dec 14, 2015, 4:18:47 AM
+ * @since Dec 14, 2015, 3:59:04 AM
  */
-public class BrightnessFilter implements FilterS {
-	private float factor;
+public class AdjustFilter implements Filter {
+	protected float r, g, b;
 
-	public BrightnessFilter(float factor) {
-		this.factor = MathS.clamp(factor, -1f, 1f);
+	/**
+	 * An {@code AdjustFilter} with its percentages based off of a color.
+	 */
+	public AdjustFilter(ColorS color) {
+		this.r = color.getFloatRed();
+		this.g = color.getFloatGreen();
+		this.b = color.getFloatBlue();
+	}
+
+	/**
+	 * An {@code AdjustFilter} with the specified percentages.
+	 */
+	public AdjustFilter(float r, float g, float b) {
+		this.r = r;
+		this.g = g;
+		this.b = b;
+	}
+
+	public void setValues(int color) {
+		r = Pixel.getFloatRed(color);
+		g = Pixel.getFloatGreen(color);
+		b = Pixel.getFloatBlue(color);
 	}
 
 	@Override
-	public void apply(int[] pixels) {
+	public void apply(int width, int height, int[] pixels) {
 		for (int i = 0; i < pixels.length; i++) {
-			int[] argb = Pixel.splitIntARGB(pixels[i]);
+			float[] vals = Pixel.splitFloatARGB(pixels[i]);
 
-			if (factor > 0) {
-				argb[1] += (255 - argb[1]) * factor;
-				argb[2] += (255 - argb[2]) * factor;
-				argb[3] += (255 - argb[3]) * factor;
-			}
-			else {
-				argb[1] -= argb[1] * -factor;
-				argb[2] -= argb[2] * -factor;
-				argb[3] -= argb[3] * -factor;
-			}
+			vals[1] *= r;
+			vals[2] *= g;
+			vals[3] *= b;
 
-			pixels[i] = Pixel.mergeARGB(argb);
+			pixels[i] = Pixel.mergeARGB(vals);
 		}
 	}
 }

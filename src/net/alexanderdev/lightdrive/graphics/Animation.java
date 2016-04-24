@@ -30,7 +30,7 @@ public class Animation implements Cloneable {
 		RANDOM
 	}
 
-	private ImageS[] frames;
+	private Sprite[] frames;
 
 	private int frameWidth;
 	private int frameHeight;
@@ -56,13 +56,13 @@ public class Animation implements Cloneable {
 	 * @param style
 	 *            The way the {@code Animation} executes
 	 */
-	public Animation(ImageS strip, int frameWidth, long delay, Style style) {
+	public Animation(Sprite strip, int frameWidth, long delay, Style style) {
 		this.frameWidth = frameWidth;
 		this.frameHeight = strip.getHeight();
 		this.delay = delay;
 		this.style = style;
 
-		frames = new ImageS[strip.getWidth() / frameWidth];
+		frames = new Sprite[strip.getWidth() / frameWidth];
 
 		for (int i = 0; i < frames.length; i++) {
 			frames[i] = strip.getSubimage(i * frameWidth, 0, frameWidth, frameHeight);
@@ -75,7 +75,7 @@ public class Animation implements Cloneable {
 		playing = false;
 	}
 
-	public Animation(ImageS[] frames, long delay, Style style) {
+	public Animation(Sprite[] frames, long delay, Style style) {
 		this.frames = frames;
 		this.delay = delay;
 		this.style = style;
@@ -94,7 +94,7 @@ public class Animation implements Cloneable {
 		this(animation.getFrames(), animation.getDelay(), animation.getStyle());
 	}
 
-	public ImageS[] getFrames() {
+	public Sprite[] getFrames() {
 		return frames;
 	}
 
@@ -206,7 +206,7 @@ public class Animation implements Cloneable {
 	/**
 	 * @return The current frame of the {@code Animation}
 	 */
-	public ImageS getFrame() {
+	public Sprite getFrame() {
 		return frames[currFrame];
 	}
 

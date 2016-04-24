@@ -16,7 +16,7 @@ package net.alexanderdev.lightdrive.view;
 import java.awt.Rectangle;
 
 import net.alexanderdev.lightdrive.InternalType;
-import net.alexanderdev.lightdrive.graphics.filters.FilterS;
+import net.alexanderdev.lightdrive.graphics.filter.Filter;
 import net.alexanderdev.lightdrive.state.StateManager;
 
 /**
@@ -73,24 +73,24 @@ public interface Viewable {
 	public void close();
 
 	/**
-	 * Adds a {@link FilterS} that will be applied to this {@code Viewable}'s
+	 * Adds a {@link Filter} that will be applied to this {@code Viewable}'s
 	 * context after rendering.
 	 * 
 	 * @param filter
 	 *            The filter to add
 	 */
-	public void addFilter(FilterS filter);
+	public void addFilter(Filter filter);
 
 	/**
-	 * Removes a {@link FilterS} from being applied to this {@code Viewable}'s
+	 * Removes a {@link Filter} from being applied to this {@code Viewable}'s
 	 * context after rendering.
 	 * 
 	 * @param filter
 	 */
-	public void removeFilter(FilterS filter);
+	public void removeFilter(Filter filter);
 
 	/**
-	 * Clears all added {@link FilterS}'s from this {@code Viewable}.
+	 * Clears all added {@link Filter}'s from this {@code Viewable}.
 	 */
 	public void clearFilters();
 }

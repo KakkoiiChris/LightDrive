@@ -31,8 +31,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import net.alexanderdev.lightdrive.graphics.GraphicsS;
-import net.alexanderdev.lightdrive.graphics.ImageS;
-import net.alexanderdev.lightdrive.graphics.filters.FilterS;
+import net.alexanderdev.lightdrive.graphics.Sprite;
+import net.alexanderdev.lightdrive.graphics.filter.Filter;
 import net.alexanderdev.lightdrive.input.Gamepad;
 import net.alexanderdev.lightdrive.input.GamepadFinder;
 import net.alexanderdev.lightdrive.input.Keyboard;
@@ -92,9 +92,9 @@ public class Display extends Canvas implements Viewable, Runnable {
 	private boolean running;
 	private Thread thread;
 
-	private ImageS screen;
+	private Sprite screen;
 
-	private List<FilterS> filters;
+	private List<Filter> filters;
 
 	private GraphicsS gs;
 	private Graphics g;
@@ -375,7 +375,7 @@ public class Display extends Canvas implements Viewable, Runnable {
 		System.setProperty("sun.java2d.d3d", "True");
 		System.setProperty("sun.java2d.opengl", "True");
 
-		screen = new ImageS(width, height);
+		screen = new Sprite(width, height);
 
 		gs = new GraphicsS((Graphics2D) screen.getGraphics());
 		gs.setRenderingHints(renderHints);
@@ -505,17 +505,17 @@ public class Display extends Canvas implements Viewable, Runnable {
 		bs.show();
 	}
 
-	private FilterS[] getFilterList() {
-		return filters.toArray(new FilterS[filters.size()]);
+	private Filter[] getFilterList() {
+		return filters.toArray(new Filter[filters.size()]);
 	}
 
 	@Override
-	public void addFilter(FilterS filter) {
+	public void addFilter(Filter filter) {
 		filters.add(filter);
 	}
 
 	@Override
-	public void removeFilter(FilterS filter) {
+	public void removeFilter(Filter filter) {
 		filters.remove(filter);
 	}
 

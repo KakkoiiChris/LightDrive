@@ -20,7 +20,7 @@ package net.alexanderdev.lightdrive.graphics;
  * @since March 12, 2015 | 6:17:05 PM
  */
 public class SpriteSheet {
-	private ImageS[][] sprites;
+	private Sprite[][] sprites;
 
 	private int rows;
 	private int cols;
@@ -41,7 +41,7 @@ public class SpriteSheet {
 	 *            Height of all sprites
 	 * @throws SpriteSheetException
 	 */
-	public SpriteSheet(ImageS sheet, int spriteWidth, int spriteHeight) {
+	public SpriteSheet(Sprite sheet, int spriteWidth, int spriteHeight) {
 		this.width = sheet.getWidth();
 		this.height = sheet.getHeight();
 		this.spriteWidth = spriteWidth;
@@ -49,20 +49,20 @@ public class SpriteSheet {
 
 		if (width < spriteWidth)
 			throw new IllegalArgumentException(String
-				.format("Sprites of width %d cannot be generated from an image of width %d.", spriteWidth, width));
+				.format("LIGHT DRIVE ERROR: Sprites of width %d cannot be generated from an image of width %d.", spriteWidth, width));
 
 		if (height < spriteHeight)
 			throw new IllegalArgumentException(String
-				.format("Sprites of height %d cannot be generated from an image of height %d.", spriteHeight, height));
+				.format("LIGHT DRIVE ERROR: Sprites of height %d cannot be generated from an image of height %d.", spriteHeight, height));
 
 		if (width % spriteWidth != 0) {
-			System.err.printf("WARNING: Sprites of width %d will not divide an image of width %d evenly.\n",
+			System.err.printf("LIGHT DRIVE WARNING: Sprites of width %d will not divide an image of width %d evenly.\n",
 				spriteWidth, width);
 			Thread.dumpStack();
 		}
 
 		if (height % spriteHeight != 0) {
-			System.err.printf("WARNING: Sprites of height %d will not divide an image of height %d evenly.\n",
+			System.err.printf("LIGHT DRIVE WARNING: Sprites of height %d will not divide an image of height %d evenly.\n",
 				spriteHeight, height);
 			Thread.dumpStack();
 		}
@@ -70,7 +70,7 @@ public class SpriteSheet {
 		this.cols = width / spriteWidth;
 		this.rows = height / spriteHeight;
 
-		sprites = new ImageS[rows][cols];
+		sprites = new Sprite[rows][cols];
 
 		for (int r = 0; r < rows; r++)
 			for (int c = 0; c < cols; c++)
@@ -123,7 +123,7 @@ public class SpriteSheet {
 	 * @return The sprite at the specified row and column
 	 * @throws SpriteOutOfBoundsException
 	 */
-	public ImageS getSprite(int r, int c) {
+	public Sprite getSprite(int r, int c) {
 		if (r < 0 || r >= rows)
 			throw new ArrayIndexOutOfBoundsException(r);
 
@@ -150,15 +150,15 @@ public class SpriteSheet {
 	 * @return The "i"th sprite on the sheet, which wraps around horizontally
 	 * @throws SpriteOutOfBoundsException
 	 */
-	public ImageS getSprite(int i) {
+	public Sprite getSprite(int i) {
 		int r = i / cols;
 		int c = i % cols;
 
 		return getSprite(r, c);
 	}
 
-	public ImageS[] getSprites(int start, int end) {
-		ImageS[] sprites = new ImageS[(end - start) + 1];
+	public Sprite[] getSprites(int start, int end) {
+		Sprite[] sprites = new Sprite[(end - start) + 1];
 
 		for (int i = 0; i < sprites.length; i++)
 			sprites[i] = getSprite(start + i);
@@ -166,8 +166,8 @@ public class SpriteSheet {
 		return sprites;
 	}
 
-	public ImageS[] getSequentialSprites() {
-		ImageS[] frames = new ImageS[rows * cols];
+	public Sprite[] getSequentialSprites() {
+		Sprite[] frames = new Sprite[rows * cols];
 
 		for (int i = 0; i < frames.length; i++)
 			frames[i] = getSprite(i);
