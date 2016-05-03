@@ -15,7 +15,7 @@ package net.alexanderdev.lightdrive.graphics.filter.dynamic;
 
 import net.alexanderdev.lightdrive.graphics.filter.Filter;
 import net.alexanderdev.lightdrive.util.Pixel;
-import net.alexanderdev.lightdrive.util.math.MathS;
+import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
  * @author Christian Bryce Alexander
@@ -37,9 +37,9 @@ public class ColorNoiseFilter implements Filter {
 		for (int i = 0; i < pixels.length; i++) {
 			float[] argb = Pixel.splitFloatARGB(pixels[i]);
 
-			argb[1] *= MathS.clamp(MathS.randomFloat(), 1 - intensity, 1);
-			argb[2] *= MathS.clamp(MathS.randomFloat(), 1 - intensity, 1);
-			argb[3] *= MathS.clamp(MathS.randomFloat(), 1 - intensity, 1);
+			argb[1] *= MathX.clamp(MathX.randomFloat(), 1 - intensity, 1);
+			argb[2] *= MathX.clamp(MathX.randomFloat(), 1 - intensity, 1);
+			argb[3] *= MathX.clamp(MathX.randomFloat(), 1 - intensity, 1);
 
 			pixels[i] = Pixel.mergeARGB(argb);
 		}

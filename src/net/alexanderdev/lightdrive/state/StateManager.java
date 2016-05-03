@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import net.alexanderdev.lightdrive.InternalMethod;
-import net.alexanderdev.lightdrive.graphics.GraphicsS;
+import net.alexanderdev.lightdrive.graphics.GraphicsX;
 import net.alexanderdev.lightdrive.graphics.Renderable;
 import net.alexanderdev.lightdrive.input.Controllable;
 import net.alexanderdev.lightdrive.input.Gamepad;
@@ -176,7 +176,7 @@ public class StateManager implements Renderable, Controllable {
 	}
 
 	@Override
-	public void render(GraphicsS g) {
+	public void render(GraphicsX g) {
 		if (currentState != null)
 			currentState.render(g);
 	}

@@ -15,9 +15,9 @@ package net.alexanderdev.lightdrive.graphics;
 
 import java.awt.Color;
 
-import net.alexanderdev.lightdrive.util.ArraysS;
+import net.alexanderdev.lightdrive.util.ArraysX;
 import net.alexanderdev.lightdrive.util.Pixel;
-import net.alexanderdev.lightdrive.util.math.MathS;
+import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
  * An extension of Java's own {@code Color} class, which contains constants for
@@ -28,44 +28,44 @@ import net.alexanderdev.lightdrive.util.math.MathS;
  * @author Christian Bryce Alexander
  * @since April 7, 2015 | 7:28:12 PM
  */
-public class ColorS extends Color {
+public class ColorX extends Color {
 	private static final long serialVersionUID = -1851689902505547716L;
 
-	public static ColorS RED = new ColorS(0xffff0000);
-	public static ColorS ORANGE = new ColorS(0xffff8800);
-	public static ColorS YELLOW = new ColorS(0xffffff00);
-	public static ColorS LIME = new ColorS(0xff88ff00);
-	public static ColorS GREEN = new ColorS(0xff00ff00);
-	public static ColorS AQUA = new ColorS(0xff00ff88);
-	public static ColorS CYAN = new ColorS(0xff00ffff);
-	public static ColorS SKY = new ColorS(0xff0088ff);
-	public static ColorS BLUE = new ColorS(0xff0000ff);
-	public static ColorS PURPLE = new ColorS(0xff8800ff);
-	public static ColorS MAGENTA = new ColorS(0xffff00ff);
-	public static ColorS ROSE = new ColorS(0xffff0088);
-	public static ColorS WHITE = new ColorS(0xffffffff);
-	public static ColorS GRAY = new ColorS(0xff888888);
-	public static ColorS BLACK = new ColorS(0xff000000);
+	public static ColorX RED = new ColorX(0xffff0000);
+	public static ColorX ORANGE = new ColorX(0xffff8800);
+	public static ColorX YELLOW = new ColorX(0xffffff00);
+	public static ColorX LIME = new ColorX(0xff88ff00);
+	public static ColorX GREEN = new ColorX(0xff00ff00);
+	public static ColorX AQUA = new ColorX(0xff00ff88);
+	public static ColorX CYAN = new ColorX(0xff00ffff);
+	public static ColorX SKY = new ColorX(0xff0088ff);
+	public static ColorX BLUE = new ColorX(0xff0000ff);
+	public static ColorX PURPLE = new ColorX(0xff8800ff);
+	public static ColorX MAGENTA = new ColorX(0xffff00ff);
+	public static ColorX ROSE = new ColorX(0xffff0088);
+	public static ColorX WHITE = new ColorX(0xffffffff);
+	public static ColorX GRAY = new ColorX(0xff888888);
+	public static ColorX BLACK = new ColorX(0xff000000);
 
 	private float alpha, red, green, blue;
 
-	public ColorS(int color) {
+	public ColorX(int color) {
 		super(Pixel.getIntRed(color), Pixel.getIntGreen(color), Pixel.getIntBlue(color), Pixel.getIntAlpha(color));
 	}
 
-	public ColorS(int r, int g, int b) {
+	public ColorX(int r, int g, int b) {
 		super(r, g, b, 255);
 	}
 
-	public ColorS(int a, int r, int g, int b) {
+	public ColorX(int a, int r, int g, int b) {
 		super(r, g, b, a);
 	}
 
-	public ColorS(float r, float g, float b) {
+	public ColorX(float r, float g, float b) {
 		super(r, g, b, 1f);
 	}
 
-	public ColorS(float a, float r, float g, float b) {
+	public ColorX(float a, float r, float g, float b) {
 		super(r, g, b, a);
 	}
 
@@ -109,7 +109,7 @@ public class ColorS extends Color {
 		if (brightness == 0f)
 			return getARGB();
 
-		brightness = MathS.clamp(brightness, -1f, 1f);
+		brightness = MathX.clamp(brightness, -1f, 1f);
 
 		float r, g, b;
 
@@ -127,15 +127,15 @@ public class ColorS extends Color {
 		return Pixel.mergeARGB(alpha, r, g, b);
 	}
 
-	public ColorS colorOfBrightness(float brightness) {
-		return new ColorS(ofBrightness(brightness));
+	public ColorX colorOfBrightness(float brightness) {
+		return new ColorX(ofBrightness(brightness));
 	}
 
 	public int ofSaturation(float saturation) {
 		if (saturation == 0f)
 			return getARGB();
 
-		saturation = MathS.clamp(saturation, -1f, 1f);
+		saturation = MathX.clamp(saturation, -1f, 1f);
 
 		float r, g, b;
 
@@ -153,7 +153,7 @@ public class ColorS extends Color {
 			b = blue + bDiff * saturation;
 		}
 		else {
-			float avg = (float) MathS.average(red, green, blue);
+			float avg = (float) MathX.average(red, green, blue);
 
 			float rDiff = avg - red;
 			float gDiff = avg - green;
@@ -167,8 +167,8 @@ public class ColorS extends Color {
 		return Pixel.mergeARGB(alpha, r, g, b);
 	}
 
-	public ColorS colorOfSaturation(float saturation) {
-		return new ColorS(ofSaturation(saturation));
+	public ColorX colorOfSaturation(float saturation) {
+		return new ColorX(ofSaturation(saturation));
 	}
 
 	public int ofInversion(float factor) {
@@ -178,7 +178,7 @@ public class ColorS extends Color {
 		if (factor == 1f)
 			return Pixel.mergeARGB(alpha, 1f - red, 1f - green, 1f - blue);
 
-		factor = MathS.clamp(factor, 0f, 1f);
+		factor = MathX.clamp(factor, 0f, 1f);
 
 		float r, g, b;
 
@@ -193,16 +193,16 @@ public class ColorS extends Color {
 		return Pixel.mergeARGB(alpha, r, g, b);
 	}
 
-	public ColorS colorOfInversion(float factor) {
-		return new ColorS(ofInversion(factor));
+	public ColorX colorOfInversion(float factor) {
+		return new ColorX(ofInversion(factor));
 	}
 
 	public int inverted() {
 		return ofInversion(1f);
 	}
 
-	public ColorS invertedColor() {
-		return new ColorS(inverted());
+	public ColorX invertedColor() {
+		return new ColorX(inverted());
 	}
 
 	public int ofGrayscale(GrayscaleMode mode) {
@@ -210,7 +210,7 @@ public class ColorS extends Color {
 
 		switch (mode) {
 			case AVERAGE:
-				value = (float) MathS.average(red, green, blue);
+				value = (float) MathX.average(red, green, blue);
 				break;
 			case CHANNEL_RED:
 				value = red;
@@ -222,34 +222,34 @@ public class ColorS extends Color {
 				value = blue;
 				break;
 			case LIGHTNESS:
-				value = (float) MathS.average(MathS.min(red, green, blue), MathS.max(red, green, blue));
+				value = (float) MathX.average(MathX.min(red, green, blue), MathX.max(red, green, blue));
 				break;
 			case LUMINOSITY:
-				value = MathS.clamp((red * 0.2126f) + (green * 0.7152f) + (blue * 0.0722f), 0f, 1f);
+				value = MathX.clamp((red * 0.2126f) + (green * 0.7152f) + (blue * 0.0722f), 0f, 1f);
 				break;
 			case MAX_DECOMP:
-				value = MathS.max(red, green, blue);
+				value = MathX.max(red, green, blue);
 				break;
 			case MID_DECOMP:
-				value = ArraysS.sort(red, green, blue)[1];
+				value = ArraysX.sort(red, green, blue)[1];
 				break;
 			case MIN_DECOMP:
-				value = MathS.min(red, green, blue);
+				value = MathX.min(red, green, blue);
 				break;
 		}
 
 		return Pixel.mergeARGB(alpha, value, value, value);
 	}
 
-	public ColorS colorOfGrayscale(GrayscaleMode mode) {
-		return new ColorS(ofGrayscale(mode));
+	public ColorX colorOfGrayscale(GrayscaleMode mode) {
+		return new ColorX(ofGrayscale(mode));
 	}
 
 	public int ofAdjustment(float pr, float pg, float pb) {
 		return Pixel.mergeARGB(alpha, red * pr, green * pg, blue * pb);
 	}
 
-	public ColorS colorOfAdjustment(float pr, float pg, float pb) {
-		return new ColorS(ofAdjustment(pr, pg, pb));
+	public ColorX colorOfAdjustment(float pr, float pg, float pb) {
+		return new ColorX(ofAdjustment(pr, pg, pb));
 	}
 }

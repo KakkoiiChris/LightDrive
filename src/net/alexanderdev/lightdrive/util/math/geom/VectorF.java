@@ -13,7 +13,13 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.util.math.geom;
 
-import static java.lang.Math.*;
+import static java.lang.Math.atan2;
+import static java.lang.Math.cos;
+import static java.lang.Math.pow;
+import static java.lang.Math.sin;
+import static java.lang.Math.sqrt;
+
+import java.awt.geom.Point2D;
 
 /**
  * A class which represents a 2D vector with float precision. It contains
@@ -22,7 +28,7 @@ import static java.lang.Math.*;
  * @author Christian Bryce Alexander
  * @since Apr 13, 2015 | 3:08:10 PM
  */
-public strictfp class VectorF extends PointF implements Comparable<Object> {
+public strictfp class VectorF extends Point2D.Float implements Comparable<Object> {
 	private static final long serialVersionUID = -1490482930677885575L;
 
 	/**
@@ -251,26 +257,6 @@ public strictfp class VectorF extends PointF implements Comparable<Object> {
 	 */
 	public float angle() {
 		return (float) atan2(y, x);
-	}
-
-	/**
-	 * @param point
-	 *            The location to point towards
-	 * 
-	 * @return A {@code VectorD} from this {@code VectorD} to a {@code PointF}
-	 */
-	public VectorF vectorTo(PointF point) {
-		return new VectorF(-(x - point.x), -(y - point.y));
-	}
-
-	/**
-	 * @param point
-	 *            The location to point towards
-	 * 
-	 * @return A {@code VectorD} from this {@code VectorD} to a {@code PointD}
-	 */
-	public VectorF vectorTo(PointD point) {
-		return new VectorF((float) -(x - point.x), (float) -(y - point.y));
 	}
 
 	/**

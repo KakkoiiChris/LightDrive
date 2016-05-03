@@ -15,8 +15,6 @@ package net.alexanderdev.lightdrive.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import net.alexanderdev.lightdrive.InternalMethod;
 
@@ -28,174 +26,117 @@ import net.alexanderdev.lightdrive.InternalMethod;
  * @since March 6, 2015 | 2:47:47 AM
  */
 public class Keyboard implements KeyListener {
-	public static final int ANY = -1;
+	private final boolean[] KEYS = new boolean[Key.values().length];
 
-	public static final int ESCAPE = KeyEvent.VK_ESCAPE;
-	public static final int DELETE = KeyEvent.VK_DELETE;
-	public static final int BACK_SPACE = KeyEvent.VK_BACK_SPACE;
-	public static final int TAB = KeyEvent.VK_TAB;
-	public static final int SHIFT = KeyEvent.VK_SHIFT;
-	public static final int CONTROL = KeyEvent.VK_CONTROL;
-	public static final int ALT = KeyEvent.VK_ALT;
-	public static final int SPACE = KeyEvent.VK_SPACE;
-	public static final int ENTER = KeyEvent.VK_ENTER;
-	public static final int BACK_QUOTE = KeyEvent.VK_BACK_QUOTE;
-
-	public static final int F1 = KeyEvent.VK_F1;
-	public static final int F2 = KeyEvent.VK_F2;
-	public static final int F3 = KeyEvent.VK_F3;
-	public static final int F4 = KeyEvent.VK_F4;
-	public static final int F5 = KeyEvent.VK_F5;
-	public static final int F6 = KeyEvent.VK_F6;
-	public static final int F7 = KeyEvent.VK_F7;
-	public static final int F8 = KeyEvent.VK_F8;
-	public static final int F9 = KeyEvent.VK_F9;
-	public static final int F10 = KeyEvent.VK_F10;
-	public static final int F11 = KeyEvent.VK_F11;
-	public static final int F12 = KeyEvent.VK_F12;
-
-	public static final int ZERO = KeyEvent.VK_0;
-	public static final int ONE = KeyEvent.VK_1;
-	public static final int TWO = KeyEvent.VK_2;
-	public static final int THREE = KeyEvent.VK_3;
-	public static final int FOUR = KeyEvent.VK_4;
-	public static final int FIVE = KeyEvent.VK_5;
-	public static final int SIX = KeyEvent.VK_6;
-	public static final int SEVEN = KeyEvent.VK_7;
-	public static final int EIGHT = KeyEvent.VK_8;
-	public static final int NINE = KeyEvent.VK_9;
-
-	public static final int A = KeyEvent.VK_A;
-	public static final int B = KeyEvent.VK_B;
-	public static final int C = KeyEvent.VK_C;
-	public static final int D = KeyEvent.VK_D;
-	public static final int E = KeyEvent.VK_E;
-	public static final int F = KeyEvent.VK_F;
-	public static final int G = KeyEvent.VK_G;
-	public static final int H = KeyEvent.VK_H;
-	public static final int I = KeyEvent.VK_I;
-	public static final int J = KeyEvent.VK_J;
-	public static final int K = KeyEvent.VK_K;
-	public static final int L = KeyEvent.VK_L;
-	public static final int M = KeyEvent.VK_M;
-	public static final int N = KeyEvent.VK_N;
-	public static final int O = KeyEvent.VK_O;
-	public static final int P = KeyEvent.VK_P;
-	public static final int Q = KeyEvent.VK_Q;
-	public static final int R = KeyEvent.VK_R;
-	public static final int S = KeyEvent.VK_S;
-	public static final int T = KeyEvent.VK_T;
-	public static final int U = KeyEvent.VK_U;
-	public static final int V = KeyEvent.VK_V;
-	public static final int W = KeyEvent.VK_W;
-	public static final int X = KeyEvent.VK_X;
-	public static final int Y = KeyEvent.VK_Y;
-	public static final int Z = KeyEvent.VK_Z;
-
-	public static final int UP = KeyEvent.VK_UP;
-	public static final int DOWN = KeyEvent.VK_DOWN;
-	public static final int LEFT = KeyEvent.VK_LEFT;
-	public static final int RIGHT = KeyEvent.VK_RIGHT;
-
-	public static final int MINUS = KeyEvent.VK_MINUS;
-	public static final int EQUALS = KeyEvent.VK_EQUALS;
-	public static final int OPEN_BRACKET = KeyEvent.VK_OPEN_BRACKET;
-	public static final int CLOSE_BRACKET = KeyEvent.VK_CLOSE_BRACKET;
-	public static final int BACK_SLASH = KeyEvent.VK_BACK_SLASH;
-	public static final int SEMICOLON = KeyEvent.VK_SEMICOLON;
-	public static final int QUOTE = KeyEvent.VK_QUOTE;
-	public static final int COMMA = KeyEvent.VK_COMMA;
-	public static final int PERIOD = KeyEvent.VK_PERIOD;
-	public static final int SLASH = KeyEvent.VK_SLASH;
-
-	public static final int HOME = KeyEvent.VK_HOME;
-	public static final int END = KeyEvent.VK_END;
-	public static final int PAGE_UP = KeyEvent.VK_PAGE_UP;
-	public static final int PAGE_DOWN = KeyEvent.VK_PAGE_DOWN;
-
-	private final boolean[] KEYS = new boolean[KeyEvent.KEY_LAST];
+	private final int[] KEY_LOCATIONS = new int[KEYS.length];
 
 	private boolean[] keysLast;
 
-	private int keyLocation;
-
-	private int maxComboLength;
-
-	private List<Integer> keyCombo;
-
+	/**
+	 * Creates a standard {@code Keyboard}.
+	 */
 	public Keyboard() {
+		for (int i = 0; i < KEYS.length; i++) {
+			KEYS[i] = false;
+
+			KEY_LOCATIONS[i] = KeyEvent.KEY_LOCATION_UNKNOWN;
+		}
+
 		keysLast = KEYS.clone();
-
-		keyLocation = KeyEvent.KEY_LOCATION_STANDARD;
-
-		maxComboLength = 0;
-
-		keyCombo = new ArrayList<>();
 	}
 
-	public boolean keyPressed(int keyCode) {
-		if (keyCode == ANY) {
-			for (int i = 0; i < KEYS.length; i++)
-				if (KEYS[i] && !keysLast[i])
-					return true;
-			return false;
-		}
-		return KEYS[keyCode] && !keysLast[keyCode];
+	/**
+	 * @param keyCode
+	 *            The code of the key to check
+	 * @return {@code true} if {@code keyCode} equals {@link Keyboard#ANY} and
+	 *         any key has been pressed, or if {@code keyCode} is associated
+	 *         with a key that has been pressed, and {@code false} otherwise
+	 */
+	public boolean keyPressed(Key key) {
+		return KEYS[key.ordinal()] && !keysLast[key.ordinal()];
 	}
 
-	public boolean keyHeld(int keyCode) {
-		if (keyCode == ANY) {
-			for (int i = 0; i < KEYS.length; i++)
-				if (KEYS[i])
-					return true;
-			return false;
-		}
-		return KEYS[keyCode];
+	public boolean anyKeyPressed() {
+		for (int i = 0; i < KEYS.length; i++)
+			if (KEYS[i] && !keysLast[i])
+				return true;
+		return false;
 	}
 
-	public boolean keyReleased(int keyCode) {
-		if (keyCode == ANY) {
-			for (int i = 0; i < KEYS.length; i++)
-				if (!KEYS[i] && keysLast[i])
-					return true;
-			return false;
-		}
-		return !KEYS[keyCode] && keysLast[keyCode];
+	/**
+	 * @param keyCode
+	 *            The code of the key to check
+	 * @return {@code true} if {@code keyCode} equals {@link Keyboard#ANY} and
+	 *         any key is being held, or if {@code keyCode} is associated with a
+	 *         key that is being held, and {@code false} otherwise
+	 */
+	public boolean keyHeld(Key key) {
+		return KEYS[key.ordinal()];
 	}
 
-	public boolean isStandardKey() {
-		return keyLocation == KeyEvent.KEY_LOCATION_STANDARD;
+	public boolean anyKeyHeld() {
+		for (int i = 0; i < KEYS.length; i++)
+			if (KEYS[i])
+				return true;
+		return false;
 	}
 
-	public boolean isLeftKey() {
-		return keyLocation == KeyEvent.KEY_LOCATION_LEFT;
+	/**
+	 * @param keyCode
+	 *            The code of the key to check
+	 * @return {@code true} if {@code keyCode} equals {@link Keyboard#ANY} and
+	 *         any key has been released, or if {@code keyCode} is associated
+	 *         with a key that has been released, and {@code false} otherwise
+	 */
+	public boolean keyReleased(Key key) {
+		return !KEYS[key.ordinal()] && keysLast[key.ordinal()];
 	}
 
-	public boolean isRightKey() {
-		return keyLocation == KeyEvent.KEY_LOCATION_RIGHT;
+	public boolean anyKeyReleased() {
+		for (int i = 0; i < KEYS.length; i++)
+			if (!KEYS[i] && keysLast[i])
+				return true;
+		return false;
 	}
 
-	public boolean isNumpadKey() {
-		return keyLocation == KeyEvent.KEY_LOCATION_NUMPAD;
+	/**
+	 * @param keyCode
+	 *            The code of the key to check
+	 * @return {@code true} if if the key appears only once, and is not located
+	 *         on the numpad, and {@code false} otherwise
+	 */
+	public boolean isStandardKey(Key key) {
+		return KEY_LOCATIONS[key.ordinal()] == KeyEvent.KEY_LOCATION_STANDARD;
 	}
 
-	public void setMaximumComboLength(int length) {
-		maxComboLength = length;
+	/**
+	 * @param keyCode
+	 *            The code of the key to check
+	 * @return {@code true} if the key is the leftmost instance of the key and
+	 *         {@code false} otherwise
+	 */
+	public boolean isLeftKey(Key key) {
+		return KEY_LOCATIONS[key.ordinal()] == KeyEvent.KEY_LOCATION_LEFT;
 	}
 
-	public void resetCombo() {
-		keyCombo.clear();
+	/**
+	 * @param keyCode
+	 *            The code of the key to check
+	 * @return {@code true} if the key is the rightmost instance of the key and
+	 *         {@code false} otherwise
+	 */
+	public boolean isRightKey(Key key) {
+		return KEY_LOCATIONS[key.ordinal()] == KeyEvent.KEY_LOCATION_RIGHT;
 	}
 
-	public boolean comboMatches(int[] combo) {
-		if (combo.length != keyCombo.size())
-			return false;
-
-		for (int i = 0; i < combo.length; i++)
-			if (combo[i] != keyCombo.get(i))
-				return false;
-
-		return true;
+	/**
+	 * @param keyCode
+	 *            The code of the key to check
+	 * @return {@code true} if the key is located in the numpad, {@code false}
+	 *         otherwise
+	 */
+	public boolean isNumpadKey(Key key) {
+		return KEY_LOCATIONS[key.ordinal()] == KeyEvent.KEY_LOCATION_NUMPAD;
 	}
 
 	@InternalMethod
@@ -212,15 +153,12 @@ public class Keyboard implements KeyListener {
 	@Override
 	@InternalMethod
 	public void keyPressed(KeyEvent e) {
-		int code = e.getKeyCode();
+		int keyCode = e.getKeyCode();
 
-		if (code >= 0 && code < KEYS.length) {
-			KEYS[code] = true;
+		if (keyCode >= 0 && keyCode < KEYS.length) {
+			KEYS[keyCode] = true;
 
-			if (maxComboLength > 0)
-				appendCombo(code);
-
-			keyLocation = e.getKeyLocation();
+			KEY_LOCATIONS[keyCode] = e.getKeyLocation();
 		}
 
 		e.consume();
@@ -229,21 +167,14 @@ public class Keyboard implements KeyListener {
 	@Override
 	@InternalMethod
 	public void keyReleased(KeyEvent e) {
-		int code = e.getKeyCode();
+		int keyCode = e.getKeyCode();
 
-		if (code >= 0 && code < KEYS.length) {
-			KEYS[code] = false;
+		if (keyCode >= 0 && keyCode < KEYS.length) {
+			KEYS[keyCode] = false;
 
-			keyLocation = e.getKeyLocation();
+			KEY_LOCATIONS[keyCode] = e.getKeyLocation();
 		}
 
 		e.consume();
-	}
-
-	private void appendCombo(int code) {
-		if (keyCombo.size() >= maxComboLength)
-			keyCombo.remove(0);
-
-		keyCombo.add(code);
 	}
 }

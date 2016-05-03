@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.alexanderdev.lightdrive.graphics.GraphicsS;
+import net.alexanderdev.lightdrive.graphics.GraphicsX;
 import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.graphics.filter.Filter;
 import net.alexanderdev.lightdrive.input.Gamepad;
@@ -80,7 +80,7 @@ public class Screen extends Canvas implements Viewable, Runnable {
 
 	private List<Filter> filters;
 
-	private GraphicsS gs;
+	private GraphicsX gs;
 	private Graphics g;
 	private BufferStrategy bs;
 
@@ -248,7 +248,7 @@ public class Screen extends Canvas implements Viewable, Runnable {
 
 		screen = new Sprite(width, height);
 
-		gs = new GraphicsS((Graphics2D) screen.getGraphics());
+		gs = new GraphicsX((Graphics2D) screen.getGraphics());
 		gs.setRenderingHints(renderHints);
 
 		this.createBufferStrategy(3);
@@ -343,7 +343,7 @@ public class Screen extends Canvas implements Viewable, Runnable {
 	}
 
 	/**
-	 * Handles all graphics, from the main {@link GraphicsS} context rendering
+	 * Handles all graphics, from the main {@link GraphicsX} context rendering
 	 * and filtering, to the final {@link Graphics} draw that makes it visible
 	 * on the {@link Canvas}'s {@link BufferStrategy}.
 	 */

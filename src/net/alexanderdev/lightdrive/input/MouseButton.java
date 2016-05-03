@@ -11,22 +11,15 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.util.math.geom;
-
-import java.awt.geom.Point2D;
+package net.alexanderdev.lightdrive.input;
 
 /**
  * @author Christian Bryce Alexander
- * @since May 3, 2015 | 2:06:39 AM
+ * @since May 3, 2016, 2:44:04 AM
  */
-public class PointD extends Point2D.Double {
-	private static final long serialVersionUID = -1070529268256059907L;
-
-	/**
-	 * @param x
-	 * @param y
-	 */
-	public PointD(double x, double y) {
-		super(x, y);
-	}
+public enum MouseButton {
+	NONE,
+	LEFT,
+	MIDDLE,
+	RIGHT
 }

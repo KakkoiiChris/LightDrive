@@ -11,7 +11,7 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.audio;
+package net.alexanderdev.lightdrive.util.io;
 
 import static javax.sound.sampled.AudioFormat.Encoding.*;
 import static javax.sound.sampled.AudioSystem.*;
@@ -23,6 +23,9 @@ import javax.sound.sampled.AudioFormat.Encoding;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine.Info;
+
+import net.alexanderdev.lightdrive.audio.Sound;
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 

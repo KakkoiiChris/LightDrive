@@ -13,8 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.util;
 
-import static net.alexanderdev.lightdrive.util.math.MathS.randomBoolean;
-import static net.alexanderdev.lightdrive.util.math.MathS.randomInt;
+import static net.alexanderdev.lightdrive.util.math.MathX.randomBoolean;
+import static net.alexanderdev.lightdrive.util.math.MathX.randomInt;
 
 import java.util.LinkedList;
 import java.util.List;

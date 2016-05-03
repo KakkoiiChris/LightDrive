@@ -11,7 +11,7 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics;
+package net.alexanderdev.lightdrive.util.io;
 
 import static java.awt.Font.*;
 import static java.awt.GraphicsEnvironment.*;

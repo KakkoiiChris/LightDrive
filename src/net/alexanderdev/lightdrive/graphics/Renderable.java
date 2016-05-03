@@ -20,5 +20,5 @@ package net.alexanderdev.lightdrive.graphics;
 public interface Renderable {
 	public void update(double delta);
 
-	public void render(GraphicsS g);
+	public void render(GraphicsX g);
 }

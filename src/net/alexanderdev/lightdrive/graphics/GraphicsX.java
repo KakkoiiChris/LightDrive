@@ -49,7 +49,7 @@ import java.util.Map;
  * @author Christian Bryce Alexander
  * @since Apr 24, 2015 | 2:32:23 AM
  */
-public class GraphicsS extends Graphics2D {
+public class GraphicsX extends Graphics2D {
 	public static enum TextAlign {
 		CENTER,
 		LEFT,
@@ -66,7 +66,7 @@ public class GraphicsS extends Graphics2D {
 	 * @param graphics
 	 *            The {@code Graphics2D} object to be used in drawing
 	 */
-	public GraphicsS(Graphics2D graphics) {
+	public GraphicsX(Graphics2D graphics) {
 		this.graphics = graphics;
 	}
 

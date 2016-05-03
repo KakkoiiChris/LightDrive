@@ -14,7 +14,7 @@
 package net.alexanderdev.lightdrive.graphics.filter;
 
 import net.alexanderdev.lightdrive.util.Pixel;
-import net.alexanderdev.lightdrive.util.math.MathS;
+import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
  * @author Christian Bryce Alexander
@@ -45,7 +45,7 @@ public class BlurFilter implements Filter {
 						int xloc = x + i - (KERNEL.length / 2);
 						int yloc = y + j - (KERNEL.length / 2);
 
-						int loc = MathS.clamp(xloc + yloc * width, 0, pixels.length - 1);
+						int loc = MathX.clamp(xloc + yloc * width, 0, pixels.length - 1);
 
 						float[] channels = Pixel.splitFloatARGB(pixels[loc]);
 
@@ -55,9 +55,9 @@ public class BlurFilter implements Filter {
 					}
 				}
 
-				rtotal = MathS.clamp(rtotal, 0, 1);
-				gtotal = MathS.clamp(gtotal, 0, 1);
-				btotal = MathS.clamp(btotal, 0, 1);
+				rtotal = MathX.clamp(rtotal, 0, 1);
+				gtotal = MathX.clamp(gtotal, 0, 1);
+				btotal = MathX.clamp(btotal, 0, 1);
 
 				newPixels[x + y * width] = Pixel.mergeARGB(1, rtotal, gtotal, btotal);
 			}

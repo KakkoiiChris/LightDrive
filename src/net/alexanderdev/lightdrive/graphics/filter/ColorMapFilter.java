@@ -14,7 +14,7 @@
 package net.alexanderdev.lightdrive.graphics.filter;
 
 import net.alexanderdev.lightdrive.util.Pixel;
-import net.alexanderdev.lightdrive.util.math.MathS;
+import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
  * @author Christian Bryce Alexander
@@ -51,7 +51,7 @@ public class ColorMapFilter implements Filter {
 			if (argb[0] != 0xff)
 				continue;
 
-			int v = (int) ((MathS.average(argb[1], argb[2], argb[3]) + 1) / (256 / (values.length - 1)));
+			int v = (int) ((MathX.average(argb[1], argb[2], argb[3]) + 1) / (256 / (values.length - 1)));
 
 			pixels[i] = values[v];
 		}

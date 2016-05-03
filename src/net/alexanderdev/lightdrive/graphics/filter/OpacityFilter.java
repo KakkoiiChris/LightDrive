@@ -14,7 +14,7 @@
 package net.alexanderdev.lightdrive.graphics.filter;
 
 import net.alexanderdev.lightdrive.util.Pixel;
-import net.alexanderdev.lightdrive.util.math.MathS;
+import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
  * @author Christian Bryce Alexander
@@ -24,7 +24,7 @@ public class OpacityFilter implements Filter {
 	private float factor;
 
 	public OpacityFilter(float factor) {
-		this.factor = MathS.clamp(factor, 0f, 1f);
+		this.factor = MathX.clamp(factor, 0f, 1f);
 	}
 
 	@Override

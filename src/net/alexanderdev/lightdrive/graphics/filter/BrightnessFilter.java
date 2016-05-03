@@ -14,7 +14,7 @@
 package net.alexanderdev.lightdrive.graphics.filter;
 
 import net.alexanderdev.lightdrive.util.Pixel;
-import net.alexanderdev.lightdrive.util.math.MathS;
+import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
  * @author Christian Bryce Alexander
@@ -24,11 +24,11 @@ public class BrightnessFilter implements Filter {
 	protected float brightness;
 
 	public BrightnessFilter(float brightness) {
-		this.brightness = MathS.clamp(brightness, -1f, 1f);
+		this.brightness = MathX.clamp(brightness, -1f, 1f);
 	}
 
 	public void setBrightness(float brightness) {
-		this.brightness = MathS.clamp(brightness, -1f, 1f);
+		this.brightness = MathX.clamp(brightness, -1f, 1f);
 	}
 
 	@Override

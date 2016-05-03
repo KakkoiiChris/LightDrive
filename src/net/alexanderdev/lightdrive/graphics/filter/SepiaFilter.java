@@ -14,7 +14,7 @@
 package net.alexanderdev.lightdrive.graphics.filter;
 
 import net.alexanderdev.lightdrive.util.Pixel;
-import net.alexanderdev.lightdrive.util.math.MathS;
+import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
  * @author Christian Bryce Alexander
@@ -30,8 +30,8 @@ public class SepiaFilter implements Filter {
 			float og = (argb[1] * 0.349f) + (argb[2] * 0.686f) + (argb[3] * 0.168f);
 			float ob = (argb[1] * 0.272f) + (argb[2] * 0.534f) + (argb[3] * 0.131f);
 
-			pixels[i] = Pixel.mergeARGB(argb[0], MathS.clamp(or, 0f, 1f), MathS.clamp(og, 0f, 1f),
-				MathS.clamp(ob, 0f, 1f));
+			pixels[i] = Pixel.mergeARGB(argb[0], MathX.clamp(or, 0f, 1f), MathX.clamp(og, 0f, 1f),
+				MathX.clamp(ob, 0f, 1f));
 		}
 	}
 }

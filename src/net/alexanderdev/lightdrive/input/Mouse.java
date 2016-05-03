@@ -32,19 +32,13 @@ import net.alexanderdev.lightdrive.view.Viewable;
  * @since March 6, 2015 | 2:44:04 PM
  */
 public class Mouse implements MouseListener, MouseMotionListener, MouseWheelListener {
-	public static final int ANY = -1;
-	public static final int NONE = MouseEvent.NOBUTTON;
-	public static final int LEFT = MouseEvent.BUTTON1;
-	public static final int MIDDLE = MouseEvent.BUTTON2;
-	public static final int RIGHT = MouseEvent.BUTTON3;
-
 	private Viewable view;
 
-	private final boolean[] BUTTONS = new boolean[4];
+	private final boolean[] BUTTONS = new boolean[MouseButton.values().length];
 
 	private boolean[] buttonsLast;
 
-	private boolean inDisplay;
+	private boolean withinView;
 	private boolean moving;
 	private boolean dragging;
 	private boolean controlDown;
@@ -55,14 +49,24 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 
 	private int wheelRotation;
 
+	/**
+	 * Creates a {@code Mouse} associated with the specified {@link Viewable}.
+	 * 
+	 * @param view
+	 *            The {@link Viewable} to associate with this {@code Mouse}
+	 */
 	public Mouse(Viewable view) {
 		this.view = view;
 
 		buttonsLast = BUTTONS.clone();
 
-		inDisplay = true;
+		withinView = true;
 
-		moving = dragging = false;
+		moving = false;
+		dragging = false;
+		controlDown = false;
+		altDown = false;
+		shiftDown = false;
 
 		wheelRotation = 0;
 
@@ -70,80 +74,146 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 		lastPoint = new Point(0, 0);
 	}
 
-	public boolean buttonPressed(int button) {
-		if (button == ANY) {
-			for (int i = 0; i < BUTTONS.length; i++)
-				if (BUTTONS[i] && !buttonsLast[i])
-					return true;
-			return false;
-		}
-		return BUTTONS[button] && !buttonsLast[button];
+	/**
+	 * @return {@code true} if {@code button} equals {@link Mouse#ANY} and any
+	 *         button has been pressed, or if {@code button} is associated with
+	 *         a button that has been pressed, and {@code false} otherwise
+	 */
+	public boolean buttonPressed(MouseButton button) {
+		return BUTTONS[button.ordinal()] && !buttonsLast[button.ordinal()];
 	}
 
-	public boolean buttonHeld(int button) {
-		if (button == ANY) {
-			for (int i = 0; i < BUTTONS.length; i++)
-				if (BUTTONS[i])
-					return true;
-			return false;
-		}
-		return BUTTONS[button];
+	public boolean anyButtonPressed() {
+		for (int i = 0; i < BUTTONS.length; i++)
+			if (BUTTONS[i] && !buttonsLast[i])
+				return true;
+		return false;
 	}
 
-	public boolean buttonReleased(int button) {
-		if (button == ANY) {
-			for (int i = 0; i < BUTTONS.length; i++)
-				if (!BUTTONS[i] && buttonsLast[i])
-					return true;
-			return false;
-		}
-		return !BUTTONS[button] && buttonsLast[button];
+	/**
+	 * @return {@code true} if {@code button} equals {@link Mouse#ANY} and any
+	 *         button is being held, or if {@code button} is associated with a
+	 *         button that is being held, and {@code false} otherwise
+	 */
+	public boolean buttonHeld(MouseButton button) {
+		return BUTTONS[button.ordinal()];
 	}
 
+	public boolean anyButtonHeld() {
+		for (int i = 0; i < BUTTONS.length; i++)
+			if (BUTTONS[i])
+				return true;
+		return false;
+	}
+
+	/**
+	 * @return {@code true} if {@code button} equals {@link Mouse#ANY} and any
+	 *         button has been released, or if {@code button} is associated with
+	 *         a button that has been released, and {@code false} otherwise
+	 */
+	public boolean buttonReleased(MouseButton button) {
+		return !BUTTONS[button.ordinal()] && buttonsLast[button.ordinal()];
+	}
+
+	public boolean anyButtonReleased() {
+		for (int i = 0; i < BUTTONS.length; i++)
+			if (!BUTTONS[i] && buttonsLast[i])
+				return true;
+		return false;
+	}
+
+	/**
+	 * @return The per-pixel x coordinate of the mouse relative to the
+	 *         associated {@link Viewable}
+	 */
 	public int getX() {
 		return point.x;
 	}
 
+	/**
+	 * @return The per-pixel y coordinate of the mouse relative to the
+	 *         associated {@link Viewable}
+	 */
 	public int getY() {
 		return point.y;
 	}
 
+	/**
+	 * @return The per-pixel coordinates of the mouse relative to the associated
+	 *         {@link Viewable}
+	 */
 	public Point getPoint() {
 		return point;
 	}
 
+	/**
+	 * @return The per-pixel change in the x coordinate of the mouse relative to
+	 *         the associated {@link Viewable}
+	 */
 	public int getDeltaX() {
 		return point.x - lastPoint.x;
 	}
 
+	/**
+	 * @return The per-pixel change in the y coordinate of the mouse relative to
+	 *         the associated {@link Viewable}
+	 */
 	public int getDeltaY() {
 		return point.y - lastPoint.y;
 	}
 
-	public boolean isInDisplay() {
-		return inDisplay;
+	/**
+	 * @return {@code true} if the mouse pointer is withing the bounds of the
+	 *         associated {@link Viewable}, {@code false} otherwise
+	 */
+	public boolean isWithinView() {
+		return withinView;
 	}
 
+	/**
+	 * @return {@code true} if the mouse pointer is moving, {@code false}
+	 *         otherwise
+	 */
 	public boolean isMoving() {
 		return moving;
 	}
 
+	/**
+	 * @return {@code true} if the mouse pointer is moving while a button is
+	 *         held, {@code false} otherwise
+	 */
 	public boolean isDragging() {
 		return dragging;
 	}
 
+	/**
+	 * @return {@code true} if the ctrl key is held simultaneously,
+	 *         {@code false} otherwise
+	 */
 	public boolean isControlDown() {
 		return controlDown;
 	}
 
+	/**
+	 * @return {@code true} if the alt key is held simultaneously, {@code false}
+	 *         otherwise
+	 */
 	public boolean isAltDown() {
 		return altDown;
 	}
 
+	/**
+	 * @return {@code true} if the shift key is held simultaneously,
+	 *         {@code false} otherwise
+	 */
 	public boolean isShiftDown() {
 		return shiftDown;
 	}
 
+	/**
+	 * @return The amount of clicks the mouse wheel has moved since the last
+	 *         update
+	 */
 	public int getWheelRotation() {
 		return wheelRotation;
 	}
@@ -153,18 +223,12 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 		buttonsLast = BUTTONS.clone();
 
 		if (moving && lastPoint.x == point.x && lastPoint.y == point.y)
-			moving = false;
+			moving = dragging = false;
 
 		lastPoint.x = point.x;
 		lastPoint.y = point.y;
 
 		wheelRotation = 0;
-	}
-
-	private void setModifiers(MouseEvent e) {
-		controlDown = e.isControlDown();
-		altDown = e.isAltDown();
-		shiftDown = e.isShiftDown();
 	}
 
 	@Override
@@ -198,7 +262,7 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	@Override
 	@InternalMethod
 	public void mouseEntered(MouseEvent e) {
-		inDisplay = true;
+		withinView = true;
 
 		e.consume();
 	}
@@ -206,7 +270,7 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	@Override
 	@InternalMethod
 	public void mouseExited(MouseEvent e) {
-		inDisplay = false;
+		withinView = false;
 
 		e.consume();
 	}
@@ -241,5 +305,11 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 		setModifiers(e);
 
 		e.consume();
+	}
+
+	private void setModifiers(MouseEvent e) {
+		controlDown = e.isControlDown();
+		altDown = e.isAltDown();
+		shiftDown = e.isShiftDown();
 	}
 }

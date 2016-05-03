@@ -14,7 +14,7 @@
 package net.alexanderdev.lightdrive.util;
 
 import static java.lang.System.arraycopy;
-import static net.alexanderdev.lightdrive.util.math.MathS.randomInt;
+import static net.alexanderdev.lightdrive.util.math.MathX.randomInt;
 
 /**
  * A collection of static methods to manipulate standard java arrays.
@@ -22,7 +22,7 @@ import static net.alexanderdev.lightdrive.util.math.MathS.randomInt;
  * @author Christian Bryce Alexander
  * @since Jul 28, 2015 | 1:33:15 PM
  */
-public class ArraysS {
+public class ArraysX {
 	/**
 	 * @return An array of booleans with the contents of each supplied array in
 	 *         sequential order.

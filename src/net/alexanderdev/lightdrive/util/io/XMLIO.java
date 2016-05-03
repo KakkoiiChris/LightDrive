@@ -12,7 +12,7 @@
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 
-package net.alexanderdev.lightdrive.util.text;
+package net.alexanderdev.lightdrive.util.io;
 
 import java.io.File;
 

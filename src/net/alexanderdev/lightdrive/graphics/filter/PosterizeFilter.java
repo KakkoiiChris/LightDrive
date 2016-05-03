@@ -14,7 +14,7 @@
 package net.alexanderdev.lightdrive.graphics.filter;
 
 import net.alexanderdev.lightdrive.util.Pixel;
-import net.alexanderdev.lightdrive.util.math.MathS;
+import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
  * @author Christian Bryce Alexander
@@ -24,7 +24,7 @@ public class PosterizeFilter implements Filter {
 	private int levels;
 
 	public PosterizeFilter(int levels) {
-		this.levels = MathS.clamp(levels - 1, 1, 255);
+		this.levels = MathX.clamp(levels - 1, 1, 255);
 	}
 
 	@Override

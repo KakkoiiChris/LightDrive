@@ -13,9 +13,9 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.state;
 
-import net.alexanderdev.lightdrive.graphics.GraphicsS;
+import net.alexanderdev.lightdrive.graphics.GraphicsX;
 import net.alexanderdev.lightdrive.graphics.Sprite;
-import net.alexanderdev.lightdrive.graphics.SpriteIO;
+import net.alexanderdev.lightdrive.util.io.SpriteIO;
 
 /**
  * @author Christian Bryce Alexander
@@ -37,7 +37,7 @@ public final class DefaultState extends State {
 	}
 
 	@Override
-	public void render(GraphicsS g) {
+	public void render(GraphicsX g) {
 		g.drawCenteredImage(splash, getManager().getView().getViewBounds());
 	}
 }

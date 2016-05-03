@@ -13,8 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
-import net.alexanderdev.lightdrive.util.ArraysS;
-import net.alexanderdev.lightdrive.util.math.MathS;
+import net.alexanderdev.lightdrive.util.ArraysX;
+import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
  * @author Christian Bryce Alexander
@@ -24,7 +24,7 @@ public enum GrayscaleMode {
 	/**
 	 * Averages all three channels together.
 	 */
-	AVERAGE      ((r, g, b) -> (int) MathS.average(r, g, b)),
+	AVERAGE      ((r, g, b) -> (int) MathX.average(r, g, b)),
 	/**
 	 * Just the red channel.
 	 */
@@ -40,24 +40,24 @@ public enum GrayscaleMode {
 	/**
 	 * Averages the minimum and maximum channels together.
 	 */
-	LIGHTNESS    ((r, g, b) -> (int) MathS.average(MathS.min(r, g, b), MathS.max(r, g, b))),
+	LIGHTNESS    ((r, g, b) -> (int) MathX.average(MathX.min(r, g, b), MathX.max(r, g, b))),
 	/**
 	 * Sums percentages of each channel together based on how the human eye
 	 * percieves color.
 	 */
-	LUMINOSITY   ((r, g, b) -> (int) MathS.clamp((r * 0.2126f) + (g * 0.7152f) + (b * 0.0722f), 0, 255)),
+	LUMINOSITY   ((r, g, b) -> (int) MathX.clamp((r * 0.2126f) + (g * 0.7152f) + (b * 0.0722f), 0, 255)),
 	/**
 	 * Just the maximum channel.
 	 */
-	MAX_DECOMP   ((r, g, b) -> MathS.max(r, g, b)),
+	MAX_DECOMP   ((r, g, b) -> MathX.max(r, g, b)),
 	/**
 	 * Just the middle channel.
 	 */
-	MID_DECOMP   ((r, g, b) -> ArraysS.sort(r, g, b)[1]),
+	MID_DECOMP   ((r, g, b) -> ArraysX.sort(r, g, b)[1]),
 	/**
 	 * Just the minimum channel.
 	 */
-	MIN_DECOMP   ((r, g, b) -> MathS.min(r, g, b));
+	MIN_DECOMP   ((r, g, b) -> MathX.min(r, g, b));
 
 	private GrayscaleOp operation;
 

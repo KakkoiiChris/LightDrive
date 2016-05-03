@@ -15,8 +15,8 @@ package net.alexanderdev.lightdrive.graphics.filter.dynamic;
 
 import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.graphics.filter.Filter;
-import net.alexanderdev.lightdrive.util.ArraysS;
-import net.alexanderdev.lightdrive.util.math.MathS;
+import net.alexanderdev.lightdrive.util.ArraysX;
+import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
  * @author Christian Bryce Alexander
@@ -45,13 +45,13 @@ public class SineFilter implements Filter {
 
 	@Override
 	public void apply(int width, int height, int[] pixels) {
-		int[] original = ArraysS.copy(pixels);
+		int[] original = ArraysX.copy(pixels);
 
 		for (int y = 0; y < pixels.length / width; y++) {
 			for (int x = 0; x < width; x++) {
 				int s = (int) (Math.sin((y + t) / period) * magnitude);
 
-				pixels[x + y * width] = original[(MathS.wrap(x + s, 0, width - 1) + y * width) % pixels.length];
+				pixels[x + y * width] = original[(MathX.wrap(x + s, 0, width - 1) + y * width) % pixels.length];
 			}
 		}
 

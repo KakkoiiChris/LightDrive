@@ -13,7 +13,7 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filter;
 
-import net.alexanderdev.lightdrive.graphics.ColorS;
+import net.alexanderdev.lightdrive.graphics.ColorX;
 import net.alexanderdev.lightdrive.util.Pixel;
 
 /**
@@ -26,7 +26,7 @@ public class AdjustFilter implements Filter {
 	/**
 	 * An {@code AdjustFilter} with its percentages based off of a color.
 	 */
-	public AdjustFilter(ColorS color) {
+	public AdjustFilter(ColorX color) {
 		this.r = color.getFloatRed();
 		this.g = color.getFloatGreen();
 		this.b = color.getFloatBlue();

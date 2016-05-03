@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.alexanderdev.lightdrive.InternalMethod;
-import net.alexanderdev.lightdrive.util.math.MathS;
+import net.alexanderdev.lightdrive.util.math.MathX;
 import net.alexanderdev.lightdrive.util.math.geom.VectorF;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
@@ -370,7 +370,7 @@ public final class Gamepad implements Runnable {
 		}
 
 		public void setMagnitude(float magnitude) {
-			this.magnitude = MathS.clamp(magnitude, 0f, 1f);
+			this.magnitude = MathX.clamp(magnitude, 0f, 1f);
 		}
 
 		public float magnitude() {

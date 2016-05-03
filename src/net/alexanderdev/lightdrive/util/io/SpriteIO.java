@@ -11,7 +11,7 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.graphics;
+package net.alexanderdev.lightdrive.util.io;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -20,6 +20,8 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+
+import net.alexanderdev.lightdrive.graphics.Sprite;
 
 /**
  * A static class to easily load images from a project source folder

@@ -14,7 +14,7 @@
 package net.alexanderdev.lightdrive.graphics;
 
 import static net.alexanderdev.lightdrive.util.Time.*;
-import static net.alexanderdev.lightdrive.util.math.MathS.*;
+import static net.alexanderdev.lightdrive.util.math.MathX.*;
 
 /**
  * A class to hanlde image animations

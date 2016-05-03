@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import net.alexanderdev.lightdrive.util.ArraysS;
+import net.alexanderdev.lightdrive.util.ArraysX;
 
 /**
  * A collection of useful, convenient mathematic functions.
@@ -25,7 +25,7 @@ import net.alexanderdev.lightdrive.util.ArraysS;
  * @author Christian Bryce Alexander
  * @since March 12, 2015 | 7:29:02 PM
  */
-public final strictfp class MathS {
+public final strictfp class MathX {
 	private static final Random RANDOM = new Random();
 
 	/**
@@ -347,7 +347,7 @@ public final strictfp class MathS {
 	}
 
 	public static double median(byte... values) {
-		byte[] sorted = ArraysS.sort(values);
+		byte[] sorted = ArraysX.sort(values);
 
 		if (sorted.length % 2 == 0)
 			return (sorted[(sorted.length / 2) - 1] + sorted[sorted.length / 2]) / 2.0;
@@ -356,7 +356,7 @@ public final strictfp class MathS {
 	}
 
 	public static double median(double... values) {
-		double[] sorted = ArraysS.sort(values);
+		double[] sorted = ArraysX.sort(values);
 
 		if (sorted.length % 2 == 0)
 			return (sorted[(sorted.length / 2) - 1] + sorted[sorted.length / 2]) / 2.0;
@@ -365,7 +365,7 @@ public final strictfp class MathS {
 	}
 
 	public static double median(float... values) {
-		float[] sorted = ArraysS.sort(values);
+		float[] sorted = ArraysX.sort(values);
 
 		if (sorted.length % 2 == 0)
 			return (sorted[(sorted.length / 2) - 1] + sorted[sorted.length / 2]) / 2.0;
@@ -374,7 +374,7 @@ public final strictfp class MathS {
 	}
 
 	public static double median(int... values) {
-		int[] sorted = ArraysS.sort(values);
+		int[] sorted = ArraysX.sort(values);
 
 		if (sorted.length % 2 == 0)
 			return (sorted[(sorted.length / 2) - 1] + sorted[sorted.length / 2]) / 2.0;
@@ -383,7 +383,7 @@ public final strictfp class MathS {
 	}
 
 	public static double median(long... values) {
-		long[] sorted = ArraysS.sort(values);
+		long[] sorted = ArraysX.sort(values);
 
 		if (sorted.length % 2 == 0)
 			return (sorted[(sorted.length / 2) - 1] + sorted[sorted.length / 2]) / 2.0;
@@ -392,7 +392,7 @@ public final strictfp class MathS {
 	}
 
 	public static double median(short... values) {
-		short[] sorted = ArraysS.sort(values);
+		short[] sorted = ArraysX.sort(values);
 
 		if (sorted.length % 2 == 0)
 			return (sorted[(sorted.length / 2) - 1] + sorted[sorted.length / 2]) / 2.0;

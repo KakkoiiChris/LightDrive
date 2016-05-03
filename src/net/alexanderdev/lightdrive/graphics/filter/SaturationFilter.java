@@ -14,7 +14,7 @@
 package net.alexanderdev.lightdrive.graphics.filter;
 
 import net.alexanderdev.lightdrive.util.Pixel;
-import net.alexanderdev.lightdrive.util.math.MathS;
+import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
  * @author Christian Bryce Alexander
@@ -24,7 +24,7 @@ public class SaturationFilter implements Filter {
 	private float factor;
 
 	public SaturationFilter(float factor) {
-		this.factor = MathS.clamp(factor, -1f, 1f);
+		this.factor = MathX.clamp(factor, -1f, 1f);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class SaturationFilter implements Filter {
 				argb[3] += bDiff * factor;
 			}
 			else {
-				int avg = (int) MathS.average((float) argb[1], (float) argb[2], (float) argb[3]);
+				int avg = (int) MathX.average((float) argb[1], (float) argb[2], (float) argb[3]);
 
 				int rDiff = avg - argb[1];
 				int gDiff = avg - argb[2];

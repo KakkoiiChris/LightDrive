@@ -15,7 +15,7 @@ package net.alexanderdev.lightdrive.graphics.filter.dynamic;
 
 import net.alexanderdev.lightdrive.graphics.filter.Filter;
 import net.alexanderdev.lightdrive.util.Pixel;
-import net.alexanderdev.lightdrive.util.math.MathS;
+import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
  * @author Christian Bryce Alexander
@@ -37,7 +37,7 @@ public class GrayNoiseFilter implements Filter {
 		for (int i = 0; i < pixels.length; i++) {
 			float[] argb = Pixel.splitFloatARGB(pixels[i]);
 
-			float v = MathS.clamp(MathS.randomFloat(), 1 - intensity, 1);
+			float v = MathX.clamp(MathX.randomFloat(), 1 - intensity, 1);
 
 			argb[1] *= v;
 			argb[2] *= v;
