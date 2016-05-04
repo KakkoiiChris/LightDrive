@@ -161,17 +161,15 @@ public class GraphicsX extends Graphics2D {
 		int x;
 
 		switch (align) {
-			case CENTER:
-				x = bounds.x + (bounds.width - fm.stringWidth(text)) / 2;
-				break;
 			case LEFT:
 				x = bounds.x;
 				break;
+			case CENTER:
+			default:
+				x = bounds.x + (bounds.width - fm.stringWidth(text)) / 2;
+				break;
 			case RIGHT:
 				x = bounds.x + bounds.width - fm.stringWidth(text);
-				break;
-			default:
-				x = bounds.x;
 				break;
 		}
 

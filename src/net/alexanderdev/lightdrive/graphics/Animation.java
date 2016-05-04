@@ -13,8 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
-import static net.alexanderdev.lightdrive.util.Time.*;
-import static net.alexanderdev.lightdrive.util.math.MathX.*;
+import net.alexanderdev.lightdrive.util.Time;
+import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
  * A class to hanlde image animations
@@ -23,212 +23,278 @@ import static net.alexanderdev.lightdrive.util.math.MathX.*;
  * @since Apr 24, 2015 | 11:50:16 PM
  */
 public class Animation implements Cloneable {
+	/**
+	 * There are four styles of animation, all of which alter the appearance of
+	 * the animation.
+	 */
 	public static enum Style {
-		ONCE,
+		/**
+		 * Moves to one end of the frames, and then loops to the opposite end.
+		 */
 		LOOP,
-		OSCILLATE,
-		RANDOM
+		/**
+		 * Moves to one end of the frames, and then reverses direction.
+		 */
+		BOUNCE,
+		/**
+		 * Moves to one end of the frames, and stays there.
+		 */
+		ONCE,
+		/**
+		 * Moves to a random frame every time.
+		 */
+		RANDOM;
 	}
 
 	private Sprite[] frames;
 
-	private int frameWidth;
-	private int frameHeight;
-	private int currFrame;
-	private int step;
+	private Style style;
 
-	private long delay;
-	private long timer;
+	private int currentFrame, step;
+
+	private long delay, timer;
 
 	private boolean playing;
 
-	private Style style;
-
 	/**
-	 * Creates an {@code Animation} from an image with one row of frames
+	 * Creates a standard {@code Animation}.
 	 * 
-	 * @param strip
-	 *            The image from which to generate the {@code Animation}
-	 * @param frameWidth
-	 *            The width of all the frames
+	 * @param frames
+	 *            The animation frames
 	 * @param delay
-	 *            The frame rate of the {@code Animation}
+	 *            The amount of milliseconds betwen frames
 	 * @param style
-	 *            The way the {@code Animation} executes
+	 *            The style of the animation
 	 */
-	public Animation(Sprite strip, int frameWidth, long delay, Style style) {
-		this.frameWidth = frameWidth;
-		this.frameHeight = strip.getHeight();
-		this.delay = delay;
-		this.style = style;
-
-		frames = new Sprite[strip.getWidth() / frameWidth];
-
-		for (int i = 0; i < frames.length; i++) {
-			frames[i] = strip.getSubimage(i * frameWidth, 0, frameWidth, frameHeight);
-		}
-
-		step = 1;
-
-		currFrame = 0;
-
-		playing = false;
-	}
-
-	public Animation(Sprite[] frames, long delay, Style style) {
+	public Animation(Sprite[] frames, long delay, int step, Style style) {
 		this.frames = frames;
 		this.delay = delay;
+		this.step = step;
 		this.style = style;
 
-		frameWidth = frames[0].getWidth();
-		frameHeight = frames[0].getHeight();
-
-		step = 1;
-
-		currFrame = 0;
+		currentFrame = 0;
 
 		playing = false;
 	}
 
-	public Animation(Animation animation) {
-		this(animation.getFrames(), animation.getDelay(), animation.getStyle());
-	}
-
-	public Sprite[] getFrames() {
-		return frames;
-	}
-
-	public long getDelay() {
-		return delay;
-	}
-
-	public Style getStyle() {
-		return style;
+	/**
+	 * Creates an {@code Animation} with the default style, {@link Style#LOOP}.
+	 * 
+	 * @param frames
+	 *            The animation frames
+	 * @param delay
+	 *            The amount of milliseconds betwen frames
+	 */
+	public Animation(Sprite[] frames, long delay, int step) {
+		this(frames, delay, step, Style.LOOP);
 	}
 
 	/**
-	 * @return the currFrame
+	 * Creates an {@code Animation} with the default step of {@code 1}.
+	 * 
+	 * @param frames
+	 *            The animation frames
+	 * @param delay
+	 *            The amount of milliseconds betwen frames
 	 */
-	public int getCurrFrame() {
-		return currFrame;
+	public Animation(Sprite[] frames, long delay, Style style) {
+		this(frames, delay, 1, style);
 	}
 
 	/**
-	 * Starts the updating of the animation
+	 * Creates an {@code Animation} with the default step and style.
+	 * 
+	 * @param frames
+	 *            The animation frames
+	 * @param delay
+	 *            The amount of milliseconds betwen frames
 	 */
-	public void start() {
-		if (!playing) {
-			timer = msTime();
-
-			playing = true;
-		}
+	public Animation(Sprite[] frames, long delay) {
+		this(frames, delay, 1, Style.LOOP);
 	}
 
 	/**
-	 * Pauses the updating of the animation
+	 * Steps the animation if the amount of milliseconds since last update has
+	 * exceeded the specified delay.
 	 */
-	public void pause() {
-		if (playing)
-			playing = false;
-	}
-
-	/**
-	 * Stops the updating of the animation
-	 */
-	public void stop() {
-		if (playing) {
-			playing = false;
-
-			reset();
-		}
-	}
-
-	public void reset() {
-		setToFrame(0);
-	}
-
-	public void setToFrame(int i) {
-		if (i >= 0 && i < frames.length)
-			currFrame = i;
-		else
-			currFrame = 0;
-	}
-
-	public void setStep(int step) {
-		this.step = step;
-	}
-
-	public void setDelay(long delay) {
-		this.delay = delay;
-	}
-
-	public void reverse() {
-		step = -step;
-	}
-
-	public void step() {
-		switch (style) {
-			case LOOP:
-			default:
-				if (currFrame + step >= frames.length)
-					currFrame = 0;
-				else if (currFrame + step <= -1)
-					currFrame = frames.length - 1;
-				else
-					currFrame += step;
-				break;
-			case ONCE:
-				if (currFrame + step >= frames.length)
-					currFrame = frames.length - 1;
-				else if (currFrame + step <= -1)
-					currFrame = 0;
-				else
-					currFrame += step;
-				break;
-			case OSCILLATE:
-				if (currFrame + step < 0 || currFrame + step >= frames.length)
-					step = -step;
-				currFrame += step;
-				break;
-			case RANDOM:
-				currFrame = randomInt(frames.length);
-				break;
-		}
-	}
-
 	public void update() {
-		while (playing && msTime() - timer >= delay) {
+		while (playing && Time.msTime() - timer >= delay) {
 			step();
 			timer += delay;
 		}
 	}
 
 	/**
-	 * @return The current frame of the {@code Animation}
+	 * Sets the next frame based on the specified animation {@link Style}.
+	 */
+	public void step() {
+		switch (style) {
+			case LOOP:
+			default:
+				if (currentFrame + step >= frames.length)
+					currentFrame = 0;
+				else if (currentFrame + step <= -1)
+					currentFrame = frames.length - 1;
+				else
+					currentFrame += step;
+				break;
+			case BOUNCE:
+				if (currentFrame + step < 0 || currentFrame + step >= frames.length)
+					step = -step;
+				currentFrame += step;
+				break;
+			case ONCE:
+				if (currentFrame + step >= frames.length)
+					currentFrame = frames.length - 1;
+				else if (currentFrame + step <= -1)
+					currentFrame = 0;
+				else
+					currentFrame += step;
+				break;
+			case RANDOM:
+				currentFrame = MathX.randomInt(frames.length);
+				break;
+		}
+	}
+
+	/**
+	 * @return The current animation frame
 	 */
 	public Sprite getFrame() {
-		return frames[currFrame];
+		return frames[currentFrame];
 	}
 
 	/**
-	 * @return The width of the {@code Animation} frames
+	 * @return All of the animation frames
 	 */
-	public int getFrameWidth() {
-		return frameWidth;
+	public Sprite[] getFrames() {
+		return frames;
 	}
 
 	/**
-	 * @return The height of the {@code Animation} frames
+	 * @return The index of the current animation frame
 	 */
-	public int getFrameHeight() {
-		return frameHeight;
+	public int getFrameIndex() {
+		return currentFrame;
 	}
 
 	/**
-	 * @return {@code true} if the {@code Animation} is playing, {@code false}
-	 *         otherwise
+	 * Sets the index of this {@code Animation}.
+	 * 
+	 * @param The
+	 *            index to set
 	 */
+	public void setFrameIndex(int i) {
+		if (i >= 0 && i < frames.length)
+			currentFrame = i;
+		else
+			currentFrame = 0;
+	}
+
+	/**
+	 * @return The delay of this {@code Animation}
+	 */
+	public long getDelay() {
+		return delay;
+	}
+
+	/**
+	 * Sets the delay of this {@code Animation}.
+	 *
+	 * @param delay
+	 *            The delay to set
+	 */
+	public void setDelay(long delay) {
+		this.delay = delay;
+	}
+
+	/**
+	 * @return The step amount of this {@code Animation}
+	 */
+	public int getStep() {
+		return step;
+	}
+
+	/**
+	 * Sets the step amount for this {@code Animation}.
+	 *
+	 * @param step
+	 *            The step amount to set
+	 */
+	public void setStep(int step) {
+		this.step = step;
+	}
+
+	/**
+	 * @return The length of this animation
+	 */
+	public int getLength() {
+		return frames.length;
+	}
+
+	/**
+	 * Sets this animation to start running, and updates the timer.
+	 */
+	public void play() {
+		if (!playing) {
+			timer = Time.msTime();
+
+			playing = true;
+		}
+	}
+
+	/**
+	 * Sets the animation to stop running.
+	 */
+	public void pause() {
+		if (playing)
+			playing = false;
+	}
+
+	public void toggle() {
+		if (playing)
+			pause();
+		else
+			play();
+	}
+
+	/**
+	 * Sets the animation to stop running, and sets the current frame to the
+	 * beginning.
+	 */
+	public void stop() {
+		if (playing) {
+			playing = false;
+
+			currentFrame = 0;
+		}
+	}
+
+	/**
+	 * Sets the current frame to the beginning.
+	 */
+	public void reset() {
+		currentFrame = 0;
+	}
+
+	/**
+	 * Reverses the direction of this {@code Animation}, if applicable.
+	 */
+	public void reverse() {
+		step = -step;
+	}
+
 	public boolean isPlaying() {
 		return playing;
+	}
+
+	@Override
+	public Animation clone() {
+		Sprite[] newFrames = new Sprite[frames.length];
+
+		for (int i = 0; i < frames.length; i++)
+			newFrames[i] = frames[i].clone();
+
+		return new Animation(newFrames, delay, step, style);
 	}
 }

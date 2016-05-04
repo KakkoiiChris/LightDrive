@@ -521,10 +521,10 @@ public final strictfp class MathX {
 		byte max = tally.get(0);
 		byte maxIndex = 0;
 
-		for (Byte i : tally.keySet())
-			if (tally.get(i) > max) {
-				max = tally.get(i);
-				maxIndex = i;
+		for (Byte b : tally.keySet())
+			if (tally.get(b) > max) {
+				max = tally.get(b);
+				maxIndex = b;
 			}
 
 		return maxIndex;
@@ -543,10 +543,10 @@ public final strictfp class MathX {
 		double max = tally.get(0);
 		double maxIndex = 0;
 
-		for (Double i : tally.keySet())
-			if (tally.get(i) > max) {
-				max = tally.get(i);
-				maxIndex = i;
+		for (Double d : tally.keySet())
+			if (tally.get(d) > max) {
+				max = tally.get(d);
+				maxIndex = d;
 			}
 
 		return maxIndex;
@@ -565,10 +565,10 @@ public final strictfp class MathX {
 		float max = tally.get(0);
 		float maxIndex = 0;
 
-		for (Float i : tally.keySet())
-			if (tally.get(i) > max) {
-				max = tally.get(i);
-				maxIndex = i;
+		for (Float f : tally.keySet())
+			if (tally.get(f) > max) {
+				max = tally.get(f);
+				maxIndex = f;
 			}
 
 		return maxIndex;
@@ -609,10 +609,10 @@ public final strictfp class MathX {
 		long max = tally.get(0);
 		long maxIndex = 0;
 
-		for (Long i : tally.keySet())
-			if (tally.get(i) > max) {
-				max = tally.get(i);
-				maxIndex = i;
+		for (Long l : tally.keySet())
+			if (tally.get(l) > max) {
+				max = tally.get(l);
+				maxIndex = l;
 			}
 
 		return maxIndex;
@@ -631,10 +631,10 @@ public final strictfp class MathX {
 		short max = tally.get(0);
 		short maxIndex = 0;
 
-		for (Short i : tally.keySet())
-			if (tally.get(i) > max) {
-				max = tally.get(i);
-				maxIndex = i;
+		for (Short s : tally.keySet())
+			if (tally.get(s) > max) {
+				max = tally.get(s);
+				maxIndex = s;
 			}
 
 		return maxIndex;
@@ -650,8 +650,8 @@ public final strictfp class MathX {
 	 * @return {@code true} if {@code a} and {@code b} have opposite signs,
 	 *         {@code false} otherwise
 	 */
-	public static boolean oppositeSigns(byte a, byte b) {
-		return (a < 0 && b > 0) || (a > 0 && b < 0);
+	public static boolean sameSign(byte a, byte b) {
+		return (a < 0) == (b < 0);
 	}
 
 	/**
@@ -664,8 +664,8 @@ public final strictfp class MathX {
 	 * @return {@code true} if {@code a} and {@code b} have opposite signs,
 	 *         {@code false} otherwise
 	 */
-	public static boolean oppositeSigns(double a, double b) {
-		return (a < 0 && b > 0) || (a > 0 && b < 0);
+	public static boolean sameSign(double a, double b) {
+		return (a < 0) == (b < 0);
 	}
 
 	/**
@@ -678,8 +678,8 @@ public final strictfp class MathX {
 	 * @return {@code true} if {@code a} and {@code b} have opposite signs,
 	 *         {@code false} otherwise
 	 */
-	public static boolean oppositeSigns(float a, float b) {
-		return (a < 0 && b > 0) || (a > 0 && b < 0);
+	public static boolean sameSign(float a, float b) {
+		return (a < 0) == (b < 0);
 	}
 
 	/**
@@ -692,8 +692,8 @@ public final strictfp class MathX {
 	 * @return {@code true} if {@code a} and {@code b} have opposite signs,
 	 *         {@code false} otherwise
 	 */
-	public static boolean oppositeSigns(int a, int b) {
-		return (a < 0 && b > 0) || (a > 0 && b < 0);
+	public static boolean sameSign(int a, int b) {
+		return (a < 0) == (b < 0);
 	}
 
 	/**
@@ -706,8 +706,8 @@ public final strictfp class MathX {
 	 * @return {@code true} if {@code a} and {@code b} have opposite signs,
 	 *         {@code false} otherwise
 	 */
-	public static boolean oppositeSigns(long a, long b) {
-		return (a < 0 && b > 0) || (a > 0 && b < 0);
+	public static boolean sameSign(long a, long b) {
+		return (a < 0) == (b < 0);
 	}
 
 	/**
@@ -720,8 +720,8 @@ public final strictfp class MathX {
 	 * @return {@code true} if {@code a} and {@code b} have opposite signs,
 	 *         {@code false} otherwise
 	 */
-	public static boolean oppositeSigns(short a, short b) {
-		return (a < 0 && b > 0) || (a > 0 && b < 0);
+	public static boolean sameSign(short a, short b) {
+		return (a < 0) == (b < 0);
 	}
 
 	/**
@@ -833,15 +833,23 @@ public final strictfp class MathX {
 	 * @return A random {@code int} between min and max inclusive
 	 */
 	public static int randomInt(int min, int max) {
-		if (min < max)
-			if (min < 0 && max > 0)
-				return RANDOM.nextInt(Math.abs(min) + Math.abs(max) + 1) + min;
+		if (min == max)
+			return min;
 
-			else if (min < 0 && max < 0)
-				return -(RANDOM.nextInt((-min - -max) + 1) + -max);
+		if (min > max) {
+			min ^= max;
+			max ^= min;
+			min ^= max;
+		}
 
-			else if (min > 0 && max > 0)
-				return RANDOM.nextInt((max - min) + 1) + min;
+		if (min < 0 && max > 0)
+			return RANDOM.nextInt(Math.abs(min) + Math.abs(max) + 1) + min;
+
+		else if (min < 0 && max < 0)
+			return -(RANDOM.nextInt((-min - -max) + 1) + -max);
+
+		else if (min > 0 && max > 0)
+			return RANDOM.nextInt((max - min) + 1) + min;
 
 		return 0;
 	}

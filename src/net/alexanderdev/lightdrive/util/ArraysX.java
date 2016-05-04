@@ -323,6 +323,96 @@ public class ArraysX {
 		return dst;
 	}
 
+	public static byte[] list(byte start, byte end) {
+		byte[] list = new byte[end - start + 1];
+
+		for (int i = 0; i < list.length; i++)
+			list[i] = (byte) (i + start);
+
+		return list;
+	}
+
+	public static byte[] list(byte start, byte end, byte step) {
+		byte[] list = new byte[(end - start + 1) / step];
+
+		for (int i = 0; i < list.length; i += step)
+			list[i] = (byte) (i + start);
+
+		return list;
+	}
+
+	public static int[] list(int start, int end) {
+		int[] list = new int[end - start + 1];
+
+		for (int i = 0; i < list.length; i++)
+			list[i] = i + start;
+
+		return list;
+	}
+
+	public static int[] list(int start, int end, int step) {
+		int[] list = new int[(end - start + 1) / step];
+
+		for (int i = 0; i < list.length; i += step)
+			list[i] = (int) (i + start);
+
+		return list;
+	}
+
+	public static long[] list(long start, long end) {
+		long[] list = new long[(int) (end - start + 1)];
+
+		for (int i = 0; i < list.length; i++)
+			list[i] = i + start;
+
+		return list;
+	}
+
+	public static long[] list(long start, long end, long step) {
+		long[] list = new long[(int) ((end - start + 1) / step)];
+
+		for (int i = 0; i < list.length; i += step)
+			list[i] = (long) (i + start);
+
+		return list;
+	}
+
+	public static short[] list(short start, short end) {
+		short[] list = new short[end - start + 1];
+
+		for (int i = 0; i < list.length; i++)
+			list[i] = (short) (i + start);
+
+		return list;
+	}
+
+	public static short[] list(short start, short end, short step) {
+		short[] list = new short[(end - start + 1) / step];
+
+		for (int i = 0; i < list.length; i += step)
+			list[i] = (short) (i + start);
+
+		return list;
+	}
+
+	public static float[] list(float start, float end, float step) {
+		float[] list = new float[(int) ((end - start + 1) / step)];
+
+		for (int i = 0; i < list.length; i += step)
+			list[i] = (float) (i + start);
+
+		return list;
+	}
+
+	public static double[] list(double start, double end, double step) {
+		double[] list = new double[(int) ((end - start + 1) / step)];
+
+		for (int i = 0; i < list.length; i += step)
+			list[i] = (double) (i + start);
+
+		return list;
+	}
+
 	/**
 	 * @return A copy of the supplied array of booleans with the nth value
 	 *         removed

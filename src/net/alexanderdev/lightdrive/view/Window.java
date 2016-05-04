@@ -20,12 +20,9 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.swing.JFrame;
 
 import net.alexanderdev.lightdrive.graphics.GraphicsX;
 import net.alexanderdev.lightdrive.graphics.Sprite;
@@ -36,20 +33,30 @@ import net.alexanderdev.lightdrive.input.Keyboard;
 import net.alexanderdev.lightdrive.input.Mouse;
 import net.alexanderdev.lightdrive.state.State;
 import net.alexanderdev.lightdrive.state.StateManager;
-import net.alexanderdev.lightdrive.util.Environment;
 import net.alexanderdev.lightdrive.util.Time;
 
 /**
+ * The main display class, and the core of any game. This class contains the
+ * game loop, a state manager, and controls handling.
+ * 
  * @author Christian Bryce Alexander
- * @since May 4, 2016, 10:52:29 AM
+ * @since March 6, 2015 | 2:15:37 AM
  */
-public class Screen extends Canvas implements Viewable, Runnable {
-	private static final long serialVersionUID = -7612386729814260951L;
+public class Window extends Canvas implements Viewable, Runnable {
+	private static final long serialVersionUID = -8708004611699503479L;
 
 	/**
-	 * 
+	 * The default width for a {@code Display}.
 	 */
-	public static final String DEFAULT_TITLE = "LightDrive";
+	public static final int DEFAULT_WIDTH = 640;
+	/**
+	 * The default height for a {@code Display}.
+	 */
+	public static final int DEFAULT_HEIGHT = 480;
+	/**
+	 * The default scale for a {@code Display}.
+	 */
+	public static final int DEFAULT_SCALE = 1;
 	/**
 	 * The max frames per second that a {@code Display} runs at.
 	 */
@@ -63,10 +70,8 @@ public class Screen extends Canvas implements Viewable, Runnable {
 	private int width;
 	private int height;
 	private int scale;
-	private double fps;
-	private String title;
 
-	private JFrame frame;
+	private double fps;
 
 	private boolean running;
 	private Thread thread;
@@ -98,31 +103,34 @@ public class Screen extends Canvas implements Viewable, Runnable {
 		// System.load(new File("/jinput-raw_64.dll").getAbsolutePath());
 	}
 
-	public Screen(int width, int height) {
-		this(width, height, DEFAULT_FPS, DEFAULT_TITLE);
+	public Window(int width, int height) {
+		this(width, height, DEFAULT_SCALE, DEFAULT_FPS);
 	}
 
-	public Screen(int width, int height, double fps) {
-		this(width, height, fps, DEFAULT_TITLE);
+	public Window(int width, int height, int scale) {
+		this(width, height, scale, DEFAULT_FPS);
 	}
 
-	public Screen(int width, int height, String title) {
-		this(width, height, DEFAULT_FPS, title);
+	public Window(double fps) {
+		this(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SCALE, fps);
 	}
 
-	public Screen(int width, int height, double fps, String title) {
+	public Window(int width, int height, double fps) {
+		this(width, height, DEFAULT_SCALE, fps);
+	}
+
+	public Window(int width, int height, int scale, double fps) {
 		this.width = width;
 		this.height = height;
+		this.scale = scale;
+
 		this.fps = fps;
-		this.title = title;
 
 		keyboardEnabled = false;
 		mouseEnabled = false;
 		gamepadsEnabled = false;
 
 		renderHints = new HashMap<>();
-
-		manager = new StateManager(this);
 	}
 
 	/**
@@ -189,7 +197,7 @@ public class Screen extends Canvas implements Viewable, Runnable {
 
 	@Override
 	public final void open() {
-		Dimension d = Environment.getPhysicalSize();
+		Dimension d = new Dimension(width * scale, height * scale);
 
 		this.setPreferredSize(d);
 		this.setMinimumSize(d);
@@ -216,18 +224,6 @@ public class Screen extends Canvas implements Viewable, Runnable {
 				gp.start();
 		}
 
-		frame = new JFrame(title);
-
-		frame.add(this);
-
-		frame.setUndecorated(true);
-		frame.setResizable(true);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setFocusable(false);
-
 		this.requestFocus();
 
 		initGraphics();
@@ -235,8 +231,6 @@ public class Screen extends Canvas implements Viewable, Runnable {
 		manager.init();
 
 		start();
-
-		frame.setVisible(true);
 
 		// Debugger.printLine("QUIXEL SCREEN STATS");
 		// Debugger.printLine(" - Pixel Resolution: " + width + "x" + height);
@@ -251,8 +245,6 @@ public class Screen extends Canvas implements Viewable, Runnable {
 	private void initGraphics() {
 		System.setProperty("sun.java2d.d3d", "True");
 		System.setProperty("sun.java2d.opengl", "True");
-
-		filters = new ArrayList<>();
 
 		context = new Sprite(width, height);
 
@@ -299,42 +291,26 @@ public class Screen extends Canvas implements Viewable, Runnable {
 	@Override
 	public void run() {
 		long last = Time.nsTime();
-		long timer = Time.msTime();
 
 		final double NS = 1000000000.0 / fps;
 
 		double delta = 0;
-
-		int updates = 0;
-		int frames = 0;
 
 		while (running) {
 			long now = Time.nsTime();
 			delta += (now - last) / NS;
 			last = now;
 
-			boolean shouldRender = true;//!framesLocked;
+			boolean shouldRender = false;
 
 			while (delta >= 1) {
 				update(delta);
-				updates++;
 				shouldRender = true;
 				delta--;
 			}
 
-			if (shouldRender) {
+			if (shouldRender)
 				render();
-				frames++;
-			}
-
-			if (Time.msTime() - timer >= 1000) {
-				//if (ufcEnabled)
-					frame.setTitle(String.format("%s  |  UPS: %d, FPS: %d", title, updates, frames));
-
-				updates = frames = 0;
-
-				timer += 1000;
-			}
 		}
 	}
 

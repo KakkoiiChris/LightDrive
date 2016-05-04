@@ -92,11 +92,11 @@ public class Display extends Canvas implements Viewable, Runnable {
 	private boolean running;
 	private Thread thread;
 
-	private Sprite screen;
+	private Sprite context;
 
 	private List<Filter> filters;
 
-	private GraphicsX gs;
+	private GraphicsX gx;
 	private Graphics g;
 	private BufferStrategy bs;
 
@@ -375,10 +375,10 @@ public class Display extends Canvas implements Viewable, Runnable {
 		System.setProperty("sun.java2d.d3d", "True");
 		System.setProperty("sun.java2d.opengl", "True");
 
-		screen = new Sprite(width, height);
+		context = new Sprite(width, height);
 
-		gs = new GraphicsX((Graphics2D) screen.getGraphics());
-		gs.setRenderingHints(renderHints);
+		gx = new GraphicsX((Graphics2D) context.getGraphics());
+		gx.setRenderingHints(renderHints);
 
 		this.createBufferStrategy(3);
 		bs = this.getBufferStrategy();
@@ -493,14 +493,14 @@ public class Display extends Canvas implements Viewable, Runnable {
 	 * on the {@link Canvas}'s {@link BufferStrategy}.
 	 */
 	public void render() {
-		gs.clearRect(0, 0, width, height);
+		gx.clearRect(0, 0, width, height);
 
-		manager.render(gs);
+		manager.render(gx);
 
 		if (!filters.isEmpty())
-			screen.filter(getFilterList());
+			context.filter(getFilterList());
 
-		g.drawImage(screen, 0, 0, getWidth(), getHeight(), null);
+		g.drawImage(context, 0, 0, getWidth(), getHeight(), null);
 
 		bs.show();
 	}
@@ -525,9 +525,9 @@ public class Display extends Canvas implements Viewable, Runnable {
 	}
 
 	private void cleanUp() {
-		gs.dispose();
+		gx.dispose();
 		g.dispose();
 		bs.dispose();
-		screen.flush();
+		context.flush();
 	}
 }
