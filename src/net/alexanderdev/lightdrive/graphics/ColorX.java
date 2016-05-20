@@ -9,13 +9,12 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
 import java.awt.Color;
 
-import net.alexanderdev.lightdrive.util.ArraysX;
 import net.alexanderdev.lightdrive.util.Pixel;
 import net.alexanderdev.lightdrive.util.math.MathX;
 
@@ -28,109 +27,281 @@ import net.alexanderdev.lightdrive.util.math.MathX;
  * @author Christian Bryce Alexander
  * @since April 7, 2015 | 7:28:12 PM
  */
-public class ColorX extends Color {
-	private static final long serialVersionUID = -1851689902505547716L;
+public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
+	private static final long serialVersionUID = 8589259317799782373L;
 
-	public static ColorX RED = new ColorX(0xffff0000);
-	public static ColorX ORANGE = new ColorX(0xffff8800);
-	public static ColorX YELLOW = new ColorX(0xffffff00);
-	public static ColorX LIME = new ColorX(0xff88ff00);
-	public static ColorX GREEN = new ColorX(0xff00ff00);
-	public static ColorX AQUA = new ColorX(0xff00ff88);
-	public static ColorX CYAN = new ColorX(0xff00ffff);
-	public static ColorX SKY = new ColorX(0xff0088ff);
-	public static ColorX BLUE = new ColorX(0xff0000ff);
-	public static ColorX PURPLE = new ColorX(0xff8800ff);
-	public static ColorX MAGENTA = new ColorX(0xffff00ff);
-	public static ColorX ROSE = new ColorX(0xffff0088);
-	public static ColorX WHITE = new ColorX(0xffffffff);
-	public static ColorX GRAY = new ColorX(0xff888888);
-	public static ColorX BLACK = new ColorX(0xff000000);
+	/**
+	 * The color <b><span style=
+	 * "background: #f00; border: 1px solid black;" >&nbsp; Red
+	 * &nbsp;</span></b> in the ARGB color space
+	 */
+	public static final ColorX RED = new ColorX(0xffff0000);
 
-	private float alpha, red, green, blue;
+	/**
+	 * The color <b><span style=
+	 * "background: #f80; border: 1px solid black;" >&nbsp; Orange
+	 * &nbsp;</span></b> in the ARGB color space
+	 */
+	public static final ColorX ORANGE = new ColorX(0xffff8800);
 
+	/**
+	 * The color <b><span style=
+	 * "background: #ff0; border: 1px solid black;" >&nbsp; Yellow
+	 * &nbsp;</span></b> in the ARGB color space
+	 */
+	public static final ColorX YELLOW = new ColorX(0xffffff00);
+
+	/**
+	 * The color <b><span style=
+	 * "background: #8f0; border: 1px solid black;" >&nbsp; Lime
+	 * &nbsp;</span></b> in the ARGB color space
+	 */
+	public static final ColorX LIME = new ColorX(0xff88ff00);
+
+	/**
+	 * The color <b><span style=
+	 * "background: #0f0; border: 1px solid black;" >&nbsp; Green
+	 * &nbsp;</span></b> in the ARGB color space
+	 */
+	public static final ColorX GREEN = new ColorX(0xff00ff00);
+
+	/**
+	 * The color <b><span style=
+	 * "background: #0f8; border: 1px solid black;" >&nbsp; Aqua
+	 * &nbsp;</span></b> in the ARGB color space
+	 */
+	public static final ColorX AQUA = new ColorX(0xff00ff88);
+
+	/**
+	 * The color <b><span style=
+	 * "background: #0ff; border: 1px solid black;" >&nbsp; Cyan
+	 * &nbsp;</span></b> in the ARGB color space
+	 */
+	public static final ColorX CYAN = new ColorX(0xff00ffff);
+
+	/**
+	 * The color <b><span style=
+	 * "background: #08f; border: 1px solid black;" >&nbsp; Sky
+	 * &nbsp;</span></b> in the ARGB color space
+	 */
+	public static final ColorX SKY = new ColorX(0xff0088ff);
+
+	/**
+	 * The color <b><span style=
+	 * "color: white; background: #00f; border: 1px solid black;">&nbsp; Blue
+	 * &nbsp;</span></b> in the ARGB color space
+	 */
+	public static final ColorX BLUE = new ColorX(0xff0000ff);
+
+	/**
+	 * The color <b><span style=
+	 * "background: #80f; border: 1px solid black;" >&nbsp; Purple
+	 * &nbsp;</span></b> in the ARGB color space
+	 */
+	public static final ColorX PURPLE = new ColorX(0xff8800ff);
+
+	/**
+	 * The color <b><span style=
+	 * "background: #f0f; border: 1px solid black;" >&nbsp; Magenta
+	 * &nbsp;</span></b> in the ARGB color space
+	 */
+	public static final ColorX MAGENTA = new ColorX(0xffff00ff);
+
+	/**
+	 * The color <b><span style=
+	 * "background: #f08; border: 1px solid black;" >&nbsp; Rose
+	 * &nbsp;</span></b> in the ARGB color space
+	 */
+	public static final ColorX ROSE = new ColorX(0xffff0088);
+
+	/**
+	 * The color <b><span style=
+	 * "background: #fff; border: 1px solid black;" >&nbsp; White
+	 * &nbsp;</span></b> in the ARGB color space
+	 */
+	public static final ColorX WHITE = new ColorX(0xffffffff);
+
+	/**
+	 * The color <b><span style=
+	 * "background: #888; border: 1px solid black;" >&nbsp; Gray
+	 * &nbsp;</span></b> in the ARGB color space
+	 */
+	public static final ColorX GRAY = new ColorX(0xff888888);
+
+	/**
+	 * The color <b><span style=
+	 * "color: white; background: #000; border: 1px solid black;">&nbsp; Black
+	 * &nbsp;</span></b> in the ARGB color space
+	 */
+	public static final ColorX BLACK = new ColorX(0xff000000);
+
+	/**
+	 * Creates a {@code ColorX} from the specified ARGB integer value.
+	 *
+	 * @param color
+	 *            An integer of the '0xAARRGGBB' format
+	 */
 	public ColorX(int color) {
-		super(Pixel.getIntRed(color), Pixel.getIntGreen(color), Pixel.getIntBlue(color), Pixel.getIntAlpha(color));
+		super(color);
 	}
 
+	/**
+	 * Creates a {@code ColorX} from the specified integer red, green, and blue
+	 * channels between 0 and 255, with a default alpha of 255.
+	 * 
+	 * @param r
+	 *            The red channel to set
+	 * @param g
+	 *            The green channel to set
+	 * @param b
+	 *            The blue channel to set
+	 */
 	public ColorX(int r, int g, int b) {
 		super(r, g, b, 255);
 	}
 
+	/**
+	 * Creates a {@code ColorX} from the specified integer alpha, red, green,
+	 * and blue channels between 0 and 255.
+	 * 
+	 * @param a
+	 *            The alpha channel to set
+	 * @param r
+	 *            The red channel to set
+	 * @param g
+	 *            The green channel to set
+	 * @param b
+	 *            The blue channel to set
+	 */
 	public ColorX(int a, int r, int g, int b) {
 		super(r, g, b, a);
 	}
 
+	/**
+	 * Creates a {@code ColorX} from the specified floating point red, green,
+	 * and blue channels between 0f and 1f, with a default alpha of 1f.
+	 * 
+	 * @param r
+	 *            The red channel to set
+	 * @param g
+	 *            The green channel to set
+	 * @param b
+	 *            The blue channel to set
+	 */
 	public ColorX(float r, float g, float b) {
 		super(r, g, b, 1f);
 	}
 
+	/**
+	 * Creates a {@code ColorX} from the specified floating point alpha, red,
+	 * green, and blue channels between 0f and 1f.
+	 * 
+	 * @param a
+	 *            The alpha channel to set
+	 * @param r
+	 *            The red channel to set
+	 * @param g
+	 *            The green channel to set
+	 * @param b
+	 *            The blue channel to set
+	 */
 	public ColorX(float a, float r, float g, float b) {
 		super(r, g, b, a);
 	}
 
-	public int getARGB() {
-		return Pixel.mergeARGB(alpha, red, green, blue);
+	/**
+	 * @return A color with a random red, green, and blue channel
+	 */
+	public static ColorX random() {
+		return new ColorX(1f, MathX.randomFloat(), MathX.randomFloat(), MathX.randomFloat());
 	}
 
+	/**
+	 * @return The alpha channel as a float between 0f and 1f
+	 */
 	public float getFloatAlpha() {
-		return alpha;
+		return (float) getAlpha() / 255f;
 	}
 
+	/**
+	 * @return The red channel as a float between 0f and 1f
+	 */
 	public float getFloatRed() {
-		return red;
+		return (float) getRed() / 255f;
 	}
 
+	/**
+	 * @return The green channel as a float between 0f and 1f
+	 */
 	public float getFloatGreen() {
-		return green;
+		return (float) getGreen() / 255f;
 	}
 
+	/**
+	 * @return The blue channel as a float between 0f and 1f
+	 */
 	public float getFloatBlue() {
-		return blue;
+		return (float) getBlue() / 255f;
 	}
 
-	public int getIntAlpha() {
-		return (int) (alpha * 255f);
+	/**
+	 * @return All channels as an integer of the format '0xAARRGGBB'
+	 */
+	public int getARGB() {
+		return Pixel.mergeARGB(getAlpha(), getRed(), getGreen(), getBlue());
 	}
 
-	public int getIntRed() {
-		return (int) (red * 255f);
-	}
-
-	public int getIntGreen() {
-		return (int) (green * 255f);
-	}
-
-	public int getIntBlue() {
-		return (int) (blue * 255f);
-	}
-
-	public int ofBrightness(float brightness) {
-		if (brightness == 0f)
+	/**
+	 * Gets the integer value of this {@code ColorX} as if its lightness were
+	 * altered. Negative lightness tends towards full black (0xff000000),
+	 * whereas positive lightness tends towards full white (0xffffffff).
+	 * 
+	 * @param lightness
+	 *            The lightness of the new color
+	 * @return The value of this {@code ColorX} with its lightness altered
+	 */
+	public int ofLightness(float lightness) {
+		if (lightness == 0f)
 			return getARGB();
 
-		brightness = MathX.clamp(brightness, -1f, 1f);
+		lightness = MathX.clamp(lightness, -1f, 1f);
 
 		float r, g, b;
 
-		if (brightness > 0) {
-			r = red + (255 - red) * brightness;
-			g = green + (255 - green) * brightness;
-			b = blue + (255 - blue) * brightness;
+		if (lightness > 0) {
+			r = getRed() + (255 - getRed()) * lightness;
+			g = getGreen() + (255 - getGreen()) * lightness;
+			b = getBlue() + (255 - getBlue()) * lightness;
 		}
 		else {
-			r = red - red * -brightness;
-			g = green - green * -brightness;
-			b = blue - blue * -brightness;
+			r = getRed() - (getRed() * -lightness);
+			g = getGreen() - (getGreen() * -lightness);
+			b = getBlue() - (getBlue() * -lightness);
 		}
 
-		return Pixel.mergeARGB(alpha, r, g, b);
+		return Pixel.mergeARGB(getAlpha(), r, g, b);
 	}
 
-	public ColorX colorOfBrightness(float brightness) {
-		return new ColorX(ofBrightness(brightness));
+	/**
+	 * @param lightness
+	 *            The lightness of the new color
+	 * @return A new instance of {@code ColorX}, with its values based on
+	 *         {@link ColorX#ofLightness(float)}
+	 */
+	public ColorX colorOfLightness(float lightness) {
+		return new ColorX(ofLightness(lightness));
 	}
 
+	/**
+	 * Gets the integer value of this {@code ColorX} as if its saturation were
+	 * altered. Negative saturation tends towards average gray ((r + g + b) /
+	 * 3), whereas positive saturation tends towards the nearest extreme (0 or
+	 * 255).
+	 * 
+	 * @param saturation
+	 *            The saturation of the new color
+	 * @return The value of this {@code ColorX} with its saturation altered
+	 */
 	public int ofSaturation(float saturation) {
 		if (saturation == 0f)
 			return getARGB();
@@ -140,116 +311,177 @@ public class ColorX extends Color {
 		float r, g, b;
 
 		if (saturation > 0) {
-			float rLim = red >= 0.5f ? 1f : 0f;
-			float gLim = green >= 0.5f ? 1f : 0f;
-			float bLim = blue >= 0.5f ? 1f : 0f;
+			float rLim = getRed() >= 0.5f ? 1f : 0f;
+			float gLim = getGreen() >= 0.5f ? 1f : 0f;
+			float bLim = getBlue() >= 0.5f ? 1f : 0f;
 
-			float rDiff = rLim - red;
-			float gDiff = gLim - green;
-			float bDiff = bLim - blue;
+			float rDiff = rLim - getRed();
+			float gDiff = gLim - getGreen();
+			float bDiff = bLim - getBlue();
 
-			r = red + rDiff * saturation;
-			g = green + gDiff * saturation;
-			b = blue + bDiff * saturation;
+			r = getRed() + rDiff * saturation;
+			g = getGreen() + gDiff * saturation;
+			b = getBlue() + bDiff * saturation;
 		}
 		else {
-			float avg = (float) MathX.average(red, green, blue);
+			float avg = (float) MathX.average(getRed(), getGreen(), getBlue());
 
-			float rDiff = avg - red;
-			float gDiff = avg - green;
-			float bDiff = avg - blue;
+			float rDiff = avg - getRed();
+			float gDiff = avg - getGreen();
+			float bDiff = avg - getBlue();
 
-			r = red + rDiff * -saturation;
-			g = green + gDiff * -saturation;
-			b = blue + bDiff * -saturation;
+			r = getRed() + rDiff * -saturation;
+			g = getGreen() + gDiff * -saturation;
+			b = getBlue() + bDiff * -saturation;
 		}
 
-		return Pixel.mergeARGB(alpha, r, g, b);
+		return Pixel.mergeARGB(getAlpha(), r, g, b);
 	}
 
+	/**
+	 * @param saturation
+	 *            The saturation of the new color
+	 * @return A new instance of {@code ColorX}, with its values based on
+	 *         {@link ColorX#ofSaturation(float)}
+	 */
 	public ColorX colorOfSaturation(float saturation) {
 		return new ColorX(ofSaturation(saturation));
 	}
 
+	/**
+	 * Gets the integer value of this {@code ColorX} as if its values were
+	 * tending toward inversion. A factor of 0f means no inversion. A factor of
+	 * 1f means full inversion. Any other factor tends towards the inverted
+	 * values.
+	 * 
+	 * @param factor
+	 *            The inversion of the new color's values
+	 * @return The value of this {@code ColorX} with its values slightly
+	 *         inverted
+	 */
 	public int ofInversion(float factor) {
 		if (factor == 0f)
 			return getARGB();
 
 		if (factor == 1f)
-			return Pixel.mergeARGB(alpha, 1f - red, 1f - green, 1f - blue);
+			return Pixel.mergeARGB(getAlpha(), 1f - getRed(), 1f - getGreen(), 1f - getBlue());
 
 		factor = MathX.clamp(factor, 0f, 1f);
 
 		float r, g, b;
 
-		float rLim = 1f - red;
-		float gLim = 1f - green;
-		float bLim = 1f - blue;
+		float rLim = 1f - getRed();
+		float gLim = 1f - getGreen();
+		float bLim = 1f - getBlue();
 
-		r = red - ((red - rLim) * factor);
-		g = green - ((green - gLim) * factor);
-		b = blue - ((blue - bLim) * factor);
+		r = getRed() - ((getRed() - rLim) * factor);
+		g = getGreen() - ((getGreen() - gLim) * factor);
+		b = getBlue() - ((getBlue() - bLim) * factor);
 
-		return Pixel.mergeARGB(alpha, r, g, b);
+		return Pixel.mergeARGB(getAlpha(), r, g, b);
 	}
 
+	/**
+	 * @param factor
+	 *            The inversion of the new color's values
+	 * @return A new instance of {@code ColorX}, with its values based on
+	 *         {@link ColorX#ofInversion(float)}
+	 */
 	public ColorX colorOfInversion(float factor) {
 		return new ColorX(ofInversion(factor));
 	}
 
+	/**
+	 * Gets the integer value of this {@code ColorX} as if its values were fully
+	 * inverted.
+	 * 
+	 * @return The inverse value of this {@code ColorX}
+	 */
 	public int inverted() {
 		return ofInversion(1f);
 	}
 
-	public ColorX invertedColor() {
+	/**
+	 * @return A new instance of {@code ColorX}, with its values based on
+	 *         {@link ColorX#inverted()}
+	 */
+	public ColorX invertedColorX() {
 		return new ColorX(inverted());
 	}
 
-	public int ofGrayscale(GrayscaleMode mode) {
-		float value = 0;
-
-		switch (mode) {
-			case AVERAGE:
-				value = (float) MathX.average(red, green, blue);
-				break;
-			case CHANNEL_RED:
-				value = red;
-				break;
-			case CHANNEL_GREEN:
-				value = green;
-				break;
-			case CHANNEL_BLUE:
-				value = blue;
-				break;
-			case LIGHTNESS:
-				value = (float) MathX.average(MathX.min(red, green, blue), MathX.max(red, green, blue));
-				break;
-			case LUMINOSITY:
-				value = MathX.clamp((red * 0.2126f) + (green * 0.7152f) + (blue * 0.0722f), 0f, 1f);
-				break;
-			case MAX_DECOMP:
-				value = MathX.max(red, green, blue);
-				break;
-			case MID_DECOMP:
-				value = ArraysX.sort(red, green, blue)[1];
-				break;
-			case MIN_DECOMP:
-				value = MathX.min(red, green, blue);
-				break;
-		}
-
-		return Pixel.mergeARGB(alpha, value, value, value);
+	/**
+	 * Gets the integer value of this {@code ColorX} as if its values were
+	 * adjusted based on the specified percentages.
+	 * 
+	 * @param r
+	 *            The percentage of red to use
+	 * @param g
+	 *            The percentage of green to use
+	 * @param b
+	 *            The percentage of blue to use
+	 * @return The adjusted value of this {@code ColorX}
+	 */
+	public int ofAdjustment(float r, float g, float b) {
+		return Pixel.mergeARGB(getAlpha(), getRed() * r, getGreen() * g, getBlue() * b);
 	}
 
+	/**
+	 * @param r
+	 *            The percentage of red to use
+	 * @param g
+	 *            The percentage of green to use
+	 * @param b
+	 *            The percentage of blue to use
+	 * @return A new instance of {@code ColorX}, with its values based on
+	 *         {@link ColorX#ofAdjustment(float, float, float)}
+	 */
+	public ColorX colorOfAdjustment(float r, float g, float b) {
+		return new ColorX(ofAdjustment(r, g, b));
+	}
+
+	/**
+	 * Gets the integer value of the gray-scale of this {@code ColorX}, based on
+	 * the specified {@link GrayscaleMode}.
+	 * 
+	 * @param mode
+	 *            The gray-scale mode to apply
+	 * @return The gray-scale version of this {@code ColorX}
+	 */
+	public int ofGrayscale(GrayscaleMode mode) {
+		float value = mode.getOperation().apply(getRed(), getGreen(), getBlue()) / 255f;
+
+		return Pixel.mergeARGB(getAlpha(), value, value, value);
+	}
+
+	/**
+	 * @param mode
+	 *            The gray-scale mode to apply
+	 * @return A new instance of {@code ColorX}, with its values based on
+	 *         {@link ColorX#ofGrayscale(GrayscaleMode)}
+	 */
 	public ColorX colorOfGrayscale(GrayscaleMode mode) {
 		return new ColorX(ofGrayscale(mode));
 	}
 
-	public int ofAdjustment(float pr, float pg, float pb) {
-		return Pixel.mergeARGB(alpha, red * pr, green * pg, blue * pb);
+	/**
+	 * @return The hexadecimal representation of the integer value of this
+	 *         {@code ColorX}
+	 */
+	public String toHex() {
+		return Integer.toHexString(getARGB());
 	}
 
-	public ColorX colorOfAdjustment(float pr, float pg, float pb) {
-		return new ColorX(ofAdjustment(pr, pg, pb));
+	@Override
+	public ColorX clone() {
+		return new ColorX(getARGB());
+	}
+
+	@Override
+	public int compareTo(ColorX c) {
+		int dr = Math.abs(getRed() - c.getRed());
+		int dg = Math.abs(getGreen() - c.getGreen());
+		int db = Math.abs(getBlue() - c.getBlue());
+
+		return MathX.max(dr, dg, db);
 	}
 }

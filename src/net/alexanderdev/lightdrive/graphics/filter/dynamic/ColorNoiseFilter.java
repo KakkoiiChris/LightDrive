@@ -9,25 +9,40 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filter.dynamic;
 
+import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.graphics.filter.Filter;
 import net.alexanderdev.lightdrive.util.Pixel;
 import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
+ * A dynamic {@link Filter} which applies a colored noise to the {@link Sprite}.
+ * 
  * @author Christian Bryce Alexander
  * @since Jan 4, 2016, 10:11:24 PM
  */
 public class ColorNoiseFilter implements Filter {
 	private float intensity;
 
+	/**
+	 * Creates a {@link ColorNoiseFilter} with the specified intensity.
+	 * 
+	 * @param intensity
+	 *            The intensity of the noise
+	 */
 	public ColorNoiseFilter(float intensity) {
 		this.intensity = intensity;
 	}
 
+	/**
+	 * Sets the intensity of the noise.
+	 * 
+	 * @param intensity
+	 *            The intensity of the noise
+	 */
 	public void setIntensity(float intensity) {
 		this.intensity = intensity;
 	}

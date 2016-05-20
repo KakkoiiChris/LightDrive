@@ -9,14 +9,17 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filter;
 
-import net.alexanderdev.lightdrive.graphics.ColorX;
+import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.util.Pixel;
 
 /**
+ * A {@link Filter} which adjusts the percentage of all three RGB channels in
+ * the {@link Sprite}.
+ * 
  * @author Christian Bryce Alexander
  * @since Dec 14, 2015, 3:59:04 AM
  */
@@ -24,16 +27,27 @@ public class AdjustFilter implements Filter {
 	protected float r, g, b;
 
 	/**
-	 * An {@code AdjustFilter} with its percentages based off of a color.
+	 * Creates a new {@link AdjustFilter} with its percentages based off of an
+	 * integer color value.
+	 * 
+	 * @param color
+	 *            The color to imitate
 	 */
-	public AdjustFilter(ColorX color) {
-		this.r = color.getFloatRed();
-		this.g = color.getFloatGreen();
-		this.b = color.getFloatBlue();
+	public AdjustFilter(int color) {
+		this.r = Pixel.getFloatRed(color);
+		this.g = Pixel.getFloatGreen(color);
+		this.b = Pixel.getFloatBlue(color);
 	}
 
 	/**
-	 * An {@code AdjustFilter} with the specified percentages.
+	 * Creates a new {@link AdjustFilter} with the specified percentages.
+	 * 
+	 * @param r
+	 *            The percentage of red
+	 * @param g
+	 *            The percentage of green
+	 * @param b
+	 *            The percentage of blue
 	 */
 	public AdjustFilter(float r, float g, float b) {
 		this.r = r;
@@ -41,10 +55,33 @@ public class AdjustFilter implements Filter {
 		this.b = b;
 	}
 
-	public void setValues(int color) {
+	/**
+	 * Sets the RGB channel percentages based on the specified integer color
+	 * value.
+	 * 
+	 * @param color
+	 *            The color to imitate
+	 */
+	public void setPercentages(int color) {
 		r = Pixel.getFloatRed(color);
 		g = Pixel.getFloatGreen(color);
 		b = Pixel.getFloatBlue(color);
+	}
+
+	/**
+	 * Sets the RGB channel percentages with the specified percentages.
+	 * 
+	 * @param r
+	 *            The percentage of red
+	 * @param g
+	 *            The percentage of green
+	 * @param b
+	 *            The percentage of blue
+	 */
+	public void setPercentages(float r, float g, float b) {
+		this.r = r;
+		this.g = g;
+		this.b = b;
 	}
 
 	@Override

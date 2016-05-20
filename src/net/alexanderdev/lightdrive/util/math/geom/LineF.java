@@ -9,19 +9,19 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.util.math.geom;
 
-import java.awt.geom.Line2D.Float;
+import java.awt.geom.Line2D;
 
 /**
- * A simple wrapper class for {@code Line2D.Float}
+ * A simple wrapper class for {@link Line2D.Float}.
  * 
  * @author Christian Bryce Alexander
  * @since Jul 6, 2015 | 1:38:56 AM
  */
-public class LineF extends Float {
+public class LineF extends Line2D.Float implements Cloneable {
 	private static final long serialVersionUID = -496939973883568734L;
 
 	/**
@@ -36,5 +36,20 @@ public class LineF extends Float {
 	 */
 	public LineF(float x0, float y0, float x1, float y1) {
 		super(x0, y0, x1, y1);
+	}
+
+	/**
+	 * @param p0
+	 *            The coordinates of the first point
+	 * @param p1
+	 *            The coordinates of the second point
+	 */
+	public LineF(VectorF p0, VectorF p1) {
+		super(p0.x, p0.y, p1.x, p1.y);
+	}
+
+	@Override
+	public LineF clone() {
+		return new LineF(x1, y1, x2, y2);
 	}
 }

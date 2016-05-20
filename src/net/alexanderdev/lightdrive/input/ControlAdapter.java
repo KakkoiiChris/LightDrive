@@ -13,7 +13,13 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.input;
 
+import net.alexanderdev.lightdrive.input.gamepad.Gamepad;
+import net.alexanderdev.lightdrive.input.keyboard.Keyboard;
+import net.alexanderdev.lightdrive.input.mouse.Mouse;
+
 /**
+ * A class which emptily implements the {@link Controllable} interface.
+ * 
  * @author Christian Bryce Alexander
  * @since Jan 19, 2016, 11:53:47 AM
  */

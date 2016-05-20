@@ -9,21 +9,20 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.state;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Stack;
 
 import net.alexanderdev.lightdrive.InternalMethod;
 import net.alexanderdev.lightdrive.graphics.GraphicsX;
 import net.alexanderdev.lightdrive.graphics.Renderable;
 import net.alexanderdev.lightdrive.input.Controllable;
-import net.alexanderdev.lightdrive.input.Gamepad;
-import net.alexanderdev.lightdrive.input.Keyboard;
-import net.alexanderdev.lightdrive.input.Mouse;
+import net.alexanderdev.lightdrive.input.gamepad.Gamepad;
+import net.alexanderdev.lightdrive.input.keyboard.Keyboard;
+import net.alexanderdev.lightdrive.input.mouse.Mouse;
 import net.alexanderdev.lightdrive.util.UID;
 import net.alexanderdev.lightdrive.view.Viewable;
 
@@ -39,8 +38,6 @@ public class StateManager implements Renderable, Controllable {
 
 	private final Map<String, State> STATES = new HashMap<>();
 
-	private final Stack<String> ORDER = new Stack<>();
-
 	private State currentState;
 
 	private Viewable view;
@@ -52,7 +49,7 @@ public class StateManager implements Renderable, Controllable {
 	 * 
 	 * @param view
 	 *            The {@link Viewable} to associate with this
-	 *            {@code StateManager}
+	 *            {@link StateManager}
 	 */
 	public StateManager(Viewable view) {
 		this.view = view;
@@ -63,7 +60,7 @@ public class StateManager implements Renderable, Controllable {
 	}
 
 	/**
-	 * @return The {@link Viewable} associated with this {@code StateManager}
+	 * @return The {@link Viewable} associated with this {@link StateManager}
 	 */
 	public Viewable getView() {
 		return view;
@@ -99,7 +96,7 @@ public class StateManager implements Renderable, Controllable {
 	/**
 	 * Sets the {@link State} that will appear first when the associated
 	 * {@link Viewable} is opened. Cannot be set again once this
-	 * {@code StateManager} has been initialized internally by the associated
+	 * {@link StateManager} has been initialized internally by the associated
 	 * {@link Viewable}.
 	 * 
 	 * @param name
@@ -108,9 +105,13 @@ public class StateManager implements Renderable, Controllable {
 	public void setInitialState(String name) {
 		if (!initialized)
 			currentState = STATES.get(name);
+	}
 
-		ORDER.clear();
-		ORDER.push(name);
+	@InternalMethod
+	public final void init() {
+		currentState.switchTo();
+
+		initialized = true;
 	}
 
 	/**
@@ -122,62 +123,40 @@ public class StateManager implements Renderable, Controllable {
 	 *            The name of the {@link State} to switch to
 	 */
 	public void switchState(String name, Object... argv) {
+		currentState.switchFrom();
+
 		currentState = STATES.get(name);
 
-		if (currentState != null)
-			currentState.switchTo(argv);
-
-		ORDER.push(name);
+		currentState.switchTo(argv);
 	}
 
-	public void goToPreviousState() {
-		ORDER.pop();
-
-		currentState = STATES.get(ORDER.peek());
-
-		if (currentState != null)
-			currentState.switchTo();
-	}
-
-	/**
-	 * Internally initializes this {@code StateManager} so it is prepared for
-	 * the first iteration of the game loop.
-	 */
-	@InternalMethod
-	public final void init() {
-		if (currentState != null)
-			currentState.switchTo();
-
-		initialized = true;
-	}
-
+	@Override
 	@InternalMethod
 	public final void keyboardInput(Keyboard keyboard) {
-		if (currentState != null)
-			currentState.keyboardInput(keyboard);
+		currentState.keyboardInput(keyboard);
 	}
 
+	@Override
 	@InternalMethod
 	public final void mouseInput(Mouse mouse) {
-		if (currentState != null)
-			currentState.mouseInput(mouse);
+		currentState.mouseInput(mouse);
 	}
 
+	@Override
 	@InternalMethod
 	public final void gamepadInput(Gamepad gamepad) {
-		if (currentState != null)
-			currentState.gamepadInput(gamepad);
+		currentState.gamepadInput(gamepad);
 	}
 
 	@Override
+	@InternalMethod
 	public void update(double delta) {
-		if (currentState != null)
-			currentState.update(delta);
+		currentState.update(delta);
 	}
 
 	@Override
+	@InternalMethod
 	public void render(GraphicsX g) {
-		if (currentState != null)
-			currentState.render(g);
+		currentState.render(g);
 	}
 }

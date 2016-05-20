@@ -9,24 +9,27 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.input;
+package net.alexanderdev.lightdrive.input.keyboard;
+
+import net.alexanderdev.lightdrive.state.State;
+import net.alexanderdev.lightdrive.view.Viewable;
 
 /**
- * Interface to be used in conjunction with the {@code Display} to handle
- * {@code Mouse} input
+ * Interface to be used in conjunction with a {@link State} to handle
+ * {@link Keyboard} input.
  * 
  * @author Christian Bryce Alexander
- * @since March 8, 2015 | 1:15:57 AM
+ * @since March 8, 2015 | 1:15:17 AM
  */
 @FunctionalInterface
-public interface MouseListener {
+public interface KeyboardListener {
 	/**
-	 * Enables direct use of the {@code Display}'s mouse
+	 * Enables direct use of the {@link Viewable}'s keyboard.
 	 * 
-	 * @param mouse
-	 *            The {@code Display}'s mouse
+	 * @param keyboard
+	 *            The {@link Viewable}'s keyboard
 	 */
-	public void mouseInput(Mouse mouse);
+	public void keyboardInput(Keyboard keyboard);
 }

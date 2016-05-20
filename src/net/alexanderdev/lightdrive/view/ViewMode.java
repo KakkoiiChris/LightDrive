@@ -9,17 +9,42 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.input;
+package net.alexanderdev.lightdrive.view;
 
 /**
  * @author Christian Bryce Alexander
- * @since May 3, 2016, 2:44:04 AM
+ * @since May 19, 2016, 8:14:47 PM
  */
-public enum MouseButton {
-	NONE,
-	LEFT,
-	MIDDLE,
-	RIGHT
+public class ViewMode {
+	private int width, height;
+	private double ups;
+
+	public ViewMode(int width, int height, double ups) {
+		this.width = width;
+		this.height = height;
+		this.ups = ups;
+	}
+
+	/**
+	 * @return the width
+	 */
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * @return the height
+	 */
+	public int getHeight() {
+		return height;
+	}
+
+	/**
+	 * @return the ups
+	 */
+	public double getUPS() {
+		return ups;
+	}
 }

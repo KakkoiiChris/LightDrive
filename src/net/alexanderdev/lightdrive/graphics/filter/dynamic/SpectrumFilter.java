@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filter.dynamic;
 
@@ -20,6 +20,8 @@ import net.alexanderdev.lightdrive.graphics.filter.Filter;
 import net.alexanderdev.lightdrive.util.Pixel;
 
 /**
+ * A dynamic {@link AdjustFilter} whose values cycle through the rainbow.
+ * 
  * @author Christian Bryce Alexander
  * @since Dec 14, 2015, 6:25:07 AM
  */
@@ -28,13 +30,13 @@ public class SpectrumFilter extends AdjustFilter {
 	private float hue;
 
 	/**
-	 * A {@code SpectrumFilter} width the specified hue delta.
+	 * A {@link SpectrumFilter} width the specified hue delta.
 	 * 
 	 * @param dh
 	 *            The change in hue between {@link Filter} applications
 	 */
 	public SpectrumFilter(float dh) {
-		super(1f, 1f, 1f);
+		super(1f, 0f, 0f);
 
 		this.dh = dh;
 

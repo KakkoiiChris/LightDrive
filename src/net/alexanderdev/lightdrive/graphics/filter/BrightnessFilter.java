@@ -9,24 +9,41 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filter;
 
+import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.util.Pixel;
 import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
+ * A {@link Filter} which applies a brightness effect to the {@link Sprite}.
+ * 
  * @author Christian Bryce Alexander
  * @since Dec 14, 2015, 4:18:47 AM
  */
 public class BrightnessFilter implements Filter {
 	protected float brightness;
 
+	/**
+	 * Creates a new {@link BrightnessFilter}.
+	 *
+	 * @param saturation
+	 *            The amount of brightness ({@code -1f} is full black,
+	 *            {@code 1f} is full white)
+	 */
 	public BrightnessFilter(float brightness) {
 		this.brightness = MathX.clamp(brightness, -1f, 1f);
 	}
 
+	/**
+	 * Sets the brightness factor.
+	 *
+	 * @param saturation
+	 *            The amount of brightness ({@code -1f} is full black,
+	 *            {@code 1f} is full white)
+	 */
 	public void setBrightness(float brightness) {
 		this.brightness = MathX.clamp(brightness, -1f, 1f);
 	}

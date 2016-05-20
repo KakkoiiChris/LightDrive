@@ -9,25 +9,40 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filter;
 
 import java.awt.Color;
 
+import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.util.Pixel;
 
 /**
+ * A {@link Filter} which changes the hue of the {@link Sprite}.
+ * 
  * @author Christian Bryce Alexander
  * @since Dec 14, 2015, 5:44:48 AM
  */
 public class HueFilter implements Filter {
 	private float hue = 0f;
 
+	/**
+	 * Creates a new {@link HueFilter}.
+	 * 
+	 * @param hue
+	 *            The amount of hue to add
+	 */
 	public HueFilter(float hue) {
 		this.hue = hue;
 	}
 
+	/**
+	 * Sets the hue value.
+	 * 
+	 * @param hue
+	 *            The amount of hue to add
+	 */
 	public void setHue(float hue) {
 		this.hue = hue;
 	}

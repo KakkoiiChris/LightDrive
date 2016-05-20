@@ -9,17 +9,21 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.view;
 
 import java.awt.Rectangle;
 
 import net.alexanderdev.lightdrive.InternalType;
+import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.graphics.filter.Filter;
 import net.alexanderdev.lightdrive.state.StateManager;
 
 /**
+ * An interface which defines the common methods that all standard game
+ * {@link Viewable}s should have.
+ * 
  * @author Christian Bryce Alexander
  * @since Jan 19, 2016, 2:03:22 AM
  */
@@ -27,13 +31,13 @@ import net.alexanderdev.lightdrive.state.StateManager;
 public interface Viewable {
 	/**
 	 * @return The {@link StateManager} associated with this game
-	 *         {@code Viewable}
+	 *         {@link Viewable}
 	 */
 	public StateManager getManager();
 
 	/**
 	 * Associates a new or custom {@link StateManager} with this game
-	 * {@code Viewable}.
+	 * {@link Viewable}.
 	 *
 	 * @param manager
 	 *            The {@link StateManager} to associate
@@ -42,38 +46,43 @@ public interface Viewable {
 
 	/**
 	 * @return A {@link Rectangle} starting at the origin, with the unscaled
-	 *         dimensions of this {@code Viewable}
+	 *         dimensions of this {@link Viewable}
 	 */
 	public Rectangle getViewBounds();
 
 	/**
-	 * @return The unscaled width of this {@code Viewable}
+	 * @return The unscaled width of this {@link Viewable}
 	 */
 	public int getViewWidth();
 
 	/**
-	 * @return The unscaled height of this {@code Viewable}
+	 * @return The unscaled height of this {@link Viewable}
 	 */
 	public int getViewHeight();
 
 	/**
-	 * @return The scale factor of this {@code Viewable}
+	 * @return The scale factor of this {@link Viewable}
 	 */
 	public int getViewScale();
 
 	/**
-	 * Prepares this {@code Viewable}'s graphics and opens it up for gameplay.
+	 * @return The {@link Sprite} context used for rendering
+	 */
+	public Sprite getContext();
+
+	/**
+	 * Prepares this {@link Viewable}'s graphics and opens it up for game play.
 	 */
 	public void open();
 
 	/**
-	 * Cleans up any graphics resources associated with this {@code Viewable},
+	 * Cleans up any graphics resources associated with this {@link Viewable},
 	 * closes it, and terminates the program.
 	 */
 	public void close();
 
 	/**
-	 * Adds a {@link Filter} that will be applied to this {@code Viewable}'s
+	 * Adds a {@link Filter} that will be applied to this {@link Viewable}'s
 	 * context after rendering.
 	 * 
 	 * @param filter
@@ -82,7 +91,7 @@ public interface Viewable {
 	public void addFilter(Filter filter);
 
 	/**
-	 * Removes a {@link Filter} from being applied to this {@code Viewable}'s
+	 * Removes a {@link Filter} from being applied to this {@link Viewable}'s
 	 * context after rendering.
 	 * 
 	 * @param filter
@@ -90,7 +99,7 @@ public interface Viewable {
 	public void removeFilter(Filter filter);
 
 	/**
-	 * Clears all added {@link Filter}'s from this {@code Viewable}.
+	 * Clears all added {@link Filter}'s from this {@link Viewable}.
 	 */
 	public void clearFilters();
 }

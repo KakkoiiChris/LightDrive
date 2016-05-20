@@ -11,7 +11,7 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.input;
+package net.alexanderdev.lightdrive.input.mouse;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -24,8 +24,8 @@ import net.alexanderdev.lightdrive.InternalMethod;
 import net.alexanderdev.lightdrive.view.Viewable;
 
 /**
- * A class which encapsulates the {@code MouseListener},
- * {@code MouseMotionListener}, and {@code MouseWheelListener} interfaces and
+ * A class which encapsulates the {@link MouseListener},
+ * {@link MouseMotionListener}, and {@link MouseWheelListener} interfaces and
  * enables more game-friendly functionality.
  * 
  * @author Christian Bryce Alexander
@@ -34,7 +34,7 @@ import net.alexanderdev.lightdrive.view.Viewable;
 public class Mouse implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private Viewable view;
 
-	private final boolean[] BUTTONS = new boolean[MouseButton.values().length];
+	private final boolean[] BUTTONS = new boolean[Button.values().length];
 
 	private boolean[] buttonsLast;
 
@@ -50,10 +50,10 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	private int wheelRotation;
 
 	/**
-	 * Creates a {@code Mouse} associated with the specified {@link Viewable}.
+	 * Creates a {@link Mouse} associated with the specified {@link Viewable}.
 	 * 
 	 * @param view
-	 *            The {@link Viewable} to associate with this {@code Mouse}
+	 *            The {@link Viewable} to associate with this {@link Mouse}
 	 */
 	public Mouse(Viewable view) {
 		this.view = view;
@@ -76,10 +76,10 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 
 	/**
 	 * @return {@code true} if {@code button} equals {@link Mouse#ANY} and any
-	 *         button has been pressed, or if {@code button} is associated with
+	 *         button has been pressed, or if the specified {@link Button} is associated with
 	 *         a button that has been pressed, and {@code false} otherwise
 	 */
-	public boolean buttonPressed(MouseButton button) {
+	public boolean buttonPressed(Button button) {
 		return BUTTONS[button.ordinal()] && !buttonsLast[button.ordinal()];
 	}
 
@@ -92,10 +92,10 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 
 	/**
 	 * @return {@code true} if {@code button} equals {@link Mouse#ANY} and any
-	 *         button is being held, or if {@code button} is associated with a
+	 *         button is being held, or if the specified {@link Button} is associated with a
 	 *         button that is being held, and {@code false} otherwise
 	 */
-	public boolean buttonHeld(MouseButton button) {
+	public boolean buttonHeld(Button button) {
 		return BUTTONS[button.ordinal()];
 	}
 
@@ -108,10 +108,11 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 
 	/**
 	 * @return {@code true} if {@code button} equals {@link Mouse#ANY} and any
-	 *         button has been released, or if {@code button} is associated with
-	 *         a button that has been released, and {@code false} otherwise
+	 *         button has been released, or if the specified {@link Button} is
+	 *         associated with a button that has been released, and
+	 *         {@code false} otherwise
 	 */
-	public boolean buttonReleased(MouseButton button) {
+	public boolean buttonReleased(Button button) {
 		return !BUTTONS[button.ordinal()] && buttonsLast[button.ordinal()];
 	}
 

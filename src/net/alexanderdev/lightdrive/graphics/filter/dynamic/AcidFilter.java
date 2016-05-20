@@ -17,6 +17,9 @@ import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.graphics.filter.Filter;
 
 /**
+ * A dynamic {@link Filter} which applies a trippy, repetitive effect to the
+ * {@link Sprite}.
+ * 
  * @author Christian Bryce Alexander
  * @since Dec 14, 2015, 4:13:30 AM
  */
@@ -24,9 +27,7 @@ public class AcidFilter implements Filter {
 	private long n;
 
 	/**
-	 * @param scanSize
-	 *            The width of the {@link Sprite} to be filtered for the
-	 *            intended effect, or any other integer.
+	 * Creates a new {@link AcidFilter}.
 	 */
 	public AcidFilter() {
 		n = 0;

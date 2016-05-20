@@ -9,11 +9,9 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.util;
-
-//import net.alexanderdev.quixel.graphics.BlendMode;
 
 /**
  * A utility class which provides for a multitude of advanced color operations.
@@ -22,34 +20,6 @@ package net.alexanderdev.lightdrive.util;
  * @since Dec 13, 2015, 2:29:53 AM
  */
 public class Pixel {
-//	/**
-//	 * Blends each color together based on the specified {@link BlendMode}.
-//	 *
-//	 * @param mode
-//	 *            The {@link BlendMode} to apply
-//	 * @param colors
-//	 *            The colors to blend together
-//	 * @return The colors blended
-//	 */
-//	public static int blendRGB(BlendMode mode, int... colors) {
-//		if (colors.length == 0)
-//			return 0;
-//
-//		if (colors.length == 1)
-//			return colors[0];
-//
-//		float[] target = splitFloatARGB(colors[0]);
-//
-//		for (int i = 1; i < colors.length; i++) {
-//			float[] blend = splitFloatARGB(colors[i]);
-//
-//			for (int j = 1; j < target.length; j++)
-//				target[j] = mode.getOperation().apply(target[j], blend[j]);
-//		}
-//
-//		return mergeARGB(target);
-//	}
-
 	/**
 	 * Blends each color together based on the alpha channels.
 	 *
@@ -171,7 +141,7 @@ public class Pixel {
 	 */
 	public static int mergeARGB(float[] channels) {
 		return ((int) (channels[0] * 255f) << 24) | ((int) (channels[1] * 255f) << 16)
-			| ((int) (channels[2] * 255f) << 8) | (int) (channels[3] * 255f);
+				| ((int) (channels[2] * 255f) << 8) | (int) (channels[3] * 255f);
 	}
 
 	/**
@@ -216,7 +186,7 @@ public class Pixel {
 		float b = getFloatBlue(color);
 
 		return new float[] {
-			a, r, g, b
+				a, r, g, b
 		};
 	}
 
@@ -234,7 +204,7 @@ public class Pixel {
 		int b = getIntBlue(color);
 
 		return new int[] {
-			a, r, g, b
+				a, r, g, b
 		};
 	}
 

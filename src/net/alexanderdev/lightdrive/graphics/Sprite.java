@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
@@ -18,10 +18,11 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 import net.alexanderdev.lightdrive.graphics.filter.Filter;
+import net.alexanderdev.lightdrive.util.Pixel;
 
 /**
- * A wrapper class for {@code BufferedImage} that contains multiple methods for
- * advanced color manipulation
+ * A wrapper class for {@link BufferedImage} that contains multiple methods for
+ * advanced color manipulation.
  * 
  * @author Christian Bryce Alexander
  * @since Apr 15, 2015 | 12:22:40 AM
@@ -30,7 +31,7 @@ public class Sprite extends BufferedImage implements Cloneable {
 	private int[] pixels;
 
 	/**
-	 * Creates a new {@code ImageS} from the {@code BufferedImage}.
+	 * Creates a new {@code Sprite} from the {@link BufferedImage}.
 	 *
 	 * @param image
 	 *            The image to copy
@@ -57,6 +58,19 @@ public class Sprite extends BufferedImage implements Cloneable {
 		super(width, height, TYPE_INT_ARGB);
 
 		pixels = ((DataBufferInt) this.getRaster().getDataBuffer()).getData();
+	}
+
+	public void clear(int color) {
+		for (int i = 0; i < pixels.length; i++)
+			pixels[i] = color;
+	}
+
+	public void clear() {
+		clear(0);
+	}
+
+	public int getPixel(int x, int y) {
+		return pixels[x + y * getWidth()];
 	}
 
 	/**
@@ -88,8 +102,57 @@ public class Sprite extends BufferedImage implements Cloneable {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Apply a filter to this {@code Sprite}'s pixels.
+	 *
+	 * @param filters
+	 *            A varargs list of filters to apply
 	 */
+	public final void filter(Filter... filters) {
+		for (Filter filter : filters)
+			filter.apply(getWidth(), getHeight(), pixels);
+	}
+
+	/**
+	 * @param filters
+	 *            A varargs list of filters to apply
+	 * @return A filtered copy of this {@code Sprite}
+	 */
+	public final Sprite filtered(Filter... filters) {
+		Sprite copy = clone();
+
+		copy.filter(filters);
+
+		return copy;
+	}
+
+	public final void blend(Sprite sprite, BlendMode mode) {
+		for (int y = 0; y < getHeight(); y++) {
+			for (int x = 0; x < getWidth(); x++) {
+				pixels[x + y * getWidth()] = blendRGB(mode, pixels[x + y * getWidth()],
+				    sprite.pixels[(x % sprite.getWidth()) + (y % sprite.getHeight()) * getWidth()]);
+			}
+		}
+	}
+
+	public final Sprite blended(Sprite sprite, BlendMode mode) {
+		Sprite copy = clone();
+
+		copy.blend(sprite, mode);
+
+		return copy;
+	}
+
+	private int blendRGB(BlendMode mode, int colorA, int colorB) {
+		float[] target = Pixel.splitFloatARGB(colorA);
+
+		float[] blend = Pixel.splitFloatARGB(colorB);
+
+		for (int j = 1; j < target.length; j++)
+			target[j] = mode.getOperation().apply(target[j], blend[j]);
+
+		return Pixel.mergeARGB(target);
+	}
+
 	@Override
 	public final Sprite getSubimage(int x, int y, int width, int height) {
 		return new Sprite(super.getSubimage(x, y, width, height));
@@ -97,19 +160,6 @@ public class Sprite extends BufferedImage implements Cloneable {
 
 	@Override
 	public Sprite clone() {
-		return null;
-	}
-
-	public final void filter(Filter... filters) {
-		for (Filter filter : filters)
-			filter.apply(getWidth(), getHeight(), pixels);
-	}
-
-	public final Sprite filtered(Filter... filters) {
-		Sprite copy = new Sprite(this);
-
-		copy.filter(filters);
-
-		return copy;
+		return new Sprite(this);
 	}
 }

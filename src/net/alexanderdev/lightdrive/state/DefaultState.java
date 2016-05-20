@@ -9,27 +9,39 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.state;
 
+import net.alexanderdev.lightdrive.InternalType;
 import net.alexanderdev.lightdrive.graphics.GraphicsX;
 import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.util.io.SpriteIO;
 
 /**
+ * A {@link State} which serves as both a placeholder, so that no null checks
+ * have to be made if no states have been added to the {@link StateManager}, and
+ * as a sort of "Hello World" visualization, to test that the library functions
+ * properly.
+ * 
  * @author Christian Bryce Alexander
  * @since May 19, 2015 | 11:23:47 PM
  */
+@InternalType
 public final class DefaultState extends State {
 	private Sprite splash;
 
 	public DefaultState() {
-		splash = SpriteIO.loadPNG("/img/splash640x480");
+		SpriteIO.setPath("/img/lightdrive/");
+		splash = SpriteIO.loadPNG("splash640x480");
 	}
 
 	@Override
 	public void switchTo(Object... argv) {
+	}
+
+	@Override
+	public void switchFrom() {
 	}
 
 	@Override
@@ -38,6 +50,6 @@ public final class DefaultState extends State {
 
 	@Override
 	public void render(GraphicsX g) {
-		g.drawCenteredImage(splash, getManager().getView().getViewBounds());
+		g.drawImage(splash, getManager().getView().getViewBounds());
 	}
 }

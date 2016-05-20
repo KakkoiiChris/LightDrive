@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
@@ -17,20 +17,20 @@ import net.alexanderdev.lightdrive.util.Time;
 import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
- * A class to hanlde image animations
+ * A class which represents a single {@link Sprite} based animation.
  * 
  * @author Christian Bryce Alexander
  * @since Apr 24, 2015 | 11:50:16 PM
  */
 public class Animation implements Cloneable {
 	/**
-	 * There are four styles of animation, all of which alter the appearance of
-	 * the animation.
+	 * Lists four styles of animation, all of which alter the order of
+	 * appearance of the frames in the {@code Animation}.
 	 */
 	public static enum Style {
-		/**
-		 * Moves to one end of the frames, and then loops to the opposite end.
-		 */
+	    /**
+	     * Moves to one end of the frames, and then loops to the opposite end.
+	     */
 		LOOP,
 		/**
 		 * Moves to one end of the frames, and then reverses direction.
@@ -50,7 +50,7 @@ public class Animation implements Cloneable {
 
 	private Style style;
 
-	private int currentFrame, step;
+	private int currFrame, prevFrame, step;
 
 	private long delay, timer;
 
@@ -72,7 +72,8 @@ public class Animation implements Cloneable {
 		this.step = step;
 		this.style = style;
 
-		currentFrame = 0;
+		currFrame = 0;
+		prevFrame = -1;
 
 		playing = false;
 	}
@@ -128,31 +129,33 @@ public class Animation implements Cloneable {
 	 * Sets the next frame based on the specified animation {@link Style}.
 	 */
 	public void step() {
+		prevFrame = currFrame;
+		
 		switch (style) {
 			case LOOP:
 			default:
-				if (currentFrame + step >= frames.length)
-					currentFrame = 0;
-				else if (currentFrame + step <= -1)
-					currentFrame = frames.length - 1;
+				if (currFrame + step >= frames.length)
+					currFrame = 0;
+				else if (currFrame + step <= -1)
+					currFrame = frames.length - 1;
 				else
-					currentFrame += step;
+					currFrame += step;
 				break;
 			case BOUNCE:
-				if (currentFrame + step < 0 || currentFrame + step >= frames.length)
+				if (currFrame + step < 0 || currFrame + step >= frames.length)
 					step = -step;
-				currentFrame += step;
+				currFrame += step;
 				break;
 			case ONCE:
-				if (currentFrame + step >= frames.length)
-					currentFrame = frames.length - 1;
-				else if (currentFrame + step <= -1)
-					currentFrame = 0;
+				if (currFrame + step >= frames.length)
+					currFrame = frames.length - 1;
+				else if (currFrame + step <= -1)
+					currFrame = 0;
 				else
-					currentFrame += step;
+					currFrame += step;
 				break;
 			case RANDOM:
-				currentFrame = MathX.randomInt(frames.length);
+				currFrame = MathX.randomInt(frames.length);
 				break;
 		}
 	}
@@ -161,7 +164,7 @@ public class Animation implements Cloneable {
 	 * @return The current animation frame
 	 */
 	public Sprite getFrame() {
-		return frames[currentFrame];
+		return frames[currFrame];
 	}
 
 	/**
@@ -175,7 +178,7 @@ public class Animation implements Cloneable {
 	 * @return The index of the current animation frame
 	 */
 	public int getFrameIndex() {
-		return currentFrame;
+		return currFrame;
 	}
 
 	/**
@@ -186,9 +189,9 @@ public class Animation implements Cloneable {
 	 */
 	public void setFrameIndex(int i) {
 		if (i >= 0 && i < frames.length)
-			currentFrame = i;
+			currFrame = i;
 		else
-			currentFrame = 0;
+			currFrame = 0;
 	}
 
 	/**
@@ -226,14 +229,14 @@ public class Animation implements Cloneable {
 	}
 
 	/**
-	 * @return The length of this animation
+	 * @return The length of this {@code Animation}
 	 */
 	public int getLength() {
 		return frames.length;
 	}
 
 	/**
-	 * Sets this animation to start running, and updates the timer.
+	 * Sets this {@code Animation} to start running, and updates the timer.
 	 */
 	public void play() {
 		if (!playing) {
@@ -244,7 +247,7 @@ public class Animation implements Cloneable {
 	}
 
 	/**
-	 * Sets the animation to stop running.
+	 * Sets the {@code Animation} to stop running.
 	 */
 	public void pause() {
 		if (playing)
@@ -259,14 +262,15 @@ public class Animation implements Cloneable {
 	}
 
 	/**
-	 * Sets the animation to stop running, and sets the current frame to the
-	 * beginning.
+	 * Sets the {@code Animation} to stop running, and sets the current frame to
+	 * the beginning.
 	 */
 	public void stop() {
 		if (playing) {
 			playing = false;
 
-			currentFrame = 0;
+			currFrame = 0;
+			prevFrame = -1;
 		}
 	}
 
@@ -274,7 +278,8 @@ public class Animation implements Cloneable {
 	 * Sets the current frame to the beginning.
 	 */
 	public void reset() {
-		currentFrame = 0;
+		currFrame = 0;
+		prevFrame = -1;
 	}
 
 	/**
@@ -284,8 +289,20 @@ public class Animation implements Cloneable {
 		step = -step;
 	}
 
+	/**
+	 * @return {@code true} if it is playing, {@code false} otherwise
+	 */
 	public boolean isPlaying() {
 		return playing;
+	}
+
+	/**
+	 * @return {@code true} if this {@link Animation} is of style
+	 *         {@link Style#ONCE}, and it is on the first or last frame,
+	 *         {@code false} otherwise
+	 */
+	public boolean isDone() {
+		return style.equals(Style.ONCE) && prevFrame == currFrame;
 	}
 
 	@Override

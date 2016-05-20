@@ -9,278 +9,175 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.audio;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
 /**
+ * A class which encapsulates a {@link Clip}, and allows for simple playback and
+ * volume/pan control of an audio file.
+ * 
  * @author Christian Bryce Alexander
  * @since May 25, 2015 | 8:06:38 PM
  */
-public class Sound implements Cloneable {
-	protected Clip clip;
+public class Sound {
+	private Clip clip;
 
-	private FloatControl volume;
+	private FloatControl masterGain;
+	private FloatControl pan;
 
-	private float currDB = 1f;
-	private float targetDB = 0f;
-	private float fadePerStep = 0.1f;
+	private SoundListener listener;
+	private boolean isListening;
 
-	private boolean fading = false;
-
-	private Sound intro;
-
-	private Thread introThread = null;
-
-	private boolean listening;
-
-	private Thread listenerThread;
-
-	private List<SoundListener> listeners;
-
+	/**
+	 * Creates a {@link Sound} with the provided {@link Clip}.
+	 * 
+	 * @param clip
+	 *            The {@link Sound} to associate with this {@link Sound}
+	 */
 	public Sound(Clip clip) {
 		this.clip = clip;
 
-		volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+		masterGain = pan = null;
 
-		listeners = new ArrayList<>();
+		if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN))
+			masterGain = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+		if (clip.isControlSupported(FloatControl.Type.PAN))
+			pan = (FloatControl) clip.getControl(FloatControl.Type.PAN);
 
-		listenerThread = new Thread(this::listen, "ld_sound_listener");
+		listener = null;
+		isListening = false;
 	}
 
 	/**
-	 * Starts this {@code Sound} if it is not currently playing, and lets it
-	 * play once
+	 * Plays this {@link Sound} from beginning to end once, and runs the
+	 * {@link SoundListener}'s {@link Thread} if it has been set.
 	 */
 	public void play() {
-		if (clip == null) {
+		if (clip == null || isPlaying())
 			return;
-		}
 
 		stop();
 
 		clip.setFramePosition(0);
-		clip.start();
 
-		listening = true;
-		listenerThread.start();
+		if (listener != null)
+			startListening();
+
+		clip.start();
 	}
 
 	/**
-	 * Starts this {@code Sound} if it is not currently playing, and lets it
-	 * loop continuously
+	 * Loops this {@link Sound} from beginning to end continuously, and runs the
+	 * {@link SoundListener}'s {@link Thread} if it has been set.
 	 */
 	public void loop() {
-		if (clip == null) {
+		if (clip == null || isPlaying())
 			return;
-		}
 
 		stop();
 
 		clip.setFramePosition(0);
+
+		if (listener != null)
+			startListening();
+
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
-
-		listening = true;
-		listenerThread.start();
-	}
-
-	public void loopWithIntro(Sound introSound) {
-		this.intro = introSound;
-
-		introThread = new Thread(() -> {
-			intro.play();
-
-			synchronized (this) {
-				try {
-					this.wait();
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-			while (intro.isPlaying()) {
-				try {
-					Thread.sleep(5);
-				}
-				catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-
-			this.loop();
-
-			introThread = null;
-		} , "ld_song_with_intro");
-
-		introThread.start();
-	}
-
-	private void listen() {
-		while (listening)
-			for (SoundListener listener : listeners)
-				listener.listen(clip);
-	}
-
-	public void pause() {
-		clip.stop();
-
-		listening = false;
 	}
 
 	/**
-	 * Stops this {@code Sound} if it is currently playing
+	 * Stops this {@link Sound} from playing, regardless of whether or not it
+	 * was played or looped, and stops the {@link SoundListener}'s
+	 * {@link Thread}.
 	 */
 	public void stop() {
-		if (introThread != null) {
-			intro.stop();
+		if (clip == null || !isPlaying())
+			return;
 
-			try {
-				introThread.join();
-			}
-			catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+		if (listener != null)
+			stopListening();
 
-		if (clip.isRunning()) {
+		if (clip.isRunning())
 			clip.stop();
-
-			try {
-				listening = false;
-				listenerThread.join();
-			}
-			catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 	/**
-	 * Releases the resources held by this {@code Sound}
-	 */
-	public void close() {
-		stop();
-
-		clip.close();
-	}
-
-	public void addListener(SoundListener sl) {
-		listeners.add(sl);
-	}
-
-	public void clearListeners() {
-		listeners.clear();
-	}
-
-	/**
-	 * @return {@code true} if this {@code Sound} is playing, {@code false}
-	 *         otherwise
+	 * @return {@code true} if the {@link Clip} is currently running,
+	 *         {@code false} otherwise
 	 */
 	public boolean isPlaying() {
-		if (clip == null)
-			return false;
-
 		return clip.isRunning();
 	}
 
 	/**
-	 * @return The current master gain of this {@code Sound}
+	 * Sets the volume, or master gain, for this {@link Sound}. The minimum
+	 * value is -80f, and the maximum is 6.0206f.
+	 * 
+	 * @param volume
+	 *            The volume to set
 	 */
-	public float getVolume() {
-		return currDB;
+	public void setVolume(float volume) {
+		if (masterGain != null)
+			masterGain.setValue(volume);
 	}
 
-	public long getLength() {
-		return clip.getMicrosecondLength();
+	/**
+	 * Sets the perceived horizontal position of this {@link Sound}. The minimum
+	 * value is -1f (left only), and the maximum is 1f (right only).
+	 * 
+	 * @param position
+	 *            The pan position to set
+	 */
+	public void setPan(float position) {
+		if (pan != null)
+			pan.setValue(position);
 	}
 
-	public long getPosition() {
+	/**
+	 * Sets the {@link SoundListener} for this {@link Sound}.
+	 * 
+	 * @param listener
+	 *            The listener to set
+	 */
+	public void setListener(SoundListener listener) {
+		this.listener = listener;
+	}
+
+	private long getPosition() {
 		return clip.getMicrosecondPosition();
 	}
 
-	/**
-	 * Sets the volume of this {@code Sound} to the value, which is a
-	 * {@code double} between 0.0 and 1.0
-	 * 
-	 * @param value
-	 *            The volume to set
-	 */
-	public void setVolume(double value) {
-		try {
-			float dB = (float) (Math.log(value) / Math.log(10.0) * 20.0);
+	private long getLength() {
+		return clip.getMicrosecondLength();
+	}
 
-			dB = Math.max(dB, -80f);
+	private void startListening() {
+		if (!isListening) {
+			isListening = true;
 
-			volume.setValue(dB);
-		}
-		catch (ArithmeticException e) {
-			e.printStackTrace();
+			new Thread(() -> {
+				while (isListening && isPlaying())
+					listener.listen((float) ((double) getPosition() / (double) getLength()));
+
+				isListening = false;
+			}).start();
 		}
 	}
 
-	/**
-	 * Smoothly shifts to the target volume at a specified rate
-	 *
-	 * @param value
-	 *            The target volume after the shift
-	 * @param delay
-	 *            The rate at which to shif the volume
-	 */
-	public void shiftVolumeTo(double value, int delay) {
-		targetDB = (float) (Math.log(value) / Math.log(10.0) * 20.0);
-
-		targetDB = Math.max(targetDB, -80f);
-
-		if (!fading) {
-			new Thread(new VolumeShifter(delay)).start();
-		}
+	private void stopListening() {
+		isListening = false;
 	}
 
-	private class VolumeShifter implements Runnable {
-		private int delay = 10;
+	/**
+	 * Stops this {@link Sound} and releases all resources associated with it.
+	 */
+	public void close() {
+		stop();
 
-		public VolumeShifter(int delay) {
-			this.delay = delay;
-		}
-
-		@Override
-		public void run() {
-			fading = true;
-
-			if (currDB > targetDB) {
-				while (currDB > targetDB) {
-					volume.setValue(currDB);
-					currDB -= fadePerStep;
-
-					try {
-						Thread.sleep(delay);
-					}
-					catch (InterruptedException e) {
-					}
-				}
-			}
-			else if (currDB < targetDB) {
-				while (currDB < targetDB) {
-					volume.setValue(currDB);
-					currDB += fadePerStep;
-
-					try {
-						Thread.sleep(delay);
-					}
-					catch (InterruptedException e) {
-					}
-				}
-			}
-
-			fading = false;
-			currDB = targetDB;
-		}
+		clip.drain();
+		clip.close();
 	}
 }

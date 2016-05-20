@@ -9,24 +9,34 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.input;
+package net.alexanderdev.lightdrive.graphics.filter;
+
+import net.alexanderdev.lightdrive.graphics.GrayscaleMode;
 
 /**
- * Interface to be used in conjunction with the {@code Display} to handle
- * {@code Keyboard} input
- * 
  * @author Christian Bryce Alexander
- * @since March 8, 2015 | 1:15:17 AM
+ * @since May 18, 2016, 1:30:03 PM
  */
-@FunctionalInterface
-public interface KeyboardListener {
-	/**
-	 * Enables direct use of the {@code Display}'s keyboard
-	 * 
-	 * @param keyboard
-	 *            The {@code Display}'s keyboard
-	 */
-	public void keyboardInput(Keyboard keyboard);
+public class CyanotypeFilter extends GrayscaleFilter {
+	private AdjustFilter cyanotype;
+	private BrightnessFilter bright;
+
+	public CyanotypeFilter(GrayscaleMode mode) {
+		super(mode);
+
+		cyanotype = new AdjustFilter(0xff4e8aef);
+
+		bright = new BrightnessFilter(0.1f);
+	}
+
+	@Override
+	public void apply(int width, int height, int[] pixels) {
+		super.apply(width, height, pixels);
+
+		cyanotype.apply(width, height, pixels);
+
+		bright.apply(width, height, pixels);
+	}
 }

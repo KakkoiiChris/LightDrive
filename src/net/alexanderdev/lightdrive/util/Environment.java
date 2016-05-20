@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.util;
 
@@ -17,6 +17,9 @@ import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+
+import net.alexanderdev.lightdrive.view.Display;
+import net.alexanderdev.lightdrive.view.Window;
 
 /**
  * A collection of static methods for retrieving information about any physical
@@ -34,9 +37,9 @@ public class Environment {
 
 	static {
 		graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		
+
 		graphicsDevices = graphicsEnvironment.getScreenDevices();
-		
+
 		defaultDisplayMode = graphicsEnvironment.getDefaultScreenDevice().getDisplayMode();
 	}
 
@@ -122,5 +125,23 @@ public class Environment {
 	 */
 	private static DisplayMode getDisplayMode(int n) {
 		return graphicsDevices[n].getDisplayMode();
+	}
+
+	/**
+	 * @return The maximum {@link Display}/{@link Window} scale so that it will fit on the
+	 *         current monitor.
+	 */
+	public static int getMaximumScale(int width, int height) {
+		int pw = getPhysicalWidth();
+		int ph = getPhysicalHeight();
+
+		int scale = 1;
+
+		while (width * scale < pw && height * scale < ph) {
+			scale++;
+		}
+		scale -= 2;
+
+		return scale;
 	}
 }

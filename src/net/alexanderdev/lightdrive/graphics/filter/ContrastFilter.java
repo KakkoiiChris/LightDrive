@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filter;
 
@@ -18,13 +18,17 @@ import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
  * @author Christian Bryce Alexander
- * @since Dec 14, 2015, 5:34:09 AM
+ * @since May 18, 2016, 1:47:11 PM
  */
-public class OpacityFilter implements Filter {
-	private float factor;
+public class ContrastFilter implements Filter {
+	private float contrast;
 
-	public OpacityFilter(float factor) {
-		this.factor = MathX.clamp(factor, 0f, 1f);
+	public ContrastFilter(float contrast) {
+		this.contrast = Math.max(contrast, 0);
+	}
+	
+	public void setContrast(float contrast) {
+		this.contrast = contrast;
 	}
 
 	@Override
@@ -32,7 +36,9 @@ public class OpacityFilter implements Filter {
 		for (int i = 0; i < pixels.length; i++) {
 			float[] argb = Pixel.splitFloatARGB(pixels[i]);
 
-			argb[0] *= factor;
+			for (int c = 1; c < argb.length; c++) {
+				argb[c] = MathX.clamp(contrast * (argb[c] - 0.5f) + 0.5f, 0f, 1f);
+			}
 
 			pixels[i] = Pixel.mergeARGB(argb);
 		}

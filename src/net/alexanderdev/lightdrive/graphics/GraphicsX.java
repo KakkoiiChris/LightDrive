@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
@@ -22,6 +22,7 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
 import java.awt.Paint;
+import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.RenderingHints.Key;
@@ -38,163 +39,260 @@ import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
 import java.util.Map;
 
+import net.alexanderdev.lightdrive.util.math.geom.RectangleF;
+
 /**
- * A class which encapsulates the functionality of {@code Graphics2D}, while
- * adding methods for some convenient drawing abilities, such as drawing a
- * string centered in a rectangle, and setting the font name, style, and size
- * attributes individually.
+ * A class which encapsulates the functionality of {@link Graphics2D}, while
+ * adding or modifying methods for some convenient drawing abilities. Such
+ * additions and modifications include:
+ * <ul>
+ * <li>Drawing text which is aligned relative to a {@link Rectangle}</li>
+ * <li>Drawing text which takes new-line characters into consideration</li>
+ * <li>Drawing text with it's characters spaced out</li>
+ * <li>Drawing text from the top-left corner, instead of the baseline</li>
+ * <li>Drawing images without the need for an {@link ImageObserver}</li>
+ * <li>Drawing images that are scaled to fit within a {@link Rectangle}</li>
+ * <li>Getting and setting {@link Font} attributes separately</li>
+ * <li>Setting the color with a '0xAARRGGBB' formatted integer color value</li>
+ * </ul>
  * 
  * @see java.awt.Graphics2D
  * 
  * @author Christian Bryce Alexander
  * @since Apr 24, 2015 | 2:32:23 AM
  */
-public class GraphicsX extends Graphics2D {
+public class GraphicsX {
 	public static enum TextAlign {
-		CENTER,
-		LEFT,
-		RIGHT
+		TOP_LEFT,
+		TOP_CENTER,
+		TOP_RIGHT,
+		MID_LEFT,
+		MID_CENTER,
+		MID_RIGHT,
+		BOTTOM_LEFT,
+		BOTTOM_CENTER,
+		BOTTOM_RIGHT;
 	}
 
-	private Rectangle clipRect = null;
+	private FontMetrics fm;
 
-	private Graphics2D graphics;
+	private Graphics2D g;
 
 	/**
-	 * Creates a class to wrap around the given {@code Graphics2D} object.
+	 * Creates a class to wrap around the given {@link Graphics2D} object.
 	 * 
-	 * @param graphics
-	 *            The {@code Graphics2D} object to be used in drawing
+	 * @param g
+	 *            The {@link Graphics2D} object to be used in drawing
 	 */
-	public GraphicsX(Graphics2D graphics) {
-		this.graphics = graphics;
+	public GraphicsX(Graphics2D g) {
+		this.g = g;
+
+		fm = g.getFontMetrics();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#addRenderingHints(Map)}.
 	 */
-	@Override
 	public void addRenderingHints(Map<?, ?> hints) {
-		graphics.addRenderingHints(hints);
+		g.addRenderingHints(hints);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#clearRect(int, int, int, int)}.
 	 */
-	@Override
 	public void clearRect(int x, int y, int width, int height) {
-		graphics.clearRect(x, y, width, height);
+		g.clearRect(x, y, width, height);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#clip(Shape)}.
 	 */
-	@Override
 	public void clip(Shape s) {
-		graphics.clip(s);
+		g.clip(s);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#clipRect(int, int, int, int)}.
 	 */
-	@Override
 	public void clipRect(int x, int y, int width, int height) {
-		graphics.clipRect(x, y, width, height);
+		g.clipRect(x, y, width, height);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#copyArea(int, int, int, int, int, int)}.
 	 */
-	@Override
 	public void copyArea(int x, int y, int width, int height, int dx, int dy) {
-		graphics.copyArea(x, y, width, height, dx, dy);
+		g.copyArea(x, y, width, height, dx, dy);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#create()}.
 	 */
-	@Override
 	public Graphics create() {
-		return graphics.create();
+		return g.create();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#create(int, int, int, int)}.
 	 */
-	@Override
+	public Graphics create(int x, int y, int width, int height) {
+		return g.create(x, y, width, height);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#dispose()}.
+	 */
 	public void dispose() {
-		graphics.dispose();
+		g.dispose();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#draw(Shape)}.
 	 */
-	@Override
 	public void draw(Shape s) {
-		graphics.draw(s);
+		g.draw(s);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#draw3DRect(int, int, int, int, boolean)}.
 	 */
-	@Override
 	public void draw3DRect(int x, int y, int width, int height, boolean raised) {
-		graphics.draw3DRect(x, y, width, height, raised);
+		g.draw3DRect(x, y, width, height, raised);
 	}
 
 	/**
-	 * Draws the given {@code String} horizontally {@code LEFT}, {@code CENTER},
-	 * and {@code RIGHT} aligned within the {@code Rectangle}. Use
-	 * {@code GraphicsS.TextAlign}.
-	 * 
-	 * 
-	 * @param text
-	 *            The text to draw
-	 * @param bounds
-	 *            The {@code Rectangle} to align the text in
-	 * @param align
-	 *            How to horizontally align the text
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawArc(int, int, int, int, int, int)}.
 	 */
-	public void drawAlignedString(String text, Rectangle bounds, TextAlign align) {
-		FontMetrics fm = graphics.getFontMetrics();
-
-		int x;
-
-		switch (align) {
-			case LEFT:
-				x = bounds.x;
-				break;
-			case CENTER:
-			default:
-				x = bounds.x + (bounds.width - fm.stringWidth(text)) / 2;
-				break;
-			case RIGHT:
-				x = bounds.x + bounds.width - fm.stringWidth(text);
-				break;
-		}
-
-		int y = bounds.y + ((bounds.height - fm.getHeight()) / 2) + fm.getAscent();
-
-		graphics.drawString(text, x, y);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public void drawArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
-		graphics.drawArc(x, y, width, height, startAngle, arcAngle);
+		g.drawArc(x, y, width, height, startAngle, arcAngle);
 	}
 
 	/**
-	 * Draws an image, scaled to fit centered within a rectangle.
-	 * 
-	 * @param img
-	 *            The image to draw.
-	 * @param bounds
-	 *            The rectangle to center the image in.
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawBytes(byte[], int, int, int, int)}.
 	 */
-	public void drawCenteredImage(Image img, Rectangle bounds) {
+	public void drawBytes(byte data[], int offset, int length, int x, int y) {
+		g.drawBytes(data, offset, length, x, y);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawChars(char[], int, int, int, int)}.
+	 */
+	public void drawChars(char data[], int offset, int length, int x, int y) {
+		g.drawChars(data, offset, length, x, y);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#drawGlyphVector(GlyphVector, float, float)}.
+	 */
+	public void drawGlyphVector(GlyphVector g, float x, float y) {
+		this.g.drawGlyphVector(g, x, y);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#drawImage(BufferedImage, BufferedImageOp, int, int)}.
+	 */
+	public void drawImage(BufferedImage img, BufferedImageOp op, int x, int y) {
+		g.drawImage(img, op, x, y);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#drawImage(Image, AffineTransform, ImageObserver)} .
+	 * <br>
+	 * <br>
+	 * As stated in the class description, this method is rewritten to remove
+	 * the need for an {@link ImageObserver}.
+	 */
+	public void drawImage(Image img, AffineTransform xform) {
+		g.drawImage(img, xform, null);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawImage(Image, int, int, ImageObserver)}.<br>
+	 * <br>
+	 * As stated in the class description, this method is rewritten to remove
+	 * the need for an {@link ImageObserver}.
+	 */
+	public void drawImage(Image img, int x, int y) {
+		g.drawImage(img, x, y, null);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawImage(Image, int, int, Color, ImageObserver)}.<br>
+	 * <br>
+	 * As stated in the class description, this method is rewritten to remove
+	 * the need for an {@link ImageObserver}.
+	 */
+	public void drawImage(Image img, int x, int y, Color bgcolor) {
+		g.drawImage(img, x, y, bgcolor, null);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawImage(Image, int, int, int, int, ImageObserver)}.<br>
+	 * <br>
+	 * As stated in the class description, this method is rewritten to remove
+	 * the need for an {@link ImageObserver}.
+	 */
+	public void drawImage(Image img, int x, int y, int width, int height) {
+		g.drawImage(img, x, y, width, height, null);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawImage(Image, int, int, int, int, Color, ImageObserver)}
+	 * .<br>
+	 * <br>
+	 * As stated in the class description, this method is rewritten to remove
+	 * the need for an {@link ImageObserver}.
+	 */
+	public void drawImage(Image img, int x, int y, int width, int height, Color bgcolor) {
+		g.drawImage(img, x, y, width, height, bgcolor, null);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawImage(Image, int, int, int, int, int, int, int, int, ImageObserver)}
+	 * .<br>
+	 * <br>
+	 * As stated in the class description, this method is rewritten to remove
+	 * the need for an {@link ImageObserver}.
+	 */
+	public void drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2) {
+		g.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawImage(Image, int, int, int, int, int, int, int, int, Color, ImageObserver)}
+	 * .<br>
+	 * <br>
+	 * As stated in the class description, this method is rewritten to remove
+	 * the need for an {@link ImageObserver}.
+	 */
+	public void drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2,
+	    Color bgcolor) {
+		g.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, bgcolor, null);
+	}
+
+	public void drawImage(Image img, Rectangle bounds) {
 		Rectangle draw;
 
 		int wi = img.getWidth(null);
@@ -223,339 +321,457 @@ public class GraphicsX extends Graphics2D {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawLine(int, int, int, int)}.
 	 */
-	@Override
-	public void drawGlyphVector(GlyphVector g, float x, float y) {
-		graphics.drawGlyphVector(g, x, y);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void drawImage(BufferedImage img, BufferedImageOp op, int x, int y) {
-		graphics.drawImage(img, op, x, y);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean drawImage(Image img, AffineTransform xform) {
-		return graphics.drawImage(img, xform, null);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean drawImage(Image img, AffineTransform xform, ImageObserver obs) {
-		return graphics.drawImage(img, xform, obs);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean drawImage(Image img, int x, int y) {
-		return graphics.drawImage(img, x, y, null);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean drawImage(Image img, int x, int y, Color bgcolor) {
-		return graphics.drawImage(img, x, y, bgcolor, null);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean drawImage(Image img, int x, int y, Color bgcolor, ImageObserver observer) {
-		return graphics.drawImage(img, x, y, bgcolor, observer);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean drawImage(Image img, int x, int y, ImageObserver observer) {
-		return graphics.drawImage(img, x, y, observer);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean drawImage(Image img, int x, int y, int width, int height) {
-		return graphics.drawImage(img, x, y, width, height, null);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean drawImage(Image img, int x, int y, int width, int height, Color bgcolor) {
-		return graphics.drawImage(img, x, y, width, height, bgcolor, null);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean drawImage(Image img, int x, int y, int width, int height, Color bgcolor, ImageObserver observer) {
-		return graphics.drawImage(img, x, y, width, height, bgcolor, observer);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean drawImage(Image img, int x, int y, int width, int height, ImageObserver observer) {
-		return graphics.drawImage(img, x, y, width, height, observer);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2) {
-		return graphics.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2,
-		Color bgcolor) {
-		return graphics.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, bgcolor, null);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2,
-		Color bgcolor, ImageObserver observer) {
-		return graphics.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, bgcolor, observer);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2,
-		ImageObserver observer) {
-		return graphics.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, observer);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public void drawLine(int x1, int y1, int x2, int y2) {
-		graphics.drawLine(x1, y1, x2, y2);
+		g.drawLine(x1, y1, x2, y2);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawOval(int, int, int, int)}.
 	 */
-	@Override
 	public void drawOval(int x, int y, int width, int height) {
-		graphics.drawOval(x, y, width, height);
+		g.drawOval(x, y, width, height);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawPolygon(int[], int[], int)}.
 	 */
-	@Override
-	public void drawPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-		graphics.drawPolygon(xPoints, yPoints, nPoints);
+	public void drawPolygon(int xPoints[], int yPoints[], int nPoints) {
+		g.drawPolygon(xPoints, yPoints, nPoints);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawPolygon(Polygon)}.
 	 */
-	@Override
-	public void drawPolyline(int[] xPoints, int[] yPoints, int nPoints) {
-		graphics.drawPolyline(xPoints, yPoints, nPoints);
+	public void drawPolygon(Polygon p) {
+		g.drawPolygon(p);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawPolyline(int[], int[], int)}.
 	 */
-	@Override
+	public void drawPolyline(int xPoints[], int yPoints[], int nPoints) {
+		g.drawPolyline(xPoints, yPoints, nPoints);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawRect(int, int, int, int)}.
+	 */
+	public void drawRect(int x, int y, int width, int height) {
+		g.drawRect(x, y, width, height);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#drawRenderableImage(RenderableImage, AffineTransform)}.
+	 */
 	public void drawRenderableImage(RenderableImage img, AffineTransform xform) {
-		graphics.drawRenderableImage(img, xform);
+		g.drawRenderableImage(img, xform);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#drawRenderedImage(RenderedImage, AffineTransform)}.
 	 */
-	@Override
 	public void drawRenderedImage(RenderedImage img, AffineTransform xform) {
-		graphics.drawRenderedImage(img, xform);
+		g.drawRenderedImage(img, xform);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawRoundRect(int, int, int, int, int, int)}.
 	 */
-	@Override
 	public void drawRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight) {
-		graphics.drawRoundRect(x, y, width, height, arcWidth, arcHeight);
+		g.drawRoundRect(x, y, width, height, arcWidth, arcHeight);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#drawString(AttributedCharacterIterator, float, float)}.
+	 * <br>
+	 * <br>
+	 * As stated in the class description, this method is rewritten so that text
+	 * is drawn from the top left of the string, instead of from the baseline.
 	 */
-	@Override
 	public void drawString(AttributedCharacterIterator iterator, float x, float y) {
-		graphics.drawString(iterator, x, y);
+		g.drawString(iterator, x, y + fm.getAscent());
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawString(AttributedCharacterIterator, int, int)}.<br>
+	 * <br>
+	 * As stated in the class description, this method is rewritten so that text
+	 * is drawn from the top left of the string, instead of from the baseline.
 	 */
-	@Override
 	public void drawString(AttributedCharacterIterator iterator, int x, int y) {
-		graphics.drawString(iterator, x, y);
+		g.drawString(iterator, x, y + fm.getAscent());
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Draws a string as specified by
+	 * {@link GraphicsX#drawString(String, float, float, float, float)}, with a
+	 * default character spacing of 0.
 	 */
-	@Override
 	public void drawString(String str, float x, float y) {
-		graphics.drawString(str, x, y);
+		drawString(str, x, y, 0, 0);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#drawString(String, float, float)}.<br>
+	 * <br>
+	 * As stated in the class description, this method is rewritten so that text
+	 * is drawn from the top left of the string, instead of from the baseline,
+	 * all new-line characters cause the string to be drawn a line below the one
+	 * before, and it incorporates vertical and horizontal spacing between
+	 * characters.
 	 */
-	@Override
+	public void drawString(String str, float x, float y, float xs, float ys) {
+		float ox = x;
+
+		y += fm.getAscent();
+
+		for (String line : str.split("\n")) {
+			for (int i = 0; i < line.length(); i++) {
+				g.drawString(line.charAt(i) + "", x, y);
+
+				x += fm.stringWidth(line.charAt(i) + "") + xs;
+			}
+
+			y += fm.getHeight() + ys;
+			x = ox;
+		}
+	}
+
+	/**
+	 * Draws a string as specified by
+	 * {@link GraphicsX#drawString(String, int, int, int, int)}, with a default
+	 * character spacing of 0.
+	 */
 	public void drawString(String str, int x, int y) {
-		graphics.drawString(str, x, y);
+		drawString(str, x, y, 0, 0);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#drawString(String, int, int)}.<br>
+	 * <br>
+	 * As stated in the class description, this method is rewritten so that text
+	 * is drawn from the top left of the string, instead of from the baseline,
+	 * all new-line characters cause the string to be drawn a line below the one
+	 * before, and it incorporates vertical and horizontal spacing between
+	 * characters.
 	 */
-	@Override
+	public void drawString(String str, int x, int y, int xs, int ys) {
+		int ox = x;
+
+		y += fm.getAscent();
+
+		for (String line : str.split("\n")) {
+			for (int i = 0; i < line.length(); i++) {
+				g.drawString(line.charAt(i) + "", x, y);
+
+				x += fm.stringWidth(line.charAt(i) + "") + xs;
+			}
+
+			y += fm.getHeight() + ys;
+			x = ox;
+		}
+	}
+
+	public void drawString(String str, Rectangle bounds) {
+		drawString(str, bounds, TextAlign.MID_CENTER);
+	}
+
+	/**
+	 * Draws the given {@link String} horizontally left, center, or right
+	 * aligned within the {@link Rectangle}. Uses {@link GraphicsX.TextAlign}.
+	 * 
+	 * 
+	 * @param str
+	 *            The text to draw
+	 * @param bounds
+	 *            The {@link Rectangle} to align the text in
+	 * @param align
+	 *            How to horizontally align the text
+	 */
+	public void drawString(String str, Rectangle bounds, TextAlign align) {
+		drawString(str, bounds, 0, 0, align);
+	}
+
+	public void drawString(String str, Rectangle bounds, int xs, int ys) {
+		drawString(str, bounds, xs, ys, TextAlign.MID_CENTER);
+	}
+
+	/**
+	 * Draws the given {@link String} horizontally left, center, or right
+	 * aligned within the {@link Rectangle}. Uses {@link GraphicsX.TextAlign}.
+	 * 
+	 * 
+	 * @param str
+	 *            The text to draw
+	 * @param bounds
+	 *            The {@link Rectangle} to align the text in
+	 * @param align
+	 *            How to horizontally align the text
+	 */
+	public void drawString(String str, Rectangle bounds, int xs, int ys, TextAlign align) {
+		int x = bounds.x;
+		int y = bounds.y;
+
+		String v = align.name().split("_")[0];
+		String h = align.name().split("_")[1];
+
+		String[] lines = str.split("\n");
+
+		if (v.equals("TOP"))
+			y = bounds.y;
+		else if (v.equals("MID"))
+			y = bounds.y + (bounds.height / 2) - ((fm.getHeight() * lines.length) / 2)
+			    - ((ys * (lines.length - 1)) / 2);
+		else if (v.equals("BOTTOM"))
+			y = bounds.y + bounds.height - (fm.getHeight() * lines.length) - (ys * (lines.length - 1));
+
+		for (String line : lines) {
+			if (h.equals("LEFT"))
+				x = bounds.x;
+			else if (h.equals("CENTER"))
+				x = bounds.x + (bounds.width / 2) - (fm.stringWidth(line) / 2) - ((xs * (line.length() - 1)) / 2);
+			else if (h.equals("RIGHT"))
+				x = bounds.x + bounds.width - fm.stringWidth(line) - (xs * (line.length() - 1));
+
+			drawString(line, x, y, xs, 0);
+
+			y += fm.getHeight() + ys;
+		}
+	}
+
+	public void drawString(String str, RectangleF bounds) {
+		drawString(str, bounds, TextAlign.MID_CENTER);
+	}
+
+	/**
+	 * Draws the given {@link String} horizontally left, center, or right
+	 * aligned within the {@link Rectangle}. Uses {@link GraphicsX.TextAlign}.
+	 * 
+	 * 
+	 * @param str
+	 *            The text to draw
+	 * @param bounds
+	 *            The {@link Rectangle} to align the text in
+	 * @param align
+	 *            How to horizontally align the text
+	 */
+	public void drawString(String str, RectangleF bounds, TextAlign align) {
+		drawString(str, bounds, 0, 0, align);
+	}
+
+	public void drawString(String str, RectangleF bounds, float xs, float ys) {
+		drawString(str, bounds, xs, ys, TextAlign.MID_CENTER);
+	}
+
+	/**
+	 * Draws the given {@link String} horizontally left, center, or right
+	 * aligned within the {@link Rectangle}. Uses {@link GraphicsX.TextAlign}.
+	 * 
+	 * 
+	 * @param str
+	 *            The text to draw
+	 * @param bounds
+	 *            The {@link Rectangle} to align the text in
+	 * @param align
+	 *            How to horizontally align the text
+	 */
+	public void drawString(String str, RectangleF bounds, float xs, float ys, TextAlign align) {
+		float x = bounds.x;
+		float y = bounds.y;
+
+		String v = align.name().split("_")[0];
+		String h = align.name().split("_")[1];
+
+		String[] lines = str.split("\n");
+
+		if (v.equals("TOP"))
+			y = bounds.y;
+		else if (v.equals("MID"))
+			y = bounds.y + (bounds.height / 2) - ((fm.getHeight() * lines.length) / 2)
+			    - ((ys * (lines.length - 1)) / 2);
+		else if (v.equals("BOTTOM"))
+			y = bounds.y + bounds.height - (fm.getHeight() * lines.length) - (ys * (lines.length - 1));
+
+		for (String line : lines) {
+			if (h.equals("LEFT"))
+				x = bounds.x;
+			else if (h.equals("CENTER"))
+				x = bounds.x + (bounds.width / 2) - (fm.stringWidth(line) / 2) - ((xs * (line.length() - 1)) / 2);
+			else if (h.equals("RIGHT"))
+				x = bounds.x + bounds.width - fm.stringWidth(line) - (xs * (line.length() - 1));
+
+			drawString(line, x, y, xs, 0);
+
+			y += fm.getHeight() + ys;
+		}
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#fill(Shape)}.
+	 */
 	public void fill(Shape s) {
-		graphics.fill(s);
+		g.fill(s);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#fill3DRect(int, int, int, int, boolean)}.
 	 */
-	@Override
 	public void fill3DRect(int x, int y, int width, int height, boolean raised) {
-		graphics.fill3DRect(x, y, width, height, raised);
+		g.fill3DRect(x, y, width, height, raised);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#fillArc(int, int, int, int, int, int)}.
 	 */
-	@Override
 	public void fillArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
-		graphics.fillArc(x, y, width, height, startAngle, arcAngle);
+		g.fillArc(x, y, width, height, startAngle, arcAngle);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#fillOval(int, int, int, int)}.
 	 */
-	@Override
 	public void fillOval(int x, int y, int width, int height) {
-		graphics.fillOval(x, y, width, height);
+		g.fillOval(x, y, width, height);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#fillPolygon(int[], int[], int)}.
 	 */
-	@Override
-	public void fillPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-		graphics.fillPolygon(xPoints, yPoints, nPoints);
+	public void fillPolygon(int xPoints[], int yPoints[], int nPoints) {
+		g.fillPolygon(xPoints, yPoints, nPoints);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#fillPolygon(Polygon)}.
 	 */
-	@Override
+	public void fillPolygon(Polygon p) {
+		g.fillPolygon(p);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#fillRect(int, int, int, int)}.
+	 */
 	public void fillRect(int x, int y, int width, int height) {
-		graphics.fillRect(x, y, width, height);
+		g.fillRect(x, y, width, height);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#fillRoundRect(int, int, int, int, int, int)}.
 	 */
-	@Override
 	public void fillRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight) {
-		graphics.fillRoundRect(x, y, width, height, arcWidth, arcHeight);
+		g.fillRoundRect(x, y, width, height, arcWidth, arcHeight);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#finalize()}.
 	 */
 	@Override
+	public void finalize() {
+		g.finalize();
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#getBackground()}.
+	 */
 	public Color getBackground() {
-		return graphics.getBackground();
+		return g.getBackground();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#getClip()}.
 	 */
-	@Override
 	public Shape getClip() {
-		return graphics.getClip();
+		return g.getClip();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#getClipBounds()}.
 	 */
-	@Override
 	public Rectangle getClipBounds() {
-		return graphics.getClipBounds();
-	}
-
-	public Rectangle getClipRect() {
-		return clipRect;
+		return g.getClipBounds();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#getClipBounds(Rectangle)}.
 	 */
-	@Override
+	public Rectangle getClipBounds(Rectangle r) {
+		return g.getClipBounds(r);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#getColor()}.
+	 */
 	public Color getColor() {
-		return graphics.getColor();
+		return g.getColor();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#getComposite()}.
 	 */
-	@Override
 	public Composite getComposite() {
-		return graphics.getComposite();
+		return g.getComposite();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#getDeviceConfiguration()}.
 	 */
-	@Override
 	public GraphicsConfiguration getDeviceConfiguration() {
-		return graphics.getDeviceConfiguration();
+		return g.getDeviceConfiguration();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#getFont()}.
 	 */
-	@Override
 	public Font getFont() {
-		return graphics.getFont();
+		return g.getFont();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#getFontMetrics()}.
 	 */
-	@Override
+	public FontMetrics getFontMetrics() {
+		return g.getFontMetrics();
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#getFontMetrics(Font)}.
+	 */
 	public FontMetrics getFontMetrics(Font f) {
-		return graphics.getFontMetrics(f);
+		return g.getFontMetrics(f);
 	}
 
 	/**
@@ -566,11 +782,11 @@ public class GraphicsX extends Graphics2D {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#getFontRenderContext()}.
 	 */
-	@Override
 	public FontRenderContext getFontRenderContext() {
-		return graphics.getFontRenderContext();
+		return g.getFontRenderContext();
 	}
 
 	/**
@@ -588,112 +804,115 @@ public class GraphicsX extends Graphics2D {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#getPaint()}.
 	 */
-	@Override
 	public Paint getPaint() {
-		return graphics.getPaint();
+		return g.getPaint();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#getRenderingHint(Key)}.
 	 */
-	@Override
 	public Object getRenderingHint(Key hintKey) {
-		return graphics.getRenderingHint(hintKey);
+		return g.getRenderingHint(hintKey);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#getRenderingHints()}.
 	 */
-	@Override
 	public RenderingHints getRenderingHints() {
-		return graphics.getRenderingHints();
+		return g.getRenderingHints();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#getStroke()}.
 	 */
-	@Override
 	public Stroke getStroke() {
-		return graphics.getStroke();
+		return g.getStroke();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#getTransform()}.
 	 */
-	@Override
 	public AffineTransform getTransform() {
-		return graphics.getTransform();
+		return g.getTransform();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#hit(Rectangle, Shape, boolean)}.
 	 */
-	@Override
 	public boolean hit(Rectangle rect, Shape s, boolean onStroke) {
-		return graphics.hit(rect, s, onStroke);
+		return g.hit(rect, s, onStroke);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#hitClip(int, int, int, int)}.
 	 */
-	@Override
+	public boolean hitClip(int x, int y, int width, int height) {
+		return g.hitClip(x, y, width, height);
+	}
+
+	/**
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#rotate(double)}.
+	 */
 	public void rotate(double theta) {
-		graphics.rotate(theta);
+		g.rotate(theta);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#rotate(double, double, double)}.
 	 */
-	@Override
 	public void rotate(double theta, double x, double y) {
-		graphics.rotate(theta, x, y);
+		g.rotate(theta, x, y);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#scale(double, double)}.
 	 */
-	@Override
 	public void scale(double sx, double sy) {
-		graphics.scale(sx, sy);
+		g.scale(sx, sy);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#setBackground(Color)}.
 	 */
-	@Override
 	public void setBackground(Color color) {
-		graphics.setBackground(color);
+		g.setBackground(color);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#setClip(int, int, int, int)}.
 	 */
-	@Override
 	public void setClip(int x, int y, int width, int height) {
-		graphics.setClip(x, y, width, height);
+		g.setClip(x, y, width, height);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#setClip(Shape)}.
 	 */
-	@Override
 	public void setClip(Shape clip) {
-		graphics.setClip(clip);
-	}
-
-	public void setClipRect(Rectangle clipRect) {
-		this.clipRect = clipRect;
-		setClip(clipRect);
+		g.setClip(clip);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#setColor(Color)}.
 	 */
-	@Override
 	public void setColor(Color c) {
-		graphics.setColor(c);
+		g.setColor(c);
 	}
 
 	/**
@@ -707,19 +926,20 @@ public class GraphicsX extends Graphics2D {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#setComposite(Composite)}.
 	 */
-	@Override
 	public void setComposite(Composite comp) {
-		graphics.setComposite(comp);
+		g.setComposite(comp);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, in {@link Graphics2D#}.
 	 */
-	@Override
 	public void setFont(Font font) {
-		graphics.setFont(font);
+		g.setFont(font);
+
+		fm = g.getFontMetrics();
 	}
 
 	/**
@@ -759,90 +979,95 @@ public class GraphicsX extends Graphics2D {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#setPaint(Paint)}.
 	 */
-	@Override
 	public void setPaint(Paint paint) {
-		graphics.setPaint(paint);
+		g.setPaint(paint);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#setPaintMode()}.
 	 */
-	@Override
 	public void setPaintMode() {
-		graphics.setPaintMode();
+		g.setPaintMode();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#setRenderingHint(Key, Object)}.
 	 */
-	@Override
 	public void setRenderingHint(Key hintKey, Object hintValue) {
-		graphics.setRenderingHint(hintKey, hintValue);
+		g.setRenderingHint(hintKey, hintValue);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#setRenderingHints(Map)}.
 	 */
-	@Override
 	public void setRenderingHints(Map<?, ?> hints) {
-		graphics.setRenderingHints(hints);
+		g.setRenderingHints(hints);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#setStroke(Stroke)}.
 	 */
-	@Override
 	public void setStroke(Stroke s) {
-		graphics.setStroke(s);
+		g.setStroke(s);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#setTransform(AffineTransform)}.
 	 */
-	@Override
 	public void setTransform(AffineTransform Tx) {
-		graphics.setTransform(Tx);
+		g.setTransform(Tx);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#setXORMode(Color)}.
 	 */
-	@Override
 	public void setXORMode(Color c1) {
-		graphics.setXORMode(c1);
+		g.setXORMode(c1);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#shear(double, double)}.
 	 */
-	@Override
 	public void shear(double shx, double shy) {
-		graphics.shear(shx, shy);
+		g.shear(shx, shy);
+	}
+
+	@Override
+	public String toString() {
+		return getClass().getName() + "[font=" + getFont() + ",color=" + getColor() + "]";
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#transform(AffineTransform)}.
 	 */
-	@Override
 	public void transform(AffineTransform Tx) {
-		graphics.transform(Tx);
+		g.transform(Tx);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics2D#translate(double, double)}.
 	 */
-	@Override
 	public void translate(double tx, double ty) {
-		graphics.translate(tx, ty);
+		g.translate(tx, ty);
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Delegates to the method of the same name, found in
+	 * {@link Graphics#translate(int, int)}.
 	 */
-	@Override
 	public void translate(int x, int y) {
-		graphics.translate(x, y);
+		g.translate(x, y);
 	}
 }

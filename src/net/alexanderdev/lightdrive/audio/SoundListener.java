@@ -9,17 +9,28 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.audio;
 
 import javax.sound.sampled.Clip;
 
 /**
+ * An interface which enables code based on a sound clip's position, in order to
+ * simulate reactionary code.
+ * 
  * @author Christian Bryce Alexander
  * @since Nov 11, 2015 | 2:23:23 PM
  */
 @FunctionalInterface
 public interface SoundListener {
-	public void listen(Clip clip);
+	/**
+	 * Performs actions based on the current position of a {@link Sound}'s
+	 * {@link Clip}.
+	 * 
+	 * @param position
+	 *            The position in the sound clip, from 0f being the beginning,
+	 *            to 1f being the end
+	 */
+	public void listen(float position);
 }

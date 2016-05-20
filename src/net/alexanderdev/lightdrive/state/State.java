@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.state;
 
@@ -19,20 +19,20 @@ import java.util.List;
 import net.alexanderdev.lightdrive.InternalMethod;
 import net.alexanderdev.lightdrive.graphics.Renderable;
 import net.alexanderdev.lightdrive.input.Controllable;
-import net.alexanderdev.lightdrive.input.Gamepad;
-import net.alexanderdev.lightdrive.input.GamepadListener;
-import net.alexanderdev.lightdrive.input.Keyboard;
-import net.alexanderdev.lightdrive.input.KeyboardListener;
-import net.alexanderdev.lightdrive.input.Mouse;
-import net.alexanderdev.lightdrive.input.MouseListener;
+import net.alexanderdev.lightdrive.input.gamepad.Gamepad;
+import net.alexanderdev.lightdrive.input.gamepad.GamepadListener;
+import net.alexanderdev.lightdrive.input.keyboard.Keyboard;
+import net.alexanderdev.lightdrive.input.keyboard.KeyboardListener;
+import net.alexanderdev.lightdrive.input.mouse.Mouse;
+import net.alexanderdev.lightdrive.input.mouse.MouseListener;
 
 /**
- * A class which holds the logic for representing a particular state in a game
+ * A class which holds the logic for representing a particular state in a game.
  * 
  * @author Christian Bryce Alexander
  * @since March 6, 2015 | 3:03:42 AM
  */
-public abstract class State implements Renderable, Controllable {
+public abstract class State implements Controllable, Renderable {
 	private StateManager manager;
 
 	private List<KeyboardListener> keyboardListeners = new ArrayList<>();
@@ -42,14 +42,14 @@ public abstract class State implements Renderable, Controllable {
 	private List<GamepadListener> gamepadListeners = new ArrayList<>();
 
 	/**
-	 * @return The {@link StateManager} associated with this {@code State}
+	 * @return The {@link StateManager} associated with this {@link State}.
 	 */
 	public final StateManager getManager() {
 		return manager;
 	}
 
 	/**
-	 * Associates a {@link StateManager} with this {@code State}.
+	 * Associates a {@link StateManager} with this {@link State}.
 	 */
 	@InternalMethod
 	public final void setManager(StateManager manager) {
@@ -57,7 +57,7 @@ public abstract class State implements Renderable, Controllable {
 	}
 
 	/**
-	 * Adds an instance of {@link KeyboardListener} to this {@code State}
+	 * Adds an instance of {@link KeyboardListener} to this {@link State}.
 	 *
 	 * @param kl
 	 *            The {@link KeyboardListener} to add
@@ -67,7 +67,7 @@ public abstract class State implements Renderable, Controllable {
 	}
 
 	/**
-	 * Removes an instance of {@link KeyboardListener} from this {@code State}
+	 * Removes an instance of {@link KeyboardListener} from this {@link State}.
 	 *
 	 * @param kl
 	 *            The {@link KeyboardListener} to remove
@@ -77,7 +77,8 @@ public abstract class State implements Renderable, Controllable {
 	}
 
 	/**
-	 * Removes all instances of {@link KeyboardListener} from this {@code State}
+	 * Removes all instances of {@link KeyboardListener} from this {@link State}
+	 * .
 	 */
 	public final void clearKeyboardListeners() {
 		keyboardListeners.clear();
@@ -94,7 +95,7 @@ public abstract class State implements Renderable, Controllable {
 	}
 
 	/**
-	 * Adds an instance of {@link MouseListener} to this {@code State}
+	 * Adds an instance of {@link MouseListener} to this {@link State}.
 	 *
 	 * @param ml
 	 *            The {@link MouseListener} to add
@@ -104,7 +105,7 @@ public abstract class State implements Renderable, Controllable {
 	}
 
 	/**
-	 * Removes an instance of {@link MouseListener} from this {@code State}
+	 * Removes an instance of {@link MouseListener} from this {@link State}.
 	 *
 	 * @param ml
 	 *            The {@link MouseListener} to remove
@@ -114,7 +115,7 @@ public abstract class State implements Renderable, Controllable {
 	}
 
 	/**
-	 * Removes all instances of {@link MouseListener} from this {@code State}
+	 * Removes all instances of {@link MouseListener} from this {@link State}.
 	 */
 	public final void clearMouseListeners() {
 		mouseListeners.clear();
@@ -131,7 +132,7 @@ public abstract class State implements Renderable, Controllable {
 	}
 
 	/**
-	 * Adds an instance of {@link GamepadListener} to this {@code State}
+	 * Adds an instance of {@link GamepadListener} to this {@link State}.
 	 *
 	 * @param gl
 	 *            The {@link GamepadListener} to add
@@ -141,7 +142,7 @@ public abstract class State implements Renderable, Controllable {
 	}
 
 	/**
-	 * Removes an instance of {@link GamepadListener} from this {@code State}
+	 * Removes an instance of {@link GamepadListener} from this {@link State}.
 	 *
 	 * @param gl
 	 *            The {@link GamepadListener} to remove
@@ -151,7 +152,7 @@ public abstract class State implements Renderable, Controllable {
 	}
 
 	/**
-	 * Removes all instances of {@link GamepadListener} from this {@code State}
+	 * Removes all instances of {@link GamepadListener} from this {@link State}.
 	 */
 	public final void clearGamepadListeners() {
 		gamepadListeners.clear();
@@ -169,8 +170,19 @@ public abstract class State implements Renderable, Controllable {
 
 	/**
 	 * Called internally whenever the associated {@link StateManager} is told to
-	 * switch to this {@code State} from another {@code State}.
+	 * switch to this {@link State} from another {@link State}.
+	 * 
+	 * @param argv
+	 *            A varargs list of {@link Object}s passed through by the
+	 *            {@link StateManager} when it is told to switch states.
 	 */
 	@InternalMethod
 	public abstract void switchTo(Object... argv);
+
+	/**
+	 * Called internally whenever the associated {@link StateManager} is told to
+	 * switch from this {@link State} to another {@link State}.
+	 */
+	@InternalMethod
+	public abstract void switchFrom();
 }

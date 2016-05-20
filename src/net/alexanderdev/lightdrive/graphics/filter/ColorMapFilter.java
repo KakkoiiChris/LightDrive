@@ -9,14 +9,18 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filter;
 
+import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.util.Pixel;
 import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
+ * A {@link Filter} which replaces sequential shades of gray on the
+ * {@link Sprite} with the specified colors.
+ * 
  * @author Christian Bryce Alexander
  * @since Dec 14, 2015, 5:53:27 AM
  */
@@ -24,7 +28,7 @@ public class ColorMapFilter implements Filter {
 	private int[] values;
 
 	/**
-	 * A {@code ColorMapFilter} with the specified values.
+	 * A {@link ColorMapFilter} with the specified values.
 	 * 
 	 * @param values
 	 *            The values to set
@@ -34,7 +38,7 @@ public class ColorMapFilter implements Filter {
 	}
 
 	/**
-	 * Sets the values of this {@code ColorMapFilter}.
+	 * Sets the values of this {@link ColorMapFilter}.
 	 * 
 	 * @param values
 	 *            The values to set

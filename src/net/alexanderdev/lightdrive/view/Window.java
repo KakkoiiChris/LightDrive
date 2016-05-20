@@ -9,9 +9,14 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.view;
+
+import static net.alexanderdev.lightdrive.view.ViewConstants.DEFAULT_HEIGHT;
+import static net.alexanderdev.lightdrive.view.ViewConstants.DEFAULT_SCALE;
+import static net.alexanderdev.lightdrive.view.ViewConstants.DEFAULT_UPS;
+import static net.alexanderdev.lightdrive.view.ViewConstants.DEFAULT_WIDTH;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -20,24 +25,26 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.alexanderdev.lightdrive.InternalMethod;
 import net.alexanderdev.lightdrive.graphics.GraphicsX;
 import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.graphics.filter.Filter;
-import net.alexanderdev.lightdrive.input.Gamepad;
-import net.alexanderdev.lightdrive.input.GamepadFinder;
-import net.alexanderdev.lightdrive.input.Keyboard;
-import net.alexanderdev.lightdrive.input.Mouse;
+import net.alexanderdev.lightdrive.input.gamepad.Gamepad;
+import net.alexanderdev.lightdrive.input.gamepad.GamepadFinder;
+import net.alexanderdev.lightdrive.input.keyboard.Keyboard;
+import net.alexanderdev.lightdrive.input.mouse.Mouse;
 import net.alexanderdev.lightdrive.state.State;
 import net.alexanderdev.lightdrive.state.StateManager;
 import net.alexanderdev.lightdrive.util.Time;
 
 /**
- * The main display class, and the core of any game. This class contains the
- * game loop, a state manager, and controls handling.
+ * A {@link Viewable} that consists of a stand-alone {@link Canvas}, intended
+ * for integration with custom <b>AWT/Swing</b> user interfaces.
  * 
  * @author Christian Bryce Alexander
  * @since March 6, 2015 | 2:15:37 AM
@@ -45,33 +52,11 @@ import net.alexanderdev.lightdrive.util.Time;
 public class Window extends Canvas implements Viewable, Runnable {
 	private static final long serialVersionUID = -8708004611699503479L;
 
-	/**
-	 * The default width for a {@code Display}.
-	 */
-	public static final int DEFAULT_WIDTH = 640;
-	/**
-	 * The default height for a {@code Display}.
-	 */
-	public static final int DEFAULT_HEIGHT = 480;
-	/**
-	 * The default scale for a {@code Display}.
-	 */
-	public static final int DEFAULT_SCALE = 1;
-	/**
-	 * The max frames per second that a {@code Display} runs at.
-	 */
-	public static final double DEFAULT_FPS = 60.0;
-
-	public static final int ANTIALIAS_NONE = 0x0;
-	public static final int ANTIALIAS_SHAPES = 0x1;
-	public static final int ANTIALIAS_TEXT = 0x2;
-	public static final int ANTIALIAS_BOTH = 0x3;
-
 	private int width;
 	private int height;
 	private int scale;
 
-	private double fps;
+	private double ups;
 
 	private boolean running;
 	private Thread thread;
@@ -93,6 +78,7 @@ public class Window extends Canvas implements Viewable, Runnable {
 	private boolean keyboardEnabled;
 	private boolean mouseEnabled;
 	private boolean gamepadsEnabled;
+	private boolean frameRateLocked;
 
 	private StateManager manager;
 
@@ -103,34 +89,107 @@ public class Window extends Canvas implements Viewable, Runnable {
 		// System.load(new File("/jinput-raw_64.dll").getAbsolutePath());
 	}
 
+	public Window() {
+		this(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SCALE, DEFAULT_UPS);
+	}
+
+	public Window(ViewMode mode) {
+		this(mode.getWidth(), mode.getHeight(), DEFAULT_SCALE, mode.getUPS());
+	}
+
+	public Window(ViewMode mode, int scale) {
+		this(mode.getWidth(), mode.getHeight(), scale, mode.getUPS());
+	}
+
+	/**
+	 * A {@link Window} with specified width, and height, and default scale and
+	 * update rate.
+	 * 
+	 * @param width
+	 *            The width of the {@link Window}
+	 * @param height
+	 *            The height of the {@link Window}
+	 */
 	public Window(int width, int height) {
-		this(width, height, DEFAULT_SCALE, DEFAULT_FPS);
+		this(width, height, DEFAULT_SCALE, DEFAULT_UPS);
 	}
 
+	/**
+	 * A {@link Window} with specified width, height, and scale, and default
+	 * update rate.
+	 * 
+	 * @param width
+	 *            The width of the {@link Window}
+	 * @param height
+	 *            The height of the {@link Window}
+	 * @param scale
+	 *            The scale of the {@link Window}
+	 */
 	public Window(int width, int height, int scale) {
-		this(width, height, scale, DEFAULT_FPS);
+		this(width, height, scale, DEFAULT_UPS);
 	}
 
-	public Window(double fps) {
-		this(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SCALE, fps);
+	/**
+	 * A {@link Window} with specified update rate, and default width, height,
+	 * and scale.
+	 * 
+	 * @param ups
+	 *            The update rate of the {@link Window}
+	 */
+	public Window(double ups) {
+		this(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SCALE, ups);
 	}
 
-	public Window(int width, int height, double fps) {
-		this(width, height, DEFAULT_SCALE, fps);
+	/**
+	 * A {@link Window} with specified width, height, and update rate, and
+	 * default scale.
+	 * 
+	 * @param width
+	 *            The width of the {@link Window}
+	 * @param height
+	 *            The height of the {@link Window}
+	 * @param ups
+	 *            The update rate of the {@link Window}
+	 */
+	public Window(int width, int height, double ups) {
+		this(width, height, DEFAULT_SCALE, ups);
 	}
 
-	public Window(int width, int height, int scale, double fps) {
+	/**
+	 * A {@link Window} with specified width, height, scale, and update rate.
+	 * 
+	 * @param width
+	 *            The width of the {@link Window}
+	 * @param height
+	 *            The height of the {@link Window}
+	 * @param scale
+	 *            The scale of the {@link Window}
+	 * @param ups
+	 *            The update rate of the {@link Window}
+	 */
+	public Window(int width, int height, int scale, double ups) {
 		this.width = width;
 		this.height = height;
 		this.scale = scale;
 
-		this.fps = fps;
+		Dimension d = new Dimension(width * scale, height * scale);
+
+		this.setMinimumSize(d);
+		this.setPreferredSize(d);
+		this.setMaximumSize(d);
+
+		this.ups = ups;
 
 		keyboardEnabled = false;
 		mouseEnabled = false;
 		gamepadsEnabled = false;
+		frameRateLocked = false;
 
 		renderHints = new HashMap<>();
+
+		manager = new StateManager(this);
+
+		filters = new ArrayList<>();
 	}
 
 	/**
@@ -149,20 +208,41 @@ public class Window extends Canvas implements Viewable, Runnable {
 		mouseEnabled = true;
 	}
 
+	/**
+	 * Enables the use of {@link Gamepad}s by the {@link StateManager} and its
+	 * respective {@link State}s. They are disabled by default.
+	 */
 	public void enableGamepads() {
 		gamepadsEnabled = true;
 	}
 
-	public void enableAntialiasing(int mode) {
-		if ((mode | ANTIALIAS_SHAPES) == ANTIALIAS_SHAPES)
-			renderHints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		else
-			renderHints.remove(RenderingHints.KEY_ANTIALIASING);
+	/**
+	 * Enables the anti-aliasing of graphical primitives. This is disabled by
+	 * default.
+	 */
+	public void enableSmoothShapes() {
+		renderHints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	}
 
-		if ((mode | ANTIALIAS_TEXT) == ANTIALIAS_TEXT)
-			renderHints.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		else
-			renderHints.remove(RenderingHints.KEY_TEXT_ANTIALIASING);
+	/**
+	 * Enables the anti-aliasing of text. This is disabled by default.
+	 */
+	public void enableSmoothText() {
+		renderHints.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+	}
+
+	/**
+	 * Sets the frame rate to be locked to the update rate. Frame rates are
+	 * unlocked by default.
+	 */
+	public void enableFrameRateLock() {
+		frameRateLocked = true;
+	}
+
+	public void setViewMode(ViewMode mode) {
+		this.width = mode.getWidth();
+		this.height = mode.getHeight();
+		this.ups = mode.getUPS();
 	}
 
 	@Override
@@ -196,13 +276,12 @@ public class Window extends Canvas implements Viewable, Runnable {
 	}
 
 	@Override
+	public Sprite getContext() {
+		return context;
+	}
+
+	@Override
 	public final void open() {
-		Dimension d = new Dimension(width * scale, height * scale);
-
-		this.setPreferredSize(d);
-		this.setMinimumSize(d);
-		this.setMaximumSize(d);
-
 		if (keyboardEnabled) {
 			keyboard = new Keyboard();
 
@@ -231,27 +310,20 @@ public class Window extends Canvas implements Viewable, Runnable {
 		manager.init();
 
 		start();
-
-		// Debugger.printLine("QUIXEL SCREEN STATS");
-		// Debugger.printLine(" - Pixel Resolution: " + width + "x" + height);
-		// Debugger.printLine(" - Actual Resolution: " + width * scale + "x" +
-		// height * scale);
-		// Debugger.printLine(" - Keyboard: " + (keyboardEnabled ? "En" : "Dis")
-		// + "abled");
-		// Debugger.printLine(" - Mouse: " + (mouseEnabled ? "En" : "Dis") +
-		// "abled");
 	}
 
 	private void initGraphics() {
 		System.setProperty("sun.java2d.d3d", "True");
 		System.setProperty("sun.java2d.opengl", "True");
+		System.setProperty("sun.java2d.translaccel", "True");
+		System.setProperty("sun.java2d.ddforcevram", "True");
 
 		context = new Sprite(width, height);
 
 		gx = new GraphicsX((Graphics2D) context.getGraphics());
 		gx.setRenderingHints(renderHints);
 
-		this.createBufferStrategy(3);
+		this.createBufferStrategy(2);
 		bs = this.getBufferStrategy();
 		g = bs.getDrawGraphics();
 	}
@@ -289,10 +361,11 @@ public class Window extends Canvas implements Viewable, Runnable {
 	}
 
 	@Override
+	@InternalMethod
 	public void run() {
 		long last = Time.nsTime();
 
-		final double NS = 1000000000.0 / fps;
+		final double NS = 1000000000.0 / ups;
 
 		double delta = 0;
 
@@ -301,9 +374,9 @@ public class Window extends Canvas implements Viewable, Runnable {
 			delta += (now - last) / NS;
 			last = now;
 
-			boolean shouldRender = false;
+			boolean shouldRender = !frameRateLocked;
 
-			while (delta >= 1) {
+			if (delta >= 1) {
 				update(delta);
 				shouldRender = true;
 				delta--;
@@ -321,6 +394,7 @@ public class Window extends Canvas implements Viewable, Runnable {
 	 * @param delta
 	 *            The delta time between this update and the last
 	 */
+	@InternalMethod
 	public void update(double delta) {
 		if (keyboardEnabled) {
 			manager.keyboardInput(keyboard);
@@ -347,6 +421,7 @@ public class Window extends Canvas implements Viewable, Runnable {
 	 * and filtering, to the final {@link Graphics} draw that makes it visible
 	 * on the {@link Canvas}'s {@link BufferStrategy}.
 	 */
+	@InternalMethod
 	public void render() {
 		gx.clearRect(0, 0, width, height);
 

@@ -9,43 +9,28 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 /**
+ * A {@link FunctionalInterface} which is used in color blend operations, and
+ * defines the rule(s) for determining the values.
+ * 
  * @author Christian Bryce Alexander
- * @since May 16, 2015 | 3:13:06 PM
+ * @since May 16, 2016, 6:47:09 PM
  */
-public final class Screenshot {
-	private static String path;
-
+@FunctionalInterface
+public interface BlendOp {
 	/**
-	 * Sets the path to save screenshots to
+	 * Applies this {@code BlendOperation}'s algorithm with the specified
+	 * values.
+	 * 
+	 * @param target
+	 *            The channel to serve as the destination
+	 * @param blend
+	 *            The channel to blend into the target
+	 * @return The blended value of the channels
 	 */
-	public static void setRelativePath(String path) {
-		if (!path.endsWith("\\"))
-			path += "\\";
-
-		Screenshot.path = path;
-	}
-
-	/**
-	 * Saves a screenshot
-	 */
-	public static void createScreenshot(BufferedImage image, String name, String format) {
-		try {
-			File outputfile = new File(path + name + "." + format);
-			ImageIO.write(image, format, outputfile);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	public float apply(float target, float blend);
 }

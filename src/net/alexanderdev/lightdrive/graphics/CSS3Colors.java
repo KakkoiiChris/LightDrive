@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
@@ -21,707 +21,1186 @@ package net.alexanderdev.lightdrive.graphics;
  */
 public class CSS3Colors {
 	/**
-	 * Color constant for the CSS3 color definition "Alice Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #f0f8ff; border: 1px solid black;">&nbsp;
+	 * 		Alice Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX ALICE_BLUE = new ColorX(0xFFF0F8FF);
+	public static final ColorX ALICE_BLUE              = new ColorX(0xfff0f8ff);
 
 	/**
-	 * Color constant for the CSS3 color definition "Antique White"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #faebd7; border: 1px solid black;">&nbsp;
+	 * 		Antique White
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX ANTIQUE_WHITE = new ColorX(0xFFFAEBD7);
+	public static final ColorX ANTIQUE_WHITE           = new ColorX(0xfffaebd7);
 
 	/**
-	 * Color constant for the CSS3 color definition "Aqua"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #00ffff; border: 1px solid black;">&nbsp;
+	 * 		Aqua
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX AQUA = new ColorX(0xFF00FFFF);
+	public static final ColorX AQUA                    = new ColorX(0xff00ffff);
 
 	/**
-	 * Color constant for the CSS3 color definition "Aquamarine"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #7fffd4; border: 1px solid black;">&nbsp;
+	 * 		Aquamarine
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX AQUAMARINE = new ColorX(0xFF7FFFD4);
+	public static final ColorX AQUAMARINE              = new ColorX(0xff7fffd4);
 
 	/**
-	 * Color constant for the CSS3 color definition "Azure"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #f0ffff; border: 1px solid black;">&nbsp;
+	 * 		Azure
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX AZURE = new ColorX(0xFFF0FFFF);
+	public static final ColorX AZURE                   = new ColorX(0xfff0ffff);
 
 	/**
-	 * Color constant for the CSS3 color definition "Beige"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #f5f5dc; border: 1px solid black;">&nbsp;
+	 * 		Beige
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX BEIGE = new ColorX(0xFFF5F5DC);
+	public static final ColorX BEIGE                   = new ColorX(0xfff5f5dc);
 
 	/**
-	 * Color constant for the CSS3 color definition "Bisque"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ffe4c4; border: 1px solid black;">&nbsp;
+	 * 		Bisque
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX BISQUE = new ColorX(0xFFFFE4C4);
+	public static final ColorX BISQUE                  = new ColorX(0xffffe4c4);
 
 	/**
-	 * Color constant for the CSS3 color definition "Black"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #000; border: 1px solid black;">&nbsp;
+	 * 		Black
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX BLACK = new ColorX(0xFF000000);
+	public static final ColorX BLACK                   = new ColorX(0xff000000);
 
 	/**
-	 * Color constant for the CSS3 color definition "Blanched Almond"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ffebcd; border: 1px solid black;">&nbsp;
+	 * 		Blanched Almond
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX BLANCHED_ALMOND = new ColorX(0xFFFFEBCD);
+	public static final ColorX BLANCHED_ALMOND         = new ColorX(0xffffebcd);
 
 	/**
-	 * Color constant for the CSS3 color definition "Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #00f; border: 1px solid black;">&nbsp;
+	 * 		Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX BLUE = new ColorX(0xFF0000FF);
+	public static final ColorX BLUE                    = new ColorX(0xff0000ff);
 
 	/**
-	 * Color constant for the CSS3 color definition "Blue Violet"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #8a2be2; border: 1px solid black;">&nbsp;
+	 * 		Blue Violet
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX BLUE_VIOLET = new ColorX(0xFF8A2BE2);
+	public static final ColorX BLUE_VIOLET             = new ColorX(0xff8a2be2);
 
 	/**
-	 * Color constant for the CSS3 color definition "Brown"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #a52a2a; border: 1px solid black;">&nbsp;
+	 * 		Brown
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX BROWN = new ColorX(0xFFA52A2A);
+	public static final ColorX BROWN                   = new ColorX(0xffa52a2a);
 
 	/**
-	 * Color constant for the CSS3 color definition "Burly Wood"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #deb887; border: 1px solid black;">&nbsp;
+	 * 		Burly Wood
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX BURLY_WOOD = new ColorX(0xFFDEB887);
+	public static final ColorX BURLY_WOOD              = new ColorX(0xffdeb887);
 
 	/**
-	 * Color constant for the CSS3 color definition "Cadet Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #5f9ea0; border: 1px solid black;">&nbsp;
+	 * 		Cadet Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX CADET_BLUE = new ColorX(0xFF5F9EA0);
+	public static final ColorX CADET_BLUE              = new ColorX(0xff5f9ea0);
 
 	/**
-	 * Color constant for the CSS3 color definition "Chartreuse"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #7fff00; border: 1px solid black;">&nbsp;
+	 * 		Chartreuse
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX CHARTREUSE = new ColorX(0xFF7FFF00);
+	public static final ColorX CHARTREUSE              = new ColorX(0xff7fff00);
 
 	/**
-	 * Color constant for the CSS3 color definition "Chocolate"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #d2691e; border: 1px solid black;">&nbsp;
+	 * 		Chocolate
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX CHOCOLATE = new ColorX(0xFFD2691E);
+	public static final ColorX CHOCOLATE               = new ColorX(0xffd2691e);
 
 	/**
-	 * Color constant for the CSS3 color definition "Coral"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ff7f50; border: 1px solid black;">&nbsp;
+	 * 		Coral
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX CORAL = new ColorX(0xFFFF7F50);
+	public static final ColorX CORAL                   = new ColorX(0xffff7f50);
 
 	/**
-	 * Color constant for the CSS3 color definition "Cornflower Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #6495ed; border: 1px solid black;">&nbsp;
+	 * 		Cornflower Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX CORNFLOWER_BLUE = new ColorX(0xFF6495ED);
+	public static final ColorX CORNFLOWER_BLUE         = new ColorX(0xff6495ed);
 
 	/**
-	 * Color constant for the CSS3 color definition "Cornsilk"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #fff8dc; border: 1px solid black;">&nbsp;
+	 * 		Cornsilk
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX CORNSILK = new ColorX(0xFFFFF8DC);
+	public static final ColorX CORNSILK                = new ColorX(0xfffff8dc);
 
 	/**
-	 * Color constant for the CSS3 color definition "Crimson"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #dc143c; border: 1px solid black;">&nbsp;
+	 * 		Crimson
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX CRIMSON = new ColorX(0xFFDC143C);
+	public static final ColorX CRIMSON                 = new ColorX(0xffdc143c);
 
 	/**
-	 * Color constant for the CSS3 color definition "Cyan"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #0ff; border: 1px solid black;">&nbsp;
+	 * 		Cyan
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX CYAN = new ColorX(0xFF00FFFF);
+	public static final ColorX CYAN                    = new ColorX(0xff00ffff);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dark Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #00008b; border: 1px solid black;">&nbsp;
+	 * 		Dark Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_BLUE = new ColorX(0xFF00008B);
+	public static final ColorX DARK_BLUE               = new ColorX(0xff00008b);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dark Cyan"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #008b8b; border: 1px solid black;">&nbsp;
+	 * 		Dark Cyan
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_CYAN = new ColorX(0xFF008B8B);
+	public static final ColorX DARK_CYAN               = new ColorX(0xff008b8b);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dark Golden Rod"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #b8860b; border: 1px solid black;">&nbsp;
+	 * 		Dark Golden Rod
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_GOLDEN_ROD = new ColorX(0xFFB8860B);
+	public static final ColorX DARK_GOLDEN_ROD         = new ColorX(0xffb8860b);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dark Gray"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #a9a9a9; border: 1px solid black;">&nbsp;
+	 * 		Dark Gray
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_GRAY = new ColorX(0xFFA9A9A9);
-
+	public static final ColorX DARK_GRAY               = new ColorX(0xffa9a9a9);
+	
 	/**
-	 * Color constant for the CSS3 color definition "Dark Green"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #a9a9a9; border: 1px solid black;">&nbsp;
+	 * 		Dark Grey
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_GREEN = new ColorX(0xFF006400);
+	public static final ColorX DARK_GREY               = new ColorX(0xffa9a9a9);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dark Khaki"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #006400; border: 1px solid black;">&nbsp;
+	 * 		Dark Green
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_KHAKI = new ColorX(0xFFBDB76B);
+	public static final ColorX DARK_GREEN              = new ColorX(0xff006400);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dark Magenta"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #bdb76b; border: 1px solid black;">&nbsp;
+	 * 		Dark Khaki
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_MAGENTA = new ColorX(0xFF8B008B);
+	public static final ColorX DARK_KHAKI              = new ColorX(0xffbdb76b);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dark Olive Green"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #8b008b; border: 1px solid black;">&nbsp;
+	 * 		Dark Magenta
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_OLIVE_GREEN = new ColorX(0xFF556B2F);
+	public static final ColorX DARK_MAGENTA            = new ColorX(0xff8b008b);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dark Orange"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #556b2f; border: 1px solid black;">&nbsp;
+	 * 		Dark Olive Green
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_ORANGE = new ColorX(0xFFFF8C00);
+	public static final ColorX DARK_OLIVE_GREEN        = new ColorX(0xff556b2f);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dark Orchid"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ff8c00; border: 1px solid black;">&nbsp;
+	 * 		Dark Orange
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_ORCHID = new ColorX(0xFF9932CC);
+	public static final ColorX DARK_ORANGE             = new ColorX(0xffff8c00);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dark Red"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #9932cc; border: 1px solid black;">&nbsp;
+	 * 		Dark Orchid
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_RED = new ColorX(0xFF8B0000);
+	public static final ColorX DARK_ORCHID             = new ColorX(0xff9932cc);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dark Salmon"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #8b0000; border: 1px solid black;">&nbsp;
+	 * 		Dark Red
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_SALMON = new ColorX(0xFFE9967A);
+	public static final ColorX DARK_RED                = new ColorX(0xff8b0000);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dark Sea Green"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #e9967a; border: 1px solid black;">&nbsp;
+	 * 		Dark Salmon
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_SEA_GREEN = new ColorX(0xFF8FBC8F);
+	public static final ColorX DARK_SALMON             = new ColorX(0xffe9967a);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dark Slate Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #8fbc8f; border: 1px solid black;">&nbsp;
+	 * 		Dark Sea Green
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_SLATE_BLUE = new ColorX(0xFF483D8B);
+	public static final ColorX DARK_SEA_GREEN          = new ColorX(0xff8fbc8f);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dark Slate Gray"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #483d8b; border: 1px solid black;">&nbsp;
+	 * 		Dark Slate Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_SLATE_GRAY = new ColorX(0xFF2F4F4F);
+	public static final ColorX DARK_SLATE_BLUE         = new ColorX(0xff483d8b);
 
+	/**
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #2f4f4f; border: 1px solid black;">&nbsp;
+	 * 		Dark Slate Gray
+	 * &nbsp;</span></b>
+	 */
+	public static final ColorX DARK_SLATE_GRAY         = new ColorX(0xff2f4f4f);
+	
 	/**
-	 * Color constant for the CSS3 color definition "Dark Turquiose"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #2f4f4f; border: 1px solid black;">&nbsp;
+	 * 		Dark Slate Grey
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_TURQUOISE = new ColorX(0xFF00CED1);
+	public static final ColorX DARK_SLATE_GREY         = new ColorX(0xff2f4f4f);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dark Violet"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #00ced1; border: 1px solid black;">&nbsp;
+	 * 		Dark Turquoise
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DARK_VIOLET = new ColorX(0xFF9400D3);
+	public static final ColorX DARK_TURQUOISE          = new ColorX(0xff00ced1);
 
 	/**
-	 * Color constant for the CSS3 color definition "Deep Pink"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #9400d3; border: 1px solid black;">&nbsp;
+	 * 		Dark Violet
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DEEP_PINK = new ColorX(0xFFFF1493);
+	public static final ColorX DARK_VIOLET             = new ColorX(0xff9400d3);
 
 	/**
-	 * Color constant for the CSS3 color definition "Deep Sky Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ff1493; border: 1px solid black;">&nbsp;
+	 * 		Deep Pink
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DEEP_SKY_BLUE = new ColorX(0xFF00BFFF);
+	public static final ColorX DEEP_PINK               = new ColorX(0xffff1493);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dim Gray"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #00bfff; border: 1px solid black;">&nbsp;
+	 * 		Deep Sky Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DIM_GRAY = new ColorX(0xFF696969);
+	public static final ColorX DEEP_SKY_BLUE           = new ColorX(0xff00bfff);
 
 	/**
-	 * Color constant for the CSS3 color definition "Dodger Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #696969; border: 1px solid black;">&nbsp;
+	 * 		Dim Gray
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX DODGER_BLUE = new ColorX(0xFF1E90FF);
+	public static final ColorX DIM_GRAY                = new ColorX(0xff696969);
+	
+	/**
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #696969; border: 1px solid black;">&nbsp;
+	 * 		Dim Grey
+	 * &nbsp;</span></b>
+	 */
+	public static final ColorX DIM_GREY                = new ColorX(0xff696969);
 
 	/**
-	 * Color constant for the CSS3 color definition "Fire Brick"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #1e90ff; border: 1px solid black;">&nbsp;
+	 * 		Dodger Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX FIRE_BRICK = new ColorX(0xFFB22222);
+	public static final ColorX DODGER_BLUE             = new ColorX(0xff1e90ff);
 
 	/**
-	 * Color constant for the CSS3 color definition "Floral White"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #b22222; border: 1px solid black;">&nbsp;
+	 * 		Fire Brick
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX FLORAL_WHITE = new ColorX(0xFFFFFAF0);
+	public static final ColorX FIRE_BRICK              = new ColorX(0xffb22222);
 
 	/**
-	 * Color constant for the CSS3 color definition "Forest Green"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #fffaf0; border: 1px solid black;">&nbsp;
+	 * 		Floral White
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX FOREST_GREEN = new ColorX(0xFF228B22);
+	public static final ColorX FLORAL_WHITE            = new ColorX(0xfffffaf0);
 
 	/**
-	 * Color constant for the CSS3 color definition "Fuchsia"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #228b22; border: 1px solid black;">&nbsp;
+	 * 		Forest Green
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX FUCHSIA = new ColorX(0xFFFF00FF);
+	public static final ColorX FOREST_GREEN            = new ColorX(0xff228b22);
 
 	/**
-	 * Color constant for the CSS3 color definition "Gainsboro"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #f0f; border: 1px solid black;">&nbsp;
+	 * 		Fuschia
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX GAINSBORO = new ColorX(0xFFDCDCDC);
+	public static final ColorX FUCHSIA                 = new ColorX(0xffff00ff);
 
 	/**
-	 * Color constant for the CSS3 color definition "Ghost White"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #dcdcdc; border: 1px solid black;">&nbsp;
+	 * 		Gainsboro
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX GHOST_WHITE = new ColorX(0xFFF8F8FF);
+	public static final ColorX GAINSBORO               = new ColorX(0xffdcdcdc);
 
 	/**
-	 * Color constant for the CSS3 color definition "Gold"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #f8f8ff; border: 1px solid black;">&nbsp;
+	 * 		Ghost White
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX GOLD = new ColorX(0xFFFFD700);
+	public static final ColorX GHOST_WHITE             = new ColorX(0xfff8f8ff);
 
 	/**
-	 * Color constant for the CSS3 color definition "Golden Rod"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ffd700; border: 1px solid black;">&nbsp;
+	 * 		Gold
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX GOLDEN_ROD = new ColorX(0xFFDAA520);
+	public static final ColorX GOLD                    = new ColorX(0xffffd700);
 
 	/**
-	 * Color constant for the CSS3 color definition "Gray"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #daa520; border: 1px solid black;">&nbsp;
+	 * 		Golden Rod
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX GRAY = new ColorX(0xFF808080);
+	public static final ColorX GOLDEN_ROD              = new ColorX(0xffdaa520);
 
+	/**
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #808080; border: 1px solid black;">&nbsp;
+	 * 		Gray
+	 * &nbsp;</span></b>
+	 */
+	public static final ColorX GRAY                    = new ColorX(0xff808080);
+	
 	/**
-	 * Color constant for the CSS3 color definition "Green"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #808080; border: 1px solid black;">&nbsp;
+	 * 		Grey
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX GREEN = new ColorX(0xFF008000);
+	public static final ColorX GREY                    = new ColorX(0xff808080);
 
 	/**
-	 * Color constant for the CSS3 color definition "Green Yellow"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #008000; border: 1px solid black;">&nbsp;
+	 * 		Green
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX GREEN_YELLOW = new ColorX(0xFFADFF2F);
+	public static final ColorX GREEN                   = new ColorX(0xff008000);
 
 	/**
-	 * Color constant for the CSS3 color definition "Honey Dew"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #adff2f; border: 1px solid black;">&nbsp;
+	 * 		Green Yellow
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX HONEY_DEW = new ColorX(0xFFF0FFF0);
+	public static final ColorX GREEN_YELLOW            = new ColorX(0xffadff2f);
 
 	/**
-	 * Color constant for the CSS3 color definition "Hot Pink"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #f0fff0; border: 1px solid black;">&nbsp;
+	 * 		Honey Dew
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX HOT_PINK = new ColorX(0xFFFF69B4);
+	public static final ColorX HONEY_DEW               = new ColorX(0xfff0fff0);
 
 	/**
-	 * Color constant for the CSS3 color definition "Indian Red"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ff69b4; border: 1px solid black;">&nbsp;
+	 * 		Hot Pink
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX INDIAN_RED = new ColorX(0xFFCD5C5C);
+	public static final ColorX HOT_PINK                = new ColorX(0xffff69b4);
 
 	/**
-	 * Color constant for the CSS3 color definition "Indigo"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #cd5c5c; border: 1px solid black;">&nbsp;
+	 * 		Indian Red
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX INDIGO = new ColorX(0xFF4B0082);
+	public static final ColorX INDIAN_RED              = new ColorX(0xffcd5c5c);
 
 	/**
-	 * Color constant for the CSS3 color definition "Ivory"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #4b0082; border: 1px solid black;">&nbsp;
+	 * 		Indigo
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX IVORY = new ColorX(0xFFFFFFF0);
+	public static final ColorX INDIGO                  = new ColorX(0xff4b0082);
 
 	/**
-	 * Color constant for the CSS3 color definition "Khaki"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #fffff0; border: 1px solid black;">&nbsp;
+	 * 		Ivory
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX KHAKI = new ColorX(0xFFF0E68C);
+	public static final ColorX IVORY                   = new ColorX(0xfffffff0);
 
 	/**
-	 * Color constant for the CSS3 color definition "Lavender"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #f0e68c; border: 1px solid black;">&nbsp;
+	 * 		Khaki
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LAVENDER = new ColorX(0xFFE6E6FA);
+	public static final ColorX KHAKI                   = new ColorX(0xfff0e68c);
 
 	/**
-	 * Color constant for the CSS3 color definition "Lavender Blush"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #e6e6fa; border: 1px solid black;">&nbsp;
+	 * 		Lavender
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LAVENDER_BLUSH = new ColorX(0xFFFFF0F5);
+	public static final ColorX LAVENDER                = new ColorX(0xffe6e6fa);
 
 	/**
-	 * Color constant for the CSS3 color definition "Lawn Green"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #fff0f5; border: 1px solid black;">&nbsp;
+	 * 		Lavender Blush
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LAWN_GREEN = new ColorX(0xFF7CFC00);
+	public static final ColorX LAVENDER_BLUSH          = new ColorX(0xfffff0f5);
 
 	/**
-	 * Color constant for the CSS3 color definition "Lemon Chiffon"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #7cfc00; border: 1px solid black;">&nbsp;
+	 * 		Lawn Green
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LEMON_CHIFFON = new ColorX(0xFFFFFACD);
+	public static final ColorX LAWN_GREEN              = new ColorX(0xff7cfc00);
 
 	/**
-	 * Color constant for the CSS3 color definition "Light Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #fffacd; border: 1px solid black;">&nbsp;
+	 * 		Lemon Chiffon
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LIGHT_BLUE = new ColorX(0xFFADD8E6);
+	public static final ColorX LEMON_CHIFFON           = new ColorX(0xfffffacd);
 
 	/**
-	 * Color constant for the CSS3 color definition "Light Coral"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #add8e6; border: 1px solid black;">&nbsp;
+	 * 		Light Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LIGHT_CORAL = new ColorX(0xFFF08080);
+	public static final ColorX LIGHT_BLUE              = new ColorX(0xffadd8e6);
 
 	/**
-	 * Color constant for the CSS3 color definition "Light Cyan"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #f08080; border: 1px solid black;">&nbsp;
+	 * 		Light Coral
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LIGHT_CYAN = new ColorX(0xFFE0FFFF);
+	public static final ColorX LIGHT_CORAL             = new ColorX(0xfff08080);
 
 	/**
-	 * Color constant for the CSS3 color definition "Light Golden Rod Yellow"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #e0ffff; border: 1px solid black;">&nbsp;
+	 * 		Light Cyan
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LIGHT_GOLDEN_ROD_YELLOW = new ColorX(0xFFFAFAD2);
+	public static final ColorX LIGHT_CYAN              = new ColorX(0xffe0ffff);
 
 	/**
-	 * Color constant for the CSS3 color definition "Light Gray"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #fafad2; border: 1px solid black;">&nbsp;
+	 * 		Light Golden Rod Yellow
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LIGHT_GRAY = new ColorX(0xFFD3D3D3);
+	public static final ColorX LIGHT_GOLDEN_ROD_YELLOW = new ColorX(0xfffafad2);
 
 	/**
-	 * Color constant for the CSS3 color definition "Light Green"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #d3d3d3; border: 1px solid black;">&nbsp;
+	 * 		Light Gray
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LIGHT_GREEN = new ColorX(0xFF90EE90);
+	public static final ColorX LIGHT_GRAY              = new ColorX(0xffd3d3d3);
+	
+	/**
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #d3d3d3; border: 1px solid black;">&nbsp;
+	 * 		Light Grey
+	 * &nbsp;</span></b>
+	 */
+	public static final ColorX LIGHT_GREY              = new ColorX(0xffd3d3d3);
 
 	/**
-	 * Color constant for the CSS3 color definition "Light Pink"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #90ee90; border: 1px solid black;">&nbsp;
+	 * 		Light Green
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LIGHT_PINK = new ColorX(0xFFFFB6C1);
+	public static final ColorX LIGHT_GREEN             = new ColorX(0xff90ee90);
 
 	/**
-	 * Color constant for the CSS3 color definition "Light Salmon"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ffb6c1; border: 1px solid black;">&nbsp;
+	 * 		Light Pink
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LIGHT_SALMON = new ColorX(0xFFFFA07A);
+	public static final ColorX LIGHT_PINK              = new ColorX(0xffffb6c1);
 
 	/**
-	 * Color constant for the CSS3 color definition "Light Sea Green"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ffa07a; border: 1px solid black;">&nbsp;
+	 * 		Light Salmon
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LIGHT_SEA_GREEN = new ColorX(0xFF20B2AA);
+	public static final ColorX LIGHT_SALMON            = new ColorX(0xffffa07a);
 
 	/**
-	 * Color constant for the CSS3 color definition "Light Sky Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #20b2aa; border: 1px solid black;">&nbsp;
+	 * 		Light Sea Green
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LIGHT_SKY_BLUE = new ColorX(0xFF87CEFA);
+	public static final ColorX LIGHT_SEA_GREEN         = new ColorX(0xff20b2aa);
 
 	/**
-	 * Color constant for the CSS3 color definition "Light Slate Gray"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #87cefa; border: 1px solid black;">&nbsp;
+	 * 		Light Sky Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LIGHT_SLATE_GRAY = new ColorX(0xFF778899);
+	public static final ColorX LIGHT_SKY_BLUE          = new ColorX(0xff87cefa);
 
+	/**
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #778899; border: 1px solid black;">&nbsp;
+	 * 		Light Slate Gray
+	 * &nbsp;</span></b>
+	 */
+	public static final ColorX LIGHT_SLATE_GRAY        = new ColorX(0xff778899);
+	
 	/**
-	 * Color constant for the CSS3 color definition "Light Steel Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #778899; border: 1px solid black;">&nbsp;
+	 * 		Light Slate Grey
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LIGHT_STEEL_BLUE = new ColorX(0xFFB0C4DE);
+	public static final ColorX LIGHT_SLATE_GREY        = new ColorX(0xff778899);
 
 	/**
-	 * Color constant for the CSS3 color definition "Light Yellow"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #b0c4de; border: 1px solid black;">&nbsp;
+	 * 		Light Steel Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LIGHT_YELLOW = new ColorX(0xFFFFFFE0);
+	public static final ColorX LIGHT_STEEL_BLUE        = new ColorX(0xffb0c4de);
 
 	/**
-	 * Color constant for the CSS3 color definition "Lime"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ffffe0; border: 1px solid black;">&nbsp;
+	 * 		Light Yellow
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LIME = new ColorX(0xFF00FF00);
+	public static final ColorX LIGHT_YELLOW            = new ColorX(0xffffffe0);
 
 	/**
-	 * Color constant for the CSS3 color definition "Lime Green"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #0f0; border: 1px solid black;">&nbsp;
+	 * 		Lime
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LIME_GREEN = new ColorX(0xFF32CD32);
+	public static final ColorX LIME                    = new ColorX(0xff00ff00);
 
 	/**
-	 * Color constant for the CSS3 color definition "Linen"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #32cd32; border: 1px solid black;">&nbsp;
+	 * 		Lime Green
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX LINEN = new ColorX(0xFFFAF0E6);
+	public static final ColorX LIME_GREEN              = new ColorX(0xff32cd32);
 
 	/**
-	 * Color constant for the CSS3 color definition "Magenta"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #faf0e6; border: 1px solid black;">&nbsp;
+	 * 		Linen
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX MAGENTA = new ColorX(0xFFFF00FF);
+	public static final ColorX LINEN                   = new ColorX(0xfffaf0e6);
 
 	/**
-	 * Color constant for the CSS3 color definition "Maroon"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #f0f; border: 1px solid black;">&nbsp;
+	 * 		Magenta
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX MAROON = new ColorX(0xFF800000);
+	public static final ColorX MAGENTA                 = new ColorX(0xffff00ff);
 
 	/**
-	 * Color constant for the CSS3 color definition "Medium AquaMarine"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #800000; border: 1px solid black;">&nbsp;
+	 * 		Maroon
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX MEDIUM_AQUA_MARINE = new ColorX(0xFF66CDAA);
+	public static final ColorX MAROON                  = new ColorX(0xff800000);
 
 	/**
-	 * Color constant for the CSS3 color definition "Medium Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #66cdaa; border: 1px solid black;">&nbsp;
+	 * 		Medium Aqua Marine
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX MEDIUM_BLUE = new ColorX(0xFF0000CD);
+	public static final ColorX MEDIUM_AQUAMARINE      = new ColorX(0xff66cdaa);
 
 	/**
-	 * Color constant for the CSS3 color definition "Medium Orchid"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #0000cd; border: 1px solid black;">&nbsp;
+	 * 		Medium Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX MEDIUM_ORCHID = new ColorX(0xFFBA55D3);
+	public static final ColorX MEDIUM_BLUE             = new ColorX(0xff0000cd);
 
 	/**
-	 * Color constant for the CSS3 color definition "Medium Purple"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ba55d3; border: 1px solid black;">&nbsp;
+	 * 		Medium Orchid
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX MEDIUM_PURPLE = new ColorX(0xFF9370DB);
+	public static final ColorX MEDIUM_ORCHID           = new ColorX(0xffba55d3);
 
 	/**
-	 * Color constant for the CSS3 color definition "Medium Sea Green"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #9370db; border: 1px solid black;">&nbsp;
+	 * 		Medium Purple
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX MEDIUM_SEA_GREEN = new ColorX(0xFF3CB371);
+	public static final ColorX MEDIUM_PURPLE           = new ColorX(0xff9370db);
 
 	/**
-	 * Color constant for the CSS3 color definition "Medium Slate Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #3cb371; border: 1px solid black;">&nbsp;
+	 * 		Medium Sea Green
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX MEDIUM_SLATE_BLUE = new ColorX(0xFF7B68EE);
+	public static final ColorX MEDIUM_SEA_GREEN        = new ColorX(0xff3cb371);
 
 	/**
-	 * Color constant for the CSS3 color definition "Medium Spring Green"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #7b68ee; border: 1px solid black;">&nbsp;
+	 * 		Medium Slate Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX MEDIUM_SPRING_GREEN = new ColorX(0xFF00FA9A);
+	public static final ColorX MEDIUM_SLATE_BLUE       = new ColorX(0xff7b68ee);
 
 	/**
-	 * Color constant for the CSS3 color definition "Medium Turquiose"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #00fa9a; border: 1px solid black;">&nbsp;
+	 * 		Medium Spring Green
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX MEDIUM_TURQUOISE = new ColorX(0xFF48D1CC);
+	public static final ColorX MEDIUM_SPRING_GREEN     = new ColorX(0xff00fa9a);
 
 	/**
-	 * Color constant for the CSS3 color definition "Medium Violet Red"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #48d1cc; border: 1px solid black;">&nbsp;
+	 * 		Medium Turquoise
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX MEDIUM_VIOLET_RED = new ColorX(0xFFC71585);
+	public static final ColorX MEDIUM_TURQUOISE        = new ColorX(0xff48d1cc);
 
 	/**
-	 * Color constant for the CSS3 color definition "Midnight Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #c71585; border: 1px solid black;">&nbsp;
+	 * 		Medium Violet Red
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX MIDNIGHT_BLUE = new ColorX(0xFF191970);
+	public static final ColorX MEDIUM_VIOLET_RED       = new ColorX(0xffc71585);
 
 	/**
-	 * Color constant for the CSS3 color definition "Mint Cream"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #191970; border: 1px solid black;">&nbsp;
+	 * 		Midnight Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX MINT_CREAM = new ColorX(0xFFF5FFFA);
+	public static final ColorX MIDNIGHT_BLUE           = new ColorX(0xff191970);
 
 	/**
-	 * Color constant for the CSS3 color definition "Misty Rose"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #f5fffa; border: 1px solid black;">&nbsp;
+	 * 		Mint Cream
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX MISTY_ROSE = new ColorX(0xFFFFE4E1);
+	public static final ColorX MINT_CREAM              = new ColorX(0xfff5fffa);
 
 	/**
-	 * Color constant for the CSS3 color definition "Moccasin"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ffe4e1; border: 1px solid black;">&nbsp;
+	 * 		Misty Rose
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX MOCCASIN = new ColorX(0xFFFFE4B5);
+	public static final ColorX MISTY_ROSE              = new ColorX(0xffffe4e1);
 
 	/**
-	 * Color constant for the CSS3 color definition "Navajo White"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ffe4b5; border: 1px solid black;">&nbsp;
+	 * 		Moccasin
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX NAVAJO_WHITE = new ColorX(0xFFFFDEAD);
+	public static final ColorX MOCCASIN                = new ColorX(0xffffe4b5);
 
 	/**
-	 * Color constant for the CSS3 color definition "Navy"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ffdead; border: 1px solid black;">&nbsp;
+	 * 		Navajo White
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX NAVY = new ColorX(0xFF000080);
+	public static final ColorX NAVAJO_WHITE            = new ColorX(0xffffdead);
 
 	/**
-	 * Color constant for the CSS3 color definition "Old Lace"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #000080; border: 1px solid black;">&nbsp;
+	 * 		Navy
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX OLD_LACE = new ColorX(0xFFFDF5E6);
+	public static final ColorX NAVY                    = new ColorX(0xff000080);
 
 	/**
-	 * Color constant for the CSS3 color definition "Olive"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #fdf5e6; border: 1px solid black;">&nbsp;
+	 * 		Old Lace
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX OLIVE = new ColorX(0xFF808000);
+	public static final ColorX OLD_LACE                = new ColorX(0xfffdf5e6);
 
 	/**
-	 * Color constant for the CSS3 color definition "Olive Drab"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #808000; border: 1px solid black;">&nbsp;
+	 * 		Olive
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX OLIVE_DRAB = new ColorX(0xFF6B8E23);
+	public static final ColorX OLIVE                   = new ColorX(0xff808000);
 
 	/**
-	 * Color constant for the CSS3 color definition "Orange"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #6b8e23; border: 1px solid black;">&nbsp;
+	 * 		Olive Drab
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX ORANGE = new ColorX(0xFFFFA500);
+	public static final ColorX OLIVE_DRAB              = new ColorX(0xff6b8e23);
 
 	/**
-	 * Color constant for the CSS3 color definition "Orange Red"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ffa500; border: 1px solid black;">&nbsp;
+	 * 		Orange
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX ORANGE_RED = new ColorX(0xFFFF4500);
+	public static final ColorX ORANGE                  = new ColorX(0xffffa500);
 
 	/**
-	 * Color constant for the CSS3 color definition "Orchid"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ff4500; border: 1px solid black;">&nbsp;
+	 * 		Orange Red
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX ORCHID = new ColorX(0xFFDA70D6);
+	public static final ColorX ORANGE_RED              = new ColorX(0xffff4500);
 
 	/**
-	 * Color constant for the CSS3 color definition "Pale Golden Rod"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #da70d6; border: 1px solid black;">&nbsp;
+	 * 		Orchid
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX PALE_GOLDEN_ROD = new ColorX(0xFFEEE8AA);
+	public static final ColorX ORCHID                  = new ColorX(0xffda70d6);
 
 	/**
-	 * Color constant for the CSS3 color definition "Pale Green"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #eee8aa; border: 1px solid black;">&nbsp;
+	 * 		Pale Golden Rod
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX PALE_GREEN = new ColorX(0xFF98FB98);
+	public static final ColorX PALE_GOLDEN_ROD         = new ColorX(0xffeee8aa);
 
 	/**
-	 * Color constant for the CSS3 color definition "Pale Turquoise"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #98fb98; border: 1px solid black;">&nbsp;
+	 * 		Pale Green
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX PALE_TURQUOISE = new ColorX(0xFFAFEEEE);
+	public static final ColorX PALE_GREEN              = new ColorX(0xff98fb98);
 
 	/**
-	 * Color constant for the CSS3 color definition "Pale Violet Red"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #afeeee; border: 1px solid black;">&nbsp;
+	 * 		Pale Turquoise
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX PALE_VIOLET_RED = new ColorX(0xFFDB7093);
+	public static final ColorX PALE_TURQUOISE          = new ColorX(0xffafeeee);
 
 	/**
-	 * Color constant for the CSS3 color definition "Papaya Whip"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #db7093; border: 1px solid black;">&nbsp;
+	 * 		Pale Violet Red
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX PAPAYA_WHIP = new ColorX(0xFFFFEFD5);
+	public static final ColorX PALE_VIOLET_RED         = new ColorX(0xffdb7093);
 
 	/**
-	 * Color constant for the CSS3 color definition "Peach Puff"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ffefd5; border: 1px solid black;">&nbsp;
+	 * 		Papaya Whip
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX PEACH_PUFF = new ColorX(0xFFFFDAB9);
+	public static final ColorX PAPAYA_WHIP             = new ColorX(0xffffefd5);
 
 	/**
-	 * Color constant for the CSS3 color definition "Peru"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ffdab9; border: 1px solid black;">&nbsp;
+	 * 		Peach Puff
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX PERU = new ColorX(0xFFCD853F);
+	public static final ColorX PEACH_PUFF              = new ColorX(0xffffdab9);
 
 	/**
-	 * Color constant for the CSS3 color definition "Pink"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #cd853f; border: 1px solid black;">&nbsp;
+	 * 		Peru
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX PINK = new ColorX(0xFFFFC0CB);
+	public static final ColorX PERU                    = new ColorX(0xffcd853f);
 
 	/**
-	 * Color constant for the CSS3 color definition "Plum"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ffc0cb; border: 1px solid black;">&nbsp;
+	 * 		Pink
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX PLUM = new ColorX(0xFFDDA0DD);
+	public static final ColorX PINK                    = new ColorX(0xffffc0cb);
 
 	/**
-	 * Color constant for the CSS3 color definition "Powder Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #dda0dd; border: 1px solid black;">&nbsp;
+	 * 		Plum
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX POWDER_BLUE = new ColorX(0xFFB0E0E6);
+	public static final ColorX PLUM                    = new ColorX(0xffdda0dd);
 
 	/**
-	 * Color constant for the CSS3 color definition "Purple"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #b0e0e6; border: 1px solid black;">&nbsp;
+	 * 		Powder Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX PURPLE = new ColorX(0xFF800080);
+	public static final ColorX POWDER_BLUE             = new ColorX(0xffb0e0e6);
 
 	/**
-	 * Color constant for the CSS3 color definition "Rebecca Purple"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #800080; border: 1px solid black;">&nbsp;
+	 * 		Purple
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX REBECCA_PURPLE = new ColorX(0xFF663399);
+	public static final ColorX PURPLE                  = new ColorX(0xff800080);
 
 	/**
-	 * Color constant for the CSS3 color definition "Red"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #663399; border: 1px solid black;">&nbsp;
+	 * 		Rebecca Purple
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX RED = new ColorX(0xFFFF0000);
+	public static final ColorX REBECCA_PURPLE          = new ColorX(0xff663399);
 
 	/**
-	 * Color constant for the CSS3 color definition "Rosy Brown"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #f00; border: 1px solid black;">&nbsp;
+	 * 		Red
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX ROSY_BROWN = new ColorX(0xFFBC8F8F);
+	public static final ColorX RED                     = new ColorX(0xffff0000);
 
 	/**
-	 * Color constant for the CSS3 color definition "Royal Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #bc8f8f; border: 1px solid black;">&nbsp;
+	 * 		Rosy Brown
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX ROYAL_BLUE = new ColorX(0xFF4169E1);
+	public static final ColorX ROSY_BROWN              = new ColorX(0xffbc8f8f);
 
 	/**
-	 * Color constant for the CSS3 color definition "Saddle Brown"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #4169e1; border: 1px solid black;">&nbsp;
+	 * 		Royal Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX SADDLE_BROWN = new ColorX(0xFF8B4513);
+	public static final ColorX ROYAL_BLUE              = new ColorX(0xff4169e1);
 
 	/**
-	 * Color constant for the CSS3 color definition "Salmon"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #8b4513; border: 1px solid black;">&nbsp;
+	 * 		Saddle Brown
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX SALMON = new ColorX(0xFFFA8072);
+	public static final ColorX SADDLE_BROWN            = new ColorX(0xff8b4513);
 
 	/**
-	 * Color constant for the CSS3 color definition "Sandy Brown"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #fa8072; border: 1px solid black;">&nbsp;
+	 * 		Salmon
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX SANDY_BROWN = new ColorX(0xFFF4A460);
+	public static final ColorX SALMON                  = new ColorX(0xfffa8072);
 
 	/**
-	 * Color constant for the CSS3 color definition "Sea Green"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #f4a460; border: 1px solid black;">&nbsp;
+	 * 		Sandy Brown
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX SEA_GREEN = new ColorX(0xFF2E8B57);
+	public static final ColorX SANDY_BROWN             = new ColorX(0xfff4a460);
 
 	/**
-	 * Color constant for the CSS3 color definition "Sea Shell"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #2e8b57; border: 1px solid black;">&nbsp;
+	 * 		Sea Green
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX SEA_SHELL = new ColorX(0xFFFFF5EE);
+	public static final ColorX SEA_GREEN               = new ColorX(0xff2e8b57);
 
 	/**
-	 * Color constant for the CSS3 color definition "Sienna"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #fff5ee; border: 1px solid black;">&nbsp;
+	 * 		Sea Shell
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX SIENNA = new ColorX(0xFFA0522D);
+	public static final ColorX SEA_SHELL               = new ColorX(0xfffff5ee);
 
 	/**
-	 * Color constant for the CSS3 color definition "Silver"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #a0522d; border: 1px solid black;">&nbsp;
+	 * 		Sienna
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX SILVER = new ColorX(0xFFC0C0C0);
+	public static final ColorX SIENNA                  = new ColorX(0xffa0522d);
 
 	/**
-	 * Color constant for the CSS3 color definition "Sky Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #c0c0c0; border: 1px solid black;">&nbsp;
+	 * 		Silver
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX SKY_BLUE = new ColorX(0xFF87CEEB);
+	public static final ColorX SILVER                  = new ColorX(0xffc0c0c0);
 
 	/**
-	 * Color constant for the CSS3 color definition "Slate Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #87ceeb; border: 1px solid black;">&nbsp;
+	 * 		Sky Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX SLATE_BLUE = new ColorX(0xFF6A5ACD);
+	public static final ColorX SKY_BLUE                = new ColorX(0xff87ceeb);
 
 	/**
-	 * Color constant for the CSS3 color definition "Slate Gray"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #6a5acd; border: 1px solid black;">&nbsp;
+	 * 		Slate Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX SLATE_GRAY = new ColorX(0xFF708090);
+	public static final ColorX SLATE_BLUE              = new ColorX(0xff6a5acd);
 
 	/**
-	 * Color constant for the CSS3 color definition "Snow"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #708090; border: 1px solid black;">&nbsp;
+	 * 		Slate Gray
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX SNOW = new ColorX(0xFFFFFAFA);
+	public static final ColorX SLATE_GRAY              = new ColorX(0xff708090);
+	
+	/**
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #708090; border: 1px solid black;">&nbsp;
+	 * 		Slate Grey
+	 * &nbsp;</span></b>
+	 */
+	public static final ColorX SLATE_GREY              = new ColorX(0xff708090);
 
 	/**
-	 * Color constant for the CSS3 color definition "Spring Green"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #fffafa; border: 1px solid black;">&nbsp;
+	 * 		Snow
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX SPRING_GREEN = new ColorX(0xFF00FF7F);
+	public static final ColorX SNOW                    = new ColorX(0xfffffafa);
 
 	/**
-	 * Color constant for the CSS3 color definition "Steel Blue"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #00ff7f; border: 1px solid black;">&nbsp;
+	 * 		Spring Green
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX STEEL_BLUE = new ColorX(0xFF4682B4);
+	public static final ColorX SPRING_GREEN            = new ColorX(0xff00ff7f);
 
 	/**
-	 * Color constant for the CSS3 color definition "Tan"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #4682b4; border: 1px solid black;">&nbsp;
+	 * 		Steel Blue
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX TAN = new ColorX(0xFFD2B48C);
+	public static final ColorX STEEL_BLUE              = new ColorX(0xff4682b4);
 
 	/**
-	 * Color constant for the CSS3 color definition "Teal"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #d2b48c; border: 1px solid black;">&nbsp;
+	 * 		Tan
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX TEAL = new ColorX(0xFF008080);
+	public static final ColorX TAN                     = new ColorX(0xffd2b48c);
 
 	/**
-	 * Color constant for the CSS3 color definition "Thistle"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="color: white; background: #008080; border: 1px solid black;">&nbsp;
+	 * 		Teal
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX THISTLE = new ColorX(0xFFD8BFD8);
+	public static final ColorX TEAL                    = new ColorX(0xff008080);
 
+	/**
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #d8bfd8; border: 1px solid black;">&nbsp;
+	 * 		Thistle
+	 * &nbsp;</span></b>
+	 */
+	public static final ColorX THISTLE                 = new ColorX(0xffd8bfd8);
+	
 	/**
-	 * Color constant for the CSS3 color definition "Tomato"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ff6347; border: 1px solid black;">&nbsp;
+	 * 		Tomato
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX TOMATO = new ColorX(0xFFFF6347);
+	public static final ColorX TOMATO                  = new ColorX(0xffff6347);
 
 	/**
-	 * Color constant for the CSS3 color definition "Turquoise"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #40e0d0; border: 1px solid black;">&nbsp;
+	 * 		Turquoise
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX TURQUOISE = new ColorX(0xFF40E0D0);
+	public static final ColorX TURQUOISE               = new ColorX(0xff40e0d0);
 
 	/**
-	 * Color constant for the CSS3 color definition "Violet"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ee82ee; border: 1px solid black;">&nbsp;
+	 * 		Violet
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX VIOLET = new ColorX(0xFFEE82EE);
+	public static final ColorX VIOLET                  = new ColorX(0xffee82ee);
 
 	/**
-	 * Color constant for the CSS3 color definition "Wheat"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #f5deb3; border: 1px solid black;">&nbsp;
+	 * 		Wheat
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX WHEAT = new ColorX(0xFFF5DEB3);
+	public static final ColorX WHEAT                   = new ColorX(0xfff5deb3);
 
 	/**
-	 * Color constant for the CSS3 color definition "White"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #fff; border: 1px solid black;">&nbsp;
+	 * 		White
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX WHITE = new ColorX(0xFFFFFFFF);
+	public static final ColorX WHITE                   = new ColorX(0xffffffff);
 
 	/**
-	 * Color constant for the CSS3 color definition "White Smoke"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #f5f5f5; border: 1px solid black;">&nbsp;
+	 * 		White Smoke
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX WHITE_SMOKE = new ColorX(0xFFF5F5F5);
+	public static final ColorX WHITE_SMOKE             = new ColorX(0xfff5f5f5);
 
 	/**
-	 * Color constant for the CSS3 color definition "Yellow"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #ff0; border: 1px solid black;">&nbsp;
+	 * 		Yellow
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX YELLOW = new ColorX(0xFFFFFF00);
+	public static final ColorX YELLOW                  = new ColorX(0xffffff00);
 
 	/**
-	 * Color constant for the CSS3 color definition "Yellow Green"
+	 * {@code ColorX} constant for the CSS3 color definition
+	 * <b><span style="background: #9acd32; border: 1px solid black;">&nbsp;
+	 * 		Yellow Green
+	 * &nbsp;</span></b>
 	 */
-	public static final ColorX YELLOW_GREEN = new ColorX(0xFF9ACD32);
+	public static final ColorX YELLOW_GREEN            = new ColorX(0xff9acd32);
 }

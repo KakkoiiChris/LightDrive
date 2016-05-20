@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive;
 
@@ -17,10 +17,13 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
 /**
+ * Annotation used for indicating that a certain method should be considered
+ * internal to the library, and that directly invoking such a method could have
+ * unfavorable results.
+ * 
  * @author Christian Bryce Alexander
  * @since Jan 19, 2016, 2:01:36 AM
  */
 @Target(ElementType.METHOD)
 public @interface InternalMethod {
-	
 }

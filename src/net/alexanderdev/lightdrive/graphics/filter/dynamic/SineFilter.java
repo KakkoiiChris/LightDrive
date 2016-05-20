@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filter.dynamic;
 
@@ -19,6 +19,9 @@ import net.alexanderdev.lightdrive.util.ArraysX;
 import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
+ * A dynamic {@link Filter} which applies a vertically sinuous effect to the
+ * {@link Sprite}.
+ * 
  * @author Christian Bryce Alexander
  * @since Dec 14, 2015, 6:21:23 AM
  */
@@ -29,10 +32,8 @@ public class SineFilter implements Filter {
 	private double magnitude;
 
 	/**
-	 * A {@code SineFilter} with the specified parameters.
+	 * A {@link SineFilter} with the specified parameters.
 	 *
-	 * @param scanSize
-	 *            The width of the {@link Sprite} to be applied to (preferably)
 	 * @param period
 	 *            The width of the waves
 	 * @param magnitude

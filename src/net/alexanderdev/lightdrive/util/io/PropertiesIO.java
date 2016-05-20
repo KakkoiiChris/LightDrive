@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.util.io;
 
@@ -17,47 +17,73 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- * A class for reading and writing preference/property files.
+ * A class for reading and writing preference/property files from a source
+ * folder. Only one file is loaded into memory at a time.
  * 
  * @author Christian Bryce Alexander
  * @since May 26, 2015 | 7:26:54 AM
  */
 public class PropertiesIO {
-	private final Properties PROPERTIES = new Properties();
+	private static final Properties PROPERTIES = new Properties();
 
-	private String filename;
+	private static String path = "";
 
-	public PropertiesIO(String filename) {
-		this.filename = filename;
+	/**
+	 * Sets the path that will be prepended to the filename when loading
+	 * properties from a file.
+	 * 
+	 * @param path
+	 *            The path to be prepended
+	 */
+	public static void setPath(String path) {
+		PropertiesIO.path = path;
 	}
 
-	public void open() {
+	/**
+	 * Loads a new properties file into memory.
+	 * 
+	 * @param name
+	 *            The name of the file to load
+	 */
+	public void load(String name) {
 		try {
-			PROPERTIES.load(new FileInputStream(filename));
+			PROPERTIES.load(new FileInputStream(path + name + ".txt"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public String loadProperty(String key) {
+	/**
+	 * @param key
+	 *            The name of the property to retrieve
+	 * @return The named property stored in memory
+	 */
+	public String getProperty(String key) {
 		return PROPERTIES.getProperty(key);
 	}
 
-	public void saveProperty(String key, String value) {
-		PROPERTIES.setProperty(key, value);
+	/**
+	 * Sets the specified key to the specified value.
+	 */
+	public void setProperty(String key, String val) {
+		PROPERTIES.setProperty(key, val);
 	}
 
-	public void close() {
+	/**
+	 * Stores the properties in memory to a file.
+	 * 
+	 * @param name
+	 *            The name of the file to store
+	 */
+	public void store(String name) {
 		try {
-			PROPERTIES.store(new FileOutputStream(filename), null);
+			PROPERTIES.store(new FileOutputStream(path + name + ".txt"), null);
 		}
-		catch (IOException ex) {
-			Logger.getLogger(PropertiesIO.class.getName()).log(Level.SEVERE, null, ex);
+		catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

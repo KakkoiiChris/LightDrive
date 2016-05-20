@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.util.math.geom;
 
@@ -28,11 +28,18 @@ import java.awt.geom.Point2D;
  * @author Christian Bryce Alexander
  * @since Apr 13, 2015 | 3:08:10 PM
  */
-public strictfp class VectorD extends Point2D.Double implements Comparable<Object> {
+public strictfp class VectorD extends Point2D.Double implements Cloneable, Comparable<Object> {
 	private static final long serialVersionUID = -1490482930677885575L;
 
 	/**
-	 * {@code VectorD} with specified magnitudes
+	 * Default {@link VectorD} with no magnitude
+	 */
+	public VectorD() {
+		this(0.0, 0.0);
+	}
+
+	/**
+	 * {@link VectorD} with specified magnitudes
 	 * 
 	 * @param x
 	 *            The x magnitude
@@ -44,37 +51,10 @@ public strictfp class VectorD extends Point2D.Double implements Comparable<Objec
 	}
 
 	/**
-	 * {@code VectorD} with magnitudes copied from {@code vec}
+	 * Adds the components of {@code vec} to this {@link VectorD}
 	 * 
 	 * @param vec
-	 *            The {@code VectorD} to be copied
-	 */
-	public VectorD(VectorD vec) {
-		this(vec.x, vec.y);
-	}
-
-	/**
-	 * For converting a {@code VectorD} into a {@code VectorD}
-	 * 
-	 * @param vec
-	 *            The {@code VectorF} to be copied
-	 */
-	public VectorD(VectorF vec) {
-		this(vec.x, vec.y);
-	}
-
-	/**
-	 * Default {@code VectorD} with no magnitude
-	 */
-	public VectorD() {
-		this(0.0, 0.0);
-	}
-
-	/**
-	 * Adds the components of {@code vec} to this {@code VectorD}
-	 * 
-	 * @param vec
-	 *            The {@code VectorD} to be added
+	 *            The {@link VectorD} to be added
 	 */
 	public void add(VectorD vec) {
 		x += vec.x;
@@ -82,10 +62,21 @@ public strictfp class VectorD extends Point2D.Double implements Comparable<Objec
 	}
 
 	/**
-	 * Subtracts the components of {@code vec} from this {@code VectorD}
+	 * Adds a {@code scalar} to both components of this {@link VectorD}
+	 * 
+	 * @param scalar
+	 *            Scalar to be added
+	 */
+	public void add(double scalar) {
+		x += scalar;
+		y += scalar;
+	}
+
+	/**
+	 * Subtracts the components of {@code vec} from this {@link VectorD}
 	 * 
 	 * @param vec
-	 *            The {@code VectorD} to be subtracted
+	 *            The {@link VectorD} to be subtracted
 	 */
 	public void subtract(VectorD vec) {
 		x -= vec.x;
@@ -93,10 +84,21 @@ public strictfp class VectorD extends Point2D.Double implements Comparable<Objec
 	}
 
 	/**
-	 * Multiplies the components of this {@code VectorD} by {@code vec}
+	 * Subtracts a {@code scalar} from both components of this {@link VectorD}
+	 * 
+	 * @param scalar
+	 *            Scalar to be subtracted
+	 */
+	public void subtract(double scalar) {
+		x -= scalar;
+		y -= scalar;
+	}
+
+	/**
+	 * Multiplies the components of this {@link VectorD} by {@code vec}
 	 * 
 	 * @param vec
-	 *            The {@code VectorD} to be multiplied by
+	 *            The {@link VectorD} to be multiplied by
 	 */
 	public void multiply(VectorD vec) {
 		x *= vec.x;
@@ -104,10 +106,21 @@ public strictfp class VectorD extends Point2D.Double implements Comparable<Objec
 	}
 
 	/**
-	 * Divides the components of this {@code VectorD} by {@code vec}
+	 * Multiplies both components of this {@link VectorD} by a {@code scalar}
+	 * 
+	 * @param scalar
+	 *            Scalar to be multiplied by
+	 */
+	public void multiply(double scalar) {
+		x *= scalar;
+		y *= scalar;
+	}
+
+	/**
+	 * Divides the components of this {@link VectorD} by {@code vec}
 	 * 
 	 * @param vec
-	 *            The {@code VectorD} to be divided by
+	 *            The {@link VectorD} to be divided by
 	 */
 	public void divide(VectorD vec) {
 		x /= vec.x;
@@ -115,79 +128,46 @@ public strictfp class VectorD extends Point2D.Double implements Comparable<Objec
 	}
 
 	/**
-	 * Adds a {@code scalar} to both components of this {@code VectorD}
-	 * 
-	 * @param scalar
-	 *            Scalar to be added
-	 */
-	public void addScalar(double scalar) {
-		x += scalar;
-		y += scalar;
-	}
-
-	/**
-	 * Subtracts a {@code scalar} from both components of this {@code VectorD}
-	 * 
-	 * @param scalar
-	 *            Scalar to be subtracted
-	 */
-	public void subtractScalar(double scalar) {
-		x -= scalar;
-		y -= scalar;
-	}
-
-	/**
-	 * Multiplies both components of this {@code VectorD} by a {@code scalar}
-	 * 
-	 * @param scalar
-	 *            Scalar to be multiplied by
-	 */
-	public void multiplyScalar(double scalar) {
-		x *= scalar;
-		y *= scalar;
-	}
-
-	/**
-	 * Divides both components of this {@code VectorD} by a {@code scalar}
+	 * Divides both components of this {@link VectorD} by a {@code scalar}
 	 * 
 	 * @param scalar
 	 *            Scalar to be divided by
 	 */
-	public void divideScalar(double scalar) {
+	public void divide(double scalar) {
 		x /= scalar;
 		y /= scalar;
 	}
 
 	/**
-	 * Turns this {@code VectorD} into a unit vector in the same direction
+	 * Turns this {@link VectorD} into a unit vector in the same direction
 	 */
 	public void normalize() {
-		divideScalar(length());
+		divide(length());
 	}
 
 	/**
-	 * Sets both components of this {@code VectorD} to zero
+	 * Sets both components of this {@link VectorD} to zero
 	 */
 	public void zero() {
 		x = y = 0d;
 	}
 
 	/**
-	 * Reverses the x component of this {@code VectorD}
+	 * Reverses the x component of this {@link VectorD}
 	 */
 	public void reverseX() {
 		x = -x;
 	}
 
 	/**
-	 * Reverses the y component of this {@code VectorD}
+	 * Reverses the y component of this {@link VectorD}
 	 */
 	public void reverseY() {
 		y = -y;
 	}
 
 	/**
-	 * Reverses both components of this {@code VectorD}
+	 * Reverses both components of this {@link VectorD}
 	 */
 	public void reverse() {
 		reverseX();
@@ -195,10 +175,10 @@ public strictfp class VectorD extends Point2D.Double implements Comparable<Objec
 	}
 
 	/**
-	 * Rotates this {@code VectorD} by the radian amount {@code angle}
+	 * Rotates this {@link VectorD} by the radian amount {@code angle}
 	 * 
 	 * @param angle
-	 *            An amount in radians to rotate this {@code VectorD} by
+	 *            An amount in radians to rotate this {@link VectorD} by
 	 */
 	public void rotate(double angle) {
 		double len = length();
@@ -210,50 +190,50 @@ public strictfp class VectorD extends Point2D.Double implements Comparable<Objec
 	}
 
 	/**
-	 * Changes the length of this {@code VectorD}
+	 * Changes the length of this {@link VectorD}
 	 * 
 	 * @param length
-	 *            The length for this {@code VectorD} to be resized to
+	 *            The length for this {@link VectorD} to be resized to
 	 */
 	public void setLength(double length) {
 		normalize();
 
-		multiplyScalar(length);
+		multiply(length);
 	}
 
 	/**
-	 * The dot product of two {@code VectorD}'s
+	 * The dot product of two {@link VectorD}'s
 	 * 
 	 * @param vec
-	 *            The second {@code VectorD}
+	 *            The second {@link VectorD}
 	 * 
-	 * @return The dot product of this {@code VectorD} and {@code vec}
+	 * @return The dot product of this {@link VectorD} and {@code vec}
 	 */
 	public double dot(VectorD vec) {
 		return x * vec.x + y * vec.y;
 	}
 
 	/**
-	 * The cross product of two {@code VectorD}'s
+	 * The cross product of two {@link VectorD}'s
 	 * 
 	 * @param vec
-	 *            The second {@code VectorD}
+	 *            The second {@link VectorD}
 	 * 
-	 * @return The cross product of this {@code VectorD} and {@code vec}
+	 * @return The cross product of this {@link VectorD} and {@code vec}
 	 */
 	public double cross(VectorD vec) {
 		return x * vec.y - y * vec.x;
 	}
 
 	/**
-	 * @return The length of this {@code VectorD}
+	 * @return The length of this {@link VectorD}
 	 */
 	public double length() {
 		return sqrt(pow(x, 2) + pow(y, 2));
 	}
 
 	/**
-	 * @return The angle of this {@code VectorD}
+	 * @return The angle of this {@link VectorD}
 	 */
 	public double angle() {
 		return atan2(y, x);
@@ -261,9 +241,9 @@ public strictfp class VectorD extends Point2D.Double implements Comparable<Objec
 
 	/**
 	 * @param The
-	 *            {@code VectorD} to point towards
+	 *            {@link VectorD} to point towards
 	 * 
-	 * @return A {@code VectorD} from this {@code VectorD} to {@code vec}
+	 * @return A {@link VectorD} from this {@link VectorD} to {@code vec}
 	 */
 	public VectorD vectorTo(VectorF vec) {
 		return new VectorD(-(x - vec.x), -(y - vec.y));
@@ -271,25 +251,19 @@ public strictfp class VectorD extends Point2D.Double implements Comparable<Objec
 
 	/**
 	 * @param The
-	 *            {@code VectorD} to point towards
+	 *            {@link VectorD} to point towards
 	 * 
-	 * @return A {@code VectorD} from this {@code VectorD} to {@code vec}
+	 * @return A {@link VectorD} from this {@link VectorD} to {@code vec}
 	 */
 	public VectorD vectorTo(VectorD vec) {
 		return new VectorD(-(x - vec.x), -(y - vec.y));
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public String toString() {
 		return String.format("%s: (%d, %d), Length: %d", getClass().toString(), x, y, length());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean equals(Object o) {
 		if (o == this) {
@@ -306,11 +280,11 @@ public strictfp class VectorD extends Point2D.Double implements Comparable<Objec
 		return false;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
+	@Override
+	public VectorD clone() {
+		return new VectorD(x, y);
+	}
+
 	@Override
 	public int compareTo(Object o) {
 		return 0;

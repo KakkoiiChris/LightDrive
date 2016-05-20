@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filter;
 
@@ -21,9 +21,15 @@ public class ReplaceFilter implements Filter {
 	private int[] map;
 	private int[] colors;
 
+	/**
+	 * Creates a new {@link ReplaceFilter}.
+	 * 
+	 * @param map
+	 * @param colors
+	 */
 	public ReplaceFilter(int[] map, int[] colors) {
 		if (map.length != colors.length) {
-			System.err.println("LIGHT DRIVE ERROR: Mismatching lists.");
+			System.err.println("LIGHT DRIVE ERROR: Mismatching arrays.");
 			Thread.dumpStack();
 		}
 
@@ -41,6 +47,12 @@ public class ReplaceFilter implements Filter {
 		this.map = map;
 	}
 
+	/**
+	 * Sets the colors to replace with.
+	 *
+	 * @param colors
+	 *            The colors to replace with
+	 */
 	public void setColors(int[] colors) {
 		this.colors = colors;
 	}

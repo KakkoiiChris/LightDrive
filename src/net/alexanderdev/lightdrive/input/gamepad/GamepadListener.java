@@ -9,13 +9,16 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.input;
+package net.alexanderdev.lightdrive.input.gamepad;
+
+import net.alexanderdev.lightdrive.state.State;
+import net.alexanderdev.lightdrive.view.Viewable;
 
 /**
- * Interface to be used in conjunction with the {@code Display} to handle
- * {@code Gamepad} input
+ * Interface to be used in conjunction with a {@link State} to handle
+ * {@link Gamepad} input.
  * 
  * @author Christian Bryce Alexander
  * @since Apr 29, 2015 | 9:12:12 PM
@@ -23,10 +26,10 @@ package net.alexanderdev.lightdrive.input;
 @FunctionalInterface
 public interface GamepadListener {
 	/**
-	 * Enables direct use of the {@code Display}'s gamepads
+	 * Enables direct use of the {@link Viewable}'s game pads
 	 * 
 	 * @param gamepad
-	 *            A gamepad from the {@code Display}
+	 *            A gamepad from the {@link Viewable}
 	 */
 	public void gamepadInput(Gamepad gamepad);
 }

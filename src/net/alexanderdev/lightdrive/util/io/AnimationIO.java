@@ -9,10 +9,11 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.util.io;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
@@ -25,17 +26,34 @@ import net.alexanderdev.lightdrive.graphics.Animation;
 import net.alexanderdev.lightdrive.graphics.Sprite;
 
 /**
+ * A class for loading animated GIFs from a source folder.
+ * 
  * @author Christian Bryce Alexander
  * @since May 3, 2016, 2:59:35 AM
  */
 public class AnimationIO {
 	private static String path = "";
 
+	/**
+	 * Sets the path that will be prepended to the filename when loading an
+	 * animation from a file.
+	 * 
+	 * @param path
+	 *            The path to be prepended
+	 */
 	public static void setPath(String path) {
 		AnimationIO.path = path;
 	}
 
-	public static Animation loadAnimatedGIF(String name) {
+	/**
+	 * Loads the frames and speed of an animated GIF into a new
+	 * {@link Animation}.
+	 * 
+	 * @param name
+	 *            The name of the animated GIF to be loaded
+	 * @return An {@link Animation} based on the animated GIF
+	 */
+	public static Animation loadGIF(String name) {
 		Animation animation = null;
 
 		try {
@@ -64,8 +82,36 @@ public class AnimationIO {
 
 			animation = new Animation(frames, delay);
 		}
-		catch (Exception e) {
-			e.printStackTrace();
+		catch (IOException e) {
+			try {
+				ImageReader reader = ImageIO.getImageReadersByFormatName("gif").next();
+
+				InputStream input = SpriteIO.class.getResourceAsStream(name + ".gif");
+
+				ImageInputStream stream = ImageIO.createImageInputStream(input);
+
+				reader.setInput(stream);
+
+				Sprite[] frames = new Sprite[reader.getNumImages(true)];
+
+				for (int i = 0; i < frames.length; i++)
+					frames[i] = new Sprite(reader.read(i));
+
+				IIOMetadata imageMetaData = reader.getImageMetadata(0);
+
+				String metaFormatName = imageMetaData.getNativeMetadataFormatName();
+
+				IIOMetadataNode root = (IIOMetadataNode) imageMetaData.getAsTree(metaFormatName);
+
+				IIOMetadataNode gceNode = getNode(root, "GraphicControlExtension");
+
+				long delay = Long.parseLong(gceNode.getAttribute("delayTime")) * 10;
+
+				animation = new Animation(frames, delay);
+			}
+			catch (IOException e2) {
+				e.printStackTrace();
+			}
 		}
 
 		return animation;

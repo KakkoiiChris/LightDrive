@@ -9,9 +9,14 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.view;
+
+import static net.alexanderdev.lightdrive.view.ViewConstants.DEFAULT_HEIGHT;
+import static net.alexanderdev.lightdrive.view.ViewConstants.DEFAULT_TITLE;
+import static net.alexanderdev.lightdrive.view.ViewConstants.DEFAULT_UPS;
+import static net.alexanderdev.lightdrive.view.ViewConstants.DEFAULT_WIDTH;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -27,43 +32,33 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
+import net.alexanderdev.lightdrive.InternalMethod;
 import net.alexanderdev.lightdrive.graphics.GraphicsX;
 import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.graphics.filter.Filter;
-import net.alexanderdev.lightdrive.input.Gamepad;
-import net.alexanderdev.lightdrive.input.GamepadFinder;
-import net.alexanderdev.lightdrive.input.Keyboard;
-import net.alexanderdev.lightdrive.input.Mouse;
+import net.alexanderdev.lightdrive.input.gamepad.Gamepad;
+import net.alexanderdev.lightdrive.input.gamepad.GamepadFinder;
+import net.alexanderdev.lightdrive.input.keyboard.Keyboard;
+import net.alexanderdev.lightdrive.input.mouse.Mouse;
 import net.alexanderdev.lightdrive.state.State;
 import net.alexanderdev.lightdrive.state.StateManager;
 import net.alexanderdev.lightdrive.util.Environment;
 import net.alexanderdev.lightdrive.util.Time;
 
 /**
+ * A {@link Viewable} that consists of a {@link JFrame} and a {@link Canvas},
+ * intended for full screen games.
+ * 
  * @author Christian Bryce Alexander
  * @since May 4, 2016, 10:52:29 AM
  */
 public class Screen extends Canvas implements Viewable, Runnable {
 	private static final long serialVersionUID = -7612386729814260951L;
 
-	/**
-	 * 
-	 */
-	public static final String DEFAULT_TITLE = "LightDrive";
-	/**
-	 * The max frames per second that a {@code Display} runs at.
-	 */
-	public static final double DEFAULT_FPS = 60.0;
-
-	public static final int ANTIALIAS_NONE = 0x0;
-	public static final int ANTIALIAS_SHAPES = 0x1;
-	public static final int ANTIALIAS_TEXT = 0x2;
-	public static final int ANTIALIAS_BOTH = 0x3;
-
 	private int width;
 	private int height;
 	private int scale;
-	private double fps;
+	private double ups;
 	private String title;
 
 	private JFrame frame;
@@ -88,6 +83,7 @@ public class Screen extends Canvas implements Viewable, Runnable {
 	private boolean keyboardEnabled;
 	private boolean mouseEnabled;
 	private boolean gamepadsEnabled;
+	private boolean frameRateLocked;
 
 	private StateManager manager;
 
@@ -98,31 +94,89 @@ public class Screen extends Canvas implements Viewable, Runnable {
 		// System.load(new File("/jinput-raw_64.dll").getAbsolutePath());
 	}
 
+	public Screen() {
+		this(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_UPS, DEFAULT_TITLE);
+	}
+
+	public Screen(ViewMode mode) {
+		this(mode.getWidth(), mode.getHeight(), mode.getUPS(), DEFAULT_TITLE);
+	}
+
+	public Screen(ViewMode mode, String title) {
+		this(mode.getWidth(), mode.getHeight(), mode.getUPS(), title);
+	}
+
+	/**
+	 * A {@link Screen} with specified width and height, and default update rate
+	 * and title.
+	 * 
+	 * @param width
+	 *            The width of the {@link Screen}
+	 * @param height
+	 *            The height of the {@link Screen}
+	 */
 	public Screen(int width, int height) {
-		this(width, height, DEFAULT_FPS, DEFAULT_TITLE);
+		this(width, height, DEFAULT_UPS, DEFAULT_TITLE);
 	}
 
-	public Screen(int width, int height, double fps) {
-		this(width, height, fps, DEFAULT_TITLE);
+	/**
+	 * A {@link Screen} with specified width, height, and update rate, and
+	 * default title.
+	 * 
+	 * @param width
+	 *            The width of the {@link Screen}
+	 * @param height
+	 *            The height of the {@link Screen}
+	 * @param ups
+	 *            The update rate of the {@link Screen}
+	 */
+	public Screen(int width, int height, double ups) {
+		this(width, height, ups, DEFAULT_TITLE);
 	}
 
+	/**
+	 * A {@link Screen} with specified width, height, and title, and default
+	 * update rate.
+	 * 
+	 * @param width
+	 *            The width of the {@link Screen}
+	 * @param height
+	 *            The height of the {@link Screen}
+	 * @param title
+	 *            The title of the {@link Screen}
+	 */
 	public Screen(int width, int height, String title) {
-		this(width, height, DEFAULT_FPS, title);
+		this(width, height, DEFAULT_UPS, title);
 	}
 
-	public Screen(int width, int height, double fps, String title) {
+	/**
+	 * A {@link Screen} with specified width, height, update rate, and title.
+	 * 
+	 * @param width
+	 *            The width of the {@link Screen}
+	 * @param height
+	 *            The height of the {@link Screen}
+	 * @param ups
+	 *            The update rate of the {@link Screen}
+	 * @param title
+	 *            The title of the {@link Screen}
+	 */
+	public Screen(int width, int height, double ups, String title) {
 		this.width = width;
 		this.height = height;
-		this.fps = fps;
+		this.ups = ups;
 		this.title = title;
 
 		keyboardEnabled = false;
 		mouseEnabled = false;
 		gamepadsEnabled = false;
+		frameRateLocked = false;
 
 		renderHints = new HashMap<>();
 
 		manager = new StateManager(this);
+
+		filters = new ArrayList<>();
 	}
 
 	/**
@@ -141,20 +195,41 @@ public class Screen extends Canvas implements Viewable, Runnable {
 		mouseEnabled = true;
 	}
 
+	/**
+	 * Enables the use of {@link Gamepad}s by the {@link StateManager} and its
+	 * respective {@link State}s. They are disabled by default.
+	 */
 	public void enableGamepads() {
 		gamepadsEnabled = true;
 	}
 
-	public void enableAntialiasing(int mode) {
-		if ((mode | ANTIALIAS_SHAPES) == ANTIALIAS_SHAPES)
-			renderHints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		else
-			renderHints.remove(RenderingHints.KEY_ANTIALIASING);
+	/**
+	 * Enables the anti-aliasing of graphical primitives. This is disabled by
+	 * default.
+	 */
+	public void enableSmoothShapes() {
+		renderHints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	}
 
-		if ((mode | ANTIALIAS_TEXT) == ANTIALIAS_TEXT)
-			renderHints.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		else
-			renderHints.remove(RenderingHints.KEY_TEXT_ANTIALIASING);
+	/**
+	 * Enables the anti-aliasing of text. This is disabled by default.
+	 */
+	public void enableSmoothText() {
+		renderHints.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+	}
+
+	/**
+	 * Sets the frame rate to be locked to the update rate. Frame rates are
+	 * unlocked by default.
+	 */
+	public void enableFrameRateLock() {
+		frameRateLocked = true;
+	}
+
+	public void setViewMode(ViewMode mode) {
+		this.width = mode.getWidth();
+		this.height = mode.getHeight();
+		this.ups = mode.getUPS();
 	}
 
 	@Override
@@ -185,6 +260,11 @@ public class Screen extends Canvas implements Viewable, Runnable {
 	@Override
 	public int getViewScale() {
 		return scale;
+	}
+
+	@Override
+	public Sprite getContext() {
+		return context;
 	}
 
 	@Override
@@ -237,29 +317,20 @@ public class Screen extends Canvas implements Viewable, Runnable {
 		start();
 
 		frame.setVisible(true);
-
-		// Debugger.printLine("QUIXEL SCREEN STATS");
-		// Debugger.printLine(" - Pixel Resolution: " + width + "x" + height);
-		// Debugger.printLine(" - Actual Resolution: " + width * scale + "x" +
-		// height * scale);
-		// Debugger.printLine(" - Keyboard: " + (keyboardEnabled ? "En" : "Dis")
-		// + "abled");
-		// Debugger.printLine(" - Mouse: " + (mouseEnabled ? "En" : "Dis") +
-		// "abled");
 	}
 
 	private void initGraphics() {
 		System.setProperty("sun.java2d.d3d", "True");
 		System.setProperty("sun.java2d.opengl", "True");
-
-		filters = new ArrayList<>();
+		System.setProperty("sun.java2d.translaccel", "True");
+		System.setProperty("sun.java2d.ddforcevram", "True");
 
 		context = new Sprite(width, height);
 
 		gx = new GraphicsX((Graphics2D) context.getGraphics());
 		gx.setRenderingHints(renderHints);
 
-		this.createBufferStrategy(3);
+		this.createBufferStrategy(2);
 		bs = this.getBufferStrategy();
 		g = bs.getDrawGraphics();
 	}
@@ -297,11 +368,12 @@ public class Screen extends Canvas implements Viewable, Runnable {
 	}
 
 	@Override
+	@InternalMethod
 	public void run() {
 		long last = Time.nsTime();
 		long timer = Time.msTime();
 
-		final double NS = 1000000000.0 / fps;
+		final double NS = 1000000000.0 / ups;
 
 		double delta = 0;
 
@@ -313,9 +385,9 @@ public class Screen extends Canvas implements Viewable, Runnable {
 			delta += (now - last) / NS;
 			last = now;
 
-			boolean shouldRender = true;//!framesLocked;
+			boolean shouldRender = !frameRateLocked;
 
-			while (delta >= 1) {
+			if (delta >= 1) {
 				update(delta);
 				updates++;
 				shouldRender = true;
@@ -328,8 +400,7 @@ public class Screen extends Canvas implements Viewable, Runnable {
 			}
 
 			if (Time.msTime() - timer >= 1000) {
-				//if (ufcEnabled)
-					frame.setTitle(String.format("%s  |  UPS: %d, FPS: %d", title, updates, frames));
+				frame.setTitle(String.format("%s | UPS: %d, FPS: %d", title, updates, frames));
 
 				updates = frames = 0;
 
@@ -345,6 +416,7 @@ public class Screen extends Canvas implements Viewable, Runnable {
 	 * @param delta
 	 *            The delta time between this update and the last
 	 */
+	@InternalMethod
 	public void update(double delta) {
 		if (keyboardEnabled) {
 			manager.keyboardInput(keyboard);
@@ -371,6 +443,7 @@ public class Screen extends Canvas implements Viewable, Runnable {
 	 * and filtering, to the final {@link Graphics} draw that makes it visible
 	 * on the {@link Canvas}'s {@link BufferStrategy}.
 	 */
+	@InternalMethod
 	public void render() {
 		gx.clearRect(0, 0, width, height);
 

@@ -9,18 +9,19 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
 /**
+ * An interface which defines an algorithm for gray-scale operations.
+ * 
  * @author Christian Bryce Alexander
  * @since Apr 23, 2016, 8:58:27 PM
  */
 public interface GrayscaleOp {
 	/**
-	 * Applies this {@code GrayscaleOperation}'s algorithm with the specified
-	 * channels.
+	 * Applies this {@link GrayscaleOp}'s algorithm with the specified channels.
 	 * 
 	 * @param r
 	 *            The red channel

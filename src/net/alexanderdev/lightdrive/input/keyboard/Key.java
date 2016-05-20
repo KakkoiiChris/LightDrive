@@ -11,9 +11,11 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.input;
+package net.alexanderdev.lightdrive.input.keyboard;
 
 /**
+ * An enum which lists all the keyboard keys in logical order.
+ * 
  * @author Christian Bryce Alexander
  * @since May 3, 2016, 2:43:54 AM
  */

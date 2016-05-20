@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.util.io;
 
@@ -21,26 +21,40 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * A class for reading and witing plain text files line by line.
+ * A class for reading and writing plain text files line by line from a source
+ * folder.
  * 
  * @author Christian Bryce Alexander
  * @since Apr 9, 2015 | 1:47:53 AM
  */
 public class TextIO {
+	private static String path = "";
+
 	/**
-	 * Reads in a text file line by line
+	 * Sets the path that will be prepended to the filename when loading a text
+	 * document from a file.
 	 * 
 	 * @param path
-	 *            Path to the file to read in
-	 * 
-	 * @return A {@code String[]} containing each individual line of text
+	 *            The path to be prepended
 	 */
-	public static String[] readFile(String path) {
-		ArrayList<String> lines = new ArrayList<>();
+	public static void setPath(String path) {
+		TextIO.path = path;
+	}
 
-		InputStream inStream = TextIO.class.getResourceAsStream(path);
+	/**
+	 * Reads a text file line by line.
+	 * 
+	 * @param name
+	 *            The name of the file to read
+	 * @return A {@link String}{@code []} containing each individual line of text
+	 */
+	public static String[] readFile(String name) {
+		List<String> lines = new ArrayList<>();
+
+		InputStream inStream = TextIO.class.getResourceAsStream(path + name);
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inStream));
 
@@ -58,7 +72,7 @@ public class TextIO {
 			try {
 				reader.close();
 			}
-			catch (Exception e) {
+			catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
@@ -67,11 +81,10 @@ public class TextIO {
 	}
 
 	/**
-	 * Writes a text file line by line
+	 * Writes a text file line by line.
 	 * 
 	 * @param path
 	 *            Path to the file to write
-	 * 
 	 * @param lines
 	 *            Lines of text to write to the file
 	 */
@@ -93,7 +106,7 @@ public class TextIO {
 			try {
 				writer.close();
 			}
-			catch (Exception e) {
+			catch (IOException e) {
 				e.printStackTrace();
 			}
 		}

@@ -20,7 +20,7 @@ import java.util.Random;
 import net.alexanderdev.lightdrive.util.ArraysX;
 
 /**
- * A collection of useful, convenient mathematic functions.
+ * A collection of useful, convenient mathematical functions.
  * 
  * @author Christian Bryce Alexander
  * @since March 12, 2015 | 7:29:02 PM

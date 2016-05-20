@@ -9,12 +9,11 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.util.io;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
@@ -24,7 +23,7 @@ import javax.imageio.stream.ImageInputStream;
 import net.alexanderdev.lightdrive.graphics.Sprite;
 
 /**
- * A static class to easily load images from a project source folder
+ * A class for loading images from a source folder.
  * 
  * @author Christian Bryce Alexander
  * @since March 12, 2015 | 6:25:06 PM
@@ -104,6 +103,7 @@ public class SpriteIO {
 	 * 
 	 * @param name
 	 *            The name of the image to load
+	 * @return An array of {@link Sprite}s for each GIF frame
 	 */
 	public static Sprite[] loadFramesFromGIF(String name) {
 		Sprite[] frames = null;
@@ -122,36 +122,46 @@ public class SpriteIO {
 			for (int i = 0; i < frames.length; i++)
 				frames[i] = new Sprite(reader.read(i));
 		}
-		catch (IOException ex) {
+		catch (Exception e) {
+			try {
+				ImageReader reader = ImageIO.getImageReadersByFormatName("gif").next();
+
+				InputStream input = SpriteIO.class.getResourceAsStream(name + ".gif");
+
+				ImageInputStream stream = ImageIO.createImageInputStream(input);
+
+				reader.setInput(stream);
+
+				frames = new Sprite[reader.getNumImages(true)];
+
+				for (int i = 0; i < frames.length; i++)
+					frames[i] = new Sprite(reader.read(i));
+			}
+			catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 
 		return frames;
 	}
 
-	private static Sprite load(String name, String... extensions) {
+	private static Sprite load(String name, String... exts) {
 		BufferedImage image = null;
 
-		for (String extension : extensions) {
+		for (String ext : exts) {
 			try {
-				image = ImageIO.read(SpriteIO.class.getResource(path + name + "." + extension));
+				image = ImageIO.read(SpriteIO.class.getResource(path + name + "." + ext));
 			}
 			catch (Exception e) {
 				try {
-					image = ImageIO.read(SpriteIO.class.getResource(name + "." + extension));
+					image = ImageIO.read(SpriteIO.class.getResource(name + "." + ext));
 				}
 				catch (Exception e2) {
 					e2.printStackTrace();
 				}
 			}
 
-			if (image == null)
-				try {
-					image = ImageIO.read(SpriteIO.class.getResource(name + "." + extension));
-				}
-				catch (Exception e2) {
-					e2.printStackTrace();
-				}
-			else
+			if (image != null)
 				break;
 		}
 

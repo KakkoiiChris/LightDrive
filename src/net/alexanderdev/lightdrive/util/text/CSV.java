@@ -17,10 +17,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * A collection of methods for parsing individual lines in a CSV file format.
+ * 
  * @author Christian Bryce Alexander
  * @since Apr 23, 2016, 9:19:14 PM
  */
 public class CSV {
+	/**
+	 * Process the line as a list of {@code byte}s in base ten.
+	 *
+	 * @param line
+	 *            The line to parse
+	 * @return An array of every {@code byte} parsed from the line
+	 */
 	public static byte[] parseBytes(String line) {
 		String[] data = parseStrings(line);
 
@@ -31,7 +40,14 @@ public class CSV {
 
 		return bytes;
 	}
-	
+
+	/**
+	 * Process the line as a list of {@code byte}s in the specified base.
+	 *
+	 * @param line
+	 *            The line to parse
+	 * @return An array of every {@code byte} parsed from the line
+	 */
 	public static byte[] parseBytes(String line, int radix) {
 		String[] data = parseStrings(line);
 
@@ -42,95 +58,14 @@ public class CSV {
 
 		return bytes;
 	}
-	
-	public static short[] parseShorts(String line) {
-		String[] data = parseStrings(line);
 
-		short[] shorts = new short[data.length];
-
-		for (int i = 0; i < data.length; i++)
-			shorts[i] = Short.parseShort(data[i]);
-
-		return shorts;
-	}
-	
-	public static short[] parseShorts(String line, int radix) {
-		String[] data = parseStrings(line);
-
-		short[] shorts = new short[data.length];
-
-		for (int i = 0; i < data.length; i++)
-			shorts[i] = Short.parseShort(data[i], radix);
-
-		return shorts;
-	}
-	
-	public static int[] parseInts(String line) {
-		String[] data = parseStrings(line);
-
-		int[] ints = new int[data.length];
-
-		for (int i = 0; i < data.length; i++)
-			ints[i] = Integer.parseInt(data[i]);
-
-		return ints;
-	}
-	
-	public static int[] parseInts(String line, int radix) {
-		String[] data = parseStrings(line);
-
-		int[] ints = new int[data.length];
-
-		for (int i = 0; i < data.length; i++)
-			ints[i] = Integer.parseInt(data[i], radix);
-
-		return ints;
-	}
-	
-	public static long[] parseLongs(String line) {
-		String[] data = parseStrings(line);
-
-		long[] longs = new long[data.length];
-
-		for (int i = 0; i < data.length; i++)
-			longs[i] = Long.parseLong(data[i]);
-
-		return longs;
-	}
-	
-	public static long[] parseLongs(String line, int radix) {
-		String[] data = parseStrings(line);
-
-		long[] longs = new long[data.length];
-
-		for (int i = 0; i < data.length; i++)
-			longs[i] = Long.parseLong(data[i], radix);
-
-		return longs;
-	}
-	
-	public static float[] parseFloats(String line) {
-		String[] data = parseStrings(line);
-
-		float[] floats = new float[data.length];
-
-		for (int i = 0; i < data.length; i++)
-			floats[i] = Float.parseFloat(data[i]);
-
-		return floats;
-	}
-	
-	public static double[] parseDoubles(String line) {
-		String[] data = parseStrings(line);
-
-		double[] doubles = new double[data.length];
-
-		for (int i = 0; i < data.length; i++)
-			doubles[i] = Double.parseDouble(data[i]);
-
-		return doubles;
-	}
-	
+	/**
+	 * Process the line as a list of {@code char}s in base ten.
+	 *
+	 * @param line
+	 *            The line to parse
+	 * @return An array of every {@code char} parsed from the line
+	 */
 	public static char[] parseChars(String line) {
 		String[] data = parseStrings(line);
 
@@ -142,6 +77,157 @@ public class CSV {
 		return chars;
 	}
 
+	/**
+	 * Process the line as a list of {@code double}s in base ten.
+	 *
+	 * @param line
+	 *            The line to parse
+	 * @return An array of every {@code double} parsed from the line
+	 */
+	public static double[] parseDoubles(String line) {
+		String[] data = parseStrings(line);
+
+		double[] doubles = new double[data.length];
+
+		for (int i = 0; i < data.length; i++)
+			doubles[i] = Double.parseDouble(data[i]);
+
+		return doubles;
+	}
+
+	/**
+	 * Process the line as a list of {@code float}s in base ten.
+	 *
+	 * @param line
+	 *            The line to parse
+	 * @return An array of every {@code float} parsed from the line
+	 */
+	public static float[] parseFloats(String line) {
+		String[] data = parseStrings(line);
+
+		float[] floats = new float[data.length];
+
+		for (int i = 0; i < data.length; i++)
+			floats[i] = Float.parseFloat(data[i]);
+
+		return floats;
+	}
+
+	/**
+	 * Process the line as a list of {@code int}s in base ten.
+	 *
+	 * @param line
+	 *            The line to parse
+	 * @return An array of every {@code int} parsed from the line
+	 */
+	public static int[] parseInts(String line) {
+		String[] data = parseStrings(line);
+
+		int[] ints = new int[data.length];
+
+		for (int i = 0; i < data.length; i++)
+			ints[i] = Integer.parseInt(data[i]);
+
+		return ints;
+	}
+
+	/**
+	 * Process the line as a list of {@code int}s in the specified base.
+	 *
+	 * @param line
+	 *            The line to parse
+	 * @return An array of every {@code int} parsed from the line
+	 */
+	public static int[] parseInts(String line, int radix) {
+		String[] data = parseStrings(line);
+
+		int[] ints = new int[data.length];
+
+		for (int i = 0; i < data.length; i++)
+			ints[i] = Integer.parseInt(data[i], radix);
+
+		return ints;
+	}
+
+	/**
+	 * Process the line as a list of {@code long}s in base ten.
+	 *
+	 * @param line
+	 *            The line to parse
+	 * @return An array of every {@code long} parsed from the line
+	 */
+	public static long[] parseLongs(String line) {
+		String[] data = parseStrings(line);
+
+		long[] longs = new long[data.length];
+
+		for (int i = 0; i < data.length; i++)
+			longs[i] = Long.parseLong(data[i]);
+
+		return longs;
+	}
+
+	/**
+	 * Process the line as a list of {@code long}s in the specified base.
+	 *
+	 * @param line
+	 *            The line to parse
+	 * @return An array of every {@code long} parsed from the line
+	 */
+	public static long[] parseLongs(String line, int radix) {
+		String[] data = parseStrings(line);
+
+		long[] longs = new long[data.length];
+
+		for (int i = 0; i < data.length; i++)
+			longs[i] = Long.parseLong(data[i], radix);
+
+		return longs;
+	}
+
+	/**
+	 * Process the line as a list of {@code short}s in base ten.
+	 *
+	 * @param line
+	 *            The line to parse
+	 * @return An array of every {@code short} parsed from the line
+	 */
+	public static short[] parseShorts(String line) {
+		String[] data = parseStrings(line);
+
+		short[] shorts = new short[data.length];
+
+		for (int i = 0; i < data.length; i++)
+			shorts[i] = Short.parseShort(data[i]);
+
+		return shorts;
+	}
+
+	/**
+	 * Process the line as a list of {@code short}s in the specified base.
+	 *
+	 * @param line
+	 *            The line to parse
+	 * @return An array of every {@code short} parsed from the line
+	 */
+	public static short[] parseShorts(String line, int radix) {
+		String[] data = parseStrings(line);
+
+		short[] shorts = new short[data.length];
+
+		for (int i = 0; i < data.length; i++)
+			shorts[i] = Short.parseShort(data[i], radix);
+
+		return shorts;
+	}
+
+	/**
+	 * Process the line as a list of {@link String}s.
+	 *
+	 * @param line
+	 *            The line to parse
+	 * @return An array of every {@link String} parsed from the line
+	 */
 	public static String[] parseStrings(String line) {
 		List<String> data = new ArrayList<>();
 

@@ -9,17 +9,18 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
 /**
- * A class to create a convenient collection of images from one image
+ * A class that represents a two dimensional array of {@link Sprite}s generated
+ * from a {@link Sprite}.
  * 
  * @author Christian Bryce Alexander
  * @since March 12, 2015 | 6:17:05 PM
  */
-public class SpriteSheet {
+public class SpriteSheet implements Cloneable {
 	private Sprite[][] sprites;
 
 	private int rows;
@@ -29,18 +30,32 @@ public class SpriteSheet {
 	private int spriteWidth;
 	private int spriteHeight;
 
+	public SpriteSheet(Sprite[][] sprites) {
+		this.sprites = sprites;
+
+		this.rows = sprites.length;
+		this.cols = sprites[0].length;
+
+		this.spriteWidth = sprites[0][0].getWidth();
+		this.spriteHeight = sprites[0][0].getHeight();
+
+		this.width = cols * spriteWidth;
+		this.height = rows * spriteHeight;
+	}
+
 	/**
-	 * Creates a sprite sheet from the image {@code sheet} with sprites of the
+	 * Creates a sprite sheet from the specified sheet with sprites of the
 	 * specified size
 	 *
 	 * @param sheet
-	 *            The source image
+	 *            The source {@link Sprite}
 	 * @param spriteWidth
-	 *            Width of all sprites
+	 *            Width of all {@link Sprite}s
 	 * @param spriteHeight
-	 *            Height of all sprites
-	 * @throws SpriteSheetException
+	 *            Height of all {@link Sprite}s
+	 * @throws IllegalArgumentException
 	 */
+
 	public SpriteSheet(Sprite sheet, int spriteWidth, int spriteHeight) {
 		this.width = sheet.getWidth();
 		this.height = sheet.getHeight();
@@ -49,21 +64,21 @@ public class SpriteSheet {
 
 		if (width < spriteWidth)
 			throw new IllegalArgumentException(String
-				.format("LIGHT DRIVE ERROR: Sprites of width %d cannot be generated from an image of width %d.", spriteWidth, width));
+					.format("Sprites of width %d cannot be generated from an image of width %d.", spriteWidth, width));
 
 		if (height < spriteHeight)
-			throw new IllegalArgumentException(String
-				.format("LIGHT DRIVE ERROR: Sprites of height %d cannot be generated from an image of height %d.", spriteHeight, height));
+			throw new IllegalArgumentException(String.format(
+					"Sprites of height %d cannot be generated from an image of height %d.", spriteHeight, height));
 
 		if (width % spriteWidth != 0) {
-			System.err.printf("LIGHT DRIVE WARNING: Sprites of width %d will not divide an image of width %d evenly.\n",
-				spriteWidth, width);
+			System.err.printf("WARNING: Sprites of width %d will not divide an image of width %d evenly.\n",
+					spriteWidth, width);
 			Thread.dumpStack();
 		}
 
 		if (height % spriteHeight != 0) {
-			System.err.printf("LIGHT DRIVE WARNING: Sprites of height %d will not divide an image of height %d evenly.\n",
-				spriteHeight, height);
+			System.err.printf("WARNING: Sprites of height %d will not divide an image of height %d evenly.\n",
+					spriteHeight, height);
 			Thread.dumpStack();
 		}
 
@@ -78,14 +93,15 @@ public class SpriteSheet {
 	}
 
 	/**
-	 * @return The number of rows of sprites in this {@code SpriteSheet}
+	 * @return The number of rows of {@link Sprite}s in this {@code SpriteSheet}
 	 */
 	public int getRows() {
 		return rows;
 	}
 
 	/**
-	 * @return The number of columns of sprites in this {@code SpriteSheet}
+	 * @return The number of columns of {@link Sprite}s in this
+	 *         {@code SpriteSheet}
 	 */
 	public int getCols() {
 		return cols;
@@ -106,14 +122,14 @@ public class SpriteSheet {
 	}
 
 	/**
-	 * @return The width of the sprites in this {@code SpriteSheet}
+	 * @return The width of the {@link Sprite}s in this {@code SpriteSheet}
 	 */
 	public int getSpriteWidth() {
 		return spriteWidth;
 	}
 
 	/**
-	 * @return The height of the sprites in this {@code SpriteSheet}
+	 * @return The height of the {@link Sprite}s in this {@code SpriteSheet}
 	 */
 	public int getSpriteHeight() {
 		return spriteHeight;
@@ -121,7 +137,6 @@ public class SpriteSheet {
 
 	/**
 	 * @return The sprite at the specified row and column
-	 * @throws SpriteOutOfBoundsException
 	 */
 	public Sprite getSprite(int r, int c) {
 		if (r < 0 || r >= rows)
@@ -147,8 +162,8 @@ public class SpriteSheet {
 	 * </pre>
 	 * 
 	 * 
-	 * @return The "i"th sprite on the sheet, which wraps around horizontally
-	 * @throws SpriteOutOfBoundsException
+	 * @return The "i"th {@link Sprite} on the sheet, which wraps around
+	 *         horizontally
 	 */
 	public Sprite getSprite(int i) {
 		int r = i / cols;
@@ -157,6 +172,10 @@ public class SpriteSheet {
 		return getSprite(r, c);
 	}
 
+	/**
+	 * @return The "i"th {@link Sprite}s from start (inclusive) to end
+	 *         (inclusive).
+	 */
 	public Sprite[] getSprites(int start, int end) {
 		Sprite[] sprites = new Sprite[(end - start) + 1];
 
@@ -166,6 +185,10 @@ public class SpriteSheet {
 		return sprites;
 	}
 
+	/**
+	 * @return All of the {@link Sprite}s, row by row, as a one dimensional
+	 *         array of {@link Sprite}s
+	 */
 	public Sprite[] getSequentialSprites() {
 		Sprite[] frames = new Sprite[rows * cols];
 
@@ -173,5 +196,10 @@ public class SpriteSheet {
 			frames[i] = getSprite(i);
 
 		return frames;
+	}
+
+	@Override
+	public SpriteSheet clone() {
+		return new SpriteSheet(sprites.clone());
 	}
 }

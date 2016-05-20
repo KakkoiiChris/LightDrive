@@ -9,21 +9,40 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filter;
 
+import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.util.Pixel;
 import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
+ * A {@link Filter} which applies a posterized effect to the {@link Sprite}.
+ * 
  * @author Christian Bryce Alexander
  * @since Dec 14, 2015, 5:49:43 AM
  */
 public class PosterizeFilter implements Filter {
 	private int levels;
 
+	/**
+	 * Creates a new {@link PosterizeFilter}.
+	 *
+	 * @param levels
+	 *            The amount of values per channel
+	 */
 	public PosterizeFilter(int levels) {
+		this.levels = MathX.clamp(levels - 1, 1, 255);
+	}
+
+	/**
+	 * Sets the posterization levels.
+	 *
+	 * @param levels
+	 *            The amount of values per channel
+	 */
+	public void setLevels(int levels) {
 		this.levels = MathX.clamp(levels - 1, 1, 255);
 	}
 

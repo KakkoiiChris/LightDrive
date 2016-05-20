@@ -9,15 +9,27 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filter;
 
+import net.alexanderdev.lightdrive.graphics.Sprite;
+
 /**
+ * A {@link FunctionalInterface} which is used to filter a {@link Sprite}, and
+ * defines the rule(s) for determining the values.
+ * 
  * @author Christian Bryce Alexander
- * @since Jan 19, 2016, 12:19:07 PM
+ * @since Dec 14, 2015, 12:29:10 AM
  */
 @FunctionalInterface
 public interface Filter {
+	/**
+	 * Applies this {@code Filter}'s algorithm with the specified values.
+	 * 
+	 * @param pixels
+	 *            The pixel data of the {@link Sprite} to be filtered
+	 * @return The blended value of the channels
+	 */
 	public void apply(int width, int height, int[] pixels);
 }

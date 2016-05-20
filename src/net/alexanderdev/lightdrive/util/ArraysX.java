@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.util;
 
@@ -171,8 +171,8 @@ public class ArraysX {
 	}
 
 	/**
-	 * @return An array of Objects with the contents of each supplied array in
-	 *         sequential order.
+	 * @return An array of {@link Object}s with the contents of each supplied
+	 *         array in sequential order.
 	 */
 	public static Object[] concat(Object[]... arrays) {
 		int length = 0;
@@ -213,8 +213,8 @@ public class ArraysX {
 	}
 
 	/**
-	 * @return An array of Strings with the contents of each supplied array in
-	 *         sequential order.
+	 * @return An array of {@link String}s with the contents of each supplied
+	 *         array in sequential order.
 	 */
 	public static String[] concat(String[]... arrays) {
 		int length = 0;
@@ -297,7 +297,7 @@ public class ArraysX {
 	}
 
 	/**
-	 * @return A copy of the supplied varargs/array of Objects
+	 * @return A copy of the supplied varargs/array of {@link Object}s
 	 */
 	public static Object[] copy(Object... src) {
 		Object[] dst = new Object[src.length];
@@ -315,7 +315,7 @@ public class ArraysX {
 	}
 
 	/**
-	 * @return A copy of the supplied varargs/array of Strings
+	 * @return A copy of the supplied varargs/array of {@link String}s
 	 */
 	public static String[] copy(String... src) {
 		String[] dst = new String[src.length];
@@ -323,6 +323,14 @@ public class ArraysX {
 		return dst;
 	}
 
+	/**
+	 * @param start
+	 *            The first byte in the list
+	 * @param end
+	 *            the last byte in the list
+	 * @return A sequential list of bytes from {@code start} to {@code end}
+	 *         inclusive.
+	 */
 	public static byte[] list(byte start, byte end) {
 		byte[] list = new byte[end - start + 1];
 
@@ -332,6 +340,16 @@ public class ArraysX {
 		return list;
 	}
 
+	/**
+	 * @param start
+	 *            The first value in the list
+	 * @param end
+	 *            The last value in the list
+	 * @param step
+	 *            The distance between sequential values
+	 * @return A sequential list of every "{@code step}"th value from
+	 *         {@code start} to {@code end} inclusive
+	 */
 	public static byte[] list(byte start, byte end, byte step) {
 		byte[] list = new byte[(end - start + 1) / step];
 
@@ -341,6 +359,14 @@ public class ArraysX {
 		return list;
 	}
 
+	/**
+	 * @param start
+	 *            The first byte in the list
+	 * @param end
+	 *            the last byte in the list
+	 * @return A sequential list of bytes from {@code start} to {@code end}
+	 *         inclusive.
+	 */
 	public static int[] list(int start, int end) {
 		int[] list = new int[end - start + 1];
 
@@ -350,6 +376,16 @@ public class ArraysX {
 		return list;
 	}
 
+	/**
+	 * @param start
+	 *            The first value in the list
+	 * @param end
+	 *            The last value in the list
+	 * @param step
+	 *            The distance between sequential values
+	 * @return A sequential list of every "{@code step}"th value from
+	 *         {@code start} to {@code end} inclusive
+	 */
 	public static int[] list(int start, int end, int step) {
 		int[] list = new int[(end - start + 1) / step];
 
@@ -359,6 +395,14 @@ public class ArraysX {
 		return list;
 	}
 
+	/**
+	 * @param start
+	 *            The first byte in the list
+	 * @param end
+	 *            the last byte in the list
+	 * @return A sequential list of bytes from {@code start} to {@code end}
+	 *         inclusive.
+	 */
 	public static long[] list(long start, long end) {
 		long[] list = new long[(int) (end - start + 1)];
 
@@ -368,6 +412,16 @@ public class ArraysX {
 		return list;
 	}
 
+	/**
+	 * @param start
+	 *            The first value in the list
+	 * @param end
+	 *            The last value in the list
+	 * @param step
+	 *            The distance between sequential values
+	 * @return A sequential list of every "{@code step}"th value from
+	 *         {@code start} to {@code end} inclusive
+	 */
 	public static long[] list(long start, long end, long step) {
 		long[] list = new long[(int) ((end - start + 1) / step)];
 
@@ -377,6 +431,14 @@ public class ArraysX {
 		return list;
 	}
 
+	/**
+	 * @param start
+	 *            The first byte in the list
+	 * @param end
+	 *            the last byte in the list
+	 * @return A sequential list of bytes from {@code start} to {@code end}
+	 *         inclusive.
+	 */
 	public static short[] list(short start, short end) {
 		short[] list = new short[end - start + 1];
 
@@ -386,6 +448,16 @@ public class ArraysX {
 		return list;
 	}
 
+	/**
+	 * @param start
+	 *            The first value in the list
+	 * @param end
+	 *            The last value in the list
+	 * @param step
+	 *            The distance between sequential values
+	 * @return A sequential list of every "{@code step}"th value from
+	 *         {@code start} to {@code end} inclusive
+	 */
 	public static short[] list(short start, short end, short step) {
 		short[] list = new short[(end - start + 1) / step];
 
@@ -395,6 +467,16 @@ public class ArraysX {
 		return list;
 	}
 
+	/**
+	 * @param start
+	 *            The first value in the list
+	 * @param end
+	 *            The last value in the list
+	 * @param step
+	 *            The distance between sequential values
+	 * @return A sequential list of every "{@code step}"th value from
+	 *         {@code start} to {@code end} inclusive
+	 */
 	public static float[] list(float start, float end, float step) {
 		float[] list = new float[(int) ((end - start + 1) / step)];
 
@@ -404,6 +486,16 @@ public class ArraysX {
 		return list;
 	}
 
+	/**
+	 * @param start
+	 *            The first value in the list
+	 * @param end
+	 *            The last value in the list
+	 * @param step
+	 *            The distance between sequential values
+	 * @return A sequential list of every "{@code step}"th value from
+	 *         {@code start} to {@code end} inclusive
+	 */
 	public static double[] list(double start, double end, double step) {
 		double[] list = new double[(int) ((end - start + 1) / step)];
 
@@ -521,8 +613,8 @@ public class ArraysX {
 	}
 
 	/**
-	 * @return A copy of the supplied array of Objects with the nth value
-	 *         removed
+	 * @return A copy of the supplied array of {@link Object}s with the nth
+	 *         value removed
 	 */
 	public static Object[] remove(Object[] objects, int n) {
 		Object[] list = new Object[objects.length - 1];
@@ -552,8 +644,8 @@ public class ArraysX {
 	}
 
 	/**
-	 * @return A copy of the supplied array of Strings with the nth value
-	 *         removed
+	 * @return A copy of the supplied array of {@link String}s with the nth
+	 *         value removed
 	 */
 	public static String[] remove(String[] strings, int n) {
 		String[] list = new String[strings.length - 1];
@@ -707,8 +799,8 @@ public class ArraysX {
 	}
 
 	/**
-	 * @return A copy of the supplied varargs/array of Objects with its values
-	 *         reversed
+	 * @return A copy of the supplied varargs/array of {@link Object}s with its
+	 *         values reversed
 	 */
 	public static Object[] reverse(Object... src) {
 		int a = 0;
@@ -747,8 +839,8 @@ public class ArraysX {
 	}
 
 	/**
-	 * @return A copy of the supplied varargs/array of Strings with its values
-	 *         reversed
+	 * @return A copy of the supplied varargs/array of {@link String}s with its
+	 *         values reversed
 	 */
 	public static String[] reverse(String... src) {
 		int a = 0;
@@ -863,8 +955,8 @@ public class ArraysX {
 	}
 
 	/**
-	 * @return A copy of the supplied varargs/array of Objects with its values
-	 *         shuffled
+	 * @return A copy of the supplied varargs/array of {@link Object}s with its
+	 *         values shuffled
 	 */
 	public static Object[] shuffle(Object... objects) {
 		for (int a = objects.length - 1; a > 0; a--) {
@@ -895,8 +987,8 @@ public class ArraysX {
 	}
 
 	/**
-	 * @return A copy of the supplied varargs/array of Strings with its values
-	 *         shuffled
+	 * @return A copy of the supplied varargs/array of {@link String}s with its
+	 *         values shuffled
 	 */
 	public static String[] shuffle(String... strings) {
 		for (int a = strings.length - 1; a > 0; a--) {
@@ -1093,8 +1185,8 @@ public class ArraysX {
 	}
 
 	/**
-	 * @return A copy of the supplied varargs/array of Strings with its values
-	 *         sorted
+	 * @return A copy of the supplied varargs/array of {@link String}s with its
+	 *         values sorted
 	 */
 	public static String[] sort(String... strings) {
 		int min;

@@ -9,55 +9,77 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filter;
 
+import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.util.Pixel;
 import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
+ * A {@link Filter} which applies an desaturation or oversaturation effect to
+ * the {@link Sprite}.
+ * 
  * @author Christian Bryce Alexander
  * @since Dec 14, 2015, 5:56:57 AM
  */
 public class SaturationFilter implements Filter {
-	private float factor;
+	private float saturation;
 
-	public SaturationFilter(float factor) {
-		this.factor = MathX.clamp(factor, -1f, 1f);
+	/**
+	 * Creates a new {@link SaturationFilter}.
+	 *
+	 * @param saturation
+	 *            The amount of saturation ({@code -1f} is fully desaturated,
+	 *            {@code 1f} is fully oversaturated)
+	 */
+	public SaturationFilter(float saturation) {
+		this.saturation = MathX.clamp(saturation, -1f, 1f);
+	}
+
+	/**
+	 * Sets the saturation factor.
+	 *
+	 * @param saturation
+	 *            The amount of saturation ({@code -1f} is fully desaturated,
+	 *            {@code 1f} is fully oversaturated)
+	 */
+	public void setFactor(float saturation) {
+		this.saturation = MathX.clamp(saturation, -1f, 1f);
 	}
 
 	@Override
 	public void apply(int width, int height, int[] pixels) {
-		if (factor == 0f)
+		if (saturation == 0f)
 			return;
 
 		for (int i = 0; i < pixels.length; i++) {
-			int[] argb = Pixel.splitIntARGB(pixels[i]);
+			float[] argb = Pixel.splitFloatARGB(pixels[i]);
 
-			if (factor > 0) {
-				int rLim = argb[1] >= 128 ? 255 : 0;
-				int gLim = argb[2] >= 128 ? 255 : 0;
-				int bLim = argb[3] >= 128 ? 255 : 0;
+			if (saturation > 0) {
+				float rLim = argb[1] >= 0.5f ? 1f : 0f;
+				float gLim = argb[2] >= 0.5f ? 1f : 0f;
+				float bLim = argb[3] >= 0.5f ? 1f : 0f;
 
-				int rDiff = rLim - argb[1];
-				int gDiff = gLim - argb[2];
-				int bDiff = bLim - argb[3];
+				float rDiff = rLim - argb[1];
+				float gDiff = gLim - argb[2];
+				float bDiff = bLim - argb[3];
 
-				argb[1] += rDiff * factor;
-				argb[2] += gDiff * factor;
-				argb[3] += bDiff * factor;
+				argb[1] += rDiff * saturation;
+				argb[2] += gDiff * saturation;
+				argb[3] += bDiff * saturation;
 			}
 			else {
-				int avg = (int) MathX.average((float) argb[1], (float) argb[2], (float) argb[3]);
+				float avg = (float) MathX.average(argb[1], argb[2], argb[3]);
 
-				int rDiff = avg - argb[1];
-				int gDiff = avg - argb[2];
-				int bDiff = avg - argb[3];
+				float rDiff = avg - argb[1];
+				float gDiff = avg - argb[2];
+				float bDiff = avg - argb[3];
 
-				argb[1] += rDiff * -factor;
-				argb[2] += gDiff * -factor;
-				argb[3] += bDiff * -factor;
+				argb[1] += rDiff * -saturation;
+				argb[2] += gDiff * -saturation;
+				argb[3] += bDiff * -saturation;
 			}
 
 			pixels[i] = Pixel.mergeARGB(argb);

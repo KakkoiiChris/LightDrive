@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
@@ -17,6 +17,9 @@ import net.alexanderdev.lightdrive.util.ArraysX;
 import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
+ * An enumeration of most standard gray-scale modes, and their respective
+ * algorithms, in the form of {@link GrayscaleOp}s.
+ * 
  * @author Christian Bryce Alexander
  * @since Jan 19, 2016, 12:30:37 PM
  */
@@ -43,7 +46,7 @@ public enum GrayscaleMode {
 	LIGHTNESS    ((r, g, b) -> (int) MathX.average(MathX.min(r, g, b), MathX.max(r, g, b))),
 	/**
 	 * Sums percentages of each channel together based on how the human eye
-	 * percieves color.
+	 * perceives color.
 	 */
 	LUMINOSITY   ((r, g, b) -> (int) MathX.clamp((r * 0.2126f) + (g * 0.7152f) + (b * 0.0722f), 0, 255)),
 	/**
