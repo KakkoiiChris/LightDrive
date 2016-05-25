@@ -17,7 +17,7 @@ package net.alexanderdev.lightdrive.util;
  * A collection of time keeping methods.
  * 
  * @author Christian Bryce Alexander
- * @since Jun 5, 2015 | 1:27:45 AM
+ * @since Jun 5, 2015, 1:27:45 AM
  */
 public final class Time {
 	/**

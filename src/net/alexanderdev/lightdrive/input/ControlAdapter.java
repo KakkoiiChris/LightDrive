@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.input;
 

@@ -24,6 +24,9 @@ import net.alexanderdev.lightdrive.util.math.MathX;
  * @since Apr 23, 2016, 9:12:14 PM
  */
 public class BlurFilter implements Filter {
+	/**
+	 * An evenly distributed 3x3 kernel.
+	 */
 	public static final float[][] SMALL_KERNEL = {
 	    {
 	        1f / 9f, 1f / 9f, 1f / 9f
@@ -33,7 +36,9 @@ public class BlurFilter implements Filter {
 		    1f / 9f, 1f / 9f, 1f / 9f
 		}
 	};
-
+	/**
+	 * An evenly distributed 5x5 kernel.
+	 */
 	public static final float[][] MEDIUM_KERNEL = {
 	    {
 	        1f / 25f, 1f / 25f, 1f / 25f, 1f / 25f, 1f / 25f
@@ -47,7 +52,9 @@ public class BlurFilter implements Filter {
 		    1f / 25f, 1f / 25f, 1f / 25f, 1f / 25f, 1f / 25f
 		}
 	};
-
+	/**
+	 * An evenly distributed 7x7 kernel.
+	 */
 	public static final float[][] LARGE_KERNEL = {
 	    {
 	        1 / 49, 1 / 49, 1 / 49, 1 / 49, 1 / 49, 1 / 49, 1 / 49
@@ -68,8 +75,23 @@ public class BlurFilter implements Filter {
 
 	private float[][] kernel;
 
+	/**
+	 * Creates a new {@link BlurFilter} with the specified blurring kernel.
+	 *
+	 * @param kernel
+	 *            The kernel to set
+	 */
 	public BlurFilter(float[][] kernel) {
 		this.kernel = kernel;
+	}
+
+	/**
+	 * Sets the blurring kernel for this {@link BlurFilter}.
+	 *
+	 * @param kernel
+	 *            The kernel to set
+	 */
+	public void setKernel(float[][] kernel) {
 	}
 
 	@Override

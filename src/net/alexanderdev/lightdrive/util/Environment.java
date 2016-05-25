@@ -128,8 +128,8 @@ public class Environment {
 	}
 
 	/**
-	 * @return The maximum {@link Display}/{@link Window} scale so that it will fit on the
-	 *         current monitor.
+	 * @return The maximum {@link Display} or {@link Window} scale so that it
+	 *         will fit on the current monitor.
 	 */
 	public static int getMaximumScale(int width, int height) {
 		int pw = getPhysicalWidth();

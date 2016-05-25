@@ -42,10 +42,10 @@ public interface Controllable {
 	public void mouseInput(Mouse mouse);
 
 	/**
-	 * Enables direct use of the {@link Viewable}'s game pads
+	 * Enables direct use of the {@link Viewable}'s game pads.
 	 * 
 	 * @param gamepad
-	 *            A gamepad from the {@link Viewable}
+	 *            A game pad from the {@link Viewable}
 	 */
 	public void gamepadInput(Gamepad gamepad);
 }

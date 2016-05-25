@@ -46,6 +46,8 @@ public class CSV {
 	 *
 	 * @param line
 	 *            The line to parse
+	 * @param radix
+	 *            The base of the numbers to parse
 	 * @return An array of every {@code byte} parsed from the line
 	 */
 	public static byte[] parseBytes(String line, int radix) {
@@ -136,6 +138,8 @@ public class CSV {
 	 *
 	 * @param line
 	 *            The line to parse
+	 * @param radix
+	 *            The base of the numbers to parse
 	 * @return An array of every {@code int} parsed from the line
 	 */
 	public static int[] parseInts(String line, int radix) {
@@ -172,6 +176,8 @@ public class CSV {
 	 *
 	 * @param line
 	 *            The line to parse
+	 * @param radix
+	 *            The base of the numbers to parse
 	 * @return An array of every {@code long} parsed from the line
 	 */
 	public static long[] parseLongs(String line, int radix) {
@@ -208,6 +214,8 @@ public class CSV {
 	 *
 	 * @param line
 	 *            The line to parse
+	 * @param radix
+	 *            The base of the numbers to parse
 	 * @return An array of every {@code short} parsed from the line
 	 */
 	public static short[] parseShorts(String line, int radix) {

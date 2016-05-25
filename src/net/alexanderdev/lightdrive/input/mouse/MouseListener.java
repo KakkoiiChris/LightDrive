@@ -21,7 +21,7 @@ import net.alexanderdev.lightdrive.view.Viewable;
  * {@link Mouse} input.
  * 
  * @author Christian Bryce Alexander
- * @since March 8, 2015 | 1:15:57 AM
+ * @since March 8, 2015, 1:15:57 AM
  */
 @FunctionalInterface
 public interface MouseListener {

@@ -13,7 +13,12 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filter;
 
+import net.alexanderdev.lightdrive.graphics.Sprite;
+
 /**
+ * A {@link Filter} which replaces one set of colors in a {@link Sprite} with another
+ * set of colors.
+ * 
  * @author Christian Bryce Alexander
  * @since Jan 6, 2016, 6:08:49 PM
  */

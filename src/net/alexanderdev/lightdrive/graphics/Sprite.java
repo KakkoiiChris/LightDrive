@@ -25,13 +25,13 @@ import net.alexanderdev.lightdrive.util.Pixel;
  * advanced color manipulation.
  * 
  * @author Christian Bryce Alexander
- * @since Apr 15, 2015 | 12:22:40 AM
+ * @since Apr 15, 2015, 12:22:40 AM
  */
 public class Sprite extends BufferedImage implements Cloneable {
 	private int[] pixels;
 
 	/**
-	 * Creates a new {@code Sprite} from the {@link BufferedImage}.
+	 * Creates a new {@link Sprite} from the {@link BufferedImage}.
 	 *
 	 * @param image
 	 *            The image to copy
@@ -47,7 +47,7 @@ public class Sprite extends BufferedImage implements Cloneable {
 	}
 
 	/**
-	 * Creates a blank {@code ImageS} of the specified size.
+	 * Creates a blank {@link Sprite} of the specified size.
 	 * 
 	 * @param width
 	 *            The width of the image to create
@@ -60,15 +60,31 @@ public class Sprite extends BufferedImage implements Cloneable {
 		pixels = ((DataBufferInt) this.getRaster().getDataBuffer()).getData();
 	}
 
+	/**
+	 * Sets all the pixels in the {@link Sprite} to the specified color.
+	 * 
+	 * @param color
+	 *            The color to set
+	 */
 	public void clear(int color) {
 		for (int i = 0; i < pixels.length; i++)
 			pixels[i] = color;
 	}
 
+	/**
+	 * Sets all the pixels in the {@link Sprite} to 0x00000000.
+	 */
 	public void clear() {
 		clear(0);
 	}
 
+	/**
+	 * @param x
+	 *            The x coordinate to check
+	 * @param y
+	 *            The y coordinate to check
+	 * @return The pixel value at the specified coordinates
+	 */
 	public int getPixel(int x, int y) {
 		return pixels[x + y * getWidth()];
 	}
@@ -78,18 +94,18 @@ public class Sprite extends BufferedImage implements Cloneable {
 	 * given color
 	 * 
 	 * @param x
-	 *            X coordinate to set
+	 *            The x coordinate to set
 	 * @param y
-	 *            Y coordinate to set
+	 *            The y coordinate to set
 	 * @param color
 	 *            Integer rgb value to set the pixel to
 	 */
-	public final void setPixel(int x, int y, int color) {
+	public void setPixel(int x, int y, int color) {
 		pixels[x + y * getWidth()] = color;
 	}
 
 	/**
-	 * Sets the pixel in this image at the given index of this {@code ImageS}'s
+	 * Sets the pixel in this image at the given index of this {@link Sprite}'s
 	 * pixel data buffer to the given color
 	 * 
 	 * @param i
@@ -97,17 +113,17 @@ public class Sprite extends BufferedImage implements Cloneable {
 	 * @param color
 	 *            Integer rgb value to set the pixel to
 	 */
-	public final void setPixel(int i, int color) {
+	public void setPixel(int i, int color) {
 		pixels[i] = color;
 	}
 
 	/**
-	 * Apply a filter to this {@code Sprite}'s pixels.
+	 * Apply a filter to this {@link Sprite}'s pixels.
 	 *
 	 * @param filters
 	 *            A varargs list of filters to apply
 	 */
-	public final void filter(Filter... filters) {
+	public void filter(Filter... filters) {
 		for (Filter filter : filters)
 			filter.apply(getWidth(), getHeight(), pixels);
 	}
@@ -115,9 +131,9 @@ public class Sprite extends BufferedImage implements Cloneable {
 	/**
 	 * @param filters
 	 *            A varargs list of filters to apply
-	 * @return A filtered copy of this {@code Sprite}
+	 * @return A filtered copy of this {@link Sprite}
 	 */
-	public final Sprite filtered(Filter... filters) {
+	public Sprite filtered(Filter... filters) {
 		Sprite copy = clone();
 
 		copy.filter(filters);
@@ -125,16 +141,31 @@ public class Sprite extends BufferedImage implements Cloneable {
 		return copy;
 	}
 
-	public final void blend(Sprite sprite, BlendMode mode) {
+	/**
+	 * Blends another {@link Sprite} with this {@link Sprite}.
+	 * 
+	 * @param sprite
+	 *            The {@link Sprite} to blend
+	 * @param mode
+	 *            The {@link BlendMode} to use
+	 */
+	public void blend(Sprite sprite, BlendMode mode) {
 		for (int y = 0; y < getHeight(); y++) {
 			for (int x = 0; x < getWidth(); x++) {
-				pixels[x + y * getWidth()] = blendRGB(mode, pixels[x + y * getWidth()],
+				pixels[x + y * getWidth()] = Pixel.blendRGB(mode, pixels[x + y * getWidth()],
 				    sprite.pixels[(x % sprite.getWidth()) + (y % sprite.getHeight()) * getWidth()]);
 			}
 		}
 	}
 
-	public final Sprite blended(Sprite sprite, BlendMode mode) {
+	/**
+	 * @param sprite
+	 *            The {@link Sprite} to blend
+	 * @param mode
+	 *            The {@link BlendMode} to use
+	 * @return A blended copy of this {@link Sprite}
+	 */
+	public Sprite blended(Sprite sprite, BlendMode mode) {
 		Sprite copy = clone();
 
 		copy.blend(sprite, mode);
@@ -142,19 +173,8 @@ public class Sprite extends BufferedImage implements Cloneable {
 		return copy;
 	}
 
-	private int blendRGB(BlendMode mode, int colorA, int colorB) {
-		float[] target = Pixel.splitFloatARGB(colorA);
-
-		float[] blend = Pixel.splitFloatARGB(colorB);
-
-		for (int j = 1; j < target.length; j++)
-			target[j] = mode.getOperation().apply(target[j], blend[j]);
-
-		return Pixel.mergeARGB(target);
-	}
-
 	@Override
-	public final Sprite getSubimage(int x, int y, int width, int height) {
+	public Sprite getSubimage(int x, int y, int width, int height) {
 		return new Sprite(super.getSubimage(x, y, width, height));
 	}
 

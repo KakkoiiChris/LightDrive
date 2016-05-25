@@ -29,7 +29,7 @@ public interface GrayscaleOp {
 	 *            The green channel
 	 * @param b
 	 *            The blue channel
-	 * @return The grayscale value of the channels
+	 * @return The gray-scale value of the channels
 	 */
 	public int apply(int r, int g, int b);
 }

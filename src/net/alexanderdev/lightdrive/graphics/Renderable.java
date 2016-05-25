@@ -20,7 +20,7 @@ import net.alexanderdev.lightdrive.view.Viewable;
  * representable on a {@link Viewable} should implement.
  * 
  * @author Christian Bryce Alexander
- * @since Jun 11, 2015 | 2:49:57 AM
+ * @since Jun 11, 2015, 2:49:57 AM
  */
 public interface Renderable {
 	/**

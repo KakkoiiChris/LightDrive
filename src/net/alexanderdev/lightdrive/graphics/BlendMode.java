@@ -100,7 +100,7 @@ public enum BlendMode {
 
 	/**
 	 * @return The {@link BlendOp} associated with this standard
-	 *         {@code BlendMode}
+	 *         {@link BlendMode}
 	 */
 	public BlendOp getOperation() {
 		return operation;

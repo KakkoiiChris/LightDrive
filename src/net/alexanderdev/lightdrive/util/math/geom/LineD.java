@@ -19,7 +19,7 @@ import java.awt.geom.Line2D;
  * A simple wrapper class for {@link Line2D.Double}.
  * 
  * @author Christian Bryce Alexander
- * @since Jul 6, 2015 | 1:42:29 AM
+ * @since Jul 6, 2015, 1:42:29 AM
  */
 public class LineD extends Line2D.Double implements Cloneable {
 	private static final long serialVersionUID = 8782250485132923391L;

@@ -19,7 +19,7 @@ import java.awt.geom.Line2D;
  * A simple wrapper class for {@link Line2D.Float}.
  * 
  * @author Christian Bryce Alexander
- * @since Jul 6, 2015 | 1:38:56 AM
+ * @since Jul 6, 2015, 1:38:56 AM
  */
 public class LineF extends Line2D.Float implements Cloneable {
 	private static final long serialVersionUID = -496939973883568734L;

@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
 /**
  * Annotation used for indicating that a certain method should be considered
  * internal to the library, and that directly invoking such a method could have
- * unfavorable results.
+ * unfavorable or unexpected results.
  * 
  * @author Christian Bryce Alexander
  * @since Jan 19, 2016, 2:01:36 AM

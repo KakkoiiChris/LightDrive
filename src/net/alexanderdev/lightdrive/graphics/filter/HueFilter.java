@@ -54,7 +54,7 @@ public class HueFilter implements Filter {
 
 			float[] values = Color.RGBtoHSB(argb[1], argb[2], argb[3], null);
 
-			pixels[i] = Color.HSBtoRGB(values[0] + hue, values[1], values[2]);
+			pixels[i] = (argb[0] << 24) | Color.HSBtoRGB(values[0] + hue, values[1], values[2]);
 		}
 	}
 }

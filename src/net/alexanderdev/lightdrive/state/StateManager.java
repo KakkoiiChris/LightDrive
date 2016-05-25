@@ -27,11 +27,12 @@ import net.alexanderdev.lightdrive.util.UID;
 import net.alexanderdev.lightdrive.view.Viewable;
 
 /**
- * A class that the display uses to separate different states of the game from
- * each other, and allows for ease of switching between them
+ * A class used by all {@link Viewable}s to separate the logic of different
+ * {@link State}s of the game from each other, while allowing them to be
+ * switched instantaneously, and to briefly communicate with each other.
  * 
  * @author Christian Bryce Alexander
- * @since March 6, 2015 | 3:03:32 AM
+ * @since March 6, 2015, 3:03:32 AM
  */
 public class StateManager implements Renderable, Controllable {
 	private static final String DEFAULT_STATE = "light_drive_default_state";

@@ -25,12 +25,14 @@ import net.alexanderdev.lightdrive.input.keyboard.Keyboard;
 import net.alexanderdev.lightdrive.input.keyboard.KeyboardListener;
 import net.alexanderdev.lightdrive.input.mouse.Mouse;
 import net.alexanderdev.lightdrive.input.mouse.MouseListener;
+import net.alexanderdev.lightdrive.view.Viewable;
 
 /**
- * A class which holds the logic for representing a particular state in a game.
+ * A class which holds the logic for representing a particular <i>'state'</i> in
+ * a game.
  * 
  * @author Christian Bryce Alexander
- * @since March 6, 2015 | 3:03:42 AM
+ * @since March 6, 2015, 3:03:42 AM
  */
 public abstract class State implements Controllable, Renderable {
 	private StateManager manager;
@@ -42,7 +44,7 @@ public abstract class State implements Controllable, Renderable {
 	private List<GamepadListener> gamepadListeners = new ArrayList<>();
 
 	/**
-	 * @return The {@link StateManager} associated with this {@link State}.
+	 * @return The {@link StateManager} associated with this {@link State}
 	 */
 	public final StateManager getManager() {
 		return manager;
@@ -50,6 +52,9 @@ public abstract class State implements Controllable, Renderable {
 
 	/**
 	 * Associates a {@link StateManager} with this {@link State}.
+	 * 
+	 * @param manager
+	 *            The {@link StateManager} to associate
 	 */
 	@InternalMethod
 	public final void setManager(StateManager manager) {
@@ -77,8 +82,7 @@ public abstract class State implements Controllable, Renderable {
 	}
 
 	/**
-	 * Removes all instances of {@link KeyboardListener} from this {@link State}
-	 * .
+	 * Removes all {@link KeyboardListener} instances from this {@link State}.
 	 */
 	public final void clearKeyboardListeners() {
 		keyboardListeners.clear();
@@ -86,6 +90,9 @@ public abstract class State implements Controllable, Renderable {
 
 	/**
 	 * Runs all {@link KeyboardListener}s on the specified {@link Keyboard}.
+	 * 
+	 * @param keyboard
+	 *            The {@link StateManager}'s {@link Viewable}'s {@link Keyboard}
 	 */
 	@InternalMethod
 	public final void keyboardInput(Keyboard keyboard) {
@@ -115,7 +122,7 @@ public abstract class State implements Controllable, Renderable {
 	}
 
 	/**
-	 * Removes all instances of {@link MouseListener} from this {@link State}.
+	 * Removes all {@link MouseListener} instances from this {@link State}.
 	 */
 	public final void clearMouseListeners() {
 		mouseListeners.clear();
@@ -123,6 +130,9 @@ public abstract class State implements Controllable, Renderable {
 
 	/**
 	 * Runs all {@link MouseListener}s on the specified {@link Mouse}.
+	 * 
+	 * @param mouse
+	 *            The {@link StateManager}'s {@link Viewable}'s {@link Mouse}
 	 */
 	@InternalMethod
 	public final void mouseInput(Mouse mouse) {
@@ -152,7 +162,7 @@ public abstract class State implements Controllable, Renderable {
 	}
 
 	/**
-	 * Removes all instances of {@link GamepadListener} from this {@link State}.
+	 * Removes all {@link GamepadListener} instances from this {@link State}.
 	 */
 	public final void clearGamepadListeners() {
 		gamepadListeners.clear();
@@ -160,6 +170,9 @@ public abstract class State implements Controllable, Renderable {
 
 	/**
 	 * Runs all {@link GamepadListener}s on the specified {@link Gamepad}.
+	 * 
+	 * @param gamepad
+	 *            The {@link StateManager}'s {@link Viewable}'s {@link Gamepad}
 	 */
 	@InternalMethod
 	public final void gamepadInput(Gamepad gamepad) {

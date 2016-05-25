@@ -18,7 +18,7 @@ package net.alexanderdev.lightdrive.graphics;
  * from a {@link Sprite}.
  * 
  * @author Christian Bryce Alexander
- * @since March 12, 2015 | 6:17:05 PM
+ * @since March 12, 2015, 6:17:05 PM
  */
 public class SpriteSheet implements Cloneable {
 	private Sprite[][] sprites;
@@ -44,8 +44,8 @@ public class SpriteSheet implements Cloneable {
 	}
 
 	/**
-	 * Creates a sprite sheet from the specified sheet with sprites of the
-	 * specified size
+	 * Creates a sprite sheet from the specified sheet with {@link Sprite}s of
+	 * the specified size.
 	 *
 	 * @param sheet
 	 *            The source {@link Sprite}
@@ -55,7 +55,6 @@ public class SpriteSheet implements Cloneable {
 	 *            Height of all {@link Sprite}s
 	 * @throws IllegalArgumentException
 	 */
-
 	public SpriteSheet(Sprite sheet, int spriteWidth, int spriteHeight) {
 		this.width = sheet.getWidth();
 		this.height = sheet.getHeight();
@@ -64,21 +63,21 @@ public class SpriteSheet implements Cloneable {
 
 		if (width < spriteWidth)
 			throw new IllegalArgumentException(String
-					.format("Sprites of width %d cannot be generated from an image of width %d.", spriteWidth, width));
+			    .format("Sprites of width %d cannot be generated from an image of width %d.", spriteWidth, width));
 
 		if (height < spriteHeight)
-			throw new IllegalArgumentException(String.format(
-					"Sprites of height %d cannot be generated from an image of height %d.", spriteHeight, height));
+			throw new IllegalArgumentException(String
+			    .format("Sprites of height %d cannot be generated from an image of height %d.", spriteHeight, height));
 
 		if (width % spriteWidth != 0) {
 			System.err.printf("WARNING: Sprites of width %d will not divide an image of width %d evenly.\n",
-					spriteWidth, width);
+			    spriteWidth, width);
 			Thread.dumpStack();
 		}
 
 		if (height % spriteHeight != 0) {
 			System.err.printf("WARNING: Sprites of height %d will not divide an image of height %d evenly.\n",
-					spriteHeight, height);
+			    spriteHeight, height);
 			Thread.dumpStack();
 		}
 
@@ -93,7 +92,7 @@ public class SpriteSheet implements Cloneable {
 	}
 
 	/**
-	 * @return The number of rows of {@link Sprite}s in this {@code SpriteSheet}
+	 * @return The number of rows of {@link Sprite}s in this {@link SpriteSheet}
 	 */
 	public int getRows() {
 		return rows;
@@ -101,35 +100,35 @@ public class SpriteSheet implements Cloneable {
 
 	/**
 	 * @return The number of columns of {@link Sprite}s in this
-	 *         {@code SpriteSheet}
+	 *         {@link SpriteSheet}
 	 */
 	public int getCols() {
 		return cols;
 	}
 
 	/**
-	 * @return The width of this {@code SpriteSheet}
+	 * @return The width of this {@link SpriteSheet}
 	 */
 	public int getWidth() {
 		return width;
 	}
 
 	/**
-	 * @return The height of this {@code SpriteSheet}
+	 * @return The height of this {@link SpriteSheet}
 	 */
 	public int getHeight() {
 		return height;
 	}
 
 	/**
-	 * @return The width of the {@link Sprite}s in this {@code SpriteSheet}
+	 * @return The width of the {@link Sprite}s in this {@link SpriteSheet}
 	 */
 	public int getSpriteWidth() {
 		return spriteWidth;
 	}
 
 	/**
-	 * @return The height of the {@link Sprite}s in this {@code SpriteSheet}
+	 * @return The height of the {@link Sprite}s in this {@link SpriteSheet}
 	 */
 	public int getSpriteHeight() {
 		return spriteHeight;
@@ -160,7 +159,6 @@ public class SpriteSheet implements Cloneable {
 	 *  8 | 9 |10 |11
 	 *    |   |   |
 	 * </pre>
-	 * 
 	 * 
 	 * @return The "i"th {@link Sprite} on the sheet, which wraps around
 	 *         horizontally

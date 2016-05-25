@@ -26,7 +26,7 @@ import net.alexanderdev.lightdrive.graphics.Sprite;
  * A class for loading images from a source folder.
  * 
  * @author Christian Bryce Alexander
- * @since March 12, 2015 | 6:25:06 PM
+ * @since March 12, 2015, 6:25:06 PM
  */
 public class SpriteIO {
 	private static String path = "";
@@ -41,7 +41,7 @@ public class SpriteIO {
 	public static void setPath(String path) {
 		SpriteIO.path = path;
 	}
-
+	
 	/**
 	 * Loads an image from the specified path to a {@link Sprite}. The extension
 	 * is automatically appended.
@@ -49,19 +49,8 @@ public class SpriteIO {
 	 * @param name
 	 *            The name of the image to load
 	 */
-	public static Sprite loadPNG(String name) {
-		return load(name, "png");
-	}
-
-	/**
-	 * Loads an image from the specified path to a {@link Sprite}. The extension
-	 * is automatically appended.
-	 * 
-	 * @param name
-	 *            The name of the image to load
-	 */
-	public static Sprite loadTIFF(String name) {
-		return load(name, "tif", "tiff");
+	public static Sprite loadBMP(String name) {
+		return load(name, "bmp");
 	}
 
 	/**
@@ -93,10 +82,21 @@ public class SpriteIO {
 	 * @param name
 	 *            The name of the image to load
 	 */
-	public static Sprite loadBMP(String name) {
-		return load(name, "bmp");
+	public static Sprite loadPNG(String name) {
+		return load(name, "png");
 	}
 
+	/**
+	 * Loads an image from the specified path to a {@link Sprite}. The extension
+	 * is automatically appended.
+	 * 
+	 * @param name
+	 *            The name of the image to load
+	 */
+	public static Sprite loadTIFF(String name) {
+		return load(name, "tif", "tiff");
+	}
+	
 	/**
 	 * Loads an animated GIF from the specified path, and extracts its frames
 	 * into an array of {@link Sprite}s.
@@ -144,7 +144,7 @@ public class SpriteIO {
 
 		return frames;
 	}
-
+	
 	private static Sprite load(String name, String... exts) {
 		BufferedImage image = null;
 

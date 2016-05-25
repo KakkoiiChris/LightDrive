@@ -21,7 +21,7 @@ import java.awt.geom.Ellipse2D;
  * A simple wrapper class for {@link Ellipse2D.Float}.
  * 
  * @author Christian Bryce Alexander
- * @since Apr 26, 2015 | 1:02:33 AM
+ * @since Apr 26, 2015, 1:02:33 AM
  */
 public class EllipseF extends Ellipse2D.Float implements Cloneable {
 	private static final long serialVersionUID = -6768308190202483835L;

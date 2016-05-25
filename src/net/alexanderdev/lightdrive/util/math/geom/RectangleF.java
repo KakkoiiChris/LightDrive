@@ -21,7 +21,7 @@ import java.awt.geom.Rectangle2D;
  * A simple wrapper class for {@link Rectangle2D.Float}.
  * 
  * @author Christian Bryce Alexander
- * @since Jun 5, 2015 | 5:35:32 PM
+ * @since Jun 5, 2015, 5:35:32 PM
  */
 public class RectangleF extends Rectangle2D.Float implements Cloneable {
 	private static final long serialVersionUID = -6901034585863979972L;

@@ -57,11 +57,20 @@ public class ViewConstants {
 	public static final Image DEFAULT_ICON = loadDefaultIcon();
 
 	//////// VIEW CONFIG PRESETS////////
-	public static final ViewMode NINTENDO_GAMEBOY = new ViewMode(160, 144, 59.70);
-
-	public static final ViewMode NINTENDO_GAMEBOY_ADVANCE = new ViewMode(240, 144, 59.73);
-
-	public static final ViewMode NINTENDO_ENTERTAINMENT_SYSTEM = new ViewMode(256, 240, 59.71);
+	/**
+	 * A {@link ViewMode} that emulates the feel of the Nintendo Game Boy.
+	 */
+	public static final ViewMode NGB = new ViewMode(160, 144, 59.70);
+	/**
+	 * A {@link ViewMode} that emulates the feel of the Nintendo Game Boy
+	 * Advance.
+	 */
+	public static final ViewMode GBA = new ViewMode(240, 160, 59.73);
+	/**
+	 * A {@link ViewMode} that emulates the feel of the Nintendo Entertainment
+	 * System.
+	 */
+	public static final ViewMode NES = new ViewMode(256, 240, 59.71);
 
 	//////// CURSORS////////
 	/**

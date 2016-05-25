@@ -39,12 +39,14 @@ import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
 import java.util.Map;
 
+import net.alexanderdev.lightdrive.util.math.geom.RectangleD;
 import net.alexanderdev.lightdrive.util.math.geom.RectangleF;
 
 /**
  * A class which encapsulates the functionality of {@link Graphics2D}, while
- * adding or modifying methods for some convenient drawing abilities. Such
- * additions and modifications include:
+ * adding or modifying methods for more convenient drawing abilities.<br>
+ * <br>
+ * Such additions and modifications include:
  * <ul>
  * <li>Drawing text which is aligned relative to a {@link Rectangle}</li>
  * <li>Drawing text which takes new-line characters into consideration</li>
@@ -59,7 +61,7 @@ import net.alexanderdev.lightdrive.util.math.geom.RectangleF;
  * @see java.awt.Graphics2D
  * 
  * @author Christian Bryce Alexander
- * @since Apr 24, 2015 | 2:32:23 AM
+ * @since Apr 24, 2015, 2:32:23 AM
  */
 public class GraphicsX {
 	public static enum TextAlign {
@@ -292,6 +294,15 @@ public class GraphicsX {
 		g.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, bgcolor, null);
 	}
 
+	/**
+	 * Draws an image scaled evenly in such a way that it fits centered within
+	 * the specified bounds.
+	 *
+	 * @param img
+	 *            The image to draw
+	 * @param bounds
+	 *            The bounds to scale to
+	 */
 	public void drawImage(Image img, Rectangle bounds) {
 		Rectangle draw;
 
@@ -318,6 +329,80 @@ public class GraphicsX {
 		}
 
 		drawImage(img, draw.x, draw.y, draw.width, draw.height);
+	}
+
+	/**
+	 * Draws an image scaled evenly in such a way that it fits centered within
+	 * the specified bounds.
+	 *
+	 * @param img
+	 *            The image to draw
+	 * @param bounds
+	 *            The bounds to scale to
+	 */
+	public void drawImage(Image img, RectangleF bounds) {
+		RectangleF draw;
+
+		float wi = img.getWidth(null);
+		float hi = img.getHeight(null);
+		float wb = bounds.width;
+		float hb = bounds.height;
+
+		double ratioW = (double) wi / (double) wb;
+		double ratioH = (double) hi / (double) hb;
+
+		if (ratioW > ratioH) {
+			int nhi = (int) (hi / ratioW);
+
+			draw = new RectangleF(0, (hb / 2) - (nhi / 2), wb, nhi);
+		}
+		else if (ratioW < ratioH) {
+			int nwi = (int) (wi / ratioH);
+
+			draw = new RectangleF((wb / 2) - (nwi / 2), 0, nwi, hb);
+		}
+		else {
+			draw = bounds;
+		}
+
+		drawImage(img, (int) draw.x, (int) draw.y, (int) draw.width, (int) draw.height);
+	}
+
+	/**
+	 * Draws an image scaled evenly in such a way that it fits centered within
+	 * the specified bounds.
+	 *
+	 * @param img
+	 *            The image to draw
+	 * @param bounds
+	 *            The bounds to scale to
+	 */
+	public void drawImage(Image img, RectangleD bounds) {
+		RectangleD draw;
+
+		double wi = img.getWidth(null);
+		double hi = img.getHeight(null);
+		double wb = bounds.width;
+		double hb = bounds.height;
+
+		double ratioW = (double) wi / (double) wb;
+		double ratioH = (double) hi / (double) hb;
+
+		if (ratioW > ratioH) {
+			int nhi = (int) (hi / ratioW);
+
+			draw = new RectangleD(0, (hb / 2) - (nhi / 2), wb, nhi);
+		}
+		else if (ratioW < ratioH) {
+			int nwi = (int) (wi / ratioH);
+
+			draw = new RectangleD((wb / 2) - (nwi / 2), 0, nwi, hb);
+		}
+		else {
+			draw = bounds;
+		}
+
+		drawImage(img, (int) draw.x, (int) draw.y, (int) draw.width, (int) draw.height);
 	}
 
 	/**
@@ -487,14 +572,22 @@ public class GraphicsX {
 		}
 	}
 
+	/**
+	 * Draws the given {@link String} center aligned within the
+	 * {@link Rectangle}, with no character spacing.
+	 * 
+	 * @param str
+	 *            The text to draw
+	 * @param bounds
+	 *            The {@link Rectangle} to align the text in
+	 */
 	public void drawString(String str, Rectangle bounds) {
 		drawString(str, bounds, TextAlign.MID_CENTER);
 	}
 
 	/**
-	 * Draws the given {@link String} horizontally left, center, or right
-	 * aligned within the {@link Rectangle}. Uses {@link GraphicsX.TextAlign}.
-	 * 
+	 * Draws the given {@link String} aligned within the {@link Rectangle}, as
+	 * specified by the {@link GraphicsX.TextAlign}, with no character spacing.
 	 * 
 	 * @param str
 	 *            The text to draw
@@ -507,19 +600,36 @@ public class GraphicsX {
 		drawString(str, bounds, 0, 0, align);
 	}
 
-	public void drawString(String str, Rectangle bounds, int xs, int ys) {
-		drawString(str, bounds, xs, ys, TextAlign.MID_CENTER);
-	}
-
 	/**
-	 * Draws the given {@link String} horizontally left, center, or right
-	 * aligned within the {@link Rectangle}. Uses {@link GraphicsX.TextAlign}.
-	 * 
+	 * Draws the given {@link String} center aligned within the
+	 * {@link Rectangle}, with the specified character spacings.
 	 * 
 	 * @param str
 	 *            The text to draw
 	 * @param bounds
 	 *            The {@link Rectangle} to align the text in
+	 * @param xs
+	 *            The horizontal spacing between characters
+	 * @param ys
+	 *            The vertical spacing between lines of text
+	 */
+	public void drawString(String str, Rectangle bounds, int xs, int ys) {
+		drawString(str, bounds, xs, ys, TextAlign.MID_CENTER);
+	}
+
+	/**
+	 * Draws the given {@link String} aligned within the {@link Rectangle}, as
+	 * specified by the {@link GraphicsX.TextAlign}, with the specified
+	 * character spacings.
+	 * 
+	 * @param str
+	 *            The text to draw
+	 * @param bounds
+	 *            The {@link Rectangle} to align the text in
+	 * @param xs
+	 *            The horizontal spacing between characters
+	 * @param ys
+	 *            The vertical spacing between lines of text
 	 * @param align
 	 *            How to horizontally align the text
 	 */
@@ -554,19 +664,27 @@ public class GraphicsX {
 		}
 	}
 
+	/**
+	 * Draws the given {@link String} center aligned within the
+	 * {@link RectangleF}, with no character spacing.
+	 * 
+	 * @param str
+	 *            The text to draw
+	 * @param bounds
+	 *            The {@link RectangleF} to align the text in
+	 */
 	public void drawString(String str, RectangleF bounds) {
 		drawString(str, bounds, TextAlign.MID_CENTER);
 	}
 
 	/**
-	 * Draws the given {@link String} horizontally left, center, or right
-	 * aligned within the {@link Rectangle}. Uses {@link GraphicsX.TextAlign}.
-	 * 
+	 * Draws the given {@link String} aligned within the {@link RectangleF}, as
+	 * specified by the {@link GraphicsX.TextAlign}, with no character spacing.
 	 * 
 	 * @param str
 	 *            The text to draw
 	 * @param bounds
-	 *            The {@link Rectangle} to align the text in
+	 *            The {@link RectangleF} to align the text in
 	 * @param align
 	 *            How to horizontally align the text
 	 */
@@ -574,19 +692,36 @@ public class GraphicsX {
 		drawString(str, bounds, 0, 0, align);
 	}
 
+	/**
+	 * Draws the given {@link String} center aligned within the
+	 * {@link RectangleF}, with the specified character spacings.
+	 * 
+	 * @param str
+	 *            The text to draw
+	 * @param bounds
+	 *            The {@link RectangleF} to align the text in
+	 * @param xs
+	 *            The horizontal spacing between characters
+	 * @param ys
+	 *            The vertical spacing between lines of text
+	 */
 	public void drawString(String str, RectangleF bounds, float xs, float ys) {
 		drawString(str, bounds, xs, ys, TextAlign.MID_CENTER);
 	}
 
 	/**
-	 * Draws the given {@link String} horizontally left, center, or right
-	 * aligned within the {@link Rectangle}. Uses {@link GraphicsX.TextAlign}.
-	 * 
+	 * Draws the given {@link String} aligned within the {@link RectangleF}, as
+	 * specified by the {@link GraphicsX.TextAlign}, with the specified
+	 * character spacings.
 	 * 
 	 * @param str
 	 *            The text to draw
 	 * @param bounds
-	 *            The {@link Rectangle} to align the text in
+	 *            The {@link RectangleF} to align the text in
+	 * @param xs
+	 *            The horizontal spacing between characters
+	 * @param ys
+	 *            The vertical spacing between lines of text
 	 * @param align
 	 *            How to horizontally align the text
 	 */
@@ -616,6 +751,98 @@ public class GraphicsX {
 				x = bounds.x + bounds.width - fm.stringWidth(line) - (xs * (line.length() - 1));
 
 			drawString(line, x, y, xs, 0);
+
+			y += fm.getHeight() + ys;
+		}
+	}
+
+	/**
+	 * Draws the given {@link String} center aligned within the
+	 * {@link RectangleD}, with no character spacing.
+	 * 
+	 * @param str
+	 *            The text to draw
+	 * @param bounds
+	 *            The {@link RectangleD} to align the text in
+	 */
+	public void drawString(String str, RectangleD bounds) {
+		drawString(str, bounds, TextAlign.MID_CENTER);
+	}
+
+	/**
+	 * Draws the given {@link String} aligned within the {@link RectangleD}, as
+	 * specified by the {@link GraphicsX.TextAlign}, with no character spacing.
+	 * 
+	 * @param str
+	 *            The text to draw
+	 * @param bounds
+	 *            The {@link RectangleD} to align the text in
+	 * @param align
+	 *            How to horizontally align the text
+	 */
+	public void drawString(String str, RectangleD bounds, TextAlign align) {
+		drawString(str, bounds, 0, 0, align);
+	}
+
+	/**
+	 * Draws the given {@link String} center aligned within the
+	 * {@link RectangleD}, with the specified character spacings.
+	 * 
+	 * @param str
+	 *            The text to draw
+	 * @param bounds
+	 *            The {@link RectangleD} to align the text in
+	 * @param xs
+	 *            The horizontal spacing between characters
+	 * @param ys
+	 *            The vertical spacing between lines of text
+	 */
+	public void drawString(String str, RectangleD bounds, float xs, float ys) {
+		drawString(str, bounds, xs, ys, TextAlign.MID_CENTER);
+	}
+
+	/**
+	 * Draws the given {@link String} aligned within the {@link RectangleD}, as
+	 * specified by the {@link GraphicsX.TextAlign}, with the specified
+	 * character spacings.
+	 * 
+	 * @param str
+	 *            The text to draw
+	 * @param bounds
+	 *            The {@link RectangleD} to align the text in
+	 * @param xs
+	 *            The horizontal spacing between characters
+	 * @param ys
+	 *            The vertical spacing between lines of text
+	 * @param align
+	 *            How to horizontally align the text
+	 */
+	public void drawString(String str, RectangleD bounds, float xs, float ys, TextAlign align) {
+		double x = bounds.x;
+		double y = bounds.y;
+
+		String v = align.name().split("_")[0];
+		String h = align.name().split("_")[1];
+
+		String[] lines = str.split("\n");
+
+		if (v.equals("TOP"))
+			y = bounds.y;
+		else if (v.equals("MID"))
+			y = bounds.y + (bounds.height / 2) - ((fm.getHeight() * lines.length) / 2)
+			    - ((ys * (lines.length - 1)) / 2);
+		else if (v.equals("BOTTOM"))
+			y = bounds.y + bounds.height - (fm.getHeight() * lines.length) - (ys * (lines.length - 1));
+
+		for (String line : lines) {
+			if (h.equals("LEFT"))
+				x = bounds.x;
+			else if (h.equals("CENTER"))
+				x = bounds.x + (bounds.width / 2) - (fm.stringWidth(line) / 2) - ((xs * (line.length() - 1)) / 2);
+			else if (h.equals("RIGHT"))
+				x = bounds.x + bounds.width - fm.stringWidth(line) - (xs * (line.length() - 1));
+
+			drawString(line, (float) x, (float) y, xs, 0);
 
 			y += fm.getHeight() + ys;
 		}
@@ -1042,11 +1269,6 @@ public class GraphicsX {
 		g.shear(shx, shy);
 	}
 
-	@Override
-	public String toString() {
-		return getClass().getName() + "[font=" + getFont() + ",color=" + getColor() + "]";
-	}
-
 	/**
 	 * Delegates to the method of the same name, found in
 	 * {@link Graphics2D#transform(AffineTransform)}.
@@ -1069,5 +1291,10 @@ public class GraphicsX {
 	 */
 	public void translate(int x, int y) {
 		g.translate(x, y);
+	}
+
+	@Override
+	public String toString() {
+		return getClass().getName() + "[font=" + getFont() + ",color=" + getColor() + "]";
 	}
 }

@@ -25,7 +25,7 @@ import net.alexanderdev.lightdrive.view.Viewable;
  * A class used to save screenshots of any {@link Viewable}.
  * 
  * @author Christian Bryce Alexander
- * @since May 16, 2015 | 3:13:06 PM
+ * @since May 16, 2015, 3:13:06 PM
  */
 public final class Screenshot {
 	private static String path;

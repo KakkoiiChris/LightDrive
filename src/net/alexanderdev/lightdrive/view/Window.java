@@ -41,13 +41,14 @@ import net.alexanderdev.lightdrive.input.mouse.Mouse;
 import net.alexanderdev.lightdrive.state.State;
 import net.alexanderdev.lightdrive.state.StateManager;
 import net.alexanderdev.lightdrive.util.Time;
+import net.alexanderdev.lightdrive.util.io.ResourceLoader;
 
 /**
  * A {@link Viewable} that consists of a stand-alone {@link Canvas}, intended
  * for integration with custom <b>AWT/Swing</b> user interfaces.
  * 
  * @author Christian Bryce Alexander
- * @since March 6, 2015 | 2:15:37 AM
+ * @since March 6, 2015, 2:15:37 AM
  */
 public class Window extends Canvas implements Viewable, Runnable {
 	private static final long serialVersionUID = -8708004611699503479L;
@@ -89,21 +90,40 @@ public class Window extends Canvas implements Viewable, Runnable {
 		// System.load(new File("/jinput-raw_64.dll").getAbsolutePath());
 	}
 
+	/**
+	 * A {@link Window} with default width,height,scale, and update rate.
+	 */
 	public Window() {
 		this(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SCALE, DEFAULT_UPS);
 	}
 
+	/**
+	 * A {@link Window} with its width, height, and update rate specified by the
+	 * provided {@link ViewMode}, and a default scale.
+	 * 
+	 * @param mode
+	 *            The {@link ViewMode} of the {@link Window}
+	 */
 	public Window(ViewMode mode) {
 		this(mode.getWidth(), mode.getHeight(), DEFAULT_SCALE, mode.getUPS());
 	}
 
+	/**
+	 * A {@link Window} with its width, height, and update rate specified by the
+	 * provided {@link ViewMode}, and a user defined scale.
+	 * 
+	 * @param mode
+	 *            The {@link ViewMode} of the {@link Window}
+	 * @param scale
+	 *            The scale of the {@link Window}
+	 */
 	public Window(ViewMode mode, int scale) {
 		this(mode.getWidth(), mode.getHeight(), scale, mode.getUPS());
 	}
 
 	/**
-	 * A {@link Window} with specified width, and height, and default scale and
-	 * update rate.
+	 * A {@link Window} with a user defined width, and height, and a default
+	 * scale and update rate.
 	 * 
 	 * @param width
 	 *            The width of the {@link Window}
@@ -115,8 +135,8 @@ public class Window extends Canvas implements Viewable, Runnable {
 	}
 
 	/**
-	 * A {@link Window} with specified width, height, and scale, and default
-	 * update rate.
+	 * A {@link Window} with a user defined width, height, and scale, and a
+	 * default update rate.
 	 * 
 	 * @param width
 	 *            The width of the {@link Window}
@@ -130,8 +150,8 @@ public class Window extends Canvas implements Viewable, Runnable {
 	}
 
 	/**
-	 * A {@link Window} with specified update rate, and default width, height,
-	 * and scale.
+	 * A {@link Window} with a user defined update rate, and a default width,
+	 * height, and scale.
 	 * 
 	 * @param ups
 	 *            The update rate of the {@link Window}
@@ -141,8 +161,8 @@ public class Window extends Canvas implements Viewable, Runnable {
 	}
 
 	/**
-	 * A {@link Window} with specified width, height, and update rate, and
-	 * default scale.
+	 * A {@link Window} with a user defined width, height, and update rate, and
+	 * a default scale.
 	 * 
 	 * @param width
 	 *            The width of the {@link Window}
@@ -156,7 +176,8 @@ public class Window extends Canvas implements Viewable, Runnable {
 	}
 
 	/**
-	 * A {@link Window} with specified width, height, scale, and update rate.
+	 * A {@link Window} with a user defined width, height, scale, and update
+	 * rate.
 	 * 
 	 * @param width
 	 *            The width of the {@link Window}
@@ -459,5 +480,8 @@ public class Window extends Canvas implements Viewable, Runnable {
 		g.dispose();
 		bs.dispose();
 		context.flush();
+
+		if (!ResourceLoader.isEmpty())
+			ResourceLoader.deregisterAll();
 	}
 }

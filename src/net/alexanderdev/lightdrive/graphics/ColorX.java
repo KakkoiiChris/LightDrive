@@ -21,11 +21,11 @@ import net.alexanderdev.lightdrive.util.math.MathX;
 /**
  * An extension of Java's own {@code Color} class, which contains constants for
  * all defined CSS3 colors, as well as a set of methods for unique color
- * modifications that build upon Java's {@code Color.brighter();} and
- * {@code Color.darker();}
+ * modifications that build upon Java's {@link Color#brighter()} and
+ * {@link Color#darker()}.
  * 
  * @author Christian Bryce Alexander
- * @since April 7, 2015 | 7:28:12 PM
+ * @since April 7, 2015, 7:28:12 PM
  */
 public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 	private static final long serialVersionUID = 8589259317799782373L;
@@ -293,14 +293,16 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 	}
 
 	/**
-	 * Gets the integer value of this {@code ColorX} as if its saturation were
-	 * altered. Negative saturation tends towards average gray ((r + g + b) /
-	 * 3), whereas positive saturation tends towards the nearest extreme (0 or
-	 * 255).
+	 * Gets the integer value of this {@link ColorX} as if its saturation were
+	 * altered. Negative saturation tends towards average gray
+	 * {@code ((r + g + b) /
+	 * 3)}, whereas positive saturation tends towards the nearest extreme
+	 * {@code (0 or
+	 * 255)}.
 	 * 
 	 * @param saturation
 	 *            The saturation of the new color
-	 * @return The value of this {@code ColorX} with its saturation altered
+	 * @return The value of this {@link ColorX} with its saturation altered
 	 */
 	public int ofSaturation(float saturation) {
 		if (saturation == 0f)
@@ -341,7 +343,7 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 	/**
 	 * @param saturation
 	 *            The saturation of the new color
-	 * @return A new instance of {@code ColorX}, with its values based on
+	 * @return A new instance of {@link ColorX}, with its values based on
 	 *         {@link ColorX#ofSaturation(float)}
 	 */
 	public ColorX colorOfSaturation(float saturation) {
@@ -349,14 +351,14 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 	}
 
 	/**
-	 * Gets the integer value of this {@code ColorX} as if its values were
+	 * Gets the integer value of this {@link ColorX} as if its values were
 	 * tending toward inversion. A factor of 0f means no inversion. A factor of
 	 * 1f means full inversion. Any other factor tends towards the inverted
 	 * values.
 	 * 
 	 * @param factor
 	 *            The inversion of the new color's values
-	 * @return The value of this {@code ColorX} with its values slightly
+	 * @return The value of this {@link ColorX} with its values slightly
 	 *         inverted
 	 */
 	public int ofInversion(float factor) {
@@ -384,7 +386,7 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 	/**
 	 * @param factor
 	 *            The inversion of the new color's values
-	 * @return A new instance of {@code ColorX}, with its values based on
+	 * @return A new instance of {@link ColorX}, with its values based on
 	 *         {@link ColorX#ofInversion(float)}
 	 */
 	public ColorX colorOfInversion(float factor) {
@@ -392,17 +394,17 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 	}
 
 	/**
-	 * Gets the integer value of this {@code ColorX} as if its values were fully
+	 * Gets the integer value of this {@link ColorX} as if its values were fully
 	 * inverted.
 	 * 
-	 * @return The inverse value of this {@code ColorX}
+	 * @return The inverse value of this {@link ColorX}
 	 */
 	public int inverted() {
 		return ofInversion(1f);
 	}
 
 	/**
-	 * @return A new instance of {@code ColorX}, with its values based on
+	 * @return A new instance of {@link ColorX}, with its values based on
 	 *         {@link ColorX#inverted()}
 	 */
 	public ColorX invertedColorX() {
@@ -410,7 +412,7 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 	}
 
 	/**
-	 * Gets the integer value of this {@code ColorX} as if its values were
+	 * Gets the integer value of this {@link ColorX} as if its values were
 	 * adjusted based on the specified percentages.
 	 * 
 	 * @param r
@@ -419,7 +421,7 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 	 *            The percentage of green to use
 	 * @param b
 	 *            The percentage of blue to use
-	 * @return The adjusted value of this {@code ColorX}
+	 * @return The adjusted value of this {@link ColorX}
 	 */
 	public int ofAdjustment(float r, float g, float b) {
 		return Pixel.mergeARGB(getAlpha(), getRed() * r, getGreen() * g, getBlue() * b);
@@ -432,7 +434,7 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 	 *            The percentage of green to use
 	 * @param b
 	 *            The percentage of blue to use
-	 * @return A new instance of {@code ColorX}, with its values based on
+	 * @return A new instance of {@link ColorX}, with its values based on
 	 *         {@link ColorX#ofAdjustment(float, float, float)}
 	 */
 	public ColorX colorOfAdjustment(float r, float g, float b) {
@@ -440,12 +442,12 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 	}
 
 	/**
-	 * Gets the integer value of the gray-scale of this {@code ColorX}, based on
+	 * Gets the integer value of the gray-scale of this {@link ColorX}, based on
 	 * the specified {@link GrayscaleMode}.
 	 * 
 	 * @param mode
 	 *            The gray-scale mode to apply
-	 * @return The gray-scale version of this {@code ColorX}
+	 * @return The gray-scale version of this {@link ColorX}
 	 */
 	public int ofGrayscale(GrayscaleMode mode) {
 		float value = mode.getOperation().apply(getRed(), getGreen(), getBlue()) / 255f;
@@ -456,7 +458,7 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 	/**
 	 * @param mode
 	 *            The gray-scale mode to apply
-	 * @return A new instance of {@code ColorX}, with its values based on
+	 * @return A new instance of {@link ColorX}, with its values based on
 	 *         {@link ColorX#ofGrayscale(GrayscaleMode)}
 	 */
 	public ColorX colorOfGrayscale(GrayscaleMode mode) {
@@ -465,7 +467,7 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 
 	/**
 	 * @return The hexadecimal representation of the integer value of this
-	 *         {@code ColorX}
+	 *         {@link ColorX}
 	 */
 	public String toHex() {
 		return Integer.toHexString(getARGB());

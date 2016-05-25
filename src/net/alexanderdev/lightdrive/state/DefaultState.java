@@ -25,7 +25,7 @@ import net.alexanderdev.lightdrive.util.io.SpriteIO;
  * properly.
  * 
  * @author Christian Bryce Alexander
- * @since May 19, 2015 | 11:23:47 PM
+ * @since May 19, 2015, 11:23:47 PM
  */
 @InternalType
 public final class DefaultState extends State {

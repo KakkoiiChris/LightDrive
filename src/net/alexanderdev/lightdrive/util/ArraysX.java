@@ -20,10 +20,12 @@ import static net.alexanderdev.lightdrive.util.math.MathX.randomInt;
  * A collection of static methods to manipulate standard java arrays.
  * 
  * @author Christian Bryce Alexander
- * @since Jul 28, 2015 | 1:33:15 PM
+ * @since Jul 28, 2015, 1:33:15 PM
  */
 public class ArraysX {
 	/**
+	 * @param arrays
+	 *            The arrays to concatenate
 	 * @return An array of booleans with the contents of each supplied array in
 	 *         sequential order.
 	 */
@@ -45,6 +47,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param arrays
+	 *            The arrays to concatenate
 	 * @return An array of bytes with the contents of each supplied array in
 	 *         sequential order.
 	 */
@@ -66,6 +70,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param arrays
+	 *            The arrays to concatenate
 	 * @return An array of chars with the contents of each supplied array in
 	 *         sequential order.
 	 */
@@ -87,6 +93,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param arrays
+	 *            The arrays to concatenate
 	 * @return An array of doubles with the contents of each supplied array in
 	 *         sequential order.
 	 */
@@ -108,6 +116,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param arrays
+	 *            The arrays to concatenate
 	 * @return An array of floats with the contents of each supplied array in
 	 *         sequential order.
 	 */
@@ -129,6 +139,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param arrays
+	 *            The arrays to concatenate
 	 * @return An array of ints with the contents of each supplied array in
 	 *         sequential order.
 	 */
@@ -150,6 +162,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param arrays
+	 *            The arrays to concatenate
 	 * @return An array of longs with the contents of each supplied array in
 	 *         sequential order.
 	 */
@@ -171,6 +185,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param arrays
+	 *            The arrays to concatenate
 	 * @return An array of {@link Object}s with the contents of each supplied
 	 *         array in sequential order.
 	 */
@@ -192,6 +208,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param arrays
+	 *            The arrays to concatenate
 	 * @return An array of shorts with the contents of each supplied array in
 	 *         sequential order.
 	 */
@@ -213,6 +231,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param arrays
+	 *            The arrays to concatenate
 	 * @return An array of {@link String}s with the contents of each supplied
 	 *         array in sequential order.
 	 */
@@ -234,6 +254,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to copy from
 	 * @return A copy of the supplied varargs/array of booleans
 	 */
 	public static boolean[] copy(boolean... src) {
@@ -243,6 +265,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to copy from
 	 * @return A copy of the supplied varargs/array of bytes
 	 */
 	public static byte[] copy(byte... src) {
@@ -252,6 +276,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to copy from
 	 * @return A copy of the supplied varargs/array of chars
 	 */
 	public static char[] copy(char... src) {
@@ -261,6 +287,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to copy from
 	 * @return A copy of the supplied varargs/array of doubles
 	 */
 	public static double[] copy(double... src) {
@@ -270,6 +298,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to copy from
 	 * @return A copy of the supplied varargs/array of floats
 	 */
 	public static float[] copy(float... src) {
@@ -279,6 +309,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to copy from
 	 * @return A copy of the supplied varargs/array of ints
 	 */
 	public static int[] copy(int... src) {
@@ -288,6 +320,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to copy from
 	 * @return A copy of the supplied varargs/array of longs
 	 */
 	public static long[] copy(long... src) {
@@ -297,6 +331,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to copy from
 	 * @return A copy of the supplied varargs/array of {@link Object}s
 	 */
 	public static Object[] copy(Object... src) {
@@ -306,6 +342,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to copy from
 	 * @return A copy of the supplied varargs/array of shorts
 	 */
 	public static short[] copy(short... src) {
@@ -315,6 +353,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to copy from
 	 * @return A copy of the supplied varargs/array of {@link String}s
 	 */
 	public static String[] copy(String... src) {
@@ -506,6 +546,10 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param booleans
+	 *            The array to remove from
+	 * @param n
+	 *            The index to remove
 	 * @return A copy of the supplied array of booleans with the nth value
 	 *         removed
 	 */
@@ -522,6 +566,10 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param bytes
+	 *            The array to remove from
+	 * @param n
+	 *            The index to remove
 	 * @return A copy of the supplied array of bytes with the nth value removed
 	 */
 	public static byte[] remove(byte[] bytes, int n) {
@@ -537,6 +585,10 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param chars
+	 *            The array to remove from
+	 * @param n
+	 *            The index to remove
 	 * @return A copy of the supplied array of chars with the nth value removed
 	 */
 	public static char[] remove(char[] chars, int n) {
@@ -552,6 +604,10 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param doubles
+	 *            The array to remove from
+	 * @param n
+	 *            The index to remove
 	 * @return A copy of the supplied array of doubles with the nth value
 	 *         removed
 	 */
@@ -568,6 +624,10 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param floats
+	 *            The array to remove from
+	 * @param n
+	 *            The index to remove
 	 * @return A copy of the supplied array of floats with the nth value removed
 	 */
 	public static float[] remove(float[] floats, int n) {
@@ -583,7 +643,12 @@ public class ArraysX {
 	}
 
 	/**
-	 * @return A copy of the supplied array of ints with the nth value removed
+	 * @param ints
+	 *            The array to remove from
+	 * @param n
+	 *            The index to remove
+	 * @return A copy of the supplied array of integers with the nth value
+	 *         removed
 	 */
 	public static int[] remove(int[] ints, int n) {
 		int[] list = new int[ints.length - 1];
@@ -598,6 +663,10 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param longs
+	 *            The array to remove from
+	 * @param n
+	 *            The index to remove
 	 * @return A copy of the supplied array of longs with the nth value removed
 	 */
 	public static long[] remove(long[] longs, int n) {
@@ -613,6 +682,10 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param objects
+	 *            The array to remove from
+	 * @param n
+	 *            The index to remove
 	 * @return A copy of the supplied array of {@link Object}s with the nth
 	 *         value removed
 	 */
@@ -629,6 +702,10 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param shorts
+	 *            The array to remove from
+	 * @param n
+	 *            The index to remove
 	 * @return A copy of the supplied array of shorts with the nth value removed
 	 */
 	public static short[] remove(short[] shorts, int n) {
@@ -644,6 +721,10 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param strings
+	 *            The array to remove from
+	 * @param n
+	 *            The index to remove
 	 * @return A copy of the supplied array of {@link String}s with the nth
 	 *         value removed
 	 */
@@ -660,6 +741,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to reverse
 	 * @return A copy of the supplied varargs/array of booleans with its values
 	 *         reversed
 	 */
@@ -680,6 +763,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to reverse
 	 * @return A copy of the supplied varargs/array of bytes with its values
 	 *         reversed
 	 */
@@ -700,6 +785,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to reverse
 	 * @return A copy of the supplied varargs/array of chars with its values
 	 *         reversed
 	 */
@@ -720,6 +807,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to reverse
 	 * @return A copy of the supplied array of doubles with its values reversed
 	 */
 	public static double[] reverse(double... src) {
@@ -739,6 +828,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to reverse
 	 * @return A copy of the supplied varargs/array of floats with its values
 	 *         reversed
 	 */
@@ -759,6 +850,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to reverse
 	 * @return A copy of the supplied varargs/array of ints with its values
 	 *         reversed
 	 */
@@ -779,6 +872,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to reverse
 	 * @return A copy of the supplied varargs/array of longs with its values
 	 *         reversed
 	 */
@@ -799,6 +894,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to reverse
 	 * @return A copy of the supplied varargs/array of {@link Object}s with its
 	 *         values reversed
 	 */
@@ -819,6 +916,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to reverse
 	 * @return A copy of the supplied varargs/array of shorts with its values
 	 *         reversed
 	 */
@@ -839,6 +938,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param src
+	 *            The source array to reverse
 	 * @return A copy of the supplied varargs/array of {@link String}s with its
 	 *         values reversed
 	 */
@@ -859,6 +960,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param bytes
+	 *            The array to shuffle
 	 * @return A copy of the supplied varargs/array of bytes with its values
 	 *         shuffled
 	 */
@@ -875,6 +978,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param chars
+	 *            The array to shuffle
 	 * @return A copy of the supplied varargs/array of chars with its values
 	 *         shuffled
 	 */
@@ -891,6 +996,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param doubles
+	 *            The array to shuffle
 	 * @return A copy of the supplied varargs/array of doubles with its values
 	 *         shuffled
 	 */
@@ -907,6 +1014,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param floats
+	 *            The array to shuffle
 	 * @return A copy of the supplied varargs/array of floats with its values
 	 *         shuffled
 	 */
@@ -923,7 +1032,9 @@ public class ArraysX {
 	}
 
 	/**
-	 * @return A copy of the supplied varargs/array of ints with its values
+	 * @param ints
+	 *            The array to shuffle
+	 * @return A copy of the supplied varargs/array of integers with its values
 	 *         shuffled
 	 */
 	public static int[] shuffle(int... ints) {
@@ -939,6 +1050,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param longs
+	 *            The array to shuffle
 	 * @return A copy of the supplied varargs/array of longs with its values
 	 *         shuffled
 	 */
@@ -955,6 +1068,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param objects
+	 *            The array to shuffle
 	 * @return A copy of the supplied varargs/array of {@link Object}s with its
 	 *         values shuffled
 	 */
@@ -971,6 +1086,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param shorts
+	 *            The array to shuffle
 	 * @return A copy of the supplied varargs/array of shorts with its values
 	 *         shuffled
 	 */
@@ -987,6 +1104,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param strings
+	 *            The array to shuffle
 	 * @return A copy of the supplied varargs/array of {@link String}s with its
 	 *         values shuffled
 	 */
@@ -1003,6 +1122,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param bytes
+	 *            The array to sort
 	 * @return A copy of the supplied varargs/array of bytes with its values
 	 *         sorted
 	 */
@@ -1029,6 +1150,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param chars
+	 *            The array to sort
 	 * @return A copy of the supplied varargs/array of chars with its values
 	 *         sorted
 	 */
@@ -1055,6 +1178,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param doubles
+	 *            The array to sort
 	 * @return A copy of the supplied varargs/array of doubles with its values
 	 *         sorted
 	 */
@@ -1081,6 +1206,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param floats
+	 *            The array to sort
 	 * @return A copy of the supplied varargs/array of floats with its values
 	 *         sorted
 	 */
@@ -1107,7 +1234,9 @@ public class ArraysX {
 	}
 
 	/**
-	 * @return A copy of the supplied varargs/array of ints with its values
+	 * @param ints
+	 *            The array to sort
+	 * @return A copy of the supplied varargs/array of integers with its values
 	 *         sorted
 	 */
 	public static int[] sort(int... ints) {
@@ -1133,6 +1262,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param longs
+	 *            The array to sort
 	 * @return A copy of the supplied varargs/array of longs with its values
 	 *         sorted
 	 */
@@ -1159,6 +1290,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param shorts
+	 *            The array to sort
 	 * @return A copy of the supplied varargs/array of shorts with its values
 	 *         sorted
 	 */
@@ -1185,6 +1318,8 @@ public class ArraysX {
 	}
 
 	/**
+	 * @param strings
+	 *            The array to sort
 	 * @return A copy of the supplied varargs/array of {@link String}s with its
 	 *         values sorted
 	 */

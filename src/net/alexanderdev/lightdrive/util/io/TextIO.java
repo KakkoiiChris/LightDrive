@@ -28,7 +28,7 @@ import java.util.List;
  * folder.
  * 
  * @author Christian Bryce Alexander
- * @since Apr 9, 2015 | 1:47:53 AM
+ * @since Apr 9, 2015, 1:47:53 AM
  */
 public class TextIO {
 	private static String path = "";

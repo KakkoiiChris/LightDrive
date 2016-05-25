@@ -26,20 +26,20 @@ import java.awt.geom.Point2D;
  * methods for most all vector algebra operations.
  * 
  * @author Christian Bryce Alexander
- * @since Apr 13, 2015 | 3:08:10 PM
+ * @since Apr 13, 2015, 3:08:10 PM
  */
 public strictfp class VectorF extends Point2D.Float implements Cloneable, Comparable<Object> {
 	private static final long serialVersionUID = -1490482930677885575L;
 
 	/**
-	 * Default {@link VectorF} with no magnitude
+	 * Creates a default {@link VectorF} with no magnitude.
 	 */
 	public VectorF() {
 		this(0f, 0f);
 	}
 
 	/**
-	 * {@link VectorF} with specified magnitudes
+	 * Creates a {@link VectorF} with the specified magnitudes.
 	 * 
 	 * @param x
 	 *            The x magnitude
@@ -51,7 +51,7 @@ public strictfp class VectorF extends Point2D.Float implements Cloneable, Compar
 	}
 
 	/**
-	 * Adds the components of {@code vec} to this {@link VectorF}
+	 * Adds the components of {@code vec} to this {@link VectorF}.
 	 * 
 	 * @param vec
 	 *            The {@link VectorF} to be added
@@ -62,7 +62,7 @@ public strictfp class VectorF extends Point2D.Float implements Cloneable, Compar
 	}
 
 	/**
-	 * Adds a {@code scalar} to both components of this {@link VectorF}
+	 * Adds a {@code scalar} to both components of this {@link VectorF}.
 	 * 
 	 * @param scalar
 	 *            Scalar to be added
@@ -73,7 +73,7 @@ public strictfp class VectorF extends Point2D.Float implements Cloneable, Compar
 	}
 
 	/**
-	 * Subtracts the components of {@code vec} from this {@link VectorF}
+	 * Subtracts the components of {@code vec} from this {@link VectorF}.
 	 * 
 	 * @param vec
 	 *            The {@link VectorF} to be subtracted
@@ -84,7 +84,7 @@ public strictfp class VectorF extends Point2D.Float implements Cloneable, Compar
 	}
 
 	/**
-	 * Subtracts a {@code scalar} from both components of this {@link VectorF}
+	 * Subtracts a {@code scalar} from both components of this {@link VectorF}.
 	 * 
 	 * @param scalar
 	 *            Scalar to be subtracted
@@ -95,7 +95,7 @@ public strictfp class VectorF extends Point2D.Float implements Cloneable, Compar
 	}
 
 	/**
-	 * Multiplies the components of this {@link VectorF} by {@code vec}
+	 * Multiplies the components of this {@link VectorF} by {@code vec}.
 	 * 
 	 * @param vec
 	 *            The {@link VectorF} to be multiplied by
@@ -106,7 +106,7 @@ public strictfp class VectorF extends Point2D.Float implements Cloneable, Compar
 	}
 
 	/**
-	 * Multiplies both components of this {@link VectorF} by a {@code scalar}
+	 * Multiplies both components of this {@link VectorF} by a {@code scalar}.
 	 * 
 	 * @param scalar
 	 *            Scalar to be multiplied by
@@ -117,7 +117,8 @@ public strictfp class VectorF extends Point2D.Float implements Cloneable, Compar
 	}
 
 	/**
-	 * Divides the components of this {@link VectorF} by {@code vec}
+	 * Divides the components of this {@link VectorF} by {@code vec}'s
+	 * components.
 	 * 
 	 * @param vec
 	 *            The {@link VectorF} to be divided by
@@ -128,7 +129,7 @@ public strictfp class VectorF extends Point2D.Float implements Cloneable, Compar
 	}
 
 	/**
-	 * Divides both components of this {@link VectorF} by a {@code scalar}
+	 * Divides both components of this {@link VectorF} by a {@code scalar}.
 	 * 
 	 * @param scalar
 	 *            Scalar to be divided by
@@ -139,35 +140,35 @@ public strictfp class VectorF extends Point2D.Float implements Cloneable, Compar
 	}
 
 	/**
-	 * Turns this {@link VectorF} into a unit vector in the same direction
+	 * Turns this {@link VectorF} into a unit vector in the same direction.
 	 */
 	public void normalize() {
 		divide(length());
 	}
 
 	/**
-	 * Sets both components of this {@link VectorF} to zero
+	 * Sets both components of this {@link VectorF} to zero.
 	 */
 	public void zero() {
 		x = y = 0f;
 	}
 
 	/**
-	 * Reverses the x component of this {@link VectorF}
+	 * Reverses the x component of this {@link VectorF}.
 	 */
 	public void reverseX() {
 		x = -x;
 	}
 
 	/**
-	 * Reverses the y component of this {@link VectorF}
+	 * Reverses the y component of this {@link VectorF}.
 	 */
 	public void reverseY() {
 		y = -y;
 	}
 
 	/**
-	 * Reverses both components of this {@link VectorF}
+	 * Reverses both components of this {@link VectorF}.
 	 */
 	public void reverse() {
 		reverseX();
@@ -175,7 +176,7 @@ public strictfp class VectorF extends Point2D.Float implements Cloneable, Compar
 	}
 
 	/**
-	 * Rotates this {@link VectorF} by the radian amount {@code angle}
+	 * Rotates this {@link VectorF} by the radian amount {@code angle}.
 	 * 
 	 * @param angle
 	 *            An amount in radians to rotate this {@link VectorF} by
@@ -190,7 +191,7 @@ public strictfp class VectorF extends Point2D.Float implements Cloneable, Compar
 	}
 
 	/**
-	 * Changes the length of this {@link VectorF}
+	 * Changes the length of this {@link VectorF}.
 	 * 
 	 * @param length
 	 *            The length for this {@link VectorF} to be resized to
@@ -202,7 +203,7 @@ public strictfp class VectorF extends Point2D.Float implements Cloneable, Compar
 	}
 
 	/**
-	 * The dot product of two {@link VectorF}'s
+	 * The dot product of two {@link VectorF}'s.
 	 * 
 	 * @param vec
 	 *            The second {@link VectorF}
@@ -214,7 +215,7 @@ public strictfp class VectorF extends Point2D.Float implements Cloneable, Compar
 	}
 
 	/**
-	 * The cross product of two {@link VectorF}'s
+	 * The cross product of two {@link VectorF}'s.
 	 * 
 	 * @param vec
 	 *            The second {@link VectorF}
@@ -240,8 +241,8 @@ public strictfp class VectorF extends Point2D.Float implements Cloneable, Compar
 	}
 
 	/**
-	 * @param The
-	 *            {@link VectorD} to point towards
+	 * @param vec
+	 *            The {@link VectorD} to point towards
 	 * 
 	 * @return A {@link VectorD} from this {@link VectorD} to {@code vec}
 	 */
@@ -250,8 +251,8 @@ public strictfp class VectorF extends Point2D.Float implements Cloneable, Compar
 	}
 
 	/**
-	 * @param The
-	 *            {@link VectorD} to point towards
+	 * @param vec
+	 *            The {@link VectorD} to point towards
 	 * 
 	 * @return A {@link VectorD} from this {@link VectorD} to {@code vec}
 	 */

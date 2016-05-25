@@ -21,7 +21,7 @@ import net.alexanderdev.lightdrive.view.Viewable;
  * {@link Keyboard} input.
  * 
  * @author Christian Bryce Alexander
- * @since March 8, 2015 | 1:15:17 AM
+ * @since March 8, 2015, 1:15:17 AM
  */
 @FunctionalInterface
 public interface KeyboardListener {

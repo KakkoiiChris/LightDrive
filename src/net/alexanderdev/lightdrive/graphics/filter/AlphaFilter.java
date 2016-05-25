@@ -31,7 +31,7 @@ public class AlphaFilter implements Filter {
 	 * Creates a new {@link AlphaFilter}.
 	 * 
 	 * @param alpha
-	 *            The percentage of alpha
+	 *            The percentage of alpha to set
 	 */
 	public AlphaFilter(float alpha) {
 		this.alpha = MathX.clamp(alpha, 0f, 1f);
@@ -41,7 +41,7 @@ public class AlphaFilter implements Filter {
 	 * Sets the alpha percentage.
 	 * 
 	 * @param alpha
-	 *            The percentage of alpha
+	 *            The percentage of alpha to set
 	 */
 	public void setAlpha(float alpha) {
 		this.alpha = MathX.clamp(alpha, 0f, 1f);

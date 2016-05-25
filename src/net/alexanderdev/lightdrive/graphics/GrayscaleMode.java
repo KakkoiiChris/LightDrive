@@ -70,7 +70,7 @@ public enum GrayscaleMode {
 
 	/**
 	 * @return The {@link GrayscaleOp} associated with this standard
-	 *         {@code GrayscaleMode}
+	 *         {@link GrayscaleMode}
 	 */
 	public GrayscaleOp getOperation() {
 		return operation;

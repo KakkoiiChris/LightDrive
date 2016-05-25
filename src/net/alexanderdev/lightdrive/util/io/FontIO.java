@@ -46,7 +46,7 @@ public final class FontIO {
 	 * @return The full name of the font as registered by the
 	 *         {@link GraphicsEnvironment}
 	 */
-	public static String loadTTF(String name) {
+	public static Font loadTTF(String name) {
 		return load(name, Font.TRUETYPE_FONT, "ttf");
 	}
 
@@ -59,7 +59,7 @@ public final class FontIO {
 	 * @return The full name of the font as registered by the
 	 *         {@link GraphicsEnvironment}
 	 */
-	public static String loadOTF(String name) {
+	public static Font loadOTF(String name) {
 		return load(name, Font.TRUETYPE_FONT, "otf");
 	}
 
@@ -72,11 +72,11 @@ public final class FontIO {
 	 * @return The full name of the font as registered by the
 	 *         {@link GraphicsEnvironment}
 	 */
-	public static String loadType1(String name) {
+	public static Font loadType1(String name) {
 		return load(name, Font.TYPE1_FONT, "pbf", "pfa", "lwfn");
 	}
 
-	private static String load(String name, int type, String... exts) {
+	private static Font load(String name, int type, String... exts) {
 		Font font = null;
 
 		for (String ext : exts) {
@@ -100,6 +100,6 @@ public final class FontIO {
 				break;
 		}
 
-		return font.getFontName();
+		return font;
 	}
 }

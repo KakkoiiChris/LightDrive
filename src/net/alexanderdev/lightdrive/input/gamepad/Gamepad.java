@@ -24,7 +24,7 @@ import net.java.games.input.Controller;
  * on its own thread.
  * 
  * @author Christian Bryce Alexander
- * @since Apr 29, 2015 | 9:11:58 PM
+ * @since Apr 29, 2015, 9:11:58 PM
  */
 public class Gamepad implements Runnable {
 	private Controller controller;
@@ -36,8 +36,8 @@ public class Gamepad implements Runnable {
 	private Thread thread;
 	private boolean running;
 
-	private final boolean[] BUTTONS = new boolean[14];
-	private boolean[] buttonsLast;
+	private final boolean[] SWITCHES = new boolean[14];
+	private boolean[] switchesLast;
 
 	private final VectorF LEFT_STICK = new VectorF();
 	private VectorF leftStickLast;
@@ -63,7 +63,7 @@ public class Gamepad implements Runnable {
 
 		deadZone = 0.2f;
 
-		buttonsLast = BUTTONS.clone();
+		switchesLast = SWITCHES.clone();
 
 		leftStickLast = LEFT_STICK.clone();
 		rightStickLast = RIGHT_STICK.clone();
@@ -97,52 +97,65 @@ public class Gamepad implements Runnable {
 	}
 
 	/**
-	 * @return {@code true} if the specified {@link Button} equals
-	 *         {@link Gamepad#ANY} and any button has been pressed, or if the
-	 *         specified {@link Button} is associated with a button that has
-	 *         been pressed, and {@code false} otherwise
+	 * @param zwitch
+	 *            The game pad switch to check
+	 * @return {@code true} if the switch associated with the specified
+	 *         {@link Switch} 's ordinal has been pressed, {@code false}
+	 *         otherwise
 	 */
-	public boolean buttonPressed(Button button) {
-		return BUTTONS[button.ordinal()] && !buttonsLast[button.ordinal()];
+	public boolean switchPressed(Switch zwitch) {
+		return SWITCHES[zwitch.ordinal()] && !switchesLast[zwitch.ordinal()];
 	}
 
-	public boolean anyButtonPressed() {
-		for (int i = 0; i < BUTTONS.length; i++)
-			if (BUTTONS[i] && !buttonsLast[i])
+	/**
+	 * @return {@code true} if any switch has been pressed, {@code false}
+	 *         otherwise
+	 */
+	public boolean anySwitchPressed() {
+		for (int i = 0; i < SWITCHES.length; i++)
+			if (SWITCHES[i] && !switchesLast[i])
 				return true;
 		return false;
 	}
 
 	/**
-	 * @return {@code true} if the specified {@link Button} equals
-	 *         {@link Gamepad#ANY} and any button is being held, or if the
-	 *         specified {@link Button} is associated with a button that is
-	 *         being held, and {@code false} otherwise
+	 * @param zwitch
+	 *            The game pad switch to check
+	 * @return {@code true} if the switch associated with the specified
+	 *         {@link Switch} 's ordinal is being held, {@code false} otherwise
 	 */
-	public boolean buttonHeld(Button button) {
-		return BUTTONS[button.ordinal()];
+	public boolean switchHeld(Switch zwitch) {
+		return SWITCHES[zwitch.ordinal()];
 	}
 
-	public boolean anyButtonHeld() {
-		for (int i = 0; i < BUTTONS.length; i++)
-			if (BUTTONS[i])
+	/**
+	 * @return {@code true} if any switch is being held, {@code false} otherwise
+	 */
+	public boolean anySwitchHeld() {
+		for (int i = 0; i < SWITCHES.length; i++)
+			if (SWITCHES[i])
 				return true;
 		return false;
 	}
 
 	/**
-	 * @return {@code true} if the specified {@link Button} equals
-	 *         {@link Gamepad#ANY} and any button has been released, or if the
-	 *         specified {@link Button} is associated with a button that has
-	 *         been released, and {@code false} otherwise
+	 * @param zwitch
+	 *            The game pad switch to check
+	 * @return {@code true} if the switch associated with the specified
+	 *         {@link Switch} 's ordinal has been released, {@code false}
+	 *         otherwise
 	 */
-	public boolean buttonReleased(Button button) {
-		return !BUTTONS[button.ordinal()] && buttonsLast[button.ordinal()];
+	public boolean switchReleased(Switch zwitch) {
+		return !SWITCHES[zwitch.ordinal()] && switchesLast[zwitch.ordinal()];
 	}
 
-	public boolean anyButtonReleased() {
-		for (int i = 0; i < BUTTONS.length; i++)
-			if (!BUTTONS[i] && buttonsLast[i])
+	/**
+	 * @return {@code true} if any key has been released, {@code false}
+	 *         otherwise
+	 */
+	public boolean anySwitchReleased() {
+		for (int i = 0; i < SWITCHES.length; i++)
+			if (!SWITCHES[i] && switchesLast[i])
 				return true;
 		return false;
 	}
@@ -316,7 +329,7 @@ public class Gamepad implements Runnable {
 
 	@InternalMethod
 	public void update() {
-		buttonsLast = BUTTONS.clone();
+		switchesLast = SWITCHES.clone();
 
 		leftStickLast = LEFT_STICK.clone();
 		rightStickLast = RIGHT_STICK.clone();
@@ -356,62 +369,62 @@ public class Gamepad implements Runnable {
 				}
 				else if (identifier.equals("pov")) {
 					if (data == 0f) {
-						BUTTONS[Button.UP.ordinal()] = false;
-						BUTTONS[Button.RIGHT.ordinal()] = false;
-						BUTTONS[Button.DOWN.ordinal()] = false;
-						BUTTONS[Button.LEFT.ordinal()] = false;
+						SWITCHES[Switch.UP.ordinal()] = false;
+						SWITCHES[Switch.RIGHT.ordinal()] = false;
+						SWITCHES[Switch.DOWN.ordinal()] = false;
+						SWITCHES[Switch.LEFT.ordinal()] = false;
 					}
 					else if (data == 0.125f) {
-						BUTTONS[Button.UP.ordinal()] = true;
-						BUTTONS[Button.RIGHT.ordinal()] = false;
-						BUTTONS[Button.DOWN.ordinal()] = false;
-						BUTTONS[Button.LEFT.ordinal()] = true;
+						SWITCHES[Switch.UP.ordinal()] = true;
+						SWITCHES[Switch.RIGHT.ordinal()] = false;
+						SWITCHES[Switch.DOWN.ordinal()] = false;
+						SWITCHES[Switch.LEFT.ordinal()] = true;
 					}
 					else if (data == 0.25f) {
-						BUTTONS[Button.UP.ordinal()] = true;
-						BUTTONS[Button.RIGHT.ordinal()] = false;
-						BUTTONS[Button.DOWN.ordinal()] = false;
-						BUTTONS[Button.LEFT.ordinal()] = false;
+						SWITCHES[Switch.UP.ordinal()] = true;
+						SWITCHES[Switch.RIGHT.ordinal()] = false;
+						SWITCHES[Switch.DOWN.ordinal()] = false;
+						SWITCHES[Switch.LEFT.ordinal()] = false;
 					}
 					else if (data == 0.375f) {
-						BUTTONS[Button.UP.ordinal()] = true;
-						BUTTONS[Button.RIGHT.ordinal()] = true;
-						BUTTONS[Button.DOWN.ordinal()] = false;
-						BUTTONS[Button.LEFT.ordinal()] = false;
+						SWITCHES[Switch.UP.ordinal()] = true;
+						SWITCHES[Switch.RIGHT.ordinal()] = true;
+						SWITCHES[Switch.DOWN.ordinal()] = false;
+						SWITCHES[Switch.LEFT.ordinal()] = false;
 					}
 					else if (data == 0.5f) {
-						BUTTONS[Button.UP.ordinal()] = false;
-						BUTTONS[Button.RIGHT.ordinal()] = true;
-						BUTTONS[Button.DOWN.ordinal()] = false;
-						BUTTONS[Button.LEFT.ordinal()] = false;
+						SWITCHES[Switch.UP.ordinal()] = false;
+						SWITCHES[Switch.RIGHT.ordinal()] = true;
+						SWITCHES[Switch.DOWN.ordinal()] = false;
+						SWITCHES[Switch.LEFT.ordinal()] = false;
 					}
 					else if (data == 0.625f) {
-						BUTTONS[Button.UP.ordinal()] = false;
-						BUTTONS[Button.RIGHT.ordinal()] = true;
-						BUTTONS[Button.DOWN.ordinal()] = true;
-						BUTTONS[Button.LEFT.ordinal()] = false;
+						SWITCHES[Switch.UP.ordinal()] = false;
+						SWITCHES[Switch.RIGHT.ordinal()] = true;
+						SWITCHES[Switch.DOWN.ordinal()] = true;
+						SWITCHES[Switch.LEFT.ordinal()] = false;
 					}
 					else if (data == 0.75f) {
-						BUTTONS[Button.UP.ordinal()] = false;
-						BUTTONS[Button.RIGHT.ordinal()] = false;
-						BUTTONS[Button.DOWN.ordinal()] = true;
-						BUTTONS[Button.LEFT.ordinal()] = false;
+						SWITCHES[Switch.UP.ordinal()] = false;
+						SWITCHES[Switch.RIGHT.ordinal()] = false;
+						SWITCHES[Switch.DOWN.ordinal()] = true;
+						SWITCHES[Switch.LEFT.ordinal()] = false;
 					}
 					else if (data == 0.875f) {
-						BUTTONS[Button.UP.ordinal()] = false;
-						BUTTONS[Button.RIGHT.ordinal()] = false;
-						BUTTONS[Button.DOWN.ordinal()] = true;
-						BUTTONS[Button.LEFT.ordinal()] = true;
+						SWITCHES[Switch.UP.ordinal()] = false;
+						SWITCHES[Switch.RIGHT.ordinal()] = false;
+						SWITCHES[Switch.DOWN.ordinal()] = true;
+						SWITCHES[Switch.LEFT.ordinal()] = true;
 					}
 					else if (data == 1f) {
-						BUTTONS[Button.UP.ordinal()] = false;
-						BUTTONS[Button.RIGHT.ordinal()] = false;
-						BUTTONS[Button.DOWN.ordinal()] = false;
-						BUTTONS[Button.LEFT.ordinal()] = true;
+						SWITCHES[Switch.UP.ordinal()] = false;
+						SWITCHES[Switch.RIGHT.ordinal()] = false;
+						SWITCHES[Switch.DOWN.ordinal()] = false;
+						SWITCHES[Switch.LEFT.ordinal()] = true;
 					}
 				}
 				else {
-					BUTTONS[Integer.parseInt(identifier)] = (data == 1f);
+					SWITCHES[Integer.parseInt(identifier)] = (data == 1f);
 				}
 			}
 		}

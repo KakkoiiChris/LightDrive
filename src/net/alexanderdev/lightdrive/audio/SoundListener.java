@@ -20,7 +20,7 @@ import javax.sound.sampled.Clip;
  * simulate reactionary code.
  * 
  * @author Christian Bryce Alexander
- * @since Nov 11, 2015 | 2:23:23 PM
+ * @since Nov 11, 2015, 2:23:23 PM
  */
 @FunctionalInterface
 public interface SoundListener {

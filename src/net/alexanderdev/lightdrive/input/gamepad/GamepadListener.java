@@ -21,12 +21,12 @@ import net.alexanderdev.lightdrive.view.Viewable;
  * {@link Gamepad} input.
  * 
  * @author Christian Bryce Alexander
- * @since Apr 29, 2015 | 9:12:12 PM
+ * @since Apr 29, 2015, 9:12:12 PM
  */
 @FunctionalInterface
 public interface GamepadListener {
 	/**
-	 * Enables direct use of the {@link Viewable}'s game pads
+	 * Enables direct use of the {@link Viewable}'s game pads.
 	 * 
 	 * @param gamepad
 	 *            A gamepad from the {@link Viewable}

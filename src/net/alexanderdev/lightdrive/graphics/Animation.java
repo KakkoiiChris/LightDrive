@@ -20,7 +20,7 @@ import net.alexanderdev.lightdrive.util.math.MathX;
  * A class which represents a single {@link Sprite} based animation.
  * 
  * @author Christian Bryce Alexander
- * @since Apr 24, 2015 | 11:50:16 PM
+ * @since Apr 24, 2015, 11:50:16 PM
  */
 public class Animation implements Cloneable {
 	/**
@@ -57,7 +57,7 @@ public class Animation implements Cloneable {
 	private boolean playing;
 
 	/**
-	 * Creates a standard {@code Animation}.
+	 * Creates a standard {@link Animation}.
 	 * 
 	 * @param frames
 	 *            The animation frames
@@ -79,7 +79,7 @@ public class Animation implements Cloneable {
 	}
 
 	/**
-	 * Creates an {@code Animation} with the default style, {@link Style#LOOP}.
+	 * Creates an {@link Animation} with the default style, {@link Style#LOOP}.
 	 * 
 	 * @param frames
 	 *            The animation frames
@@ -91,7 +91,7 @@ public class Animation implements Cloneable {
 	}
 
 	/**
-	 * Creates an {@code Animation} with the default step of {@code 1}.
+	 * Creates an {@link Animation} with the default step of {@code 1}.
 	 * 
 	 * @param frames
 	 *            The animation frames
@@ -103,7 +103,7 @@ public class Animation implements Cloneable {
 	}
 
 	/**
-	 * Creates an {@code Animation} with the default step and style.
+	 * Creates an {@link Animation} with the default step and style.
 	 * 
 	 * @param frames
 	 *            The animation frames
@@ -130,7 +130,7 @@ public class Animation implements Cloneable {
 	 */
 	public void step() {
 		prevFrame = currFrame;
-		
+
 		switch (style) {
 			case LOOP:
 			default:
@@ -182,7 +182,7 @@ public class Animation implements Cloneable {
 	}
 
 	/**
-	 * Sets the index of this {@code Animation}.
+	 * Sets the index of this {@link Animation}.
 	 * 
 	 * @param The
 	 *            index to set
@@ -195,14 +195,14 @@ public class Animation implements Cloneable {
 	}
 
 	/**
-	 * @return The delay of this {@code Animation}
+	 * @return The delay of this {@link Animation}
 	 */
 	public long getDelay() {
 		return delay;
 	}
 
 	/**
-	 * Sets the delay of this {@code Animation}.
+	 * Sets the delay of this {@link Animation}.
 	 *
 	 * @param delay
 	 *            The delay to set
@@ -212,14 +212,14 @@ public class Animation implements Cloneable {
 	}
 
 	/**
-	 * @return The step amount of this {@code Animation}
+	 * @return The step amount of this {@link Animation}
 	 */
 	public int getStep() {
 		return step;
 	}
 
 	/**
-	 * Sets the step amount for this {@code Animation}.
+	 * Sets the step amount for this {@link Animation}.
 	 *
 	 * @param step
 	 *            The step amount to set
@@ -229,14 +229,14 @@ public class Animation implements Cloneable {
 	}
 
 	/**
-	 * @return The length of this {@code Animation}
+	 * @return The length of this {@link Animation}
 	 */
 	public int getLength() {
 		return frames.length;
 	}
 
 	/**
-	 * Sets this {@code Animation} to start running, and updates the timer.
+	 * Sets this {@link Animation} to start running, and updates the timer.
 	 */
 	public void play() {
 		if (!playing) {
@@ -247,7 +247,7 @@ public class Animation implements Cloneable {
 	}
 
 	/**
-	 * Sets the {@code Animation} to stop running.
+	 * Sets the {@link Animation} to stop running.
 	 */
 	public void pause() {
 		if (playing)
@@ -262,7 +262,7 @@ public class Animation implements Cloneable {
 	}
 
 	/**
-	 * Sets the {@code Animation} to stop running, and sets the current frame to
+	 * Sets the {@link Animation} to stop running, and sets the current frame to
 	 * the beginning.
 	 */
 	public void stop() {
@@ -283,7 +283,7 @@ public class Animation implements Cloneable {
 	}
 
 	/**
-	 * Reverses the direction of this {@code Animation}, if applicable.
+	 * Reverses the direction of this {@link Animation}, if applicable.
 	 */
 	public void reverse() {
 		step = -step;

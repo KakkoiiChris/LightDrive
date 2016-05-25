@@ -17,7 +17,7 @@ import net.alexanderdev.lightdrive.graphics.Sprite;
 
 /**
  * A {@link FunctionalInterface} which is used to filter a {@link Sprite}, and
- * defines the rule(s) for determining the values.
+ * defines the rule(s) for determining the values for each pixel.
  * 
  * @author Christian Bryce Alexander
  * @since Dec 14, 2015, 12:29:10 AM
@@ -25,7 +25,7 @@ import net.alexanderdev.lightdrive.graphics.Sprite;
 @FunctionalInterface
 public interface Filter {
 	/**
-	 * Applies this {@code Filter}'s algorithm with the specified values.
+	 * Applies this {@link Filter}'s algorithm with the specified values.
 	 * 
 	 * @param pixels
 	 *            The pixel data of the {@link Sprite} to be filtered

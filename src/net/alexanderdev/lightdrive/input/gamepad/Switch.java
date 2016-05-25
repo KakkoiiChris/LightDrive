@@ -14,10 +14,12 @@
 package net.alexanderdev.lightdrive.input.gamepad;
 
 /**
+ * An enumeration which lists all {@link Gamepad} switches in logical order.
+ * 
  * @author Christian Bryce Alexander
  * @since May 10, 2016, 3:40:11 AM
  */
-public enum Button {
+public enum Switch {
 	A,
 	B,
 	X,

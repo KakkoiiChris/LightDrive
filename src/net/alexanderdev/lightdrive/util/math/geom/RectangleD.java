@@ -21,7 +21,7 @@ import java.awt.geom.Rectangle2D;
  * A simple wrapper class for {@link Rectangle2D.Double}.
  * 
  * @author Christian Bryce Alexander
- * @since Jun 5, 2015 | 5:37:13 PM
+ * @since Jun 5, 2015, 5:37:13 PM
  */
 public class RectangleD extends Rectangle2D.Double implements Cloneable {
 	private static final long serialVersionUID = 8026136184017414846L;

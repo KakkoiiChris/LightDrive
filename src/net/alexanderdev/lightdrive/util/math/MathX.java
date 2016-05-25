@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.util.math;
 
@@ -23,7 +23,7 @@ import net.alexanderdev.lightdrive.util.ArraysX;
  * A collection of useful, convenient mathematical functions.
  * 
  * @author Christian Bryce Alexander
- * @since March 12, 2015 | 7:29:02 PM
+ * @since March 12, 2015, 7:29:02 PM
  */
 public final strictfp class MathX {
 	private static final Random RANDOM = new Random();
@@ -80,7 +80,7 @@ public final strictfp class MathX {
 	}
 
 	/**
-	 * Finds the average of a varargs list of ints.
+	 * Finds the average of a varargs list of integers.
 	 * 
 	 * @param values
 	 *            The values to be averaged
@@ -185,7 +185,7 @@ public final strictfp class MathX {
 	}
 
 	/**
-	 * Clamps a {@code int} value between two others.
+	 * Clamps an {@code int} value between two others.
 	 * 
 	 * @param value
 	 *            Number to be clamped
@@ -293,10 +293,10 @@ public final strictfp class MathX {
 	}
 
 	/**
-	 * Finds the maximum of a varargs list of ints.
+	 * Finds the maximum of a varargs list of integers.
 	 * 
 	 * @param ints
-	 *            The list of ints to search through
+	 *            The list of integers to search through
 	 * 
 	 * @return The maximum {@code int} in the list
 	 */
@@ -346,6 +346,11 @@ public final strictfp class MathX {
 		return max;
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The median of central tendency of the values
+	 */
 	public static double median(byte... values) {
 		byte[] sorted = ArraysX.sort(values);
 
@@ -355,6 +360,11 @@ public final strictfp class MathX {
 			return sorted[sorted.length / 2];
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The median of central tendency of the values
+	 */
 	public static double median(double... values) {
 		double[] sorted = ArraysX.sort(values);
 
@@ -364,6 +374,11 @@ public final strictfp class MathX {
 			return sorted[sorted.length / 2];
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The median of central tendency of the values
+	 */
 	public static double median(float... values) {
 		float[] sorted = ArraysX.sort(values);
 
@@ -373,6 +388,11 @@ public final strictfp class MathX {
 			return sorted[sorted.length / 2];
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The median of central tendency of the values
+	 */
 	public static double median(int... values) {
 		int[] sorted = ArraysX.sort(values);
 
@@ -382,6 +402,11 @@ public final strictfp class MathX {
 			return sorted[sorted.length / 2];
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The median of central tendency of the values
+	 */
 	public static double median(long... values) {
 		long[] sorted = ArraysX.sort(values);
 
@@ -391,6 +416,11 @@ public final strictfp class MathX {
 			return sorted[sorted.length / 2];
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The median of central tendency of the values
+	 */
 	public static double median(short... values) {
 		short[] sorted = ArraysX.sort(values);
 
@@ -508,6 +538,11 @@ public final strictfp class MathX {
 		return min;
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The mode of central tendency of the values
+	 */
 	public static byte mode(byte... values) {
 		Map<Byte, Byte> tally = new HashMap<>();
 
@@ -530,6 +565,11 @@ public final strictfp class MathX {
 		return maxIndex;
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The mode of central tendency of the values
+	 */
 	public static double mode(double... values) {
 		Map<Double, Double> tally = new HashMap<>();
 
@@ -552,6 +592,11 @@ public final strictfp class MathX {
 		return maxIndex;
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The mode of central tendency of the values
+	 */
 	public static float mode(float... values) {
 		Map<Float, Float> tally = new HashMap<>();
 
@@ -574,6 +619,11 @@ public final strictfp class MathX {
 		return maxIndex;
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The mode of central tendency of the values
+	 */
 	public static int mode(int... values) {
 		Map<Integer, Integer> tally = new HashMap<>();
 
@@ -596,6 +646,11 @@ public final strictfp class MathX {
 		return maxIndex;
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The mode of central tendency of the values
+	 */
 	public static long mode(long... values) {
 		Map<Long, Long> tally = new HashMap<>();
 
@@ -618,6 +673,11 @@ public final strictfp class MathX {
 		return maxIndex;
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The mode of central tendency of the values
+	 */
 	public static short mode(short... values) {
 		Map<Short, Short> tally = new HashMap<>();
 
@@ -875,35 +935,89 @@ public final strictfp class MathX {
 		return (short) (randomInt() % (Short.MAX_VALUE + 1));
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The range of central tendency of the values
+	 */
 	public static byte range(byte... values) {
 		return (byte) (max(values) - min(values));
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The range of central tendency of the values
+	 */
 	public static double range(double... values) {
 		return max(values) - min(values);
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The range of central tendency of the values
+	 */
 	public static float range(float... values) {
 		return max(values) - min(values);
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The range of central tendency of the values
+	 */
 	public static int range(int... values) {
 		return max(values) - min(values);
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The range of central tendency of the values
+	 */
 	public static long range(long... values) {
 		return max(values) - min(values);
 	}
 
+	/**
+	 * @param values
+	 *            The values to calculate with
+	 * @return The range of central tendency of the values
+	 */
 	public static short range(short... values) {
 		return (short) (max(values) - min(values));
 	}
 
+	/**
+	 * Logarithmically brings a value closer to a target by a specified
+	 * percentage of distance.
+	 * 
+	 * @param value
+	 *            The value to tween
+	 * @param target
+	 *            The value to tend towards
+	 * @param factor
+	 *            The percentage of distance to move
+	 * @return The value tweened
+	 */
 	public static float tween(float value, float target, float factor) {
 		value += (target - value) * factor;
 		return value;
 	}
 
+	/**
+	 * Logarithmically brings a value closer to a target by a specified
+	 * percentage of distance.
+	 * 
+	 * @param value
+	 *            The value to tween
+	 * @param target
+	 *            The value to tend towards
+	 * @param factor
+	 *            The percentage of distance to move
+	 * @return The value tweened
+	 */
 	public static double tween(double value, double target, double factor) {
 		value += (target - value) * factor;
 		return value;

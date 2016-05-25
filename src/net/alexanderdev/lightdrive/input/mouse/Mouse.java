@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.input.mouse;
 
@@ -29,7 +29,7 @@ import net.alexanderdev.lightdrive.view.Viewable;
  * enables more game-friendly functionality.
  * 
  * @author Christian Bryce Alexander
- * @since March 6, 2015 | 2:44:04 PM
+ * @since March 6, 2015, 2:44:04 PM
  */
 public class Mouse implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private Viewable view;
@@ -75,14 +75,20 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	}
 
 	/**
-	 * @return {@code true} if {@code button} equals {@link Mouse#ANY} and any
-	 *         button has been pressed, or if the specified {@link Button} is associated with
-	 *         a button that has been pressed, and {@code false} otherwise
+	 * @param button
+	 *            The mouse button to check
+	 * @return {@code true} if the button associated with the specified
+	 *         {@link Button} 's ordinal has been pressed, {@code false}
+	 *         otherwise
 	 */
 	public boolean buttonPressed(Button button) {
 		return BUTTONS[button.ordinal()] && !buttonsLast[button.ordinal()];
 	}
 
+	/**
+	 * @return {@code true} if any button has been pressed, {@code false}
+	 *         otherwise
+	 */
 	public boolean anyButtonPressed() {
 		for (int i = 0; i < BUTTONS.length; i++)
 			if (BUTTONS[i] && !buttonsLast[i])
@@ -91,14 +97,18 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	}
 
 	/**
-	 * @return {@code true} if {@code button} equals {@link Mouse#ANY} and any
-	 *         button is being held, or if the specified {@link Button} is associated with a
-	 *         button that is being held, and {@code false} otherwise
+	 * @param button
+	 *            The mouse button to check
+	 * @return {@code true} if the button associated with the specified
+	 *         {@link Button} 's ordinal is being held, {@code false} otherwise
 	 */
 	public boolean buttonHeld(Button button) {
 		return BUTTONS[button.ordinal()];
 	}
 
+	/**
+	 * @return {@code true} if any button is being held, {@code false} otherwise
+	 */
 	public boolean anyButtonHeld() {
 		for (int i = 0; i < BUTTONS.length; i++)
 			if (BUTTONS[i])
@@ -107,15 +117,20 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	}
 
 	/**
-	 * @return {@code true} if {@code button} equals {@link Mouse#ANY} and any
-	 *         button has been released, or if the specified {@link Button} is
-	 *         associated with a button that has been released, and
-	 *         {@code false} otherwise
+	 * @param button
+	 *            The mouse button to check
+	 * @return {@code true} if the button associated with the specified
+	 *         {@link Button} 's ordinal has been released, {@code false}
+	 *         otherwise
 	 */
 	public boolean buttonReleased(Button button) {
 		return !BUTTONS[button.ordinal()] && buttonsLast[button.ordinal()];
 	}
 
+	/**
+	 * @return {@code true} if any button has been released, {@code false}
+	 *         otherwise
+	 */
 	public boolean anyButtonReleased() {
 		for (int i = 0; i < BUTTONS.length; i++)
 			if (!BUTTONS[i] && buttonsLast[i])

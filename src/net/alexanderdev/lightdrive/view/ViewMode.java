@@ -14,6 +14,9 @@
 package net.alexanderdev.lightdrive.view;
 
 /**
+ * A class which encapsulates information about resolution and update rate for
+ * use with any {@link Viewable}.
+ * 
  * @author Christian Bryce Alexander
  * @since May 19, 2016, 8:14:47 PM
  */
@@ -21,6 +24,16 @@ public class ViewMode {
 	private int width, height;
 	private double ups;
 
+	/**
+	 * Creates a new {@link ViewMode} with the specified parameters.
+	 *
+	 * @param width
+	 *            The width of this {@link ViewMode}
+	 * @param height
+	 *            The height of this {@link ViewMode}
+	 * @param ups
+	 *            The update rate of this {@link ViewMode}
+	 */
 	public ViewMode(int width, int height, double ups) {
 		this.width = width;
 		this.height = height;
@@ -28,21 +41,21 @@ public class ViewMode {
 	}
 
 	/**
-	 * @return the width
+	 * @return The width of this {@link ViewMode}
 	 */
 	public int getWidth() {
 		return width;
 	}
 
 	/**
-	 * @return the height
+	 * @return The height of this {@link ViewMode}
 	 */
 	public int getHeight() {
 		return height;
 	}
 
 	/**
-	 * @return the ups
+	 * @return The update rate of this {@link ViewMode}
 	 */
 	public double getUPS() {
 		return ups;

@@ -21,7 +21,7 @@ import java.awt.geom.Ellipse2D;
  * A simple wrapper class for {@link Ellipse2D.Double}.
  * 
  * @author Christian Bryce Alexander
- * @since Apr 26, 2015 | 1:06:15 AM
+ * @since Apr 26, 2015, 1:06:15 AM
  */
 public class EllipseD extends Ellipse2D.Double implements Cloneable {
 	private static final long serialVersionUID = -7534681747032782328L;

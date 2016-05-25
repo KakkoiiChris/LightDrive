@@ -52,7 +52,7 @@ import net.alexanderdev.lightdrive.util.Time;
  * game loop, a state manager, and controls handling.
  * 
  * @author Christian Bryce Alexander
- * @since March 6, 2015 | 2:15:37 AM
+ * @since March 6, 2015, 2:15:37 AM
  */
 public class Display extends Canvas implements Viewable, Runnable {
 	private static final long serialVersionUID = -8708004611699503479L;
@@ -109,34 +109,110 @@ public class Display extends Canvas implements Viewable, Runnable {
 		this(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SCALE, DEFAULT_UPS, DEFAULT_TITLE, DEFAULT_ICON);
 	}
 
+	/**
+	 * A {@link Display} with its width, height, and update rate specified by
+	 * the provided {@link ViewMode}, and a default scale, title, and icon.
+	 * 
+	 * @param mode
+	 *            The {@link ViewMode} of the {@link Display}
+	 */
 	public Display(ViewMode mode) {
 		this(mode.getWidth(), mode.getHeight(), DEFAULT_SCALE, mode.getUPS(), DEFAULT_TITLE, DEFAULT_ICON);
 	}
 
+	/**
+	 * A {@link Display} with its width, height, and update rate specified by
+	 * the provided {@link ViewMode}, a user defined scale, and a default title and
+	 * icon.
+	 * 
+	 * @param mode
+	 *            The {@link ViewMode} of the {@link Display}
+	 * @param scale
+	 *            The scale of the {@link Display}
+	 */
 	public Display(ViewMode mode, int scale) {
 		this(mode.getWidth(), mode.getHeight(), scale, mode.getUPS(), DEFAULT_TITLE, DEFAULT_ICON);
 	}
 
+	/**
+	 * A {@link Display} with its width, height, and update rate specified by
+	 * the provided {@link ViewMode}, a user defined title, and a default scale and
+	 * icon.
+	 * 
+	 * @param mode
+	 *            The {@link ViewMode} of the {@link Display}
+	 * @param scale
+	 *            The scale of the {@link Display}
+	 */
 	public Display(ViewMode mode, String title) {
 		this(mode.getWidth(), mode.getHeight(), DEFAULT_SCALE, mode.getUPS(), title, DEFAULT_ICON);
 	}
 
+	/**
+	 * A {@link Display} with its width, height, and update rate specified by
+	 * the provided {@link ViewMode}, a user defined icon, and a default scale and
+	 * title.
+	 * 
+	 * @param mode
+	 *            The {@link ViewMode} of the {@link Display}
+	 * @param scale
+	 *            The scale of the {@link Display}
+	 */
 	public Display(ViewMode mode, Image icon) {
 		this(mode.getWidth(), mode.getHeight(), DEFAULT_SCALE, mode.getUPS(), DEFAULT_TITLE, icon);
 	}
 
+	/**
+	 * A {@link Display} with its width, height, and update rate specified by
+	 * the provided {@link ViewMode}, a user defined scale and title, and a default
+	 * icon.
+	 * 
+	 * @param mode
+	 *            The {@link ViewMode} of the {@link Display}
+	 * @param scale
+	 *            The scale of the {@link Display}
+	 */
 	public Display(ViewMode mode, int scale, String title) {
 		this(mode.getWidth(), mode.getHeight(), scale, mode.getUPS(), title, DEFAULT_ICON);
 	}
 
+	/**
+	 * A {@link Display} with its width, height, and update rate specified by
+	 * the provided {@link ViewMode}, a user defined scale and icon, and a default
+	 * title.
+	 * 
+	 * @param mode
+	 *            The {@link ViewMode} of the {@link Display}
+	 * @param scale
+	 *            The scale of the {@link Display}
+	 */
 	public Display(ViewMode mode, int scale, Image icon) {
 		this(mode.getWidth(), mode.getHeight(), scale, mode.getUPS(), DEFAULT_TITLE, icon);
 	}
 
+	/**
+	 * A {@link Display} with its width, height, and update rate specified by
+	 * the provided {@link ViewMode}, a user defined title and icon, and a default
+	 * scale.
+	 * 
+	 * @param mode
+	 *            The {@link ViewMode} of the {@link Display}
+	 * @param scale
+	 *            The scale of the {@link Display}
+	 */
 	public Display(ViewMode mode, String title, Image icon) {
 		this(mode.getWidth(), mode.getHeight(), DEFAULT_SCALE, mode.getUPS(), title, icon);
 	}
 
+	/**
+	 * A {@link Display} with its width, height, and update rate specified by
+	 * the provided {@link ViewMode}, and a user defined scale, title, and icon.
+	 * 
+	 * @param mode
+	 *            The {@link ViewMode} of the {@link Display}
+	 * @param scale
+	 *            The scale of the {@link Display}
+	 */
 	public Display(ViewMode mode, int scale, String title, Image icon) {
 		this(mode.getWidth(), mode.getHeight(), scale, mode.getUPS(), title, icon);
 	}

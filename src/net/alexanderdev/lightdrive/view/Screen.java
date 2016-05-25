@@ -44,6 +44,7 @@ import net.alexanderdev.lightdrive.state.State;
 import net.alexanderdev.lightdrive.state.StateManager;
 import net.alexanderdev.lightdrive.util.Environment;
 import net.alexanderdev.lightdrive.util.Time;
+import net.alexanderdev.lightdrive.util.io.ResourceLoader;
 
 /**
  * A {@link Viewable} that consists of a {@link JFrame} and a {@link Canvas},
@@ -94,21 +95,40 @@ public class Screen extends Canvas implements Viewable, Runnable {
 		// System.load(new File("/jinput-raw_64.dll").getAbsolutePath());
 	}
 
+	/**
+	 * A {@link Screen} with a default width, height, update rate, and title.
+	 */
 	public Screen() {
 		this(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_UPS, DEFAULT_TITLE);
 	}
 
+	/**
+	 * A {@link Screen} with its width, height, and update rate specified by the
+	 * provided {@link ViewMode}, and a default title.
+	 * 
+	 * @param mode
+	 *            The {@link ViewMode} of the {@link Screen}
+	 */
 	public Screen(ViewMode mode) {
 		this(mode.getWidth(), mode.getHeight(), mode.getUPS(), DEFAULT_TITLE);
 	}
 
+	/**
+	 * A {@link Screen} with its width, height, and update rate specified by the
+	 * provided {@link ViewMode}, and a user defined title.
+	 * 
+	 * @param mode
+	 *            The {@link ViewMode} of the {@link Screen}
+	 * @param title
+	 *            The title of the {@link Screen}
+	 */
 	public Screen(ViewMode mode, String title) {
 		this(mode.getWidth(), mode.getHeight(), mode.getUPS(), title);
 	}
 
 	/**
-	 * A {@link Screen} with specified width and height, and default update rate
-	 * and title.
+	 * A {@link Screen} with a user defined width and height, and a default
+	 * update rate and title.
 	 * 
 	 * @param width
 	 *            The width of the {@link Screen}
@@ -120,8 +140,8 @@ public class Screen extends Canvas implements Viewable, Runnable {
 	}
 
 	/**
-	 * A {@link Screen} with specified width, height, and update rate, and
-	 * default title.
+	 * A {@link Screen} with a user defined width, height, and update rate, and
+	 * a default title.
 	 * 
 	 * @param width
 	 *            The width of the {@link Screen}
@@ -135,8 +155,8 @@ public class Screen extends Canvas implements Viewable, Runnable {
 	}
 
 	/**
-	 * A {@link Screen} with specified width, height, and title, and default
-	 * update rate.
+	 * A {@link Screen} with a user defined width, height, and title, and a
+	 * default update rate.
 	 * 
 	 * @param width
 	 *            The width of the {@link Screen}
@@ -150,7 +170,8 @@ public class Screen extends Canvas implements Viewable, Runnable {
 	}
 
 	/**
-	 * A {@link Screen} with specified width, height, update rate, and title.
+	 * A {@link Screen} with a user defined width, height, update rate, and
+	 * title.
 	 * 
 	 * @param width
 	 *            The width of the {@link Screen}
@@ -481,5 +502,8 @@ public class Screen extends Canvas implements Viewable, Runnable {
 		g.dispose();
 		bs.dispose();
 		context.flush();
+
+		if (!ResourceLoader.isEmpty())
+			ResourceLoader.deregisterAll();
 	}
 }

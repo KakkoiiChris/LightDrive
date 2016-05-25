@@ -26,20 +26,20 @@ import java.awt.geom.Point2D;
  * methods for most all vector algebra operations.
  * 
  * @author Christian Bryce Alexander
- * @since Apr 13, 2015 | 3:08:10 PM
+ * @since Apr 13, 2015, 3:08:10 PM
  */
 public strictfp class VectorD extends Point2D.Double implements Cloneable, Comparable<Object> {
 	private static final long serialVersionUID = -1490482930677885575L;
 
 	/**
-	 * Default {@link VectorD} with no magnitude
+	 * Creates a default {@link VectorD} with no magnitude.
 	 */
 	public VectorD() {
 		this(0.0, 0.0);
 	}
 
 	/**
-	 * {@link VectorD} with specified magnitudes
+	 * Creates a {@link VectorD} with the specified magnitudes.
 	 * 
 	 * @param x
 	 *            The x magnitude
@@ -51,7 +51,7 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Adds the components of {@code vec} to this {@link VectorD}
+	 * Adds the components of {@code vec} to this {@link VectorD}.
 	 * 
 	 * @param vec
 	 *            The {@link VectorD} to be added
@@ -62,7 +62,7 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Adds a {@code scalar} to both components of this {@link VectorD}
+	 * Adds a {@code scalar} to both components of this {@link VectorD}.
 	 * 
 	 * @param scalar
 	 *            Scalar to be added
@@ -73,7 +73,7 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Subtracts the components of {@code vec} from this {@link VectorD}
+	 * Subtracts the components of {@code vec} from this {@link VectorD}.
 	 * 
 	 * @param vec
 	 *            The {@link VectorD} to be subtracted
@@ -84,7 +84,7 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Subtracts a {@code scalar} from both components of this {@link VectorD}
+	 * Subtracts a {@code scalar} from both components of this {@link VectorD}.
 	 * 
 	 * @param scalar
 	 *            Scalar to be subtracted
@@ -95,7 +95,8 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Multiplies the components of this {@link VectorD} by {@code vec}
+	 * Multiplies the components of this {@link VectorD} by {@code vec}'s
+	 * components.
 	 * 
 	 * @param vec
 	 *            The {@link VectorD} to be multiplied by
@@ -106,7 +107,7 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Multiplies both components of this {@link VectorD} by a {@code scalar}
+	 * Multiplies both components of this {@link VectorD} by a {@code scalar}.
 	 * 
 	 * @param scalar
 	 *            Scalar to be multiplied by
@@ -117,7 +118,8 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Divides the components of this {@link VectorD} by {@code vec}
+	 * Divides the components of this {@link VectorD} by {@code vec}'s
+	 * components.
 	 * 
 	 * @param vec
 	 *            The {@link VectorD} to be divided by
@@ -128,7 +130,7 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Divides both components of this {@link VectorD} by a {@code scalar}
+	 * Divides both components of this {@link VectorD} by a {@code scalar}.
 	 * 
 	 * @param scalar
 	 *            Scalar to be divided by
@@ -139,35 +141,35 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Turns this {@link VectorD} into a unit vector in the same direction
+	 * Turns this {@link VectorD} into a unit vector in the same direction.
 	 */
 	public void normalize() {
 		divide(length());
 	}
 
 	/**
-	 * Sets both components of this {@link VectorD} to zero
+	 * Sets both components of this {@link VectorD} to zero.
 	 */
 	public void zero() {
 		x = y = 0d;
 	}
 
 	/**
-	 * Reverses the x component of this {@link VectorD}
+	 * Reverses the x component of this {@link VectorD}.
 	 */
 	public void reverseX() {
 		x = -x;
 	}
 
 	/**
-	 * Reverses the y component of this {@link VectorD}
+	 * Reverses the y component of this {@link VectorD}.
 	 */
 	public void reverseY() {
 		y = -y;
 	}
 
 	/**
-	 * Reverses both components of this {@link VectorD}
+	 * Reverses both components of this {@link VectorD}.
 	 */
 	public void reverse() {
 		reverseX();
@@ -175,7 +177,7 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Rotates this {@link VectorD} by the radian amount {@code angle}
+	 * Rotates this {@link VectorD} by the radian amount {@code angle}.
 	 * 
 	 * @param angle
 	 *            An amount in radians to rotate this {@link VectorD} by
@@ -190,7 +192,7 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Changes the length of this {@link VectorD}
+	 * Changes the length of this {@link VectorD}.
 	 * 
 	 * @param length
 	 *            The length for this {@link VectorD} to be resized to
@@ -202,7 +204,7 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * The dot product of two {@link VectorD}'s
+	 * The dot product of two {@link VectorD}'s.
 	 * 
 	 * @param vec
 	 *            The second {@link VectorD}
@@ -214,7 +216,7 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * The cross product of two {@link VectorD}'s
+	 * The cross product of two {@link VectorD}'s.
 	 * 
 	 * @param vec
 	 *            The second {@link VectorD}
@@ -240,8 +242,8 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * @param The
-	 *            {@link VectorD} to point towards
+	 * @param vec
+	 *            The {@link VectorD} to point towards
 	 * 
 	 * @return A {@link VectorD} from this {@link VectorD} to {@code vec}
 	 */
@@ -250,8 +252,8 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * @param The
-	 *            {@link VectorD} to point towards
+	 * @param vec
+	 *            The {@link VectorD} to point towards
 	 * 
 	 * @return A {@link VectorD} from this {@link VectorD} to {@code vec}
 	 */

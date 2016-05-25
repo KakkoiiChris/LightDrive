@@ -23,7 +23,7 @@ import java.util.Properties;
  * folder. Only one file is loaded into memory at a time.
  * 
  * @author Christian Bryce Alexander
- * @since May 26, 2015 | 7:26:54 AM
+ * @since May 26, 2015, 7:26:54 AM
  */
 public class PropertiesIO {
 	private static final Properties PROPERTIES = new Properties();
@@ -67,6 +67,11 @@ public class PropertiesIO {
 
 	/**
 	 * Sets the specified key to the specified value.
+	 * 
+	 * @param key
+	 *            The {@link String} to map to
+	 * @param val
+	 *            The {@link String} to map
 	 */
 	public void setProperty(String key, String val) {
 		PROPERTIES.setProperty(key, val);

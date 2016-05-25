@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.input.keyboard;
 
@@ -23,7 +23,7 @@ import net.alexanderdev.lightdrive.InternalMethod;
  * more game-friendly functionality.
  * 
  * @author Christian Bryce Alexander
- * @since March 6, 2015 | 2:47:47 AM
+ * @since March 6, 2015, 2:47:47 AM
  */
 public class Keyboard implements KeyListener {
 	private final boolean[] KEYS = new boolean[Key.values().length];
@@ -46,17 +46,18 @@ public class Keyboard implements KeyListener {
 	}
 
 	/**
-	 * @param keyCode
-	 *            The code of the key to check
-	 * @return {@code true} if the specified {@link Key} equals
-	 *         {@link Keyboard#ANY} and any key has been pressed, or if the
-	 *         specified {@link Key} is associated with a key that has been
-	 *         pressed, and {@code false} otherwise
+	 * @param key
+	 *            The keyboard key to check
+	 * @return {@code true} if the key associated with the specified {@link Key}
+	 *         's ordinal has been pressed, {@code false} otherwise
 	 */
 	public boolean keyPressed(Key key) {
 		return KEYS[key.ordinal()] && !keysLast[key.ordinal()];
 	}
 
+	/**
+	 * @return {@code true} if any key has been pressed, {@code false} otherwise
+	 */
 	public boolean anyKeyPressed() {
 		for (int i = 0; i < KEYS.length; i++)
 			if (KEYS[i] && !keysLast[i])
@@ -65,17 +66,18 @@ public class Keyboard implements KeyListener {
 	}
 
 	/**
-	 * @param keyCode
-	 *            The code of the key to check
-	 * @return {@code true} if the specified {@link Key} equals
-	 *         {@link Keyboard#ANY} and any key is being held, or if the
-	 *         specified {@link Key} is associated with a key that is being
-	 *         held, and {@code false} otherwise
+	 * @param key
+	 *            The keyboard key to check
+	 * @return {@code true} if the key associated with the specified {@link Key}
+	 *         's ordinal is being held, {@code false} otherwise
 	 */
 	public boolean keyHeld(Key key) {
 		return KEYS[key.ordinal()];
 	}
 
+	/**
+	 * @return {@code true} if any key is being held, {@code false} otherwise
+	 */
 	public boolean anyKeyHeld() {
 		for (int i = 0; i < KEYS.length; i++)
 			if (KEYS[i])
@@ -84,17 +86,19 @@ public class Keyboard implements KeyListener {
 	}
 
 	/**
-	 * @param keyCode
-	 *            The code of the key to check
-	 * @return {@code true} if the specified {@link Key} equals
-	 *         {@link Keyboard#ANY} and any key has been released, or if the
-	 *         specified {@link Key} is associated with a key that has been
-	 *         released, and {@code false} otherwise
+	 * @param key
+	 *            The keyboard key to check
+	 * @return {@code true} if the key associated with the specified {@link Key}
+	 *         's ordinal has been released, {@code false} otherwise
 	 */
 	public boolean keyReleased(Key key) {
 		return !KEYS[key.ordinal()] && keysLast[key.ordinal()];
 	}
 
+	/**
+	 * @return {@code true} if any key has been released, {@code false}
+	 *         otherwise
+	 */
 	public boolean anyKeyReleased() {
 		for (int i = 0; i < KEYS.length; i++)
 			if (!KEYS[i] && keysLast[i])
@@ -104,9 +108,9 @@ public class Keyboard implements KeyListener {
 
 	/**
 	 * @param key
-	 *            The key to check
-	 * @return {@code true} if if the specified {@link Key} appears only once,
-	 *         and is not located on the numpad, and {@code false} otherwise
+	 *            The keyboard key to check
+	 * @return {@code true} if the specified {@link Key} appears only once, and
+	 *         is not located on the number pad, {@code false} otherwise
 	 */
 	public boolean isStandardKey(Key key) {
 		return KEY_LOCATIONS[key.ordinal()] == KeyEvent.KEY_LOCATION_STANDARD;
@@ -114,9 +118,9 @@ public class Keyboard implements KeyListener {
 
 	/**
 	 * @param key
-	 *            The key to check
+	 *            The keyboard key to check
 	 * @return {@code true} if the specified {@link Key} is the leftmost
-	 *         instance of the key and {@code false} otherwise
+	 *         instance of the key, {@code false} otherwise
 	 */
 	public boolean isLeftKey(Key key) {
 		return KEY_LOCATIONS[key.ordinal()] == KeyEvent.KEY_LOCATION_LEFT;
@@ -124,9 +128,9 @@ public class Keyboard implements KeyListener {
 
 	/**
 	 * @param key
-	 *            The key to check
+	 *            The keyboard key to check
 	 * @return {@code true} if the specified {@link Key} is the rightmost
-	 *         instance of the key and {@code false} otherwise
+	 *         instance of the key, {@code false} otherwise
 	 */
 	public boolean isRightKey(Key key) {
 		return KEY_LOCATIONS[key.ordinal()] == KeyEvent.KEY_LOCATION_RIGHT;
@@ -134,9 +138,9 @@ public class Keyboard implements KeyListener {
 
 	/**
 	 * @param key
-	 *            The key to check
+	 *            The keyboard key to check
 	 * @return {@code true} if the specified {@link Key} is located in the
-	 *         numpad, {@code false} otherwise
+	 *         number pad, {@code false} otherwise
 	 */
 	public boolean isNumpadKey(Key key) {
 		return KEY_LOCATIONS[key.ordinal()] == KeyEvent.KEY_LOCATION_NUMPAD;

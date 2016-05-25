@@ -13,6 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.util;
 
+import net.alexanderdev.lightdrive.graphics.BlendMode;
+
 /**
  * A utility class which provides for a multitude of advanced color operations.
  * 
@@ -43,6 +45,27 @@ public class Pixel {
 			target[2] = (blend[2] * blend[0]) + (target[2] * (1f - blend[0]));
 			target[3] = (blend[3] * blend[0]) + (target[3] * (1f - blend[0]));
 		}
+
+		return Pixel.mergeARGB(target);
+	}
+
+	/**
+	 * Blends two colors together based on the specified {@link BlendMode}.
+	 * 
+	 * @param mode
+	 *            The {@link BlendMode} to use
+	 * @param colorA
+	 *            The color to blend
+	 * @param colorB
+	 *            The color to blend with
+	 */
+	public static int blendRGB(BlendMode mode, int colorA, int colorB) {
+		float[] target = Pixel.splitFloatARGB(colorA);
+
+		float[] blend = Pixel.splitFloatARGB(colorB);
+
+		for (int j = 1; j < target.length; j++)
+			target[j] = mode.getOperation().apply(target[j], blend[j]);
 
 		return Pixel.mergeARGB(target);
 	}
@@ -141,11 +164,11 @@ public class Pixel {
 	 */
 	public static int mergeARGB(float[] channels) {
 		return ((int) (channels[0] * 255f) << 24) | ((int) (channels[1] * 255f) << 16)
-				| ((int) (channels[2] * 255f) << 8) | (int) (channels[3] * 255f);
+		    | ((int) (channels[2] * 255f) << 8) | (int) (channels[3] * 255f);
 	}
 
 	/**
-	 * Merges four int channels into a single integer value.
+	 * Merges four integer channels into a single integer value.
 	 *
 	 * @param a
 	 *            The alpha channel
@@ -162,10 +185,10 @@ public class Pixel {
 	}
 
 	/**
-	 * Merges the array of int channels into a single integer value.
+	 * Merges the array of integer channels into a single integer value.
 	 *
 	 * @param channels
-	 *            An array containing all four color channels as ints
+	 *            An array containing all four color channels as integers
 	 * @return The four channels merged
 	 */
 	public static int mergeARGB(int[] channels) {
@@ -186,12 +209,12 @@ public class Pixel {
 		float b = getFloatBlue(color);
 
 		return new float[] {
-				a, r, g, b
+		    a, r, g, b
 		};
 	}
 
 	/**
-	 * Splits an integer into an int array of all four channels.
+	 * Splits an integer into an integer array of all four channels.
 	 * 
 	 * @param color
 	 *            The color to split
@@ -204,7 +227,7 @@ public class Pixel {
 		int b = getIntBlue(color);
 
 		return new int[] {
-				a, r, g, b
+		    a, r, g, b
 		};
 	}
 

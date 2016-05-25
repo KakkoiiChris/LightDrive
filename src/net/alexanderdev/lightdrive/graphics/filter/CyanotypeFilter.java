@@ -14,8 +14,11 @@
 package net.alexanderdev.lightdrive.graphics.filter;
 
 import net.alexanderdev.lightdrive.graphics.GrayscaleMode;
+import net.alexanderdev.lightdrive.graphics.Sprite;
 
 /**
+ * A {@link Filter} which applies a cyanotype effect to the {@link Sprite}.
+ * 
  * @author Christian Bryce Alexander
  * @since May 18, 2016, 1:30:03 PM
  */
@@ -23,6 +26,13 @@ public class CyanotypeFilter extends GrayscaleFilter {
 	private AdjustFilter cyanotype;
 	private BrightnessFilter bright;
 
+	/**
+	 * Creates a new {@link CyanotypeFilter} with the specified
+	 * {@link GrayscaleMode}.
+	 * 
+	 * @param mode
+	 *            The {@link GrayscaleMode} to set
+	 */
 	public CyanotypeFilter(GrayscaleMode mode) {
 		super(mode);
 

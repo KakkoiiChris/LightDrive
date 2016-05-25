@@ -30,7 +30,7 @@ import net.alexanderdev.lightdrive.audio.Sound;
  * A class for reading audio files from source folder.
  * 
  * @author Christian Bryce Alexander
- * @since May 25, 2015 | 9:42:21 PM
+ * @since May 25, 2015, 9:42:21 PM
  */
 public final class SoundIO {
 	private static String path = "";
@@ -47,8 +47,9 @@ public final class SoundIO {
 	}
 
 	/**
-	 * Loads an MP3 file from a source folder. Doing so requires the inclusion
-	 * of three additional libraries:
+	 * Loads an MP3 file from a source folder. <br>
+	 * <br>
+	 * Doing so requires the inclusion of three additional libraries:
 	 * <ul>
 	 * <li>JLayer - <i>jl1.0.1.jar</i></li>
 	 * <li>MP3 SPI - <i>mp3spi1.9.5.jar</i></li>
@@ -113,7 +114,7 @@ public final class SoundIO {
 	}
 
 	/**
-	 * Loads an WAV file from a source folder.
+	 * Loads a WAV file from a source folder.
 	 * 
 	 * @param name
 	 *            The name of the file to load

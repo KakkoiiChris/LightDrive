@@ -13,20 +13,37 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics.filter;
 
+import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.util.Pixel;
 import net.alexanderdev.lightdrive.util.math.MathX;
 
 /**
+ * A {@link Filter} which changes the contrast of the {@link Sprite}.
+ * 
  * @author Christian Bryce Alexander
  * @since May 18, 2016, 1:47:11 PM
  */
 public class ContrastFilter implements Filter {
 	private float contrast;
 
+	/**
+	 * Creates a new {@link ContrastFilter} with the specified contrast value.
+	 * Values from one to zero decrease contrast, while values from one towards
+	 * positive infinity increase contrast.
+	 * 
+	 * @param contrast
+	 *            The contrast to set
+	 */
 	public ContrastFilter(float contrast) {
 		this.contrast = Math.max(contrast, 0);
 	}
-	
+
+	/**
+	 * Sets the contrast of this {@link ContrastFilter}.
+	 * 
+	 * @param contrast
+	 *            The contrast to set
+	 */
 	public void setContrast(float contrast) {
 		this.contrast = contrast;
 	}

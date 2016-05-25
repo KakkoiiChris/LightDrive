@@ -17,11 +17,11 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
 /**
- * A class which encapsulates a {@link Clip}, and allows for simple playback and
- * volume/pan control of an audio file.
+ * A class which encapsulates a {@link Clip}, and allows for simple play back
+ * and volume/pan control of an audio file.
  * 
  * @author Christian Bryce Alexander
- * @since May 25, 2015 | 8:06:38 PM
+ * @since May 25, 2015, 8:06:38 PM
  */
 public class Sound {
 	private Clip clip;

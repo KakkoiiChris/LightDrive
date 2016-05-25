@@ -9,7 +9,7 @@
  *  |_____| |____/  |_________JAVA_GAME_LIBRARY_________|  *
  *                                                         *
  *                                                         *
- *  COPYRIGHT Â© 2015, Christian Bryce Alexander            *
+ *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
 package net.alexanderdev.lightdrive.input.gamepad;
 
@@ -26,7 +26,7 @@ import net.java.games.input.ControllerEnvironment;
  * Used by the {@link Viewable} to find any connected {@link Gamepad}s.
  * 
  * @author Christian Bryce Alexander
- * @since Apr 29, 2015 | 9:35:08 PM
+ * @since Apr 29, 2015, 9:35:08 PM
  */
 @InternalType
 public final class GamepadFinder {
