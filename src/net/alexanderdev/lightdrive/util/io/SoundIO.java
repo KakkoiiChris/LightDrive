@@ -114,6 +114,73 @@ public final class SoundIO {
 	}
 
 	/**
+	 * Loads an MP3 file from a source folder. <br>
+	 * <br>
+	 * Doing so requires the inclusion of three additional libraries:
+	 * <ul>
+	 * <li>JLayer - <i>jl1.0.1.jar</i></li>
+	 * <li>Vorbis SPI - <i>vorbisspi1.0.3.jar</i></li>
+	 * <li>Tritonus - <i>tritonus_share.jar</i></li>
+	 * </ul>
+	 * All three libraries are transparent in functionality, and therefore do
+	 * not require invocation by the user.
+	 * 
+	 * @param name
+	 *            The name of the file to load
+	 * @return The contents of the file loaded into a {@link Sound}
+	 */
+	public static Sound loadOGG(String name) {
+		Clip clip = null;
+
+		try {
+			AudioInputStream ais = getAudioInputStream(SoundIO.class.getResourceAsStream(path + name + ".ogg"));
+
+			AudioFormat baseFormat = ais.getFormat();
+
+			Encoding encoding = PCM_SIGNED;
+
+			float sampleRate = baseFormat.getSampleRate();
+
+			int channels = baseFormat.getChannels();
+
+			AudioFormat decoded = new AudioFormat(encoding, sampleRate, 16, channels, channels * 2, sampleRate, false);
+
+			AudioInputStream dais = getAudioInputStream(decoded, ais);
+
+			clip = getClip();
+
+			clip.open(dais);
+		}
+		catch (Exception e) {
+			try {
+				AudioInputStream ais = getAudioInputStream(SoundIO.class.getResourceAsStream(name + ".ogg"));
+
+				AudioFormat baseFormat = ais.getFormat();
+
+				Encoding encoding = PCM_SIGNED;
+
+				float sampleRate = baseFormat.getSampleRate();
+
+				int channels = baseFormat.getChannels();
+
+				AudioFormat decoded = new AudioFormat(encoding, sampleRate, 16, channels, channels * 2, sampleRate,
+				    false);
+
+				AudioInputStream dais = getAudioInputStream(decoded, ais);
+
+				clip = getClip();
+
+				clip.open(dais);
+			}
+			catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+		return new Sound(clip);
+	}
+
+	/**
 	 * Loads a WAV file from a source folder.
 	 * 
 	 * @param name

@@ -16,6 +16,7 @@ package net.alexanderdev.lightdrive.state;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.alexanderdev.lightdrive.Cleanable;
 import net.alexanderdev.lightdrive.InternalMethod;
 import net.alexanderdev.lightdrive.graphics.GraphicsX;
 import net.alexanderdev.lightdrive.graphics.Renderable;
@@ -34,16 +35,16 @@ import net.alexanderdev.lightdrive.view.Viewable;
  * @author Christian Bryce Alexander
  * @since March 6, 2015, 3:03:32 AM
  */
-public class StateManager implements Renderable, Controllable {
-	private static final String DEFAULT_STATE = "light_drive_default_state";
+public class StateManager implements Cleanable, Controllable, Renderable {
+	protected static final String DEFAULT_STATE = "light_drive_default_state";
 
-	private final Map<String, State> STATES = new HashMap<>();
+	protected final Map<String, State> STATES = new HashMap<>();
 
-	private State currentState;
+	protected State currentState;
 
-	private Viewable view;
+	protected Viewable view;
 
-	private boolean initialized;
+	protected boolean initialized;
 
 	/**
 	 * Associates a {@link StateManager} with the specified {@link Viewable}.
@@ -70,6 +71,8 @@ public class StateManager implements Renderable, Controllable {
 	/**
 	 * Maps the specified {@link State} to the specified {@code name}.
 	 * 
+	 * @param name
+	 *            The name to map the state to
 	 * @param state
 	 *            The {@link State} to add
 	 */
@@ -122,6 +125,8 @@ public class StateManager implements Renderable, Controllable {
 	 * 
 	 * @param name
 	 *            The name of the {@link State} to switch to
+	 * @param argv
+	 *            A varargs list of {@link Object}s to pass to the next state
 	 */
 	public void switchState(String name, Object... argv) {
 		currentState.switchFrom();
@@ -159,5 +164,14 @@ public class StateManager implements Renderable, Controllable {
 	@InternalMethod
 	public void render(GraphicsX g) {
 		currentState.render(g);
+	}
+
+	@Override
+	@InternalMethod
+	public void cleanUp() {
+		for (String key : STATES.keySet())
+			STATES.get(key).cleanUp();
+
+		STATES.clear();
 	}
 }

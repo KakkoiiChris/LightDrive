@@ -56,6 +56,14 @@ public class EllipseF extends Ellipse2D.Float implements Cloneable {
 		super(x, y, width, height);
 	}
 
+	public VectorF getPosition() {
+		return new VectorF(x, y);
+	}
+
+	public VectorF getCenter() {
+		return new VectorF((float) getCenterX(), (float) getCenterY());
+	}
+
 	/**
 	 * @return A copy of this {@link EllipseF} rotated around the specified
 	 *         point

@@ -16,8 +16,8 @@ package net.alexanderdev.lightdrive.graphics.filter;
 import net.alexanderdev.lightdrive.graphics.Sprite;
 
 /**
- * A {@link Filter} which replaces one set of colors in a {@link Sprite} with another
- * set of colors.
+ * A {@link Filter} which replaces one set of colors in a {@link Sprite} with
+ * another set of colors.
  * 
  * @author Christian Bryce Alexander
  * @since Jan 6, 2016, 6:08:49 PM
@@ -30,7 +30,9 @@ public class ReplaceFilter implements Filter {
 	 * Creates a new {@link ReplaceFilter}.
 	 * 
 	 * @param map
+	 *            The colors to replace
 	 * @param colors
+	 *            The colors to replace with
 	 */
 	public ReplaceFilter(int[] map, int[] colors) {
 		if (map.length != colors.length) {

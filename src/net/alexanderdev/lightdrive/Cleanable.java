@@ -11,26 +11,12 @@
  *                                                         *
  *  COPYRIGHT © 2015, Christian Bryce Alexander            *
  ***********************************************************/
-package net.alexanderdev.lightdrive.util;
+package net.alexanderdev.lightdrive;
 
 /**
- * A collection of time keeping methods.
- * 
  * @author Christian Bryce Alexander
- * @since Jun 5, 2015, 1:27:45 AM
+ * @since Jun 12, 2016, 12:07:59 AM
  */
-public final class Time {
-	/**
-	 * @return The current system time in milliseconds
-	 */
-	public static long msTime() {
-		return System.currentTimeMillis();
-	}
-
-	/**
-	 * @return The current system time in nanoseconds
-	 */
-	public static long nsTime() {
-		return System.nanoTime();
-	}
+public interface Cleanable {
+	public void cleanUp();
 }

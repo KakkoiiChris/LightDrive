@@ -45,7 +45,8 @@ import net.alexanderdev.lightdrive.input.keyboard.Keyboard;
 import net.alexanderdev.lightdrive.input.mouse.Mouse;
 import net.alexanderdev.lightdrive.state.State;
 import net.alexanderdev.lightdrive.state.StateManager;
-import net.alexanderdev.lightdrive.util.Time;
+import net.alexanderdev.lightdrive.util.io.ResourceLoader;
+import net.alexanderdev.lightdrive.util.time.Time;
 
 /**
  * The main display class, and the core of any game. This class contains the
@@ -94,6 +95,9 @@ public class Display extends Canvas implements Viewable, Runnable {
 
 	private StateManager manager;
 
+	private int lastUpdates;
+	private int lastFrames;
+
 	static {
 		// System.load(new File("/jinput-dx8.dll").getAbsolutePath());
 		// System.load(new File("/jinput-dx8_64.dll").getAbsolutePath());
@@ -122,8 +126,8 @@ public class Display extends Canvas implements Viewable, Runnable {
 
 	/**
 	 * A {@link Display} with its width, height, and update rate specified by
-	 * the provided {@link ViewMode}, a user defined scale, and a default title and
-	 * icon.
+	 * the provided {@link ViewMode}, a user defined scale, and a default title
+	 * and icon.
 	 * 
 	 * @param mode
 	 *            The {@link ViewMode} of the {@link Display}
@@ -136,13 +140,13 @@ public class Display extends Canvas implements Viewable, Runnable {
 
 	/**
 	 * A {@link Display} with its width, height, and update rate specified by
-	 * the provided {@link ViewMode}, a user defined title, and a default scale and
-	 * icon.
+	 * the provided {@link ViewMode}, a user defined title, and a default scale
+	 * and icon.
 	 * 
 	 * @param mode
 	 *            The {@link ViewMode} of the {@link Display}
-	 * @param scale
-	 *            The scale of the {@link Display}
+	 * @param title
+	 *            The title of the {@link Display}
 	 */
 	public Display(ViewMode mode, String title) {
 		this(mode.getWidth(), mode.getHeight(), DEFAULT_SCALE, mode.getUPS(), title, DEFAULT_ICON);
@@ -150,13 +154,13 @@ public class Display extends Canvas implements Viewable, Runnable {
 
 	/**
 	 * A {@link Display} with its width, height, and update rate specified by
-	 * the provided {@link ViewMode}, a user defined icon, and a default scale and
-	 * title.
+	 * the provided {@link ViewMode}, a user defined icon, and a default scale
+	 * and title.
 	 * 
 	 * @param mode
 	 *            The {@link ViewMode} of the {@link Display}
-	 * @param scale
-	 *            The scale of the {@link Display}
+	 * @param icon
+	 *            The icon for the {@link Display}
 	 */
 	public Display(ViewMode mode, Image icon) {
 		this(mode.getWidth(), mode.getHeight(), DEFAULT_SCALE, mode.getUPS(), DEFAULT_TITLE, icon);
@@ -164,8 +168,8 @@ public class Display extends Canvas implements Viewable, Runnable {
 
 	/**
 	 * A {@link Display} with its width, height, and update rate specified by
-	 * the provided {@link ViewMode}, a user defined scale and title, and a default
-	 * icon.
+	 * the provided {@link ViewMode}, a user defined scale and title, and a
+	 * default icon.
 	 * 
 	 * @param mode
 	 *            The {@link ViewMode} of the {@link Display}
@@ -178,8 +182,8 @@ public class Display extends Canvas implements Viewable, Runnable {
 
 	/**
 	 * A {@link Display} with its width, height, and update rate specified by
-	 * the provided {@link ViewMode}, a user defined scale and icon, and a default
-	 * title.
+	 * the provided {@link ViewMode}, a user defined scale and icon, and a
+	 * default title.
 	 * 
 	 * @param mode
 	 *            The {@link ViewMode} of the {@link Display}
@@ -192,13 +196,15 @@ public class Display extends Canvas implements Viewable, Runnable {
 
 	/**
 	 * A {@link Display} with its width, height, and update rate specified by
-	 * the provided {@link ViewMode}, a user defined title and icon, and a default
-	 * scale.
+	 * the provided {@link ViewMode}, a user defined title and icon, and a
+	 * default scale.
 	 * 
 	 * @param mode
 	 *            The {@link ViewMode} of the {@link Display}
-	 * @param scale
-	 *            The scale of the {@link Display}
+	 * @param title
+	 *            The title of the {@link Display}
+	 * @param icon
+	 *            The icon for the {@link Display}
 	 */
 	public Display(ViewMode mode, String title, Image icon) {
 		this(mode.getWidth(), mode.getHeight(), DEFAULT_SCALE, mode.getUPS(), title, icon);
@@ -636,6 +642,20 @@ public class Display extends Canvas implements Viewable, Runnable {
 	}
 
 	@Override
+	public int getUpdateCount() {
+		return lastUpdates;
+	}
+
+	@Override
+	public int getFrameCount() {
+		return lastFrames;
+	}
+	
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	@Override
 	public final void open() {
 		Dimension d = new Dimension(width * scale, height * scale);
 
@@ -766,6 +786,9 @@ public class Display extends Canvas implements Viewable, Runnable {
 				if (ufcEnabled)
 					frame.setTitle(String.format("%s | UPS: %d, FPS: %d", title, updates, frames));
 
+				lastUpdates = updates;
+				lastFrames = frames;
+
 				updates = frames = 0;
 
 				timer += 1000;
@@ -840,10 +863,15 @@ public class Display extends Canvas implements Viewable, Runnable {
 		filters.clear();
 	}
 
-	private void cleanUp() {
+	@Override
+	public void cleanUp() {
+		manager.cleanUp();
 		gx.dispose();
 		g.dispose();
 		bs.dispose();
 		context.flush();
+		
+		if (!ResourceLoader.isEmpty())
+			ResourceLoader.deregisterAll();
 	}
 }

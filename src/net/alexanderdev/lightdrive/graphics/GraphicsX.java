@@ -31,6 +31,8 @@ import java.awt.Stroke;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.awt.image.ImageObserver;
@@ -40,7 +42,6 @@ import java.text.AttributedCharacterIterator;
 import java.util.Map;
 
 import net.alexanderdev.lightdrive.util.math.geom.RectangleD;
-import net.alexanderdev.lightdrive.util.math.geom.RectangleF;
 
 /**
  * A class which encapsulates the functionality of {@link Graphics2D}, while
@@ -55,7 +56,7 @@ import net.alexanderdev.lightdrive.util.math.geom.RectangleF;
  * <li>Drawing images without the need for an {@link ImageObserver}</li>
  * <li>Drawing images that are scaled to fit within a {@link Rectangle}</li>
  * <li>Getting and setting {@link Font} attributes separately</li>
- * <li>Setting the color with a '0xAARRGGBB' formatted integer color value</li>
+ * <li>Setting the color with an '0xAARRGGBB' formatted integer color value</li>
  * </ul>
  * 
  * @see java.awt.Graphics2D
@@ -64,15 +65,46 @@ import net.alexanderdev.lightdrive.util.math.geom.RectangleF;
  * @since Apr 24, 2015, 2:32:23 AM
  */
 public class GraphicsX {
+	/**
+	 * Used with {@code drawString()} methods that take rectangular bounds for
+	 * the position of text, instead of coordinates.
+	 */
 	public static enum TextAlign {
+	    /**
+	     * Align text to the top left of the bounds.
+	     */
 		TOP_LEFT,
+		/**
+		 * Align text to the top center of the bounds.
+		 */
 		TOP_CENTER,
+		/**
+		 * Align text to the top right of the bounds.
+		 */
 		TOP_RIGHT,
+		/**
+		 * Align text to the middle left of the bounds.
+		 */
 		MID_LEFT,
+		/**
+		 * Align text to the middle center of the bounds.
+		 */
 		MID_CENTER,
+		/**
+		 * Align text to the middle right of the bounds.
+		 */
 		MID_RIGHT,
+		/**
+		 * Align text to the bottom left of the bounds.
+		 */
 		BOTTOM_LEFT,
+		/**
+		 * Align text to the bottom center of the bounds.
+		 */
 		BOTTOM_CENTER,
+		/**
+		 * Align text to the bottom right of the bounds.
+		 */
 		BOTTOM_RIGHT;
 	}
 
@@ -92,121 +124,263 @@ public class GraphicsX {
 		fm = g.getFontMetrics();
 	}
 
+	public GraphicsX(GraphicsX gx) {
+		this(gx.g);
+	}
+
 	/**
-	 * Delegates to the method of the same name, found in
-	 * {@link Graphics2D#addRenderingHints(Map)}.
+	 * Adds a set of rendering hints to this {@link GraphicsX}'s
+	 * {@link Graphics2D} context.
+	 * 
+	 * @param hints
+	 *            The rendering hints to set
+	 * 
+	 * @see Graphics2D#addRenderingHints(Map)
 	 */
 	public void addRenderingHints(Map<?, ?> hints) {
 		g.addRenderingHints(hints);
 	}
 
 	/**
-	 * Delegates to the method of the same name, found in
-	 * {@link Graphics#clearRect(int, int, int, int)}.
+	 * Clears the specified rectangle with the current background color.
+	 * 
+	 * @param x
+	 *            The x coordinate of the upper left corner of the rectangle
+	 * @param y
+	 *            The y coordinate of the upper left corner of the rectangle
+	 * @param width
+	 *            The width of the rectangle
+	 * @param height
+	 *            The height of the rectangle
+	 * 
+	 * @see Graphics#clearRect(int, int, int, int)
 	 */
 	public void clearRect(int x, int y, int width, int height) {
 		g.clearRect(x, y, width, height);
 	}
 
+	public void clearRect(Rectangle2D r) {
+		clearRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
+	}
+
 	/**
-	 * Delegates to the method of the same name, found in
-	 * {@link Graphics2D#clip(Shape)}.
+	 * Sets the clip by taking the current clip and finding its intersection
+	 * with the specified {@link Shape}.
+	 * 
+	 * @param s
+	 *            The {@link Shape} to combine with the clip
+	 * 
+	 * @see Graphics2D#clip(Shape)
 	 */
 	public void clip(Shape s) {
 		g.clip(s);
 	}
 
 	/**
-	 * Delegates to the method of the same name, found in
-	 * {@link Graphics#clipRect(int, int, int, int)}.
+	 * Sets the clip by taking the current clip and finding its intersection
+	 * with the specified rectangle.
+	 * 
+	 * @param x
+	 *            The x coordinate of the upper left corner of the rectangle
+	 * @param y
+	 *            The y coordinate of the upper left corner of the rectangle
+	 * @param width
+	 *            The width of the rectangle
+	 * @param height
+	 *            The height of the rectangle
+	 * 
+	 * @see Graphics#clipRect(int, int, int, int)
 	 */
 	public void clipRect(int x, int y, int width, int height) {
 		g.clipRect(x, y, width, height);
 	}
 
 	/**
-	 * Delegates to the method of the same name, found in
-	 * {@link Graphics#copyArea(int, int, int, int, int, int)}.
+	 * Copies an area of rendered graphics, and moves the copy a specified
+	 * distance away.
+	 * 
+	 * @param x
+	 *            The x coordinate of the upper left corner of the area
+	 * @param y
+	 *            The y coordinate of the upper left corner of the area
+	 * @param width
+	 *            The width of the area
+	 * @param height
+	 *            The height of the area
+	 * @param dx
+	 *            The horizontal distance to move the copy
+	 * @param dy
+	 *            The vertical distance to move the copy
+	 * 
+	 * @see Graphics#copyArea(int, int, int, int, int, int)
 	 */
 	public void copyArea(int x, int y, int width, int height, int dx, int dy) {
 		g.copyArea(x, y, width, height, dx, dy);
 	}
 
+	public void copyArea(Rectangle2D r, double dx, double dy) {
+		copyArea((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight(), (int) dx, (int) dy);
+	}
+
 	/**
-	 * Delegates to the method of the same name, found in
-	 * {@link Graphics#create()}.
+	 * Creates a copy of this {@link GraphicsX}'s internal {@link Graphics2D}
+	 * context, parameter for parameter.
+	 * 
+	 * @return A copy of this {@link GraphicsX}'s {@link Graphics2D} context
+	 * 
+	 * @see Graphics#create()
 	 */
 	public Graphics create() {
 		return g.create();
 	}
 
 	/**
-	 * Delegates to the method of the same name, found in
-	 * {@link Graphics#create(int, int, int, int)}.
+	 * Creates a copy of this {@link GraphicsX}'s internal {@link Graphics2D}
+	 * context, parameter for parameter, with a new translation and clip.
+	 * 
+	 * @param x
+	 *            The x coordinate of the translation and clip rectangle
+	 * @param y
+	 *            The y coordinate of the translation and clip rectangle
+	 * @param width
+	 *            The width of the clip rectangle
+	 * @param height
+	 *            The height of the clip rectangle
+	 * 
+	 * @return A translated and reclipped copy of this {@link GraphicsX}'s
+	 *         {@link Graphics2D} context
+	 * 
+	 * @see Graphics#create(int, int, int, int)
 	 */
 	public Graphics create(int x, int y, int width, int height) {
 		return g.create(x, y, width, height);
 	}
 
+	public Graphics create(Rectangle2D r) {
+		return create((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
+	}
+
 	/**
-	 * Delegates to the method of the same name, found in
-	 * {@link Graphics#dispose()}.
+	 * Frees up all resources being used by this {@link GraphicsX}'s internal
+	 * {@link Graphics2D} context, rendering it unusable.
+	 * 
+	 * @see Graphics#dispose()
 	 */
 	public void dispose() {
 		g.dispose();
 	}
 
 	/**
-	 * Delegates to the method of the same name, found in
-	 * {@link Graphics2D#draw(Shape)}.
+	 * Draws the outline of the specified {@link Shape}, using the current
+	 * {@link Paint} and {@link Stroke}.
+	 * 
+	 * @param s
+	 *            The {@link Shape} to draw
+	 * 
+	 * @see Graphics2D#draw(Shape)
 	 */
 	public void draw(Shape s) {
 		g.draw(s);
 	}
 
 	/**
-	 * Delegates to the method of the same name, found in
-	 * {@link Graphics#draw3DRect(int, int, int, int, boolean)}.
+	 * Draws an apparently beveled outline of a rectangle, as if lit from the
+	 * top left, using the current foreground {@link Color} and {@link Stroke}.
+	 * 
+	 * @param x
+	 *            The x coordinate of the upper left corner of the rectangle
+	 * @param y
+	 *            The y coordinate of the upper left corner of the rectangle
+	 * @param width
+	 *            The width of the rectangle
+	 * @param height
+	 *            The height of the rectangle
+	 * @param raised
+	 *            Whether or not the bevel is raised or lowered
+	 * 
+	 * @see Graphics#draw3DRect(int, int, int, int, boolean)
 	 */
 	public void draw3DRect(int x, int y, int width, int height, boolean raised) {
 		g.draw3DRect(x, y, width, height, raised);
 	}
 
+	public void draw3DRect(Rectangle2D r, boolean raised) {
+		draw3DRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight(), raised);
+	}
+
 	/**
-	 * Delegates to the method of the same name, found in
-	 * {@link Graphics#drawArc(int, int, int, int, int, int)}.
+	 * Draws the outline of an elliptical arc of specified size and angle, using
+	 * the current {@link Paint} and {@link Stroke}.
+	 * 
+	 * @param x
+	 *            The x coordinate of the left most point of the ellipse to
+	 *            trace
+	 * @param y
+	 *            The y coordinate of the upper most point of the ellipse to
+	 *            trace
+	 * @param width
+	 *            The width of the ellipse to trace
+	 * @param height
+	 *            The height of the ellipse to trace
+	 * @param startAngle
+	 *            The angle, in degrees, at which the arc starts
+	 * @param arcAngle
+	 *            The angle, in degrees, that the arc traces around the ellipse
+	 * 
+	 * @see Graphics#drawArc(int, int, int, int, int, int)
 	 */
 	public void drawArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
 		g.drawArc(x, y, width, height, startAngle, arcAngle);
 	}
 
+	public void drawArc(Rectangle2D r, double startAngle, double arcAngle) {
+		drawArc((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight(), (int) startAngle,
+		    (int) arcAngle);
+	}
+
 	/**
-	 * Delegates to the method of the same name, found in
-	 * {@link Graphics#drawBytes(byte[], int, int, int, int)}.
+	 * Draws an array of bytes as ASCII characters.
+	 * 
+	 * @param data
+	 *            The numerical ASCII values to draw
+	 * @param offset
+	 * @param length
+	 * @param x
+	 * @param y
+	 * 
+	 * @see Graphics#drawBytes(byte[], int, int, int, int)
 	 */
 	public void drawBytes(byte data[], int offset, int length, int x, int y) {
 		g.drawBytes(data, offset, length, x, y);
 	}
 
 	/**
-	 * Delegates to the method of the same name, found in
-	 * {@link Graphics#drawChars(char[], int, int, int, int)}.
+	 * Draws an array of Unicode characters.
+	 * 
+	 * @param data
+	 *            The characters to draw
+	 * @param offset
+	 * @param length
+	 * @param x
+	 * @param y
+	 * 
+	 * @see Graphics#drawChars(char[], int, int, int, int)
 	 */
 	public void drawChars(char data[], int offset, int length, int x, int y) {
 		g.drawChars(data, offset, length, x, y);
 	}
 
 	/**
-	 * Delegates to the method of the same name, found in
-	 * {@link Graphics2D#drawGlyphVector(GlyphVector, float, float)}.
+	 * Delegates to the method of the same name, found in {@link
+	 * Graphics2D#drawGlyphVector(GlyphVector, float, float)
 	 */
 	public void drawGlyphVector(GlyphVector g, float x, float y) {
 		this.g.drawGlyphVector(g, x, y);
 	}
 
 	/**
-	 * Delegates to the method of the same name, found in
-	 * {@link Graphics2D#drawImage(BufferedImage, BufferedImageOp, int, int)}.
+	 * Delegates to the method of the same name, found in {@link
+	 * Graphics2D#drawImage(BufferedImage, BufferedImageOp, int, int)
 	 */
 	public void drawImage(BufferedImage img, BufferedImageOp op, int x, int y) {
 		g.drawImage(img, op, x, y);
@@ -214,8 +388,7 @@ public class GraphicsX {
 
 	/**
 	 * Delegates to the method of the same name, found in
-	 * {@link Graphics2D#drawImage(Image, AffineTransform, ImageObserver)} .
-	 * <br>
+	 * {@link Graphics2D#drawImage(Image, AffineTransform, ImageObserver) <br>
 	 * <br>
 	 * As stated in the class description, this method is rewritten to remove
 	 * the need for an {@link ImageObserver}.
@@ -226,7 +399,7 @@ public class GraphicsX {
 
 	/**
 	 * Delegates to the method of the same name, found in
-	 * {@link Graphics#drawImage(Image, int, int, ImageObserver)}.<br>
+	 * {@link Graphics#drawImage(Image, int, int, ImageObserver)<br>
 	 * <br>
 	 * As stated in the class description, this method is rewritten to remove
 	 * the need for an {@link ImageObserver}.
@@ -235,9 +408,13 @@ public class GraphicsX {
 		g.drawImage(img, x, y, null);
 	}
 
+	public void drawImage(Image img, Point2D p) {
+		drawImage(img, (int) p.getX(), (int) p.getY());
+	}
+
 	/**
 	 * Delegates to the method of the same name, found in
-	 * {@link Graphics#drawImage(Image, int, int, Color, ImageObserver)}.<br>
+	 * {@link Graphics#drawImage(Image, int, int, Color, ImageObserver)<br>
 	 * <br>
 	 * As stated in the class description, this method is rewritten to remove
 	 * the need for an {@link ImageObserver}.
@@ -246,9 +423,13 @@ public class GraphicsX {
 		g.drawImage(img, x, y, bgcolor, null);
 	}
 
+	public void drawImage(Image img, Point2D p, Color bgcolor) {
+		drawImage(img, (int) p.getX(), (int) p.getY(), bgcolor);
+	}
+
 	/**
 	 * Delegates to the method of the same name, found in
-	 * {@link Graphics#drawImage(Image, int, int, int, int, ImageObserver)}.<br>
+	 * {@link Graphics#drawImage(Image, int, int, int, int, ImageObserver) <br>
 	 * <br>
 	 * As stated in the class description, this method is rewritten to remove
 	 * the need for an {@link ImageObserver}.
@@ -258,15 +439,95 @@ public class GraphicsX {
 	}
 
 	/**
+	 * Draws an image scaled evenly in such a way that it fits centered within
+	 * the specified bounds.
+	 *
+	 * @param img
+	 *            The image to draw
+	 * @param bounds
+	 *            The bounds to scale to
+	 */
+	public void drawImage(Image img, Rectangle2D bounds, boolean keepRatios) {
+		Rectangle2D draw = new Rectangle2D.Double(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
+
+		if (keepRatios) {
+			double wi = img.getWidth(null);
+			double hi = img.getHeight(null);
+			double wb = bounds.getWidth();
+			double hb = bounds.getHeight();
+
+			double ratioW = wi / wb;
+			double ratioH = hi / hb;
+
+			if (ratioW > ratioH) {
+				double nhi = hi / ratioW;
+
+				draw.setFrame(draw.getX(), draw.getY() + (hb / 2) - (nhi / 2), wb, nhi);
+			}
+			else if (ratioW < ratioH) {
+				double nwi = wi / ratioH;
+
+				draw.setFrame(draw.getX() + (wb / 2) - (nwi / 2), draw.getY(), nwi, hb);
+			}
+		}
+
+		drawImage(img, (int) draw.getX(), (int) draw.getY(), (int) draw.getWidth(), (int) draw.getHeight());
+	}
+
+	public void drawImage(Image img, Rectangle2D bounds) {
+		drawImage(img, bounds, true);
+	}
+
+	/**
 	 * Delegates to the method of the same name, found in
-	 * {@link Graphics#drawImage(Image, int, int, int, int, Color, ImageObserver)}
-	 * .<br>
+	 * {@link Graphics#drawImage(Image, int, int, int, int, Color, ImageObserver)
+	 * <br>
 	 * <br>
 	 * As stated in the class description, this method is rewritten to remove
 	 * the need for an {@link ImageObserver}.
 	 */
 	public void drawImage(Image img, int x, int y, int width, int height, Color bgcolor) {
 		g.drawImage(img, x, y, width, height, bgcolor, null);
+	}
+
+	/**
+	 * Draws an image scaled evenly in such a way that it fits centered within
+	 * the specified bounds.
+	 *
+	 * @param img
+	 *            The image to draw
+	 * @param bounds
+	 *            The bounds to scale to
+	 */
+	public void drawImage(Image img, Rectangle2D bounds, Color bgcolor, boolean keepRatios) {
+		Rectangle2D draw = new Rectangle2D.Double(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
+
+		if (keepRatios) {
+			double wi = img.getWidth(null);
+			double hi = img.getHeight(null);
+			double wb = bounds.getWidth();
+			double hb = bounds.getHeight();
+
+			double ratioW = wi / wb;
+			double ratioH = hi / hb;
+
+			if (ratioW > ratioH) {
+				double nhi = hi / ratioW;
+
+				draw.setFrame(draw.getX(), draw.getY() + (hb / 2) - (nhi / 2), wb, nhi);
+			}
+			else if (ratioW < ratioH) {
+				double nwi = wi / ratioH;
+
+				draw.setFrame(draw.getX() + (wb / 2) - (nwi / 2), draw.getY(), nwi, hb);
+			}
+		}
+
+		drawImage(img, (int) draw.getX(), (int) draw.getY(), (int) draw.getWidth(), (int) draw.getHeight(), bgcolor);
+	}
+
+	public void drawImage(Image img, Rectangle2D bounds, Color bgcolor) {
+		drawImage(img, bounds, bgcolor, true);
 	}
 
 	/**
@@ -279,6 +540,47 @@ public class GraphicsX {
 	 */
 	public void drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2) {
 		g.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null);
+	}
+
+	/**
+	 * Draws an image scaled evenly in such a way that it fits centered within
+	 * the specified bounds.
+	 *
+	 * @param img
+	 *            The image to draw
+	 * @param bounds
+	 *            The bounds to scale to
+	 */
+	public void drawImage(Image img, Rectangle2D src, Rectangle2D dst, boolean keepRatios) {
+		Rectangle2D draw = new Rectangle2D.Double(dst.getX(), dst.getY(), dst.getWidth(), dst.getHeight());
+
+		if (keepRatios) {
+			double wi = img.getWidth(null);
+			double hi = img.getHeight(null);
+			double wb = dst.getWidth();
+			double hb = dst.getHeight();
+
+			double ratioW = wi / wb;
+			double ratioH = hi / hb;
+
+			if (ratioW > ratioH) {
+				double nhi = hi / ratioW;
+
+				draw.setFrame(draw.getX(), draw.getY() + (hb / 2) - (nhi / 2), wb, nhi);
+			}
+			else if (ratioW < ratioH) {
+				double nwi = wi / ratioH;
+
+				draw.setFrame(draw.getX() + (wb / 2) - (nwi / 2), draw.getY(), nwi, hb);
+			}
+		}
+
+		drawImage(img, (int) draw.getX(), (int) draw.getY(), (int) draw.getWidth(), (int) draw.getHeight(),
+		    (int) src.getX(), (int) src.getY(), (int) src.getWidth(), (int) src.getHeight());
+	}
+
+	public void drawImage(Image img, Rectangle2D src, Rectangle2D dst) {
+		drawImage(img, src, dst, true);
 	}
 
 	/**
@@ -303,106 +605,36 @@ public class GraphicsX {
 	 * @param bounds
 	 *            The bounds to scale to
 	 */
-	public void drawImage(Image img, Rectangle bounds) {
-		Rectangle draw;
+	public void drawImage(Image img, Rectangle2D src, Rectangle2D dst, Color bgcolor, boolean keepRatios) {
+		Rectangle2D draw = new Rectangle2D.Double(dst.getX(), dst.getY(), dst.getWidth(), dst.getHeight());
 
-		int wi = img.getWidth(null);
-		int hi = img.getHeight(null);
-		int wb = bounds.width;
-		int hb = bounds.height;
+		if (keepRatios) {
+			double wi = img.getWidth(null);
+			double hi = img.getHeight(null);
+			double wb = dst.getWidth();
+			double hb = dst.getHeight();
 
-		double ratioW = (double) wi / (double) wb;
-		double ratioH = (double) hi / (double) hb;
+			double ratioW = wi / wb;
+			double ratioH = hi / hb;
 
-		if (ratioW > ratioH) {
-			int nhi = (int) (hi / ratioW);
+			if (ratioW > ratioH) {
+				double nhi = hi / ratioW;
 
-			draw = new Rectangle(0, (hb / 2) - (nhi / 2), wb, nhi);
+				draw.setFrame(draw.getX(), draw.getY() + (hb / 2) - (nhi / 2), wb, nhi);
+			}
+			else if (ratioW < ratioH) {
+				double nwi = wi / ratioH;
+
+				draw.setFrame(draw.getX() + (wb / 2) - (nwi / 2), draw.getY(), nwi, hb);
+			}
 		}
-		else if (ratioW < ratioH) {
-			int nwi = (int) (wi / ratioH);
 
-			draw = new Rectangle((wb / 2) - (nwi / 2), 0, nwi, hb);
-		}
-		else {
-			draw = bounds;
-		}
-
-		drawImage(img, draw.x, draw.y, draw.width, draw.height);
+		drawImage(img, (int) draw.getX(), (int) draw.getY(), (int) draw.getWidth(), (int) draw.getHeight(),
+		    (int) src.getX(), (int) src.getY(), (int) src.getWidth(), (int) src.getHeight(), bgcolor);
 	}
 
-	/**
-	 * Draws an image scaled evenly in such a way that it fits centered within
-	 * the specified bounds.
-	 *
-	 * @param img
-	 *            The image to draw
-	 * @param bounds
-	 *            The bounds to scale to
-	 */
-	public void drawImage(Image img, RectangleF bounds) {
-		RectangleF draw;
-
-		float wi = img.getWidth(null);
-		float hi = img.getHeight(null);
-		float wb = bounds.width;
-		float hb = bounds.height;
-
-		double ratioW = (double) wi / (double) wb;
-		double ratioH = (double) hi / (double) hb;
-
-		if (ratioW > ratioH) {
-			int nhi = (int) (hi / ratioW);
-
-			draw = new RectangleF(0, (hb / 2) - (nhi / 2), wb, nhi);
-		}
-		else if (ratioW < ratioH) {
-			int nwi = (int) (wi / ratioH);
-
-			draw = new RectangleF((wb / 2) - (nwi / 2), 0, nwi, hb);
-		}
-		else {
-			draw = bounds;
-		}
-
-		drawImage(img, (int) draw.x, (int) draw.y, (int) draw.width, (int) draw.height);
-	}
-
-	/**
-	 * Draws an image scaled evenly in such a way that it fits centered within
-	 * the specified bounds.
-	 *
-	 * @param img
-	 *            The image to draw
-	 * @param bounds
-	 *            The bounds to scale to
-	 */
-	public void drawImage(Image img, RectangleD bounds) {
-		RectangleD draw;
-
-		double wi = img.getWidth(null);
-		double hi = img.getHeight(null);
-		double wb = bounds.width;
-		double hb = bounds.height;
-
-		double ratioW = (double) wi / (double) wb;
-		double ratioH = (double) hi / (double) hb;
-
-		if (ratioW > ratioH) {
-			int nhi = (int) (hi / ratioW);
-
-			draw = new RectangleD(0, (hb / 2) - (nhi / 2), wb, nhi);
-		}
-		else if (ratioW < ratioH) {
-			int nwi = (int) (wi / ratioH);
-
-			draw = new RectangleD((wb / 2) - (nwi / 2), 0, nwi, hb);
-		}
-		else {
-			draw = bounds;
-		}
-
-		drawImage(img, (int) draw.x, (int) draw.y, (int) draw.width, (int) draw.height);
+	public void drawImage(Image img, Rectangle2D src, Rectangle2D dst, Color bgcolor) {
+		drawImage(img, src, dst, bgcolor, true);
 	}
 
 	/**
@@ -413,12 +645,20 @@ public class GraphicsX {
 		g.drawLine(x1, y1, x2, y2);
 	}
 
+	public void drawLine(Point2D p1, Point2D p2) {
+		drawLine((int) p1.getX(), (int) p1.getY(), (int) p2.getX(), (int) p2.getY());
+	}
+
 	/**
 	 * Delegates to the method of the same name, found in
 	 * {@link Graphics#drawOval(int, int, int, int)}.
 	 */
 	public void drawOval(int x, int y, int width, int height) {
 		g.drawOval(x, y, width, height);
+	}
+
+	public void drawOval(Rectangle2D r) {
+		drawOval((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
 	}
 
 	/**
@@ -475,6 +715,11 @@ public class GraphicsX {
 	 */
 	public void drawRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight) {
 		g.drawRoundRect(x, y, width, height, arcWidth, arcHeight);
+	}
+
+	public void drawRoundRect(Rectangle2D r, double arcWidth, double arcHeight) {
+		drawRoundRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight(), (int) arcWidth,
+		    (int) arcHeight);
 	}
 
 	/**
@@ -574,190 +819,6 @@ public class GraphicsX {
 
 	/**
 	 * Draws the given {@link String} center aligned within the
-	 * {@link Rectangle}, with no character spacing.
-	 * 
-	 * @param str
-	 *            The text to draw
-	 * @param bounds
-	 *            The {@link Rectangle} to align the text in
-	 */
-	public void drawString(String str, Rectangle bounds) {
-		drawString(str, bounds, TextAlign.MID_CENTER);
-	}
-
-	/**
-	 * Draws the given {@link String} aligned within the {@link Rectangle}, as
-	 * specified by the {@link GraphicsX.TextAlign}, with no character spacing.
-	 * 
-	 * @param str
-	 *            The text to draw
-	 * @param bounds
-	 *            The {@link Rectangle} to align the text in
-	 * @param align
-	 *            How to horizontally align the text
-	 */
-	public void drawString(String str, Rectangle bounds, TextAlign align) {
-		drawString(str, bounds, 0, 0, align);
-	}
-
-	/**
-	 * Draws the given {@link String} center aligned within the
-	 * {@link Rectangle}, with the specified character spacings.
-	 * 
-	 * @param str
-	 *            The text to draw
-	 * @param bounds
-	 *            The {@link Rectangle} to align the text in
-	 * @param xs
-	 *            The horizontal spacing between characters
-	 * @param ys
-	 *            The vertical spacing between lines of text
-	 */
-	public void drawString(String str, Rectangle bounds, int xs, int ys) {
-		drawString(str, bounds, xs, ys, TextAlign.MID_CENTER);
-	}
-
-	/**
-	 * Draws the given {@link String} aligned within the {@link Rectangle}, as
-	 * specified by the {@link GraphicsX.TextAlign}, with the specified
-	 * character spacings.
-	 * 
-	 * @param str
-	 *            The text to draw
-	 * @param bounds
-	 *            The {@link Rectangle} to align the text in
-	 * @param xs
-	 *            The horizontal spacing between characters
-	 * @param ys
-	 *            The vertical spacing between lines of text
-	 * @param align
-	 *            How to horizontally align the text
-	 */
-	public void drawString(String str, Rectangle bounds, int xs, int ys, TextAlign align) {
-		int x = bounds.x;
-		int y = bounds.y;
-
-		String v = align.name().split("_")[0];
-		String h = align.name().split("_")[1];
-
-		String[] lines = str.split("\n");
-
-		if (v.equals("TOP"))
-			y = bounds.y;
-		else if (v.equals("MID"))
-			y = bounds.y + (bounds.height / 2) - ((fm.getHeight() * lines.length) / 2)
-			    - ((ys * (lines.length - 1)) / 2);
-		else if (v.equals("BOTTOM"))
-			y = bounds.y + bounds.height - (fm.getHeight() * lines.length) - (ys * (lines.length - 1));
-
-		for (String line : lines) {
-			if (h.equals("LEFT"))
-				x = bounds.x;
-			else if (h.equals("CENTER"))
-				x = bounds.x + (bounds.width / 2) - (fm.stringWidth(line) / 2) - ((xs * (line.length() - 1)) / 2);
-			else if (h.equals("RIGHT"))
-				x = bounds.x + bounds.width - fm.stringWidth(line) - (xs * (line.length() - 1));
-
-			drawString(line, x, y, xs, 0);
-
-			y += fm.getHeight() + ys;
-		}
-	}
-
-	/**
-	 * Draws the given {@link String} center aligned within the
-	 * {@link RectangleF}, with no character spacing.
-	 * 
-	 * @param str
-	 *            The text to draw
-	 * @param bounds
-	 *            The {@link RectangleF} to align the text in
-	 */
-	public void drawString(String str, RectangleF bounds) {
-		drawString(str, bounds, TextAlign.MID_CENTER);
-	}
-
-	/**
-	 * Draws the given {@link String} aligned within the {@link RectangleF}, as
-	 * specified by the {@link GraphicsX.TextAlign}, with no character spacing.
-	 * 
-	 * @param str
-	 *            The text to draw
-	 * @param bounds
-	 *            The {@link RectangleF} to align the text in
-	 * @param align
-	 *            How to horizontally align the text
-	 */
-	public void drawString(String str, RectangleF bounds, TextAlign align) {
-		drawString(str, bounds, 0, 0, align);
-	}
-
-	/**
-	 * Draws the given {@link String} center aligned within the
-	 * {@link RectangleF}, with the specified character spacings.
-	 * 
-	 * @param str
-	 *            The text to draw
-	 * @param bounds
-	 *            The {@link RectangleF} to align the text in
-	 * @param xs
-	 *            The horizontal spacing between characters
-	 * @param ys
-	 *            The vertical spacing between lines of text
-	 */
-	public void drawString(String str, RectangleF bounds, float xs, float ys) {
-		drawString(str, bounds, xs, ys, TextAlign.MID_CENTER);
-	}
-
-	/**
-	 * Draws the given {@link String} aligned within the {@link RectangleF}, as
-	 * specified by the {@link GraphicsX.TextAlign}, with the specified
-	 * character spacings.
-	 * 
-	 * @param str
-	 *            The text to draw
-	 * @param bounds
-	 *            The {@link RectangleF} to align the text in
-	 * @param xs
-	 *            The horizontal spacing between characters
-	 * @param ys
-	 *            The vertical spacing between lines of text
-	 * @param align
-	 *            How to horizontally align the text
-	 */
-	public void drawString(String str, RectangleF bounds, float xs, float ys, TextAlign align) {
-		float x = bounds.x;
-		float y = bounds.y;
-
-		String v = align.name().split("_")[0];
-		String h = align.name().split("_")[1];
-
-		String[] lines = str.split("\n");
-
-		if (v.equals("TOP"))
-			y = bounds.y;
-		else if (v.equals("MID"))
-			y = bounds.y + (bounds.height / 2) - ((fm.getHeight() * lines.length) / 2)
-			    - ((ys * (lines.length - 1)) / 2);
-		else if (v.equals("BOTTOM"))
-			y = bounds.y + bounds.height - (fm.getHeight() * lines.length) - (ys * (lines.length - 1));
-
-		for (String line : lines) {
-			if (h.equals("LEFT"))
-				x = bounds.x;
-			else if (h.equals("CENTER"))
-				x = bounds.x + (bounds.width / 2) - (fm.stringWidth(line) / 2) - ((xs * (line.length() - 1)) / 2);
-			else if (h.equals("RIGHT"))
-				x = bounds.x + bounds.width - fm.stringWidth(line) - (xs * (line.length() - 1));
-
-			drawString(line, x, y, xs, 0);
-
-			y += fm.getHeight() + ys;
-		}
-	}
-
-	/**
-	 * Draws the given {@link String} center aligned within the
 	 * {@link RectangleD}, with no character spacing.
 	 * 
 	 * @param str
@@ -765,7 +826,7 @@ public class GraphicsX {
 	 * @param bounds
 	 *            The {@link RectangleD} to align the text in
 	 */
-	public void drawString(String str, RectangleD bounds) {
+	public void drawString(String str, Rectangle2D bounds) {
 		drawString(str, bounds, TextAlign.MID_CENTER);
 	}
 
@@ -778,9 +839,9 @@ public class GraphicsX {
 	 * @param bounds
 	 *            The {@link RectangleD} to align the text in
 	 * @param align
-	 *            How to horizontally align the text
+	 *            How to align the text
 	 */
-	public void drawString(String str, RectangleD bounds, TextAlign align) {
+	public void drawString(String str, Rectangle2D bounds, TextAlign align) {
 		drawString(str, bounds, 0, 0, align);
 	}
 
@@ -797,7 +858,7 @@ public class GraphicsX {
 	 * @param ys
 	 *            The vertical spacing between lines of text
 	 */
-	public void drawString(String str, RectangleD bounds, float xs, float ys) {
+	public void drawString(String str, Rectangle2D bounds, double xs, double ys) {
 		drawString(str, bounds, xs, ys, TextAlign.MID_CENTER);
 	}
 
@@ -815,11 +876,11 @@ public class GraphicsX {
 	 * @param ys
 	 *            The vertical spacing between lines of text
 	 * @param align
-	 *            How to horizontally align the text
+	 *            How to align the text
 	 */
-	public void drawString(String str, RectangleD bounds, float xs, float ys, TextAlign align) {
-		double x = bounds.x;
-		double y = bounds.y;
+	public void drawString(String str, Rectangle2D bounds, double xs, double ys, TextAlign align) {
+		double x = bounds.getX();
+		double y = bounds.getY();
 
 		String v = align.name().split("_")[0];
 		String h = align.name().split("_")[1];
@@ -827,22 +888,25 @@ public class GraphicsX {
 		String[] lines = str.split("\n");
 
 		if (v.equals("TOP"))
-			y = bounds.y;
+			y = bounds.getY();
 		else if (v.equals("MID"))
-			y = bounds.y + (bounds.height / 2) - ((fm.getHeight() * lines.length) / 2)
+			y = bounds.getY() + (bounds.getHeight() / 2) - ((fm.getHeight() * lines.length) / 2)
 			    - ((ys * (lines.length - 1)) / 2);
 		else if (v.equals("BOTTOM"))
-			y = bounds.y + bounds.height - (fm.getHeight() * lines.length) - (ys * (lines.length - 1));
+			y = bounds.getY() + bounds.getHeight() - (fm.getHeight() * lines.length) - (ys * (lines.length - 1));
+
+		// y += fm.getAscent();
 
 		for (String line : lines) {
 			if (h.equals("LEFT"))
-				x = bounds.x;
+				x = bounds.getX();
 			else if (h.equals("CENTER"))
-				x = bounds.x + (bounds.width / 2) - (fm.stringWidth(line) / 2) - ((xs * (line.length() - 1)) / 2);
+				x = bounds.getX() + (bounds.getWidth() / 2) - (fm.stringWidth(line) / 2)
+				    - ((xs * (line.length() - 1)) / 2);
 			else if (h.equals("RIGHT"))
-				x = bounds.x + bounds.width - fm.stringWidth(line) - (xs * (line.length() - 1));
+				x = bounds.getX() + bounds.getWidth() - fm.stringWidth(line) - (xs * (line.length() - 1));
 
-			drawString(line, (float) x, (float) y, xs, 0);
+			drawString(line, (float) x, (float) y, (float) xs, 0);
 
 			y += fm.getHeight() + ys;
 		}
@@ -864,6 +928,10 @@ public class GraphicsX {
 		g.fill3DRect(x, y, width, height, raised);
 	}
 
+	public void fill3DRect(Rectangle2D r, boolean raised) {
+		fill3DRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight(), raised);
+	}
+
 	/**
 	 * Delegates to the method of the same name, found in
 	 * {@link Graphics#fillArc(int, int, int, int, int, int)}.
@@ -872,12 +940,21 @@ public class GraphicsX {
 		g.fillArc(x, y, width, height, startAngle, arcAngle);
 	}
 
+	public void fillArc(Rectangle2D r, double startAngle, double arcAngle) {
+		fillArc((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight(), (int) startAngle,
+		    (int) arcAngle);
+	}
+
 	/**
 	 * Delegates to the method of the same name, found in
 	 * {@link Graphics#fillOval(int, int, int, int)}.
 	 */
 	public void fillOval(int x, int y, int width, int height) {
 		g.fillOval(x, y, width, height);
+	}
+
+	public void fillOval(Rectangle2D r) {
+		fillOval((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
 	}
 
 	/**
@@ -910,6 +987,11 @@ public class GraphicsX {
 	 */
 	public void fillRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight) {
 		g.fillRoundRect(x, y, width, height, arcWidth, arcHeight);
+	}
+
+	public void fillRoundRect(Rectangle2D r, double arcWidth, double arcHeight) {
+		fillRoundRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight(), (int) arcWidth,
+		    (int) arcHeight);
 	}
 
 	/**
@@ -1086,6 +1168,10 @@ public class GraphicsX {
 		return g.hitClip(x, y, width, height);
 	}
 
+	public boolean hitClip(Rectangle2D r) {
+		return hitClip((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
+	}
+
 	/**
 	 * Delegates to the method of the same name, found in
 	 * {@link Graphics2D#rotate(double)}.
@@ -1143,13 +1229,13 @@ public class GraphicsX {
 	}
 
 	/**
-	 * Sets the color using an integer value
+	 * Sets the color using an integer value of the format {@code 0xAARRGGBB}
 	 *
 	 * @param c
 	 *            The color value to set
 	 */
 	public void setColor(int c) {
-		setColor(new Color(c));
+		setColor(new ColorX(c));
 	}
 
 	/**
@@ -1161,7 +1247,8 @@ public class GraphicsX {
 	}
 
 	/**
-	 * Delegates to the method of the same name, in {@link Graphics2D#}.
+	 * Delegates to the method of the same name, in
+	 * {@link Graphics#setFont(Font)}.
 	 */
 	public void setFont(Font font) {
 		g.setFont(font);
@@ -1295,6 +1382,6 @@ public class GraphicsX {
 
 	@Override
 	public String toString() {
-		return getClass().getName() + "[font=" + getFont() + ",color=" + getColor() + "]";
+		return getClass().getName() + " [font=" + getFont() + ",color=" + getColor() + "]";
 	}
 }

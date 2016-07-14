@@ -27,9 +27,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 
+import net.alexanderdev.lightdrive.Cleanable;
 import net.alexanderdev.lightdrive.audio.Sound;
 import net.alexanderdev.lightdrive.graphics.Sprite;
-import net.alexanderdev.lightdrive.util.Time;
+import net.alexanderdev.lightdrive.util.time.Time;
 
 /**
  * A class which provides a visualization of base resource loading progress as a
@@ -39,7 +40,7 @@ import net.alexanderdev.lightdrive.util.Time;
  * @author Christian Bryce Alexander
  * @since May 24, 2016, 2:24:32 PM
  */
-public class ResourceLoader extends JFrame {
+public class ResourceLoader extends JFrame implements Cleanable {
 	private static final long serialVersionUID = 8493474044583968037L;
 
 	private static final List<String> BMP_PATHS = new ArrayList<>();
@@ -55,6 +56,7 @@ public class ResourceLoader extends JFrame {
 	private static final Map<String, Font> FONTS = new HashMap<>();
 
 	private static final List<String> MP3_PATHS = new ArrayList<>();
+	private static final List<String> OGG_PATHS = new ArrayList<>();
 	private static final List<String> WAV_PATHS = new ArrayList<>();
 	private static final Map<String, Sound> SOUNDS = new HashMap<>();
 
@@ -260,6 +262,20 @@ public class ResourceLoader extends JFrame {
 	}
 
 	/**
+	 * Registers a varargs list of file names of Ogg Vorbis sounds that are to
+	 * be loaded when {@link ResourceLoader#load(boolean)} is invoked.
+	 * 
+	 * @param names
+	 *            The names of the files to register
+	 */
+	public static void registerOGGs(String... names) {
+		for (String name : names)
+			OGG_PATHS.add(name);
+
+		resourceCount += names.length;
+	}
+
+	/**
 	 * Registers a varargs list of file names of WAV sounds that are to be
 	 * loaded when {@link ResourceLoader#load(boolean)} is invoked.
 	 * 
@@ -420,6 +436,16 @@ public class ResourceLoader extends JFrame {
 			progress.setValue((int) ((count / (double) resourceCount) * 100));
 		}
 
+		for (String path : OGG_PATHS) {
+			progress.setString("Loading Sound '" + path + "'");
+
+			String[] dir = path.split("(/|\\\\)");
+			SOUNDS.put(dir[dir.length - 1], SoundIO.loadOGG(path));
+
+			count++;
+			progress.setValue((int) ((count / (double) resourceCount) * 100));
+		}
+
 		for (String path : WAV_PATHS) {
 			progress.setString("Loading Sound '" + path + "'");
 
@@ -432,7 +458,7 @@ public class ResourceLoader extends JFrame {
 
 		long end = Time.nsTime();
 
-		progress.setString(String.format("Resources loaded: %fs\n", (end - start) / 10e9d));
+		progress.setString(String.format("Resources loaded: %fs\n", (end - start) * 10e-9));
 
 		try {
 			Thread.sleep(1000);
@@ -515,5 +541,16 @@ public class ResourceLoader extends JFrame {
 		empty &= SOUNDS.isEmpty();
 
 		return empty;
+	}
+
+	@Override
+	public void cleanUp() {
+		for (String key : SPRITES.keySet())
+			SPRITES.get(key).cleanUp();
+
+		for (String key : SOUNDS.keySet())
+			SOUNDS.get(key).cleanUp();
+
+		deregisterAll();
 	}
 }

@@ -171,14 +171,14 @@ public class SpriteSheet implements Cloneable {
 	}
 
 	/**
-	 * @return The "i"th {@link Sprite}s from start (inclusive) to end
-	 *         (inclusive).
+	 * @return The {@code count} number of "i"th {@link Sprite}s, starting from
+	 *         {@code first}
 	 */
-	public Sprite[] getSprites(int start, int end) {
-		Sprite[] sprites = new Sprite[(end - start) + 1];
+	public Sprite[] getSprites(int first, int count) {
+		Sprite[] sprites = new Sprite[count];
 
 		for (int i = 0; i < sprites.length; i++)
-			sprites[i] = getSprite(start + i);
+			sprites[i] = getSprite(first + i);
 
 		return sprites;
 	}

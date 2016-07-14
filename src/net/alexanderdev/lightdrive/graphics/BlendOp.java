@@ -23,8 +23,7 @@ package net.alexanderdev.lightdrive.graphics;
 @FunctionalInterface
 public interface BlendOp {
 	/**
-	 * Applies this {@link BlendOperation}'s algorithm with the specified
-	 * values.
+	 * Applies this {@link BlendOp}'s algorithm with the specified values.
 	 * 
 	 * @param target
 	 *            The channel to serve as the destination

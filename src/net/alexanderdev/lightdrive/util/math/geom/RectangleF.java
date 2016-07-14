@@ -55,6 +55,14 @@ public class RectangleF extends Rectangle2D.Float implements Cloneable {
 	public RectangleF(float x, float y, float width, float height) {
 		super(x, y, width, height);
 	}
+	
+	public VectorF getPosition() {
+		return new VectorF(x, y);
+	}
+
+	public VectorF getCenter() {
+		return new VectorF((float) getCenterX(), (float) getCenterY());
+	}
 
 	/**
 	 * @return A copy of this {@link RectangleF} rotated around the specified

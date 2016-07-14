@@ -29,7 +29,7 @@ public class BrightnessFilter implements Filter {
 	/**
 	 * Creates a new {@link BrightnessFilter}.
 	 *
-	 * @param saturation
+	 * @param brightness
 	 *            The amount of brightness ({@code -1f} is full black,
 	 *            {@code 1f} is full white)
 	 */
@@ -40,7 +40,7 @@ public class BrightnessFilter implements Filter {
 	/**
 	 * Sets the brightness factor.
 	 *
-	 * @param saturation
+	 * @param brightness
 	 *            The amount of brightness ({@code -1f} is full black,
 	 *            {@code 1f} is full white)
 	 */

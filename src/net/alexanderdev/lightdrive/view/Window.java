@@ -40,8 +40,8 @@ import net.alexanderdev.lightdrive.input.keyboard.Keyboard;
 import net.alexanderdev.lightdrive.input.mouse.Mouse;
 import net.alexanderdev.lightdrive.state.State;
 import net.alexanderdev.lightdrive.state.StateManager;
-import net.alexanderdev.lightdrive.util.Time;
 import net.alexanderdev.lightdrive.util.io.ResourceLoader;
+import net.alexanderdev.lightdrive.util.time.Time;
 
 /**
  * A {@link Viewable} that consists of a stand-alone {@link Canvas}, intended
@@ -82,6 +82,9 @@ public class Window extends Canvas implements Viewable, Runnable {
 	private boolean frameRateLocked;
 
 	private StateManager manager;
+
+	private int lastUpdates;
+	private int lastFrames;
 
 	static {
 		// System.load(new File("/jinput-dx8.dll").getAbsolutePath());
@@ -302,6 +305,16 @@ public class Window extends Canvas implements Viewable, Runnable {
 	}
 
 	@Override
+	public int getUpdateCount() {
+		return lastUpdates;
+	}
+
+	@Override
+	public int getFrameCount() {
+		return lastFrames;
+	}
+
+	@Override
 	public final void open() {
 		if (keyboardEnabled) {
 			keyboard = new Keyboard();
@@ -385,10 +398,14 @@ public class Window extends Canvas implements Viewable, Runnable {
 	@InternalMethod
 	public void run() {
 		long last = Time.nsTime();
+		long timer = Time.msTime();
 
 		final double NS = 1000000000.0 / ups;
 
 		double delta = 0;
+
+		int updates = 0;
+		int frames = 0;
 
 		while (running) {
 			long now = Time.nsTime();
@@ -405,6 +422,15 @@ public class Window extends Canvas implements Viewable, Runnable {
 
 			if (shouldRender)
 				render();
+
+			if (Time.msTime() - timer >= 1000) {
+				lastUpdates = updates;
+				lastFrames = frames;
+
+				updates = frames = 0;
+
+				timer += 1000;
+			}
 		}
 	}
 
@@ -475,7 +501,9 @@ public class Window extends Canvas implements Viewable, Runnable {
 		filters.clear();
 	}
 
-	private void cleanUp() {
+	@Override
+	public void cleanUp() {
+		manager.cleanUp();
 		gx.dispose();
 		g.dispose();
 		bs.dispose();

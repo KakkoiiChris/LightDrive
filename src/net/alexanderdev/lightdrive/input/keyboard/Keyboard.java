@@ -32,6 +32,8 @@ public class Keyboard implements KeyListener {
 
 	private boolean[] keysLast;
 
+	private int lastKeyCode;
+
 	/**
 	 * Creates a standard {@link Keyboard}.
 	 */
@@ -43,6 +45,8 @@ public class Keyboard implements KeyListener {
 		}
 
 		keysLast = KEYS.clone();
+
+		lastKeyCode = -1;
 	}
 
 	/**
@@ -146,6 +150,10 @@ public class Keyboard implements KeyListener {
 		return KEY_LOCATIONS[key.ordinal()] == KeyEvent.KEY_LOCATION_NUMPAD;
 	}
 
+	public int getLastKeyCode() {
+		return lastKeyCode;
+	}
+
 	@InternalMethod
 	public void update() {
 		keysLast = KEYS.clone();
@@ -160,12 +168,12 @@ public class Keyboard implements KeyListener {
 	@Override
 	@InternalMethod
 	public void keyPressed(KeyEvent e) {
-		int keyCode = e.getKeyCode();
+		lastKeyCode = e.getKeyCode();
 
-		if (keyCode >= 0 && keyCode < KEYS.length) {
-			KEYS[keyCode] = true;
+		if (lastKeyCode >= 0 && lastKeyCode < KEYS.length) {
+			KEYS[lastKeyCode] = true;
 
-			KEY_LOCATIONS[keyCode] = e.getKeyLocation();
+			KEY_LOCATIONS[lastKeyCode] = e.getKeyLocation();
 		}
 
 		e.consume();
@@ -174,12 +182,12 @@ public class Keyboard implements KeyListener {
 	@Override
 	@InternalMethod
 	public void keyReleased(KeyEvent e) {
-		int keyCode = e.getKeyCode();
+		lastKeyCode = e.getKeyCode();
 
-		if (keyCode >= 0 && keyCode < KEYS.length) {
-			KEYS[keyCode] = false;
+		if (lastKeyCode >= 0 && lastKeyCode < KEYS.length) {
+			KEYS[lastKeyCode] = false;
 
-			KEY_LOCATIONS[keyCode] = e.getKeyLocation();
+			KEY_LOCATIONS[lastKeyCode] = e.getKeyLocation();
 		}
 
 		e.consume();

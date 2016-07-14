@@ -14,9 +14,11 @@
 package net.alexanderdev.lightdrive.graphics;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
+import net.alexanderdev.lightdrive.Cleanable;
 import net.alexanderdev.lightdrive.graphics.filter.Filter;
 import net.alexanderdev.lightdrive.util.Pixel;
 
@@ -27,17 +29,17 @@ import net.alexanderdev.lightdrive.util.Pixel;
  * @author Christian Bryce Alexander
  * @since Apr 15, 2015, 12:22:40 AM
  */
-public class Sprite extends BufferedImage implements Cloneable {
+public class Sprite extends BufferedImage implements Cleanable, Cloneable {
 	private int[] pixels;
 
 	/**
-	 * Creates a new {@link Sprite} from the {@link BufferedImage}.
+	 * Creates a new {@link Sprite} from the {@link Image}.
 	 *
 	 * @param image
 	 *            The image to copy
 	 */
-	public Sprite(BufferedImage image) {
-		super(image.getWidth(), image.getHeight(), TYPE_INT_ARGB);
+	public Sprite(Image image) {
+		super(image.getWidth(null), image.getHeight(null), TYPE_INT_ARGB);
 
 		Graphics g = getGraphics();
 		g.drawImage(image, 0, 0, null);
@@ -176,6 +178,11 @@ public class Sprite extends BufferedImage implements Cloneable {
 	@Override
 	public Sprite getSubimage(int x, int y, int width, int height) {
 		return new Sprite(super.getSubimage(x, y, width, height));
+	}
+
+	@Override
+	public void cleanUp() {
+		flush();
 	}
 
 	@Override

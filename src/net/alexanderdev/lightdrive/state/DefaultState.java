@@ -32,8 +32,7 @@ public final class DefaultState extends State {
 	private Sprite splash;
 
 	public DefaultState() {
-		SpriteIO.setPath("/img/lightdrive/");
-		splash = SpriteIO.loadPNG("splash640x480");
+		splash = SpriteIO.loadPNG("/img/lightdrive/splash640x480");
 	}
 
 	@Override
@@ -51,5 +50,10 @@ public final class DefaultState extends State {
 	@Override
 	public void render(GraphicsX g) {
 		g.drawImage(splash, getManager().getView().getViewBounds());
+	}
+
+	@Override
+	public void cleanUp() {
+		splash.flush();
 	}
 }

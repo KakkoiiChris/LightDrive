@@ -13,8 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
-import net.alexanderdev.lightdrive.util.Time;
 import net.alexanderdev.lightdrive.util.math.MathX;
+import net.alexanderdev.lightdrive.util.time.Time;
 
 /**
  * A class which represents a single {@link Sprite} based animation.
@@ -50,11 +50,11 @@ public class Animation implements Cloneable {
 
 	private Style style;
 
-	private int currFrame, prevFrame, step;
+	private int currFrame, prevFrame;
 
 	private long delay, timer;
 
-	private boolean playing;
+	private boolean forward, playing;
 
 	/**
 	 * Creates a standard {@link Animation}.
@@ -63,18 +63,20 @@ public class Animation implements Cloneable {
 	 *            The animation frames
 	 * @param delay
 	 *            The amount of milliseconds betwen frames
+	 * @param step
+	 *            The amount of frames to jump each update
 	 * @param style
 	 *            The style of the animation
 	 */
-	public Animation(Sprite[] frames, long delay, int step, Style style) {
+	public Animation(Sprite[] frames, long delay, Style style) {
 		this.frames = frames;
 		this.delay = delay;
-		this.step = step;
 		this.style = style;
 
 		currFrame = 0;
 		prevFrame = -1;
 
+		forward = true;
 		playing = false;
 	}
 
@@ -85,33 +87,11 @@ public class Animation implements Cloneable {
 	 *            The animation frames
 	 * @param delay
 	 *            The amount of milliseconds betwen frames
-	 */
-	public Animation(Sprite[] frames, long delay, int step) {
-		this(frames, delay, step, Style.LOOP);
-	}
-
-	/**
-	 * Creates an {@link Animation} with the default step of {@code 1}.
-	 * 
-	 * @param frames
-	 *            The animation frames
-	 * @param delay
-	 *            The amount of milliseconds betwen frames
-	 */
-	public Animation(Sprite[] frames, long delay, Style style) {
-		this(frames, delay, 1, style);
-	}
-
-	/**
-	 * Creates an {@link Animation} with the default step and style.
-	 * 
-	 * @param frames
-	 *            The animation frames
-	 * @param delay
-	 *            The amount of milliseconds betwen frames
+	 * @param step
+	 *            The amount of frames to jump each update
 	 */
 	public Animation(Sprite[] frames, long delay) {
-		this(frames, delay, 1, Style.LOOP);
+		this(frames, delay, Style.LOOP);
 	}
 
 	/**
@@ -130,6 +110,8 @@ public class Animation implements Cloneable {
 	 */
 	public void step() {
 		prevFrame = currFrame;
+
+		int step = forward ? 1 : -1;
 
 		switch (style) {
 			case LOOP:
@@ -184,8 +166,8 @@ public class Animation implements Cloneable {
 	/**
 	 * Sets the index of this {@link Animation}.
 	 * 
-	 * @param The
-	 *            index to set
+	 * @param i
+	 *            The index to set
 	 */
 	public void setFrameIndex(int i) {
 		if (i >= 0 && i < frames.length)
@@ -214,18 +196,8 @@ public class Animation implements Cloneable {
 	/**
 	 * @return The step amount of this {@link Animation}
 	 */
-	public int getStep() {
-		return step;
-	}
-
-	/**
-	 * Sets the step amount for this {@link Animation}.
-	 *
-	 * @param step
-	 *            The step amount to set
-	 */
-	public void setStep(int step) {
-		this.step = step;
+	public boolean isForward() {
+		return forward;
 	}
 
 	/**
@@ -286,7 +258,12 @@ public class Animation implements Cloneable {
 	 * Reverses the direction of this {@link Animation}, if applicable.
 	 */
 	public void reverse() {
-		step = -step;
+		forward = !forward;
+
+		if (forward)
+			prevFrame = currFrame - 1;
+		else
+			prevFrame = currFrame + 1;
 	}
 
 	/**
@@ -312,6 +289,6 @@ public class Animation implements Cloneable {
 		for (int i = 0; i < frames.length; i++)
 			newFrames[i] = frames[i].clone();
 
-		return new Animation(newFrames, delay, step, style);
+		return new Animation(newFrames, delay, style);
 	}
 }

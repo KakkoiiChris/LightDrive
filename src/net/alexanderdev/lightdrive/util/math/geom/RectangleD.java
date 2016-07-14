@@ -56,6 +56,14 @@ public class RectangleD extends Rectangle2D.Double implements Cloneable {
 		super(x, y, width, height);
 	}
 
+	public VectorD getPosition() {
+		return new VectorD(x, y);
+	}
+
+	public VectorD getCenter() {
+		return new VectorD(getCenterX(), getCenterY());
+	}
+
 	/**
 	 * @return A copy of this {@link RectangleD} rotated around the specified
 	 *         point

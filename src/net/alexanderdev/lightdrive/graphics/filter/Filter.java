@@ -27,9 +27,12 @@ public interface Filter {
 	/**
 	 * Applies this {@link Filter}'s algorithm with the specified values.
 	 * 
+	 * @param width
+	 *            The width of the filtered image
+	 * @param height
+	 *            The height of the filtered image
 	 * @param pixels
 	 *            The pixel data of the {@link Sprite} to be filtered
-	 * @return The blended value of the channels
 	 */
 	public void apply(int width, int height, int[] pixels);
 }

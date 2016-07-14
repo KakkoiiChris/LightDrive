@@ -15,6 +15,7 @@ package net.alexanderdev.lightdrive.view;
 
 import java.awt.Rectangle;
 
+import net.alexanderdev.lightdrive.Cleanable;
 import net.alexanderdev.lightdrive.InternalType;
 import net.alexanderdev.lightdrive.graphics.Sprite;
 import net.alexanderdev.lightdrive.graphics.filter.Filter;
@@ -28,7 +29,7 @@ import net.alexanderdev.lightdrive.state.StateManager;
  * @since Jan 19, 2016, 2:03:22 AM
  */
 @InternalType
-public interface Viewable {
+public interface Viewable extends Cleanable {
 	/**
 	 * @return The {@link StateManager} associated with this game
 	 *         {@link Viewable}
@@ -69,6 +70,10 @@ public interface Viewable {
 	 * @return The {@link Sprite} context used for rendering
 	 */
 	public Sprite getContext();
+
+	public int getUpdateCount();
+
+	public int getFrameCount();
 
 	/**
 	 * Prepares this {@link Viewable}'s graphics and opens it up for game play.

@@ -16,6 +16,7 @@ package net.alexanderdev.lightdrive.state;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.alexanderdev.lightdrive.Cleanable;
 import net.alexanderdev.lightdrive.InternalMethod;
 import net.alexanderdev.lightdrive.graphics.Renderable;
 import net.alexanderdev.lightdrive.input.Controllable;
@@ -34,14 +35,14 @@ import net.alexanderdev.lightdrive.view.Viewable;
  * @author Christian Bryce Alexander
  * @since March 6, 2015, 3:03:42 AM
  */
-public abstract class State implements Controllable, Renderable {
+public abstract class State implements Cleanable, Controllable, Renderable {
 	private StateManager manager;
 
 	private List<KeyboardListener> keyboardListeners = new ArrayList<>();
 
-	private List<MouseListener> mouseListeners = new ArrayList<>();
+	private List<MouseListener>    mouseListeners    = new ArrayList<>();
 
-	private List<GamepadListener> gamepadListeners = new ArrayList<>();
+	private List<GamepadListener>  gamepadListeners  = new ArrayList<>();
 
 	/**
 	 * @return The {@link StateManager} associated with this {@link State}

@@ -16,6 +16,8 @@ package net.alexanderdev.lightdrive.audio;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
+import net.alexanderdev.lightdrive.Cleanable;
+
 /**
  * A class which encapsulates a {@link Clip}, and allows for simple play back
  * and volume/pan control of an audio file.
@@ -23,13 +25,14 @@ import javax.sound.sampled.FloatControl;
  * @author Christian Bryce Alexander
  * @since May 25, 2015, 8:06:38 PM
  */
-public class Sound {
+public class Sound implements Cleanable {
 	private Clip clip;
 
 	private FloatControl masterGain;
 	private FloatControl pan;
 
 	private SoundListener listener;
+	private Thread thread;
 	private boolean isListening;
 
 	/**
@@ -57,7 +60,7 @@ public class Sound {
 	 * {@link SoundListener}'s {@link Thread} if it has been set.
 	 */
 	public void play() {
-		if (clip == null || isPlaying())
+		if (clip == null)
 			return;
 
 		stop();
@@ -75,7 +78,7 @@ public class Sound {
 	 * {@link SoundListener}'s {@link Thread} if it has been set.
 	 */
 	public void loop() {
-		if (clip == null || isPlaying())
+		if (clip == null)
 			return;
 
 		stop();
@@ -94,7 +97,7 @@ public class Sound {
 	 * {@link Thread}.
 	 */
 	public void stop() {
-		if (clip == null || !isPlaying())
+		if (clip == null)
 			return;
 
 		if (listener != null)
@@ -158,12 +161,17 @@ public class Sound {
 		if (!isListening) {
 			isListening = true;
 
-			new Thread(() -> {
+			thread = new Thread(() -> {
+				while (!isPlaying())
+					;
+
 				while (isListening && isPlaying())
 					listener.listen((float) ((double) getPosition() / (double) getLength()));
 
 				isListening = false;
-			}).start();
+			});
+
+			thread.start();
 		}
 	}
 
@@ -174,7 +182,8 @@ public class Sound {
 	/**
 	 * Stops this {@link Sound} and releases all resources associated with it.
 	 */
-	public void close() {
+	@Override
+	public void cleanUp() {
 		stop();
 
 		clip.drain();

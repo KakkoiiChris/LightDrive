@@ -43,8 +43,8 @@ import net.alexanderdev.lightdrive.input.mouse.Mouse;
 import net.alexanderdev.lightdrive.state.State;
 import net.alexanderdev.lightdrive.state.StateManager;
 import net.alexanderdev.lightdrive.util.Environment;
-import net.alexanderdev.lightdrive.util.Time;
 import net.alexanderdev.lightdrive.util.io.ResourceLoader;
+import net.alexanderdev.lightdrive.util.time.Time;
 
 /**
  * A {@link Viewable} that consists of a {@link JFrame} and a {@link Canvas},
@@ -87,6 +87,9 @@ public class Screen extends Canvas implements Viewable, Runnable {
 	private boolean frameRateLocked;
 
 	private StateManager manager;
+
+	private int lastUpdates;
+	private int lastFrames;
 
 	static {
 		// System.load(new File("/jinput-dx8.dll").getAbsolutePath());
@@ -289,6 +292,20 @@ public class Screen extends Canvas implements Viewable, Runnable {
 	}
 
 	@Override
+	public int getUpdateCount() {
+		return lastUpdates;
+	}
+
+	@Override
+	public int getFrameCount() {
+		return lastFrames;
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	@Override
 	public final void open() {
 		Dimension d = Environment.getPhysicalSize();
 
@@ -421,7 +438,8 @@ public class Screen extends Canvas implements Viewable, Runnable {
 			}
 
 			if (Time.msTime() - timer >= 1000) {
-				frame.setTitle(String.format("%s | UPS: %d, FPS: %d", title, updates, frames));
+				lastUpdates = updates;
+				lastFrames = frames;
 
 				updates = frames = 0;
 
@@ -497,7 +515,9 @@ public class Screen extends Canvas implements Viewable, Runnable {
 		filters.clear();
 	}
 
-	private void cleanUp() {
+	@Override
+	public void cleanUp() {
+		manager.cleanUp();
 		gx.dispose();
 		g.dispose();
 		bs.dispose();

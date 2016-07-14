@@ -270,4 +270,31 @@ public class CSV {
 
 		return data.toArray(new String[data.size()]);
 	}
+
+	public static String toCSV(Object... data) {
+		StringBuilder csv = new StringBuilder();
+
+		boolean first = true;
+
+		for (Object o : data) {
+			if (!first)
+				csv.append(",");
+
+			if (o instanceof Character && ((Character) o).charValue() == ',') {
+				csv.append("'");
+				csv.append(o);
+				csv.append("'");
+			}
+			else if (o instanceof String && ((String) o).contains(",")) {
+				csv.append('"');
+				csv.append(o);
+				csv.append('"');
+			}
+			else {
+				csv.append(o);
+			}
+		}
+
+		return csv.toString();
+	}
 }

@@ -15,7 +15,10 @@ package net.alexanderdev.lightdrive.util.io;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -49,14 +52,50 @@ public class TextIO {
 	 * 
 	 * @param name
 	 *            The name of the file to read
-	 * @return A {@link String}{@code []} containing each individual line of text
+	 * @return A {@link String}{@code []} containing each individual line of
+	 *         text
 	 */
-	public static String[] readFile(String name) {
+	public static String[] readResourceFile(String name) {
 		List<String> lines = new ArrayList<>();
 
 		InputStream inStream = TextIO.class.getResourceAsStream(path + name);
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inStream));
+
+		String line;
+
+		try {
+			while ((line = reader.readLine()) != null) {
+				lines.add(line);
+			}
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				reader.close();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return lines.toArray(new String[lines.size()]);
+	}
+
+	public static String[] readFile(String name) {
+		List<String> lines = new ArrayList<>();
+
+		File file = new File(name);
+
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader(file));
+		}
+		catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 
 		String line;
 

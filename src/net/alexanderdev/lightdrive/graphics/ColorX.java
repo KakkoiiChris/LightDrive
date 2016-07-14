@@ -266,17 +266,17 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 
 		lightness = MathX.clamp(lightness, -1f, 1f);
 
-		float r, g, b;
+		int r, g, b;
 
 		if (lightness > 0) {
-			r = getRed() + (255 - getRed()) * lightness;
-			g = getGreen() + (255 - getGreen()) * lightness;
-			b = getBlue() + (255 - getBlue()) * lightness;
+			r = getRed() + (int) ((255 - getRed()) * lightness);
+			g = getGreen() + (int) ((255 - getGreen()) * lightness);
+			b = getBlue() + (int) ((255 - getBlue()) * lightness);
 		}
 		else {
-			r = getRed() - (getRed() * -lightness);
-			g = getGreen() - (getGreen() * -lightness);
-			b = getBlue() - (getBlue() * -lightness);
+			r = getRed() - (int) (getRed() * -lightness);
+			g = getGreen() - (int) (getGreen() * -lightness);
+			b = getBlue() - (int) (getBlue() * -lightness);
 		}
 
 		return Pixel.mergeARGB(getAlpha(), r, g, b);
@@ -310,31 +310,31 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 
 		saturation = MathX.clamp(saturation, -1f, 1f);
 
-		float r, g, b;
+		int r, g, b;
 
 		if (saturation > 0) {
-			float rLim = getRed() >= 0.5f ? 1f : 0f;
-			float gLim = getGreen() >= 0.5f ? 1f : 0f;
-			float bLim = getBlue() >= 0.5f ? 1f : 0f;
+			int rLim = getRed() >= 128 ? 255 : 0;
+			int gLim = getGreen() >= 128 ? 255 : 0;
+			int bLim = getBlue() >= 128 ? 255 : 0;
 
-			float rDiff = rLim - getRed();
-			float gDiff = gLim - getGreen();
-			float bDiff = bLim - getBlue();
+			int rDiff = rLim - getRed();
+			int gDiff = gLim - getGreen();
+			int bDiff = bLim - getBlue();
 
-			r = getRed() + rDiff * saturation;
-			g = getGreen() + gDiff * saturation;
-			b = getBlue() + bDiff * saturation;
+			r = getRed() + (int) (rDiff * saturation);
+			g = getGreen() + (int) (gDiff * saturation);
+			b = getBlue() + (int) (bDiff * saturation);
 		}
 		else {
-			float avg = (float) MathX.average(getRed(), getGreen(), getBlue());
+			int avg = (int) MathX.average(getRed(), getGreen(), getBlue());
 
-			float rDiff = avg - getRed();
-			float gDiff = avg - getGreen();
-			float bDiff = avg - getBlue();
+			int rDiff = avg - getRed();
+			int gDiff = avg - getGreen();
+			int bDiff = avg - getBlue();
 
-			r = getRed() + rDiff * -saturation;
-			g = getGreen() + gDiff * -saturation;
-			b = getBlue() + bDiff * -saturation;
+			r = getRed() + (int) (rDiff * -saturation);
+			g = getGreen() + (int) (gDiff * -saturation);
+			b = getBlue() + (int) (bDiff * -saturation);
 		}
 
 		return Pixel.mergeARGB(getAlpha(), r, g, b);
@@ -366,15 +366,15 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 			return getARGB();
 
 		if (factor == 1f)
-			return Pixel.mergeARGB(getAlpha(), 1f - getRed(), 1f - getGreen(), 1f - getBlue());
+			return Pixel.mergeARGB(getAlpha(), 255 - getRed(), 255 - getGreen(), 255 - getBlue());
 
 		factor = MathX.clamp(factor, 0f, 1f);
 
 		float r, g, b;
 
-		float rLim = 1f - getRed();
-		float gLim = 1f - getGreen();
-		float bLim = 1f - getBlue();
+		int rLim = 255 - getRed();
+		int gLim = 255 - getGreen();
+		int bLim = 255 - getBlue();
 
 		r = getRed() - ((getRed() - rLim) * factor);
 		g = getGreen() - ((getGreen() - gLim) * factor);
@@ -407,7 +407,7 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 	 * @return A new instance of {@link ColorX}, with its values based on
 	 *         {@link ColorX#inverted()}
 	 */
-	public ColorX invertedColorX() {
+	public ColorX invertedColor() {
 		return new ColorX(inverted());
 	}
 
@@ -424,7 +424,7 @@ public class ColorX extends Color implements Cloneable, Comparable<ColorX> {
 	 * @return The adjusted value of this {@link ColorX}
 	 */
 	public int ofAdjustment(float r, float g, float b) {
-		return Pixel.mergeARGB(getAlpha(), getRed() * r, getGreen() * g, getBlue() * b);
+		return Pixel.mergeARGB(getAlpha(), (int) (getRed() * r), (int) (getGreen() * g), (int) (getBlue() * b));
 	}
 
 	/**

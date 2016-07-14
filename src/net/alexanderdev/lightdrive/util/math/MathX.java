@@ -808,7 +808,7 @@ public final strictfp class MathX {
 	/**
 	 * Static wrapper method for {@link Random}'s {@code nextBytes()}
 	 * 
-	 * @see java.util.Random#nextBytes()
+	 * @see java.util.Random#nextBytes(byte[])
 	 * 
 	 * @param numberOf
 	 *            How many bytes to be generated
@@ -859,7 +859,7 @@ public final strictfp class MathX {
 	/**
 	 * Static wrapper method for {@link Random}'s {@code nextInt()}
 	 * 
-	 * @see java.util.Random#randomInt()
+	 * @see java.util.Random#nextInt()
 	 * 
 	 * @return A random {@code int}
 	 */
@@ -903,7 +903,7 @@ public final strictfp class MathX {
 		}
 
 		if (min < 0 && max > 0)
-			return RANDOM.nextInt(Math.abs(min) + Math.abs(max) + 1) + min;
+			return RANDOM.nextInt((max - min) + 2) + min;
 
 		else if (min < 0 && max < 0)
 			return -(RANDOM.nextInt((-min - -max) + 1) + -max);

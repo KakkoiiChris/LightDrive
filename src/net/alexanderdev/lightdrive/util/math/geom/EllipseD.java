@@ -56,6 +56,14 @@ public class EllipseD extends Ellipse2D.Double implements Cloneable {
 		super(x, y, width, height);
 	}
 
+	public VectorD getPosition() {
+		return new VectorD(x, y);
+	}
+
+	public VectorD getCenter() {
+		return new VectorD(getCenterX(), getCenterY());
+	}
+
 	/**
 	 * @return A copy of this {@link EllipseD} rotated around the specified
 	 *         point

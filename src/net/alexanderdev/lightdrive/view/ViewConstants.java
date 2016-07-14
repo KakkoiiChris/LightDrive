@@ -50,7 +50,7 @@ public class ViewConstants {
 	/**
 	 * The default title for both {@link Display}s and {@link Screen}s.
 	 */
-	public static final String DEFAULT_TITLE = "LightDrive: 2D Java Game Library";
+	public static final String DEFAULT_TITLE = "LightDrive: Java 2D Game Library";
 	/**
 	 * The default icon for both {@link Display}s and {@link Screen}s.
 	 */
