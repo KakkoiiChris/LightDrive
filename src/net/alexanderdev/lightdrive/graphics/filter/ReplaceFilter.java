@@ -65,7 +65,7 @@ public class ReplaceFilter implements Filter {
 	}
 
 	@Override
-	public void apply(int width, int height, int[] pixels) {
+	public void apply(int width, int height, final int[] pixels) {
 		for (int i = 0; i < pixels.length; i++)
 			for (int c = 0; c < map.length; c++)
 				if (pixels[i] == map[c])

@@ -47,7 +47,7 @@ public class PosterizeFilter implements Filter {
 	}
 
 	@Override
-	public void apply(int width, int height, int[] pixels) {
+	public void apply(int width, int height, final int[] pixels) {
 		for (int i = 0; i < pixels.length; i++) {
 			int[] argb = Pixel.splitIntARGB(pixels[i]);
 

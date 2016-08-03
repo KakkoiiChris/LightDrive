@@ -181,12 +181,13 @@ public class Sprite extends BufferedImage implements Cleanable, Cloneable {
 	}
 
 	@Override
-	public void cleanUp() {
-		flush();
+	public Sprite clone() {
+		return new Sprite(this);
 	}
 
 	@Override
-	public Sprite clone() {
-		return new Sprite(this);
+	public boolean cleanUp() {
+		flush();
+		return true;
 	}
 }

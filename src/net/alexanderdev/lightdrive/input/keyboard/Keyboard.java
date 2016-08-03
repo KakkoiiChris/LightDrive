@@ -26,7 +26,7 @@ import net.alexanderdev.lightdrive.InternalMethod;
  * @since March 6, 2015, 2:47:47 AM
  */
 public class Keyboard implements KeyListener {
-	private final boolean[] KEYS = new boolean[Key.values().length];
+	private final boolean[] KEYS = new boolean[Key.values()[Key.values().length - 1].code];
 
 	private final int[] KEY_LOCATIONS = new int[KEYS.length];
 
@@ -55,14 +55,14 @@ public class Keyboard implements KeyListener {
 	 * @return {@code true} if the key associated with the specified {@link Key}
 	 *         's ordinal has been pressed, {@code false} otherwise
 	 */
-	public boolean keyPressed(Key key) {
-		return KEYS[key.ordinal()] && !keysLast[key.ordinal()];
+	public boolean pressed(Key key) {
+		return KEYS[key.code] && !keysLast[key.code];
 	}
 
 	/**
 	 * @return {@code true} if any key has been pressed, {@code false} otherwise
 	 */
-	public boolean anyKeyPressed() {
+	public boolean anyPressed() {
 		for (int i = 0; i < KEYS.length; i++)
 			if (KEYS[i] && !keysLast[i])
 				return true;
@@ -75,14 +75,14 @@ public class Keyboard implements KeyListener {
 	 * @return {@code true} if the key associated with the specified {@link Key}
 	 *         's ordinal is being held, {@code false} otherwise
 	 */
-	public boolean keyHeld(Key key) {
-		return KEYS[key.ordinal()];
+	public boolean held(Key key) {
+		return KEYS[key.code];
 	}
 
 	/**
 	 * @return {@code true} if any key is being held, {@code false} otherwise
 	 */
-	public boolean anyKeyHeld() {
+	public boolean anyHeld() {
 		for (int i = 0; i < KEYS.length; i++)
 			if (KEYS[i])
 				return true;
@@ -95,15 +95,15 @@ public class Keyboard implements KeyListener {
 	 * @return {@code true} if the key associated with the specified {@link Key}
 	 *         's ordinal has been released, {@code false} otherwise
 	 */
-	public boolean keyReleased(Key key) {
-		return !KEYS[key.ordinal()] && keysLast[key.ordinal()];
+	public boolean released(Key key) {
+		return !KEYS[key.code] && keysLast[key.code];
 	}
 
 	/**
 	 * @return {@code true} if any key has been released, {@code false}
 	 *         otherwise
 	 */
-	public boolean anyKeyReleased() {
+	public boolean anyReleased() {
 		for (int i = 0; i < KEYS.length; i++)
 			if (!KEYS[i] && keysLast[i])
 				return true;
@@ -116,7 +116,7 @@ public class Keyboard implements KeyListener {
 	 * @return {@code true} if the specified {@link Key} appears only once, and
 	 *         is not located on the number pad, {@code false} otherwise
 	 */
-	public boolean isStandardKey(Key key) {
+	public boolean isStandard(Key key) {
 		return KEY_LOCATIONS[key.ordinal()] == KeyEvent.KEY_LOCATION_STANDARD;
 	}
 
@@ -126,7 +126,7 @@ public class Keyboard implements KeyListener {
 	 * @return {@code true} if the specified {@link Key} is the leftmost
 	 *         instance of the key, {@code false} otherwise
 	 */
-	public boolean isLeftKey(Key key) {
+	public boolean isLeft(Key key) {
 		return KEY_LOCATIONS[key.ordinal()] == KeyEvent.KEY_LOCATION_LEFT;
 	}
 
@@ -136,7 +136,7 @@ public class Keyboard implements KeyListener {
 	 * @return {@code true} if the specified {@link Key} is the rightmost
 	 *         instance of the key, {@code false} otherwise
 	 */
-	public boolean isRightKey(Key key) {
+	public boolean isRight(Key key) {
 		return KEY_LOCATIONS[key.ordinal()] == KeyEvent.KEY_LOCATION_RIGHT;
 	}
 
@@ -146,7 +146,7 @@ public class Keyboard implements KeyListener {
 	 * @return {@code true} if the specified {@link Key} is located in the
 	 *         number pad, {@code false} otherwise
 	 */
-	public boolean isNumpadKey(Key key) {
+	public boolean isNumpad(Key key) {
 		return KEY_LOCATIONS[key.ordinal()] == KeyEvent.KEY_LOCATION_NUMPAD;
 	}
 

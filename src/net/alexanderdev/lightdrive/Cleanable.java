@@ -15,8 +15,9 @@ package net.alexanderdev.lightdrive;
 
 /**
  * @author Christian Bryce Alexander
- * @since Jun 12, 2016, 12:07:59 AM
+ * @since Aug 3, 2016, 12:13:47 AM
  */
+@FunctionalInterface
 public interface Cleanable {
-	public void cleanUp();
+	public boolean cleanUp();
 }

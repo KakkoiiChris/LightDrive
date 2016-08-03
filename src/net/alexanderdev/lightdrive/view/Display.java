@@ -28,9 +28,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
@@ -38,14 +36,12 @@ import javax.swing.JFrame;
 import net.alexanderdev.lightdrive.InternalMethod;
 import net.alexanderdev.lightdrive.graphics.GraphicsX;
 import net.alexanderdev.lightdrive.graphics.Sprite;
-import net.alexanderdev.lightdrive.graphics.filter.Filter;
 import net.alexanderdev.lightdrive.input.gamepad.Gamepad;
 import net.alexanderdev.lightdrive.input.gamepad.GamepadFinder;
 import net.alexanderdev.lightdrive.input.keyboard.Keyboard;
 import net.alexanderdev.lightdrive.input.mouse.Mouse;
 import net.alexanderdev.lightdrive.state.State;
 import net.alexanderdev.lightdrive.state.StateManager;
-import net.alexanderdev.lightdrive.util.io.ResourceLoader;
 import net.alexanderdev.lightdrive.util.time.Time;
 
 /**
@@ -74,8 +70,6 @@ public class Display extends Canvas implements Viewable, Runnable {
 	private Thread thread;
 
 	private Sprite context;
-
-	private List<Filter> filters;
 
 	private GraphicsX gx;
 	private Graphics g;
@@ -541,8 +535,6 @@ public class Display extends Canvas implements Viewable, Runnable {
 		renderHints = new HashMap<>();
 
 		manager = new StateManager(this);
-
-		filters = new ArrayList<>();
 	}
 
 	/**
@@ -650,7 +642,7 @@ public class Display extends Canvas implements Viewable, Runnable {
 	public int getFrameCount() {
 		return lastFrames;
 	}
-	
+
 	public JFrame getFrame() {
 		return frame;
 	}
@@ -715,15 +707,15 @@ public class Display extends Canvas implements Viewable, Runnable {
 		gx = new GraphicsX((Graphics2D) context.getGraphics());
 		gx.setRenderingHints(renderHints);
 
-		this.createBufferStrategy(2);
-		bs = this.getBufferStrategy();
+		createBufferStrategy(3);
+		bs = getBufferStrategy();
 		g = bs.getDrawGraphics();
 	}
 
 	@Override
 	public final void close() {
 		stop();
-		System.exit(0);
+		System.exit(cleanUp() ? 0 : -1);
 	}
 
 	private final synchronized void start() {
@@ -746,8 +738,6 @@ public class Display extends Canvas implements Viewable, Runnable {
 				gamepad.stop();
 
 		running = false;
-
-		cleanUp();
 	}
 
 	@Override
@@ -836,42 +826,24 @@ public class Display extends Canvas implements Viewable, Runnable {
 
 		manager.render(gx);
 
-		if (!filters.isEmpty())
-			context.filter(getFilterList());
-
 		g.drawImage(context, 0, 0, getWidth(), getHeight(), null);
 
 		bs.show();
 	}
 
-	private Filter[] getFilterList() {
-		return filters.toArray(new Filter[filters.size()]);
-	}
-
 	@Override
-	public void addFilter(Filter filter) {
-		filters.add(filter);
-	}
+	public boolean cleanUp() {
+		boolean success = true;
 
-	@Override
-	public void removeFilter(Filter filter) {
-		filters.remove(filter);
-	}
-
-	@Override
-	public void clearFilters() {
-		filters.clear();
-	}
-
-	@Override
-	public void cleanUp() {
-		manager.cleanUp();
-		gx.dispose();
-		g.dispose();
-		bs.dispose();
 		context.flush();
+
+		g.dispose();
+		gx.dispose();
+
+		bs.dispose();
 		
-		if (!ResourceLoader.isEmpty())
-			ResourceLoader.deregisterAll();
+		success &= manager.cleanUp();
+		
+		return success;
 	}
 }

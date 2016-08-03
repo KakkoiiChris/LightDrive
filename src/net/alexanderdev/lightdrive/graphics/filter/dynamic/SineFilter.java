@@ -45,7 +45,7 @@ public class SineFilter implements Filter {
 	}
 
 	@Override
-	public void apply(int width, int height, int[] pixels) {
+	public void apply(int width, int height, final int[] pixels) {
 		int[] original = ArraysX.copy(pixels);
 
 		for (int y = 0; y < pixels.length / width; y++) {

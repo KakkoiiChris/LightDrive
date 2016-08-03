@@ -18,7 +18,6 @@ import java.awt.Rectangle;
 import net.alexanderdev.lightdrive.Cleanable;
 import net.alexanderdev.lightdrive.InternalType;
 import net.alexanderdev.lightdrive.graphics.Sprite;
-import net.alexanderdev.lightdrive.graphics.filter.Filter;
 import net.alexanderdev.lightdrive.state.StateManager;
 
 /**
@@ -85,26 +84,4 @@ public interface Viewable extends Cleanable {
 	 * closes it, and terminates the program.
 	 */
 	public void close();
-
-	/**
-	 * Adds a {@link Filter} that will be applied to this {@link Viewable}'s
-	 * context after rendering.
-	 * 
-	 * @param filter
-	 *            The filter to add
-	 */
-	public void addFilter(Filter filter);
-
-	/**
-	 * Removes a {@link Filter} from being applied to this {@link Viewable}'s
-	 * context after rendering.
-	 * 
-	 * @param filter
-	 */
-	public void removeFilter(Filter filter);
-
-	/**
-	 * Clears all added {@link Filter}'s from this {@link Viewable}.
-	 */
-	public void clearFilters();
 }

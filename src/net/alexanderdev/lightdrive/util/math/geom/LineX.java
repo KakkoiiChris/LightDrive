@@ -16,13 +16,13 @@ package net.alexanderdev.lightdrive.util.math.geom;
 import java.awt.geom.Line2D;
 
 /**
- * A simple wrapper class for {@link Line2D.Float}.
+ * A simple wrapper class for {@link Line2D.Double}.
  * 
  * @author Christian Bryce Alexander
- * @since Jul 6, 2015, 1:38:56 AM
+ * @since Jul 6, 2015, 1:42:29 AM
  */
-public class LineF extends Line2D.Float implements Cloneable {
-	private static final long serialVersionUID = -496939973883568734L;
+public class LineX extends Line2D.Double implements Cloneable {
+	private static final long serialVersionUID = 8782250485132923391L;
 
 	/**
 	 * @param x0
@@ -34,7 +34,7 @@ public class LineF extends Line2D.Float implements Cloneable {
 	 * @param y1
 	 *            Y coordinate of second point
 	 */
-	public LineF(float x0, float y0, float x1, float y1) {
+	public LineX(double x0, double y0, double x1, double y1) {
 		super(x0, y0, x1, y1);
 	}
 
@@ -44,12 +44,12 @@ public class LineF extends Line2D.Float implements Cloneable {
 	 * @param p1
 	 *            The coordinates of the second point
 	 */
-	public LineF(VectorF p0, VectorF p1) {
+	public LineX(VectorX p0, VectorX p1) {
 		super(p0.x, p0.y, p1.x, p1.y);
 	}
 
 	@Override
-	public LineF clone() {
-		return new LineF(x1, y1, x2, y2);
+	public LineX clone() {
+		return new LineX(x1, y1, x2, y2);
 	}
 }

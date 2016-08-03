@@ -43,49 +43,55 @@ import net.alexanderdev.lightdrive.util.time.Time;
 public class ResourceLoader extends JFrame implements Cleanable {
 	private static final long serialVersionUID = 8493474044583968037L;
 
-	private static final List<String> BMP_PATHS = new ArrayList<>();
-	private static final List<String> GIF_PATHS = new ArrayList<>();
-	private static final List<String> JPEG_PATHS = new ArrayList<>();
-	private static final List<String> PNG_PATHS = new ArrayList<>();
-	private static final List<String> TIFF_PATHS = new ArrayList<>();
-	private static final Map<String, Sprite> SPRITES = new HashMap<>();
+	private final List<String> BMP_PATHS;
+	private final List<String> GIF_PATHS;
+	private final List<String> JPEG_PATHS;
+	private final List<String> PNG_PATHS;
+	private final List<String> TIFF_PATHS;
 
-	private static final List<String> TTF_PATHS = new ArrayList<>();
-	private static final List<String> OTF_PATHS = new ArrayList<>();
-	private static final List<String> TYPE1_PATHS = new ArrayList<>();
-	private static final Map<String, Font> FONTS = new HashMap<>();
+	private final Map<String, Sprite> SPRITES;
 
-	private static final List<String> MP3_PATHS = new ArrayList<>();
-	private static final List<String> OGG_PATHS = new ArrayList<>();
-	private static final List<String> WAV_PATHS = new ArrayList<>();
-	private static final Map<String, Sound> SOUNDS = new HashMap<>();
+	private final List<String> TTF_PATHS;
+	private final List<String> OTF_PATHS;
+	private final List<String> TYPE1_PATHS;
 
-	private static int resourceCount = 0;
+	private final Map<String, Font> FONTS;
 
-	private static JLabel splash;
-	private static JProgressBar progress;
+	private final List<String> MP3_PATHS;
+	private final List<String> OGG_PATHS;
+	private final List<String> WAV_PATHS;
 
-	private ResourceLoader() {
+	private final Map<String, Sound> SOUNDS;
+
+	private int resourceCount = 0;
+
+	private JLabel splash;
+	private JProgressBar progress;
+
+	public ResourceLoader() {
 		super("LightDrive Resource Loader");
 
-		setLayout(new BorderLayout());
+		BMP_PATHS = new ArrayList<>();
+		GIF_PATHS = new ArrayList<>();
+		JPEG_PATHS = new ArrayList<>();
+		PNG_PATHS = new ArrayList<>();
+		TIFF_PATHS = new ArrayList<>();
 
-		splash = new JLabel();
-		setSplashImage(SpriteIO.loadPNG("/img/lightdrive/splash640x480"));
+		SPRITES = new HashMap<>();
 
-		add(splash, BorderLayout.CENTER);
+		TTF_PATHS = new ArrayList<>();
+		OTF_PATHS = new ArrayList<>();
+		TYPE1_PATHS = new ArrayList<>();
 
-		progress = new JProgressBar();
-		progress.setStringPainted(true);
+		FONTS = new HashMap<>();
 
-		add(progress, BorderLayout.SOUTH);
+		MP3_PATHS = new ArrayList<>();
+		OGG_PATHS = new ArrayList<>();
+		WAV_PATHS = new ArrayList<>();
 
-		setResizable(false);
-		setUndecorated(true);
-		pack();
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		setVisible(true);
+		SOUNDS = new HashMap<>();
+
+		resourceCount = 0;
 	}
 
 	/**
@@ -95,8 +101,11 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @param image
 	 *            the splash image to set
 	 */
-	public static void setSplashImage(Image image) {
-		splash.setIcon(new ImageIcon(SpriteIO.loadPNG("/img/lightdrive/splash640x480")));
+	public void setSplashImage(Image image) {
+		if (splash == null)
+			splash = new JLabel();
+
+		splash.setIcon(new ImageIcon(image));
 
 		Dimension d = new Dimension(image.getWidth(null), image.getHeight(null));
 
@@ -111,7 +120,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @param path
 	 *            The root path to set
 	 */
-	public static void setSpriteRoot(String path) {
+	public void setSpriteRoot(String path) {
 		SpriteIO.setPath(path);
 	}
 
@@ -121,7 +130,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @param path
 	 *            The root path to set
 	 */
-	public static void setFontRoot(String path) {
+	public void setFontRoot(String path) {
 		FontIO.setPath(path);
 	}
 
@@ -131,7 +140,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @param path
 	 *            The root path to set
 	 */
-	public static void setSoundRoot(String path) {
+	public void setSoundRoot(String path) {
 		SoundIO.setPath(path);
 	}
 
@@ -142,7 +151,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @param names
 	 *            The names of the files to register
 	 */
-	public static void registerBMPs(String... names) {
+	public void registerBMPs(String... names) {
 		for (String name : names)
 			BMP_PATHS.add(name);
 
@@ -156,7 +165,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @param names
 	 *            The names of the files to register
 	 */
-	public static void registerGIFs(String... names) {
+	public void registerGIFs(String... names) {
 		for (String name : names)
 			GIF_PATHS.add(name);
 
@@ -170,7 +179,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @param names
 	 *            The names of the files to register
 	 */
-	public static void registerJPEGs(String... names) {
+	public void registerJPEGs(String... names) {
 		for (String name : names)
 			JPEG_PATHS.add(name);
 
@@ -184,7 +193,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @param names
 	 *            The names of the files to register
 	 */
-	public static void registerPNGs(String... names) {
+	public void registerPNGs(String... names) {
 		for (String name : names)
 			PNG_PATHS.add(name);
 
@@ -198,7 +207,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @param names
 	 *            The names of the files to register
 	 */
-	public static void registerTIFFs(String... names) {
+	public void registerTIFFs(String... names) {
 		for (String name : names)
 			TIFF_PATHS.add(name);
 
@@ -212,7 +221,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @param names
 	 *            The names of the files to register
 	 */
-	public static void registerTTFs(String... names) {
+	public void registerTTFs(String... names) {
 		for (String name : names)
 			TTF_PATHS.add(name);
 
@@ -226,7 +235,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @param names
 	 *            The names of the files to register
 	 */
-	public static void registerOTFs(String... names) {
+	public void registerOTFs(String... names) {
 		for (String name : names)
 			OTF_PATHS.add(name);
 
@@ -240,7 +249,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @param names
 	 *            The names of the files to register
 	 */
-	public static void registerTYPE1s(String... names) {
+	public void registerTYPE1s(String... names) {
 		for (String name : names)
 			TYPE1_PATHS.add(name);
 
@@ -254,7 +263,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @param names
 	 *            The names of the files to register
 	 */
-	public static void registerMP3s(String... names) {
+	public void registerMP3s(String... names) {
 		for (String name : names)
 			MP3_PATHS.add(name);
 
@@ -268,7 +277,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @param names
 	 *            The names of the files to register
 	 */
-	public static void registerOGGs(String... names) {
+	public void registerOGGs(String... names) {
 		for (String name : names)
 			OGG_PATHS.add(name);
 
@@ -282,7 +291,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @param names
 	 *            The names of the files to register
 	 */
-	public static void registerWAVs(String... names) {
+	public void registerWAVs(String... names) {
 		for (String name : names)
 			WAV_PATHS.add(name);
 
@@ -296,7 +305,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 *            The name of the {@link Sprite} to retrieve
 	 * @return The named {@link Sprite}
 	 */
-	public static Sprite getSprite(String name) {
+	public Sprite getSprite(String name) {
 		return SPRITES.get(name);
 	}
 
@@ -307,7 +316,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 *            The name of the {@link Font} to retrieve
 	 * @return The named {@link Font}
 	 */
-	public static Font getFont(String name) {
+	public Font getFont(String name) {
 		return FONTS.get(name);
 	}
 
@@ -318,7 +327,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 *            The name of the {@link Sound} to retrieve
 	 * @return The named {@link Sound}
 	 */
-	public static Sound getSound(String name) {
+	public Sound getSound(String name) {
 		return SOUNDS.get(name);
 	}
 
@@ -330,10 +339,29 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 *            Whether or not the splash screen loading visualization should
 	 *            be displayed when loading the resources
 	 */
-	public static void load(boolean visible) {
-		ResourceLoader loader = new ResourceLoader();
+	public void load(boolean visible) {
+		if (visible) {
+			setLayout(new BorderLayout());
 
-		loader.setVisible(visible);
+			if (splash == null) {
+				splash = new JLabel();
+				setSplashImage(SpriteIO.loadPNG("/img/lightdrive/splash640x480"));
+			}
+
+			add(splash, BorderLayout.CENTER);
+
+			progress = new JProgressBar();
+			progress.setStringPainted(true);
+
+			add(progress, BorderLayout.SOUTH);
+
+			setResizable(false);
+			setUndecorated(true);
+			pack();
+			setLocationRelativeTo(null);
+			setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+			setVisible(true);
+		}
 
 		try {
 			Thread.sleep(1000);
@@ -467,13 +495,13 @@ public class ResourceLoader extends JFrame implements Cleanable {
 			e.printStackTrace();
 		}
 
-		loader.dispose();
+		dispose();
 	}
 
 	/**
 	 * Clears all loaded {@link Sprite}s and registered {@link Sprite} names.
 	 */
-	public static void deregisterSprites() {
+	public void deregisterSprites() {
 		resourceCount -= SPRITES.size();
 
 		BMP_PATHS.clear();
@@ -481,36 +509,39 @@ public class ResourceLoader extends JFrame implements Cleanable {
 		JPEG_PATHS.clear();
 		PNG_PATHS.clear();
 		TIFF_PATHS.clear();
+
 		SPRITES.clear();
 	}
 
 	/**
 	 * Clears all loaded {@link Font}s and registered {@link Font} names.
 	 */
-	public static void deregisterFonts() {
+	public void deregisterFonts() {
 		resourceCount -= FONTS.size();
 
 		TTF_PATHS.clear();
 		OTF_PATHS.clear();
 		TYPE1_PATHS.clear();
+
 		FONTS.clear();
 	}
 
 	/**
 	 * Clears all loaded {@link Sound}s and registered {@link Sound} names.
 	 */
-	public static void deregisterSounds() {
+	public void deregisterSounds() {
 		resourceCount -= SOUNDS.size();
 
 		MP3_PATHS.clear();
 		WAV_PATHS.clear();
+
 		SOUNDS.clear();
 	}
 
 	/**
 	 * Clears all loaded resources and registered resource names.
 	 */
-	public static void deregisterAll() {
+	public void deregisterAll() {
 		deregisterSprites();
 		deregisterFonts();
 		deregisterSounds();
@@ -520,7 +551,7 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	 * @return {@code true} if no resources have been registered or loaded,
 	 *         {@code false} otherwise
 	 */
-	public static boolean isEmpty() {
+	public boolean isEmpty() {
 		boolean empty = true;
 
 		empty &= BMP_PATHS.isEmpty();
@@ -544,13 +575,8 @@ public class ResourceLoader extends JFrame implements Cleanable {
 	}
 
 	@Override
-	public void cleanUp() {
-		for (String key : SPRITES.keySet())
-			SPRITES.get(key).cleanUp();
-
-		for (String key : SOUNDS.keySet())
-			SOUNDS.get(key).cleanUp();
-
+	public boolean cleanUp() {
 		deregisterAll();
+		return isEmpty();
 	}
 }

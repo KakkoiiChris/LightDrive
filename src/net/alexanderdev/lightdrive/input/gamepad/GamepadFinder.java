@@ -30,25 +30,26 @@ import net.java.games.input.ControllerEnvironment;
  */
 @InternalType
 public final class GamepadFinder {
-	private static Gamepad[] gamepads = null;
+	private static Gamepad[] gamepads;
+
+	static {
+		Controller[] allControllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
+
+		if (allControllers.length > 0) {
+			List<Gamepad> allGamepads = new ArrayList<>();
+
+			int number = 0;
+
+			for (int i = 0; i < allControllers.length; i++)
+				if (allControllers[i].getType() == Controller.Type.GAMEPAD)
+					allGamepads.add(new Gamepad(allControllers[i], number++));
+
+			gamepads = allGamepads.toArray(new Gamepad[allGamepads.size()]);
+		}
+	}
 
 	@InternalMethod
 	public static Gamepad[] getGamepads() {
-		Controller[] allControllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
-
-		if (allControllers.length == 0)
-			return null;
-
-		List<Gamepad> allGamepads = new ArrayList<>();
-
-		int number = 0;
-
-		for (int i = 0; i < allControllers.length; i++)
-			if (allControllers[i].getType() == Controller.Type.GAMEPAD)
-				allGamepads.add(new Gamepad(allControllers[i], number++));
-
-		gamepads = allGamepads.toArray(new Gamepad[allGamepads.size()]);
-
 		return gamepads;
 	}
 
@@ -57,7 +58,7 @@ public final class GamepadFinder {
 	 *         them, {@code false} otherwise
 	 */
 	public static boolean foundGamepads() {
-		return gamepads != null;
+		return gamepads.length > 0;
 	}
 
 	/**
@@ -67,7 +68,7 @@ public final class GamepadFinder {
 	 * @param deadZone
 	 *            The dead zone to set
 	 */
-	public static void setDeadZones(float deadZone) {
+	public static void setDeadZones(double deadZone) {
 		for (Gamepad gp : gamepads)
 			gp.setDeadZone(deadZone);
 	}

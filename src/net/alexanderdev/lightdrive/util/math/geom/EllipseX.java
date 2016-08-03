@@ -18,16 +18,16 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 
 /**
- * A simple wrapper class for {@link Ellipse2D.Float}.
+ * A simple wrapper class for {@link Ellipse2D.Double}.
  * 
  * @author Christian Bryce Alexander
- * @since Apr 26, 2015, 1:02:33 AM
+ * @since Apr 26, 2015, 1:06:15 AM
  */
-public class EllipseF extends Ellipse2D.Float implements Cloneable {
-	private static final long serialVersionUID = -6768308190202483835L;
+public class EllipseX extends Ellipse2D.Double implements Cloneable {
+	private static final long serialVersionUID = -7534681747032782328L;
 
 	/**
-	 * Creates and ellipse shape of single floating point precision, at the
+	 * Creates and ellipse shape of double floating point precision, at the
 	 * origin, and with the specified size.
 	 * 
 	 * @param width
@@ -35,12 +35,12 @@ public class EllipseF extends Ellipse2D.Float implements Cloneable {
 	 * @param height
 	 *            The height of the ellipse
 	 */
-	public EllipseF(float width, float height) {
+	public EllipseX(double width, double height) {
 		super(0, 0, width, height);
 	}
 
 	/**
-	 * Creates an ellipse shape of single floating point precision, at the
+	 * Creates an ellipse shape of double floating point precision, at the
 	 * specified position, and with the specified size.
 	 * 
 	 * @param x
@@ -52,56 +52,56 @@ public class EllipseF extends Ellipse2D.Float implements Cloneable {
 	 * @param height
 	 *            The height of the ellipse
 	 */
-	public EllipseF(float x, float y, float width, float height) {
+	public EllipseX(double x, double y, double width, double height) {
 		super(x, y, width, height);
 	}
 
-	public VectorF getPosition() {
-		return new VectorF(x, y);
+	public VectorX getPosition() {
+		return new VectorX(x, y);
 	}
 
-	public VectorF getCenter() {
-		return new VectorF((float) getCenterX(), (float) getCenterY());
+	public VectorX getCenter() {
+		return new VectorX(getCenterX(), getCenterY());
 	}
 
 	/**
-	 * @return A copy of this {@link EllipseF} rotated around the specified
+	 * @return A copy of this {@link EllipseX} rotated around the specified
 	 *         point
 	 */
-	public Shape rotated(float theta, float anchorX, float anchorY) {
+	public Shape rotated(double theta, double anchorX, double anchorY) {
 		return AffineTransform.getRotateInstance(theta, anchorX, anchorY).createTransformedShape(this);
 	}
 
 	/**
-	 * @return A copy of this {@link EllipseF} rotated around the center
+	 * @return A copy of this {@link EllipseX} rotated around the center
 	 */
-	public Shape rotated(float theta) {
-		return rotated(theta, (float) getCenterX(), (float) getCenterY());
+	public Shape rotated(double theta) {
+		return rotated(theta, getCenterX(), getCenterY());
 	}
 
 	/**
-	 * @return A copy of this {@link EllipseF} scaled
+	 * @return A copy of this {@link EllipseX} scaled
 	 */
-	public Shape scaled(float scaleX, float scaleY) {
+	public Shape scaled(double scaleX, double scaleY) {
 		return AffineTransform.getScaleInstance(scaleX, scaleY).createTransformedShape(this);
 	}
 
 	/**
-	 * @return A copy of this {@link EllipseF} sheared
+	 * @return A copy of this {@link EllipseX} sheared
 	 */
-	public Shape sheared(float shearX, float shearY) {
+	public Shape sheared(double shearX, double shearY) {
 		return AffineTransform.getShearInstance(shearX, shearY).createTransformedShape(this);
 	}
 
 	/**
-	 * @return A copy of this {@link EllipseF} translated
+	 * @return A copy of this {@link EllipseX} translated
 	 */
-	public Shape translated(float translateX, float translateY) {
+	public Shape translated(double translateX, double translateY) {
 		return AffineTransform.getTranslateInstance(translateX, translateY).createTransformedShape(this);
 	}
 
 	@Override
-	public EllipseF clone() {
-		return new EllipseF(x, y, width, height);
+	public EllipseX clone() {
+		return new EllipseX(x, y, width, height);
 	}
 }

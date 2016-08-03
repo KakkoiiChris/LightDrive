@@ -179,14 +179,10 @@ public class Sound implements Cleanable {
 		isListening = false;
 	}
 
-	/**
-	 * Stops this {@link Sound} and releases all resources associated with it.
-	 */
 	@Override
-	public void cleanUp() {
-		stop();
-
-		clip.drain();
+	public boolean cleanUp() {
 		clip.close();
+		clip.flush();
+		return true;
 	}
 }

@@ -18,16 +18,16 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 /**
- * A simple wrapper class for {@link Rectangle2D.Float}.
+ * A simple wrapper class for {@link Rectangle2D.Double}.
  * 
  * @author Christian Bryce Alexander
- * @since Jun 5, 2015, 5:35:32 PM
+ * @since Jun 5, 2015, 5:37:13 PM
  */
-public class RectangleF extends Rectangle2D.Float implements Cloneable {
-	private static final long serialVersionUID = -6901034585863979972L;
+public class RectangleX extends Rectangle2D.Double implements Cloneable {
+	private static final long serialVersionUID = 8026136184017414846L;
 
 	/**
-	 * Creates a rectangle shape of single floating point precision, at the
+	 * Creates a rectangle shape of double floating point precision, at the
 	 * origin, and with the specified size.
 	 * 
 	 * @param width
@@ -35,12 +35,12 @@ public class RectangleF extends Rectangle2D.Float implements Cloneable {
 	 * @param height
 	 *            The height of the rectangle
 	 */
-	public RectangleF(float width, float height) {
+	public RectangleX(double width, double height) {
 		super(0, 0, width, height);
 	}
 
 	/**
-	 * Creates a rectangle shape of single floating point precision, at the
+	 * Creates a rectangle shape of double floating point precision, at the
 	 * specified position, and with the specified size.
 	 * 
 	 * @param x
@@ -52,56 +52,56 @@ public class RectangleF extends Rectangle2D.Float implements Cloneable {
 	 * @param height
 	 *            The height of the rectangle
 	 */
-	public RectangleF(float x, float y, float width, float height) {
+	public RectangleX(double x, double y, double width, double height) {
 		super(x, y, width, height);
 	}
-	
-	public VectorF getPosition() {
-		return new VectorF(x, y);
+
+	public VectorX getPosition() {
+		return new VectorX(x, y);
 	}
 
-	public VectorF getCenter() {
-		return new VectorF((float) getCenterX(), (float) getCenterY());
+	public VectorX getCenter() {
+		return new VectorX(getCenterX(), getCenterY());
 	}
 
 	/**
-	 * @return A copy of this {@link RectangleF} rotated around the specified
+	 * @return A copy of this {@link RectangleX} rotated around the specified
 	 *         point
 	 */
-	public Shape rotated(float theta, float anchorX, float anchorY) {
+	public Shape rotated(double theta, double anchorX, double anchorY) {
 		return AffineTransform.getRotateInstance(theta, anchorX, anchorY).createTransformedShape(this);
 	}
 
 	/**
-	 * @return A copy of this {@link RectangleF} rotated around the center
+	 * @return A copy of this {@link RectangleX} rotated around the center
 	 */
-	public Shape rotated(float theta) {
-		return rotated(theta, (float) getCenterX(), (float) getCenterY());
+	public Shape rotated(double theta) {
+		return rotated(theta, getCenterX(), getCenterY());
 	}
 
 	/**
-	 * @return A copy of this {@link RectangleF} scaled
+	 * @return A copy of this {@link RectangleX} scaled
 	 */
-	public Shape scaled(float scaleX, float scaleY) {
+	public Shape scaled(double scaleX, double scaleY) {
 		return AffineTransform.getScaleInstance(scaleX, scaleY).createTransformedShape(this);
 	}
 
 	/**
-	 * @return A copy of this {@link RectangleF} sheared
+	 * @return A copy of this {@link RectangleX} sheared
 	 */
-	public Shape sheared(float shearX, float shearY) {
+	public Shape sheared(double shearX, double shearY) {
 		return AffineTransform.getShearInstance(shearX, shearY).createTransformedShape(this);
 	}
 
 	/**
-	 * @return A copy of this {@link RectangleF} translated
+	 * @return A copy of this {@link RectangleX} translated
 	 */
-	public Shape translated(float translateX, float translateY) {
+	public Shape translated(double translateX, double translateY) {
 		return AffineTransform.getTranslateInstance(translateX, translateY).createTransformedShape(this);
 	}
 
 	@Override
-	public RectangleF clone() {
-		return new RectangleF(x, y, width, height);
+	public RectangleX clone() {
+		return new RectangleX(x, y, width, height);
 	}
 }

@@ -15,7 +15,7 @@ package net.alexanderdev.lightdrive.util.math.geom.path;
 
 import java.awt.geom.Point2D;
 
-import net.alexanderdev.lightdrive.util.math.geom.VectorD;
+import net.alexanderdev.lightdrive.util.math.geom.VectorX;
 import net.alexanderdev.lightdrive.util.time.Time;
 
 /**
@@ -89,8 +89,8 @@ public class Path {
 		return Math.min(Time.msTime() - timer, duration);
 	}
 
-	public VectorD getPoint() {
-		VectorD vec = new VectorD();
+	public VectorX getPoint() {
+		VectorX vec = new VectorX();
 
 		long elapsed = getMSElapsed();
 

@@ -44,7 +44,7 @@ public class SpectrumFilter extends AdjustFilter {
 	}
 
 	@Override
-	public void apply(int width, int height, int[] pixels) {
+	public void apply(int width, int height, final int[] pixels) {
 		float[] argb = Pixel.splitFloatARGB(Color.HSBtoRGB(hue, 1f, 1f));
 
 		this.r = argb[1];

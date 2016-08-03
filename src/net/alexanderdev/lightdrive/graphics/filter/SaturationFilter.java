@@ -50,7 +50,7 @@ public class SaturationFilter implements Filter {
 	}
 
 	@Override
-	public void apply(int width, int height, int[] pixels) {
+	public void apply(int width, int height, final int[] pixels) {
 		if (saturation == 0f)
 			return;
 

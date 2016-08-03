@@ -34,7 +34,7 @@ public class AcidFilter implements Filter {
 	}
 
 	@Override
-	public void apply(int width, int height, int[] pixels) {
+	public void apply(int width, int height, final int[] pixels) {
 		for (int i = 0; i < pixels.length; i++)
 			pixels[i] += pixels[(int) ((i + n) % pixels.length)] + i;
 

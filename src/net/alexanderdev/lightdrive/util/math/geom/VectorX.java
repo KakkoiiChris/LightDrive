@@ -28,41 +28,41 @@ import java.awt.geom.Point2D;
  * @author Christian Bryce Alexander
  * @since Apr 13, 2015, 3:08:10 PM
  */
-public strictfp class VectorD extends Point2D.Double implements Cloneable, Comparable<Object> {
+public strictfp class VectorX extends Point2D.Double implements Cloneable, Comparable<Object> {
 	private static final long serialVersionUID = -1490482930677885575L;
 
 	/**
-	 * Creates a default {@link VectorD} with no magnitude.
+	 * Creates a default {@link VectorX} with no magnitude.
 	 */
-	public VectorD() {
+	public VectorX() {
 		this(0.0, 0.0);
 	}
 
 	/**
-	 * Creates a {@link VectorD} with the specified magnitudes.
+	 * Creates a {@link VectorX} with the specified magnitudes.
 	 * 
 	 * @param x
 	 *            The x magnitude
 	 * @param y
 	 *            The y magnitude
 	 */
-	public VectorD(double x, double y) {
+	public VectorX(double x, double y) {
 		super(x, y);
 	}
 
 	/**
-	 * Adds the components of {@code vec} to this {@link VectorD}.
+	 * Adds the components of {@code vec} to this {@link VectorX}.
 	 * 
 	 * @param vec
-	 *            The {@link VectorD} to be added
+	 *            The {@link VectorX} to be added
 	 */
-	public void add(VectorD vec) {
+	public void add(VectorX vec) {
 		x += vec.x;
 		y += vec.y;
 	}
 
 	/**
-	 * Adds a {@code scalar} to both components of this {@link VectorD}.
+	 * Adds a {@code scalar} to both components of this {@link VectorX}.
 	 * 
 	 * @param scalar
 	 *            Scalar to be added
@@ -73,18 +73,18 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Subtracts the components of {@code vec} from this {@link VectorD}.
+	 * Subtracts the components of {@code vec} from this {@link VectorX}.
 	 * 
 	 * @param vec
-	 *            The {@link VectorD} to be subtracted
+	 *            The {@link VectorX} to be subtracted
 	 */
-	public void subtract(VectorD vec) {
+	public void subtract(VectorX vec) {
 		x -= vec.x;
 		y -= vec.y;
 	}
 
 	/**
-	 * Subtracts a {@code scalar} from both components of this {@link VectorD}.
+	 * Subtracts a {@code scalar} from both components of this {@link VectorX}.
 	 * 
 	 * @param scalar
 	 *            Scalar to be subtracted
@@ -95,19 +95,19 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Multiplies the components of this {@link VectorD} by {@code vec}'s
+	 * Multiplies the components of this {@link VectorX} by {@code vec}'s
 	 * components.
 	 * 
 	 * @param vec
-	 *            The {@link VectorD} to be multiplied by
+	 *            The {@link VectorX} to be multiplied by
 	 */
-	public void multiply(VectorD vec) {
+	public void multiply(VectorX vec) {
 		x *= vec.x;
 		y *= vec.y;
 	}
 
 	/**
-	 * Multiplies both components of this {@link VectorD} by a {@code scalar}.
+	 * Multiplies both components of this {@link VectorX} by a {@code scalar}.
 	 * 
 	 * @param scalar
 	 *            Scalar to be multiplied by
@@ -118,19 +118,19 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Divides the components of this {@link VectorD} by {@code vec}'s
+	 * Divides the components of this {@link VectorX} by {@code vec}'s
 	 * components.
 	 * 
 	 * @param vec
-	 *            The {@link VectorD} to be divided by
+	 *            The {@link VectorX} to be divided by
 	 */
-	public void divide(VectorD vec) {
+	public void divide(VectorX vec) {
 		x /= vec.x;
 		y /= vec.y;
 	}
 
 	/**
-	 * Divides both components of this {@link VectorD} by a {@code scalar}.
+	 * Divides both components of this {@link VectorX} by a {@code scalar}.
 	 * 
 	 * @param scalar
 	 *            Scalar to be divided by
@@ -141,35 +141,35 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Turns this {@link VectorD} into a unit vector in the same direction.
+	 * Turns this {@link VectorX} into a unit vector in the same direction.
 	 */
 	public void normalize() {
 		divide(length());
 	}
 
 	/**
-	 * Sets both components of this {@link VectorD} to zero.
+	 * Sets both components of this {@link VectorX} to zero.
 	 */
 	public void zero() {
 		x = y = 0d;
 	}
 
 	/**
-	 * Reverses the x component of this {@link VectorD}.
+	 * Reverses the x component of this {@link VectorX}.
 	 */
 	public void reverseX() {
 		x = -x;
 	}
 
 	/**
-	 * Reverses the y component of this {@link VectorD}.
+	 * Reverses the y component of this {@link VectorX}.
 	 */
 	public void reverseY() {
 		y = -y;
 	}
 
 	/**
-	 * Reverses both components of this {@link VectorD}.
+	 * Reverses both components of this {@link VectorX}.
 	 */
 	public void reverse() {
 		reverseX();
@@ -177,10 +177,10 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Rotates this {@link VectorD} by the radian amount {@code angle}.
+	 * Rotates this {@link VectorX} by the radian amount {@code angle}.
 	 * 
 	 * @param angle
-	 *            An amount in radians to rotate this {@link VectorD} by
+	 *            An amount in radians to rotate this {@link VectorX} by
 	 */
 	public void rotate(double angle) {
 		double len = length();
@@ -192,10 +192,10 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * Changes the length of this {@link VectorD}.
+	 * Changes the length of this {@link VectorX}.
 	 * 
 	 * @param length
-	 *            The length for this {@link VectorD} to be resized to
+	 *            The length for this {@link VectorX} to be resized to
 	 */
 	public void setLength(double length) {
 		normalize();
@@ -204,38 +204,38 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 	}
 
 	/**
-	 * The dot product of two {@link VectorD}'s.
+	 * The dot product of two {@link VectorX}'s.
 	 * 
 	 * @param vec
-	 *            The second {@link VectorD}
+	 *            The second {@link VectorX}
 	 * 
-	 * @return The dot product of this {@link VectorD} and {@code vec}
+	 * @return The dot product of this {@link VectorX} and {@code vec}
 	 */
-	public double dot(VectorD vec) {
+	public double dot(VectorX vec) {
 		return x * vec.x + y * vec.y;
 	}
 
 	/**
-	 * The cross product of two {@link VectorD}'s.
+	 * The cross product of two {@link VectorX}'s.
 	 * 
 	 * @param vec
-	 *            The second {@link VectorD}
+	 *            The second {@link VectorX}
 	 * 
-	 * @return The cross product of this {@link VectorD} and {@code vec}
+	 * @return The cross product of this {@link VectorX} and {@code vec}
 	 */
-	public double cross(VectorD vec) {
+	public double cross(VectorX vec) {
 		return x * vec.y - y * vec.x;
 	}
 
 	/**
-	 * @return The length of this {@link VectorD}
+	 * @return The length of this {@link VectorX}
 	 */
 	public double length() {
 		return sqrt(pow(x, 2) + pow(y, 2));
 	}
 
 	/**
-	 * @return The angle of this {@link VectorD}
+	 * @return The angle of this {@link VectorX}
 	 */
 	public double angle() {
 		return atan2(y, x);
@@ -243,22 +243,12 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 
 	/**
 	 * @param vec
-	 *            The {@link VectorD} to point towards
+	 *            The {@link VectorX} to point towards
 	 * 
-	 * @return A {@link VectorD} from this {@link VectorD} to {@code vec}
+	 * @return A {@link VectorX} from this {@link VectorX} to {@code vec}
 	 */
-	public VectorD vectorTo(VectorF vec) {
-		return new VectorD(-(x - vec.x), -(y - vec.y));
-	}
-
-	/**
-	 * @param vec
-	 *            The {@link VectorD} to point towards
-	 * 
-	 * @return A {@link VectorD} from this {@link VectorD} to {@code vec}
-	 */
-	public VectorD vectorTo(VectorD vec) {
-		return new VectorD(-(x - vec.x), -(y - vec.y));
+	public VectorX vectorTo(VectorX vec) {
+		return new VectorX(-(x - vec.x), -(y - vec.y));
 	}
 
 	@Override
@@ -271,20 +261,16 @@ public strictfp class VectorD extends Point2D.Double implements Cloneable, Compa
 		if (o == this) {
 			return true;
 		}
-		else if (o instanceof VectorD) {
-			VectorD vec = (VectorD) o;
-			return (vec.x == this.x) && (vec.y == this.y);
-		}
-		else if (o instanceof VectorF) {
-			VectorF vec = (VectorF) o;
+		else if (o instanceof VectorX) {
+			VectorX vec = (VectorX) o;
 			return (vec.x == this.x) && (vec.y == this.y);
 		}
 		return false;
 	}
 
 	@Override
-	public VectorD clone() {
-		return new VectorD(x, y);
+	public VectorX clone() {
+		return new VectorX(x, y);
 	}
 
 	@Override

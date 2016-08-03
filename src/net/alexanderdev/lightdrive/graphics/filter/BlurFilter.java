@@ -95,7 +95,7 @@ public class BlurFilter implements Filter {
 	}
 
 	@Override
-	public void apply(int width, int height, int[] pixels) {
+	public void apply(int width, int height, final int[] pixels) {
 		int[] newPixels = new int[pixels.length];
 
 		for (int y = 0; y < pixels.length / width; y++) {

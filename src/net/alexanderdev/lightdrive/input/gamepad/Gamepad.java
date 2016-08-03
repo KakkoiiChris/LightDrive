@@ -13,8 +13,7 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.input.gamepad;
 
-import net.alexanderdev.lightdrive.InternalMethod;
-import net.alexanderdev.lightdrive.util.math.geom.VectorF;
+import net.alexanderdev.lightdrive.util.math.geom.VectorX;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 
@@ -27,26 +26,28 @@ import net.java.games.input.Controller;
  * @since Apr 29, 2015, 9:11:58 PM
  */
 public class Gamepad implements Runnable {
+	private static final VectorX ZERO = new VectorX();
+
 	private Controller controller;
 
 	private int number;
 
-	private float deadZone;
+	private double deadZone;
 
 	private Thread thread;
 	private boolean running;
 
-	private final boolean[] SWITCHES = new boolean[14];
+	private final boolean[] SWITCHES = new boolean[Switch.values().length];
 	private boolean[] switchesLast;
 
-	private final VectorF LEFT_STICK = new VectorF();
-	private VectorF leftStickLast;
+	private final VectorX LEFT_STICK = new VectorX();
+	private VectorX leftStickLast;
 
-	private final VectorF RIGHT_STICK = new VectorF();
-	private VectorF rightStickLast;
+	private final VectorX RIGHT_STICK = new VectorX();
+	private VectorX rightStickLast;
 
-	private float triggers;
-	private float triggersLast;
+	private double triggers;
+	private double triggersLast;
 
 	/**
 	 * Creates a {@link Gamepad} with an associated {@link Controller} and
@@ -61,14 +62,14 @@ public class Gamepad implements Runnable {
 		this.controller = controller;
 		this.number = number;
 
-		deadZone = 0.2f;
+		deadZone = 0.2;
 
 		switchesLast = SWITCHES.clone();
 
 		leftStickLast = LEFT_STICK.clone();
 		rightStickLast = RIGHT_STICK.clone();
 
-		triggers = 0f;
+		triggers = 0;
 		triggersLast = triggers;
 	}
 
@@ -82,7 +83,7 @@ public class Gamepad implements Runnable {
 	/**
 	 * @return The dead zone of this {@link Gamepad}
 	 */
-	public float getDeadZone() {
+	public double getDeadZone() {
 		return deadZone;
 	}
 
@@ -92,7 +93,7 @@ public class Gamepad implements Runnable {
 	 * @param deadZone
 	 *            The dead zone to set
 	 */
-	public void setDeadZone(float deadZone) {
+	public void setDeadZone(double deadZone) {
 		this.deadZone = deadZone;
 	}
 
@@ -103,7 +104,7 @@ public class Gamepad implements Runnable {
 	 *         {@link Switch} 's ordinal has been pressed, {@code false}
 	 *         otherwise
 	 */
-	public boolean switchPressed(Switch zwitch) {
+	public boolean pressed(Switch zwitch) {
 		return SWITCHES[zwitch.ordinal()] && !switchesLast[zwitch.ordinal()];
 	}
 
@@ -111,7 +112,7 @@ public class Gamepad implements Runnable {
 	 * @return {@code true} if any switch has been pressed, {@code false}
 	 *         otherwise
 	 */
-	public boolean anySwitchPressed() {
+	public boolean anyPressed() {
 		for (int i = 0; i < SWITCHES.length; i++)
 			if (SWITCHES[i] && !switchesLast[i])
 				return true;
@@ -124,14 +125,14 @@ public class Gamepad implements Runnable {
 	 * @return {@code true} if the switch associated with the specified
 	 *         {@link Switch} 's ordinal is being held, {@code false} otherwise
 	 */
-	public boolean switchHeld(Switch zwitch) {
+	public boolean held(Switch zwitch) {
 		return SWITCHES[zwitch.ordinal()];
 	}
 
 	/**
 	 * @return {@code true} if any switch is being held, {@code false} otherwise
 	 */
-	public boolean anySwitchHeld() {
+	public boolean anyHeld() {
 		for (int i = 0; i < SWITCHES.length; i++)
 			if (SWITCHES[i])
 				return true;
@@ -145,7 +146,7 @@ public class Gamepad implements Runnable {
 	 *         {@link Switch} 's ordinal has been released, {@code false}
 	 *         otherwise
 	 */
-	public boolean switchReleased(Switch zwitch) {
+	public boolean released(Switch zwitch) {
 		return !SWITCHES[zwitch.ordinal()] && switchesLast[zwitch.ordinal()];
 	}
 
@@ -153,7 +154,7 @@ public class Gamepad implements Runnable {
 	 * @return {@code true} if any key has been released, {@code false}
 	 *         otherwise
 	 */
-	public boolean anySwitchReleased() {
+	public boolean anyReleased() {
 		for (int i = 0; i < SWITCHES.length; i++)
 			if (!SWITCHES[i] && switchesLast[i])
 				return true;
@@ -164,9 +165,9 @@ public class Gamepad implements Runnable {
 	 * @return The horizontal position of the left stick as a value between -1f
 	 *         and 1f
 	 */
-	public float getLeftStickX() {
+	public double getLeftStickX() {
 		if (LEFT_STICK.length() < deadZone && LEFT_STICK.length() > -deadZone)
-			return 0f;
+			return 0;
 		return LEFT_STICK.x;
 	}
 
@@ -174,7 +175,7 @@ public class Gamepad implements Runnable {
 	 * @return The change in horizontal position of the left stick as a value
 	 *         between -1f and 1f
 	 */
-	public float getLeftStickDeltaX() {
+	public double getLeftStickDeltaX() {
 		return LEFT_STICK.x - leftStickLast.x;
 	}
 
@@ -182,9 +183,9 @@ public class Gamepad implements Runnable {
 	 * @return The vertical position of the left stick as a value between -1f
 	 *         and 1f
 	 */
-	public float getLeftStickY() {
+	public double getLeftStickY() {
 		if (LEFT_STICK.length() < deadZone && LEFT_STICK.length() > -deadZone)
-			return 0f;
+			return 0;
 		return LEFT_STICK.y;
 	}
 
@@ -192,16 +193,16 @@ public class Gamepad implements Runnable {
 	 * @return The change in vertical position of the left stick as a value
 	 *         between -1f and 1f
 	 */
-	public float getLeftStickDeltaY() {
+	public double getLeftStickDeltaY() {
 		return LEFT_STICK.y - leftStickLast.y;
 	}
 
 	/**
 	 * @return The positions of the left stick as a {@link VectorF}
 	 */
-	public VectorF getLeftStickVector() {
+	public VectorX getLeftStickVector() {
 		if (LEFT_STICK.length() < deadZone && LEFT_STICK.length() > -deadZone)
-			return new VectorF(0f, 0f);
+			return ZERO;
 		return LEFT_STICK;
 	}
 
@@ -209,9 +210,9 @@ public class Gamepad implements Runnable {
 	 * @return The horizontal position of the right stick as a value between -1f
 	 *         and 1f
 	 */
-	public float getRightStickX() {
+	public double getRightStickX() {
 		if (RIGHT_STICK.length() < deadZone && RIGHT_STICK.length() > -deadZone)
-			return 0f;
+			return 0;
 		return RIGHT_STICK.x;
 	}
 
@@ -219,7 +220,7 @@ public class Gamepad implements Runnable {
 	 * @return The change in horizontal position of the right stick as a value
 	 *         between -1f and 1f
 	 */
-	public float getRightStickDeltaX() {
+	public double getRightStickDeltaX() {
 		return RIGHT_STICK.x - rightStickLast.x;
 	}
 
@@ -227,9 +228,9 @@ public class Gamepad implements Runnable {
 	 * @return The vertical position of the right stick as a value between -1f
 	 *         and 1f
 	 */
-	public float getRightStickY() {
+	public double getRightStickY() {
 		if (RIGHT_STICK.length() < deadZone && RIGHT_STICK.length() > -deadZone)
-			return 0f;
+			return 0;
 		return RIGHT_STICK.y;
 	}
 
@@ -237,16 +238,16 @@ public class Gamepad implements Runnable {
 	 * @return The change in vertical position of the right stick as a value
 	 *         between -1f and 1f
 	 */
-	public float getRightStickDeltaY() {
+	public double getRightStickDeltaY() {
 		return RIGHT_STICK.y - rightStickLast.y;
 	}
 
 	/**
 	 * @return The positions of the right stick as a {@link VectorF}
 	 */
-	public VectorF getRightStickVector() {
+	public VectorX getRightStickVector() {
 		if (RIGHT_STICK.length() < deadZone && RIGHT_STICK.length() > -deadZone)
-			return new VectorF(0f, 0f);
+			return ZERO;
 		return RIGHT_STICK;
 	}
 
@@ -256,9 +257,9 @@ public class Gamepad implements Runnable {
 	 * 
 	 * @return The magnitude of the left trigger as a value between 0f and 1f
 	 */
-	public float getLeftTrigger() {
+	public double getLeftTrigger() {
 		if (triggers < deadZone)
-			return 0f;
+			return 0;
 		return triggers;
 	}
 
@@ -269,9 +270,9 @@ public class Gamepad implements Runnable {
 	 * @return The change in the magnitude of the left trigger as a value
 	 *         between 0f and 1f
 	 */
-	public float getLeftTriggerDelta() {
-		if (triggers < 0f)
-			return 0f;
+	public double getLeftTriggerDelta() {
+		if (triggers < 0)
+			return 0;
 		return triggers - triggersLast;
 	}
 
@@ -281,9 +282,9 @@ public class Gamepad implements Runnable {
 	 * 
 	 * @return The magnitude of the right trigger as a value between 0f and 1f
 	 */
-	public float getRightTrigger() {
+	public double getRightTrigger() {
 		if (triggers > -deadZone)
-			return 0f;
+			return 0;
 		return -triggers;
 	}
 
@@ -294,25 +295,23 @@ public class Gamepad implements Runnable {
 	 * @return The change in the magnitude of the right trigger as a value
 	 *         between 0f and 1f
 	 */
-	public float getRightTriggerDelta() {
-		if (triggers > 0f)
-			return 0f;
+	public double getRightTriggerDelta() {
+		if (triggers > 0)
+			return 0;
 		return -triggers - triggersLast;
 	}
 
-	@InternalMethod
 	public synchronized void start() {
 		if (running)
 			return;
 
 		running = true;
 
-		thread = new Thread(this, "light_drive_gamepad_" + number);
+		thread = new Thread(this, "retrobytes_gamepad_" + number);
 
 		thread.start();
 	}
 
-	@InternalMethod
 	public synchronized void stop() {
 		if (!running)
 			return;
@@ -327,7 +326,6 @@ public class Gamepad implements Runnable {
 		}
 	}
 
-	@InternalMethod
 	public void update() {
 		switchesLast = SWITCHES.clone();
 
@@ -338,11 +336,10 @@ public class Gamepad implements Runnable {
 	}
 
 	@Override
-	@InternalMethod
 	public void run() {
 		while (running) {
 			if (!controller.poll()) {
-				System.err.println("LIGHT DRIVE ERROR: CONTROLLER DISCONNECTED: " + controller.getName());
+				System.err.printf("RETROBYTES ERROR: CONTROLLER %d DISCONNECTED: %s\n", number, controller.getName());
 				running = false;
 				continue;
 			}
@@ -350,7 +347,7 @@ public class Gamepad implements Runnable {
 			for (Component component : controller.getComponents()) {
 				String identifier = component.getIdentifier().getName();
 
-				float data = component.getPollData();
+				double data = component.getPollData();
 
 				if (identifier.equals("x")) {
 					LEFT_STICK.x = data;
@@ -368,55 +365,55 @@ public class Gamepad implements Runnable {
 					triggers = data;
 				}
 				else if (identifier.equals("pov")) {
-					if (data == 0f) {
+					if (data == 0) {
 						SWITCHES[Switch.UP.ordinal()] = false;
 						SWITCHES[Switch.RIGHT.ordinal()] = false;
 						SWITCHES[Switch.DOWN.ordinal()] = false;
 						SWITCHES[Switch.LEFT.ordinal()] = false;
 					}
-					else if (data == 0.125f) {
+					else if (data == 0.125) {
 						SWITCHES[Switch.UP.ordinal()] = true;
 						SWITCHES[Switch.RIGHT.ordinal()] = false;
 						SWITCHES[Switch.DOWN.ordinal()] = false;
 						SWITCHES[Switch.LEFT.ordinal()] = true;
 					}
-					else if (data == 0.25f) {
+					else if (data == 0.25) {
 						SWITCHES[Switch.UP.ordinal()] = true;
 						SWITCHES[Switch.RIGHT.ordinal()] = false;
 						SWITCHES[Switch.DOWN.ordinal()] = false;
 						SWITCHES[Switch.LEFT.ordinal()] = false;
 					}
-					else if (data == 0.375f) {
+					else if (data == 0.375) {
 						SWITCHES[Switch.UP.ordinal()] = true;
 						SWITCHES[Switch.RIGHT.ordinal()] = true;
 						SWITCHES[Switch.DOWN.ordinal()] = false;
 						SWITCHES[Switch.LEFT.ordinal()] = false;
 					}
-					else if (data == 0.5f) {
+					else if (data == 0.5) {
 						SWITCHES[Switch.UP.ordinal()] = false;
 						SWITCHES[Switch.RIGHT.ordinal()] = true;
 						SWITCHES[Switch.DOWN.ordinal()] = false;
 						SWITCHES[Switch.LEFT.ordinal()] = false;
 					}
-					else if (data == 0.625f) {
+					else if (data == 0.625) {
 						SWITCHES[Switch.UP.ordinal()] = false;
 						SWITCHES[Switch.RIGHT.ordinal()] = true;
 						SWITCHES[Switch.DOWN.ordinal()] = true;
 						SWITCHES[Switch.LEFT.ordinal()] = false;
 					}
-					else if (data == 0.75f) {
+					else if (data == 0.75) {
 						SWITCHES[Switch.UP.ordinal()] = false;
 						SWITCHES[Switch.RIGHT.ordinal()] = false;
 						SWITCHES[Switch.DOWN.ordinal()] = true;
 						SWITCHES[Switch.LEFT.ordinal()] = false;
 					}
-					else if (data == 0.875f) {
+					else if (data == 0.875) {
 						SWITCHES[Switch.UP.ordinal()] = false;
 						SWITCHES[Switch.RIGHT.ordinal()] = false;
 						SWITCHES[Switch.DOWN.ordinal()] = true;
 						SWITCHES[Switch.LEFT.ordinal()] = true;
 					}
-					else if (data == 1f) {
+					else if (data == 1) {
 						SWITCHES[Switch.UP.ordinal()] = false;
 						SWITCHES[Switch.RIGHT.ordinal()] = false;
 						SWITCHES[Switch.DOWN.ordinal()] = false;
@@ -424,7 +421,7 @@ public class Gamepad implements Runnable {
 					}
 				}
 				else {
-					SWITCHES[Integer.parseInt(identifier)] = (data == 1f);
+					SWITCHES[Integer.parseInt(identifier)] = (data == 1);
 				}
 			}
 		}

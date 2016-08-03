@@ -27,7 +27,7 @@ import net.alexanderdev.lightdrive.graphics.Sprite;
  */
 public class SepiaFilter implements Filter {
 	@Override
-	public void apply(int width, int height, int[] pixels) {
+	public void apply(int width, int height, final int[] pixels) {
 		for (int i = 0; i < pixels.length; i++) {
 			float[] argb = splitFloatARGB(pixels[i]);
 

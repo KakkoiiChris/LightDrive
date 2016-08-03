@@ -15,6 +15,7 @@ package net.alexanderdev.lightdrive.state;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import net.alexanderdev.lightdrive.Cleanable;
 import net.alexanderdev.lightdrive.InternalMethod;
@@ -36,15 +37,11 @@ import net.alexanderdev.lightdrive.view.Viewable;
  * @since March 6, 2015, 3:03:32 AM
  */
 public class StateManager implements Cleanable, Controllable, Renderable {
-	protected static final String DEFAULT_STATE = "light_drive_default_state";
-
 	protected final Map<String, State> STATES = new HashMap<>();
 
-	protected State currentState;
+	protected Optional<State> currentState;
 
 	protected Viewable view;
-
-	protected boolean initialized;
 
 	/**
 	 * Associates a {@link StateManager} with the specified {@link Viewable}.
@@ -56,9 +53,7 @@ public class StateManager implements Cleanable, Controllable, Renderable {
 	public StateManager(Viewable view) {
 		this.view = view;
 
-		addState(DEFAULT_STATE, new DefaultState());
-
-		setInitialState(DEFAULT_STATE);
+		currentState = Optional.empty();
 	}
 
 	/**
@@ -79,7 +74,10 @@ public class StateManager implements Cleanable, Controllable, Renderable {
 	public void addState(String name, State state) {
 		state.setManager(this);
 
-		STATES.put(name, state);
+		if (!currentState.isPresent())
+			currentState = Optional.of(state);
+
+		STATES.put(name.toLowerCase(), state);
 	}
 
 	/**
@@ -97,81 +95,66 @@ public class StateManager implements Cleanable, Controllable, Renderable {
 		return uid;
 	}
 
-	/**
-	 * Sets the {@link State} that will appear first when the associated
-	 * {@link Viewable} is opened. Cannot be set again once this
-	 * {@link StateManager} has been initialized internally by the associated
-	 * {@link Viewable}.
-	 * 
-	 * @param name
-	 *            The name of the {@link State} to set as current
-	 */
-	public void setInitialState(String name) {
-		if (!initialized)
-			currentState = STATES.get(name);
-	}
-
 	@InternalMethod
 	public final void init() {
-		currentState.switchTo();
-
-		initialized = true;
+		currentState.ifPresent(s -> s.enter());
 	}
 
 	/**
 	 * Swaps the current {@link State} for another {@link State} as specified by
 	 * {@code name}, and calls the new {@link State}'s
-	 * {@link State#switchTo(Object...)} method.
+	 * {@link State#enter(Object...)} method.
 	 * 
 	 * @param name
 	 *            The name of the {@link State} to switch to
 	 * @param argv
 	 *            A varargs list of {@link Object}s to pass to the next state
 	 */
-	public void switchState(String name, Object... argv) {
-		currentState.switchFrom();
+	public void goToState(String name, Object... argv) {
+		currentState.ifPresent(s -> s.exit());
 
-		currentState = STATES.get(name);
+		currentState = Optional.ofNullable(STATES.get(name.toLowerCase()));
 
-		currentState.switchTo(argv);
+		currentState.ifPresent(s -> s.enter(argv));
 	}
 
 	@Override
 	@InternalMethod
 	public final void keyboardInput(Keyboard keyboard) {
-		currentState.keyboardInput(keyboard);
+		currentState.ifPresent(s -> s.keyboardInput(keyboard));
 	}
 
 	@Override
 	@InternalMethod
 	public final void mouseInput(Mouse mouse) {
-		currentState.mouseInput(mouse);
+		currentState.ifPresent(s -> s.mouseInput(mouse));
 	}
 
 	@Override
 	@InternalMethod
 	public final void gamepadInput(Gamepad gamepad) {
-		currentState.gamepadInput(gamepad);
+		currentState.ifPresent(s -> s.gamepadInput(gamepad));
 	}
 
 	@Override
 	@InternalMethod
 	public void update(double delta) {
-		currentState.update(delta);
+		currentState.ifPresent(s -> s.update(delta));
 	}
 
 	@Override
 	@InternalMethod
 	public void render(GraphicsX g) {
-		currentState.render(g);
+		currentState.ifPresent(s -> s.render(g));
 	}
 
 	@Override
-	@InternalMethod
-	public void cleanUp() {
-		for (String key : STATES.keySet())
-			STATES.get(key).cleanUp();
+	public boolean cleanUp() {
+		boolean success = true;
 
-		STATES.clear();
+		for (String key : STATES.keySet())
+			success &= STATES.get(key).cleanUp();
+
+		return success;
 	}
 }

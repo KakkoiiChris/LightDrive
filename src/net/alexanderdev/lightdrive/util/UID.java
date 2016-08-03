@@ -36,8 +36,8 @@ public class UID {
 	private static final List<String> GENERATED_UIDS = new LinkedList<>();
 
 	/**
-	 * @return A unique and random 32 character {@link String} consisting of upper and
-	 *         lower case English letters and numbers.
+	 * @return A unique and random 32 character {@link String} consisting of
+	 *         upper and lower case English letters and numbers.
 	 */
 	@InternalMethod
 	public static String generateUUID() {
@@ -48,10 +48,7 @@ public class UID {
 
 			for (int i = 0; i < 32; i++)
 				if (randomBoolean())
-					if (randomBoolean())
-						uid += (char) randomInt('A', 'Z');
-					else
-						uid += (char) randomInt('a', 'z');
+					uid += (char) randomInt('a', 'z');
 				else
 					uid += (char) randomInt('0', '9');
 		}

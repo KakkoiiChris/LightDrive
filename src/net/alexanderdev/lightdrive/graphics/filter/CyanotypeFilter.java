@@ -42,7 +42,7 @@ public class CyanotypeFilter extends GrayscaleFilter {
 	}
 
 	@Override
-	public void apply(int width, int height, int[] pixels) {
+	public void apply(int width, int height, final int[] pixels) {
 		super.apply(width, height, pixels);
 
 		cyanotype.apply(width, height, pixels);

@@ -34,5 +34,5 @@ public interface Filter {
 	 * @param pixels
 	 *            The pixel data of the {@link Sprite} to be filtered
 	 */
-	public void apply(int width, int height, int[] pixels);
+	public void apply(int width, int height, final int[] pixels);
 }

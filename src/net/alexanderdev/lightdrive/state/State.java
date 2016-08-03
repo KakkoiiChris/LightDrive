@@ -40,9 +40,9 @@ public abstract class State implements Cleanable, Controllable, Renderable {
 
 	private List<KeyboardListener> keyboardListeners = new ArrayList<>();
 
-	private List<MouseListener>    mouseListeners    = new ArrayList<>();
+	private List<MouseListener> mouseListeners = new ArrayList<>();
 
-	private List<GamepadListener>  gamepadListeners  = new ArrayList<>();
+	private List<GamepadListener> gamepadListeners = new ArrayList<>();
 
 	/**
 	 * @return The {@link StateManager} associated with this {@link State}
@@ -191,12 +191,17 @@ public abstract class State implements Cleanable, Controllable, Renderable {
 	 *            {@link StateManager} when it is told to switch states.
 	 */
 	@InternalMethod
-	public abstract void switchTo(Object... argv);
+	public abstract void enter(Object... argv);
 
 	/**
 	 * Called internally whenever the associated {@link StateManager} is told to
 	 * switch from this {@link State} to another {@link State}.
 	 */
 	@InternalMethod
-	public abstract void switchFrom();
+	public abstract void exit();
+
+	@Override
+	public boolean cleanUp() {
+		return true;
+	}
 }

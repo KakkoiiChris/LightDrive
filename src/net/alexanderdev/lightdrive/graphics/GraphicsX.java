@@ -41,7 +41,7 @@ import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
 import java.util.Map;
 
-import net.alexanderdev.lightdrive.util.math.geom.RectangleD;
+import net.alexanderdev.lightdrive.util.math.geom.RectangleX;
 
 /**
  * A class which encapsulates the functionality of {@link Graphics2D}, while
@@ -306,6 +306,22 @@ public class GraphicsX {
 
 	public void draw3DRect(Rectangle2D r, boolean raised) {
 		draw3DRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight(), raised);
+	}
+
+	public void drawAnimation(Animation a, int x, int y) {
+		drawImage(a.getFrame(), x, y);
+	}
+
+	public void drawAnimation(Animation a, Point2D p) {
+		drawImage(a.getFrame(), p);
+	}
+
+	public void drawAnimation(Animation a, int x, int y, int width, int height) {
+		drawImage(a.getFrame(), x, y, width, height);
+	}
+
+	public void drawAnimation(Animation a, Rectangle2D r) {
+		drawImage(a.getFrame(), r);
 	}
 
 	/**
@@ -693,6 +709,10 @@ public class GraphicsX {
 		g.drawRect(x, y, width, height);
 	}
 
+	public void drawRenderable(Renderable r) {
+		r.render(this);
+	}
+
 	/**
 	 * Delegates to the method of the same name, found in
 	 * {@link Graphics2D#drawRenderableImage(RenderableImage, AffineTransform)}.
@@ -819,25 +839,25 @@ public class GraphicsX {
 
 	/**
 	 * Draws the given {@link String} center aligned within the
-	 * {@link RectangleD}, with no character spacing.
+	 * {@link RectangleX}, with no character spacing.
 	 * 
 	 * @param str
 	 *            The text to draw
 	 * @param bounds
-	 *            The {@link RectangleD} to align the text in
+	 *            The {@link RectangleX} to align the text in
 	 */
 	public void drawString(String str, Rectangle2D bounds) {
 		drawString(str, bounds, TextAlign.MID_CENTER);
 	}
 
 	/**
-	 * Draws the given {@link String} aligned within the {@link RectangleD}, as
+	 * Draws the given {@link String} aligned within the {@link RectangleX}, as
 	 * specified by the {@link GraphicsX.TextAlign}, with no character spacing.
 	 * 
 	 * @param str
 	 *            The text to draw
 	 * @param bounds
-	 *            The {@link RectangleD} to align the text in
+	 *            The {@link RectangleX} to align the text in
 	 * @param align
 	 *            How to align the text
 	 */
@@ -847,12 +867,12 @@ public class GraphicsX {
 
 	/**
 	 * Draws the given {@link String} center aligned within the
-	 * {@link RectangleD}, with the specified character spacings.
+	 * {@link RectangleX}, with the specified character spacings.
 	 * 
 	 * @param str
 	 *            The text to draw
 	 * @param bounds
-	 *            The {@link RectangleD} to align the text in
+	 *            The {@link RectangleX} to align the text in
 	 * @param xs
 	 *            The horizontal spacing between characters
 	 * @param ys
@@ -863,14 +883,14 @@ public class GraphicsX {
 	}
 
 	/**
-	 * Draws the given {@link String} aligned within the {@link RectangleD}, as
+	 * Draws the given {@link String} aligned within the {@link RectangleX}, as
 	 * specified by the {@link GraphicsX.TextAlign}, with the specified
 	 * character spacings.
 	 * 
 	 * @param str
 	 *            The text to draw
 	 * @param bounds
-	 *            The {@link RectangleD} to align the text in
+	 *            The {@link RectangleX} to align the text in
 	 * @param xs
 	 *            The horizontal spacing between characters
 	 * @param ys

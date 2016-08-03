@@ -20,11 +20,15 @@ import java.util.Locale;
  * @author Christian Bryce Alexander
  * @since Jun 12, 2016, 12:37:25 AM
  */
-public class Logger {
+public class Debug {
 	private static boolean enabled = false;
 
 	public static void enable() {
-		Logger.enabled = true;
+		enabled = true;
+	}
+	
+	public static boolean isEnabled() {
+		return enabled;
 	}
 
 	public static void print(boolean b) {

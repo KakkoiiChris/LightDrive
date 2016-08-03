@@ -13,6 +13,8 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
+import net.alexanderdev.lightdrive.Cleanable;
+
 /**
  * A class that represents a two dimensional array of {@link Sprite}s generated
  * from a {@link Sprite}.
@@ -20,7 +22,7 @@ package net.alexanderdev.lightdrive.graphics;
  * @author Christian Bryce Alexander
  * @since March 12, 2015, 6:17:05 PM
  */
-public class SpriteSheet implements Cloneable {
+public class SpriteSheet implements Cleanable, Cloneable {
 	private Sprite[][] sprites;
 
 	private int rows;
@@ -104,6 +106,13 @@ public class SpriteSheet implements Cloneable {
 	 */
 	public int getCols() {
 		return cols;
+	}
+
+	/**
+	 * @return The number of {@link Sprite}s in the sheet
+	 */
+	public int getSpriteCount() {
+		return rows * cols;
 	}
 
 	/**
@@ -199,5 +208,16 @@ public class SpriteSheet implements Cloneable {
 	@Override
 	public SpriteSheet clone() {
 		return new SpriteSheet(sprites.clone());
+	}
+
+	@Override
+	public boolean cleanUp() {
+		boolean success = true;
+
+		for (Sprite[] row : sprites)
+			for (Sprite sprite : row)
+				success &= sprite.cleanUp();
+
+		return success;
 	}
 }

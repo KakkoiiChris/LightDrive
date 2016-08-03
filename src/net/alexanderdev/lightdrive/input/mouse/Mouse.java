@@ -38,7 +38,7 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 
 	private boolean[] buttonsLast;
 
-	private boolean withinView;
+	private boolean inView;
 	private boolean moving;
 	private boolean dragging;
 	private boolean controlDown;
@@ -60,7 +60,7 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 
 		buttonsLast = BUTTONS.clone();
 
-		withinView = true;
+		inView = true;
 
 		moving = false;
 		dragging = false;
@@ -81,7 +81,7 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	 *         {@link Button} 's ordinal has been pressed, {@code false}
 	 *         otherwise
 	 */
-	public boolean buttonPressed(Button button) {
+	public boolean pressed(Button button) {
 		return BUTTONS[button.ordinal()] && !buttonsLast[button.ordinal()];
 	}
 
@@ -89,7 +89,7 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	 * @return {@code true} if any button has been pressed, {@code false}
 	 *         otherwise
 	 */
-	public boolean anyButtonPressed() {
+	public boolean anyPressed() {
 		for (int i = 0; i < BUTTONS.length; i++)
 			if (BUTTONS[i] && !buttonsLast[i])
 				return true;
@@ -102,14 +102,14 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	 * @return {@code true} if the button associated with the specified
 	 *         {@link Button} 's ordinal is being held, {@code false} otherwise
 	 */
-	public boolean buttonHeld(Button button) {
+	public boolean held(Button button) {
 		return BUTTONS[button.ordinal()];
 	}
 
 	/**
 	 * @return {@code true} if any button is being held, {@code false} otherwise
 	 */
-	public boolean anyButtonHeld() {
+	public boolean anyHeld() {
 		for (int i = 0; i < BUTTONS.length; i++)
 			if (BUTTONS[i])
 				return true;
@@ -123,7 +123,7 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	 *         {@link Button} 's ordinal has been released, {@code false}
 	 *         otherwise
 	 */
-	public boolean buttonReleased(Button button) {
+	public boolean released(Button button) {
 		return !BUTTONS[button.ordinal()] && buttonsLast[button.ordinal()];
 	}
 
@@ -131,7 +131,7 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	 * @return {@code true} if any button has been released, {@code false}
 	 *         otherwise
 	 */
-	public boolean anyButtonReleased() {
+	public boolean anyReleased() {
 		for (int i = 0; i < BUTTONS.length; i++)
 			if (!BUTTONS[i] && buttonsLast[i])
 				return true;
@@ -182,8 +182,8 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	 * @return {@code true} if the mouse pointer is withing the bounds of the
 	 *         associated {@link Viewable}, {@code false} otherwise
 	 */
-	public boolean isWithinView() {
-		return withinView;
+	public boolean isInView() {
+		return inView;
 	}
 
 	/**
@@ -278,7 +278,7 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	@Override
 	@InternalMethod
 	public void mouseEntered(MouseEvent e) {
-		withinView = true;
+		inView = true;
 
 		e.consume();
 	}
@@ -286,7 +286,7 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	@Override
 	@InternalMethod
 	public void mouseExited(MouseEvent e) {
-		withinView = false;
+		inView = false;
 
 		e.consume();
 	}

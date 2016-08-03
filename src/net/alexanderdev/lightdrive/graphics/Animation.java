@@ -13,6 +13,7 @@
  ***********************************************************/
 package net.alexanderdev.lightdrive.graphics;
 
+import net.alexanderdev.lightdrive.Cleanable;
 import net.alexanderdev.lightdrive.util.math.MathX;
 import net.alexanderdev.lightdrive.util.time.Time;
 
@@ -22,7 +23,7 @@ import net.alexanderdev.lightdrive.util.time.Time;
  * @author Christian Bryce Alexander
  * @since Apr 24, 2015, 11:50:16 PM
  */
-public class Animation implements Cloneable {
+public class Animation implements Cleanable, Cloneable {
 	/**
 	 * Lists four styles of animation, all of which alter the order of
 	 * appearance of the frames in the {@code Animation}.
@@ -282,13 +283,26 @@ public class Animation implements Cloneable {
 		return style.equals(Style.ONCE) && prevFrame == currFrame;
 	}
 
-	@Override
 	public Animation clone() {
-		Sprite[] newFrames = new Sprite[frames.length];
+		Sprite[] clonedFrames = new Sprite[frames.length];
 
 		for (int i = 0; i < frames.length; i++)
-			newFrames[i] = frames[i].clone();
+			clonedFrames[i] = frames[i].clone();
 
-		return new Animation(newFrames, delay, style);
+		Animation clone = new Animation(clonedFrames, delay, style);
+
+		clone.forward = forward;
+
+		return clone;
+	}
+
+	@Override
+	public boolean cleanUp() {
+		boolean success = true;
+
+		for (Sprite frame : frames)
+			success &= frame.cleanUp();
+
+		return success;
 	}
 }
